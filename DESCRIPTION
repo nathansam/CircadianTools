@@ -16,7 +16,8 @@ Imports:
   cosinor,
   cosinor2,
   dplyr (>= 0.8.0.1),
-  ggplot2 (>= 3.1.1)
+  ggplot2 (>= 3.1.1),
+  rootSolve
 RoxygenNote: 6.1.1
 Suggests: 
     testthat (>= 2.1.0)
