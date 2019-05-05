@@ -1,7 +1,7 @@
 Package: CircadianTools
 Type: Package
 Title: Collection of Tools for Detecting Rhythmic Genes 
-Version: 0.0.1
+Version: 0.0.2
 Date: 2019-05-05
 Authors@R: person("Nathan","Constantine-Cooke", email="nsc@aber.ac.uk", role=c("cre","aut"))
 Maintainer: The package maintainer <nsc@aber.ac.uk>
