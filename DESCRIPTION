@@ -7,6 +7,7 @@ Authors@R: person("Nathan","Constantine-Cooke", email="nsc@aber.ac.uk", role=c("
 Maintainer: The package maintainer <nsc@aber.ac.uk>
 Description: More about what it does (maybe more than one line)
     Use four spaces when indenting paragraphs within the Description
+URL: https://github.com/nathansam/CircadianTools
 License: GPL-3 
 Depends: R (>= 3.6.0)
 Encoding: UTF-8
