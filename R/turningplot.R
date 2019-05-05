@@ -34,7 +34,7 @@ turningplot <- function(genename, dataset, print = TRUE, save = FALSE) {
 
     for (i in 1:length(turning.points)) {
         splineplot <- splineplot + ggplot2::geom_vline(xintercept = turning.points[i],
-            colour = "#FE8B44", size = 1.5, alpha = 0.75)
+         size = 1.5, alpha = 0.75)
     }
 
     splineplot <- splineplot + ggplot2::theme(text = ggplot2::element_text(size = 12))
