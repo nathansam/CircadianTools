@@ -1,0 +1,21 @@
+Package: CircadianTools
+Type: Package
+Title: Collection of Tools for Detecting Rhythmic Genes 
+Version: 0.0.1
+Date: 2019-05-05
+Authors@R: person("Nathan","Constantine-Cooke", email="nsc@aber.ac.uk", role=c("cre","aut"))
+Maintainer: The package maintainer <nsc@aber.ac.uk>
+Description: More about what it does (maybe more than one line)
+    Use four spaces when indenting paragraphs within the Description
+License: GPL-3 
+Depends: R (>= 3.6.0)
+Encoding: UTF-8
+LazyData: true
+Imports:
+  cosinor,
+  cosinor2,
+  dplyr (>= 0.8.0.1),
+  ggplot2 (>= 3.1.1)
+RoxygenNote: 6.1.1
+Suggests: 
+    testthat (>= 2.1.0)
