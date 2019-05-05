@@ -13,3 +13,4 @@ maketimevector <- function(dataset) {
     timevector <- as.numeric(timevector)  #converts from string to numeric
     return(timevector)
 }
+
