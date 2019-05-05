@@ -1,3 +1,4 @@
+#' geneclean:
 #' Removes columns and rows which show no gene activity over time
 #'
 #' @param dataset A transcriptomics dataset. First columns should be gene names. All other columns should be expression levels.

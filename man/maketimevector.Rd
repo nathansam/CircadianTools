@@ -2,7 +2,8 @@
 % Please edit documentation in R/maketimevector.r
 \name{maketimevector}
 \alias{maketimevector}
-\title{Produces a vector of time values for the gene activity readings.}
+\title{maketimevector:
+Produces a vector of time values for the gene activity readings.}
 \usage{
 maketimevector(dataset)
 }
@@ -13,6 +14,7 @@ maketimevector(dataset)
 A vector of time values for the genes
 }
 \description{
+maketimevector:
 Produces a vector of time values for the gene activity readings.
 }
 \examples{

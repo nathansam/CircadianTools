@@ -1,3 +1,4 @@
+#' maketimevector:
 #' Produces a vector of time values for the gene activity readings.
 #'
 #' @param dataset A transcriptomics dataset. First columns should be gene names. All other columns should be expression levels.

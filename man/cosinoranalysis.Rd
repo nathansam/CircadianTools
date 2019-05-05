@@ -2,7 +2,8 @@
 % Please edit documentation in R/cosinoranalysis.R
 \name{cosinoranalysis}
 \alias{cosinoranalysis}
-\title{Fits cosinor models to transcriptomics data and plots the best-fitting models using ggplot2.}
+\title{cosinoranalysis:
+Fits cosinor models to transcriptomics data and plots the best-fitting models using ggplot2.}
 \usage{
 cosinoranalysis(dataset, period = 24, timelag = 6, threshold = 6e-07,
   save = FALSE, print = TRUE, pvalues = TRUE)
@@ -26,6 +27,7 @@ cosinoranalysis(dataset, period = 24, timelag = 6, threshold = 6e-07,
 Prints or saves ggplot2 object(s). Optionally returns dataframe containing gene name and p values from F-test ranking of cosinor models
 }
 \description{
+cosinoranalysis:
 Fits cosinor models to transcriptomics data and plots the best-fitting models using ggplot2.
 }
 \examples{

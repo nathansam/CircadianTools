@@ -2,7 +2,8 @@
 % Please edit documentation in R/cosinorplot.R
 \name{cosinorplot}
 \alias{cosinorplot}
-\title{Fits a cosinor model to a given gene in a given dataset and plots the model}
+\title{cosinorplot:
+Fits a cosinor model to a given gene in a given dataset and plots the model}
 \usage{
 cosinorplot(genename, dataset, timelag = 6, print = TRUE,
   save = FALSE)
@@ -22,6 +23,7 @@ cosinorplot(genename, dataset, timelag = 6, print = TRUE,
 Prints or saves ggplot2 object(s)
 }
 \description{
+cosinorplot:
 Fits a cosinor model to a given gene in a given dataset and plots the model
 }
 \examples{

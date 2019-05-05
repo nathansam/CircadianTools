@@ -1,3 +1,4 @@
+#' cosinorplot:
 #' Fits a cosinor model to a given gene in a given dataset and plots the model
 #'
 #' @param dataset A transcriptomics dataset. First columns should be gene names. All other columns should be expression levels.
@@ -18,16 +19,19 @@ cosinorplot <- function(genename, dataset, timelag = 6, print = TRUE, save = FAL
     genematrix <- t(genematrix)
     geneexpression <- data.frame(timevector - timelag, genematrix)
     names(geneexpression) <- c("timevector", "activity")
-    cosinormodel <- cosinor::cosinor.lm(activity ~ time(timevector), period = 24, data = geneexpression)
+    cosinormodel <- cosinor::cosinor.lm(activity ~ time(timevector), period = 24,
+        data = geneexpression)
     cosinorplotobject <- cosinor::ggplot.cosinor.lm(cosinormodel) + ggplot2::geom_point(ggplot2::aes(y = activity,
-        x = timevector), data = geneexpression, size = 3, alpha = 0.5, color = "#39A5AE") + ggplot2::ggtitle(paste("Gene=",
-        genename, ", P-value=", round(cosinor2::cosinor.detect(cosinormodel)[4], 10))) + ggplot2::theme_bw() +
-        ggplot2::theme(plot.title = ggplot2::element_text(hjust = 1)) + ggplot2::theme(text = ggplot2::element_text(size = 12)) +
-        ggplot2::xlab("Time (hours)") + ggplot2::ylab("Trancripts Per Million (TPM)")
+        x = timevector), data = geneexpression, size = 3, alpha = 0.5, color = "#39A5AE") +
+        ggplot2::ggtitle(paste("Gene=", genename, ", P-value=", round(cosinor2::cosinor.detect(cosinormodel)[4],
+            10))) + ggplot2::theme_bw() + ggplot2::theme(plot.title = ggplot2::element_text(hjust = 1)) +
+        ggplot2::theme(text = ggplot2::element_text(size = 12)) + ggplot2::xlab("Time (hours)") +
+        ggplot2::ylab("Trancripts Per Million (TPM)")
     if (print == TRUE) {
         print(cosinorplotobject)
     }
     if (save == TRUE) {
-        ggplot2::ggsave(paste("Gene=", genename, ".png"), cosinorplot, width = 10, height = 4.5, units = "in")
+        ggplot2::ggsave(paste("Gene=", genename, ".png"), cosinorplot, width = 10,
+            height = 4.5, units = "in")
     }
 }

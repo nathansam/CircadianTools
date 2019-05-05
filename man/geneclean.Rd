@@ -2,7 +2,8 @@
 % Please edit documentation in R/geneclean.R
 \name{geneclean}
 \alias{geneclean}
-\title{Removes columns and rows which show no gene activity over time}
+\title{geneclean:
+Removes columns and rows which show no gene activity over time}
 \usage{
 geneclean(dataset)
 }
@@ -13,6 +14,7 @@ geneclean(dataset)
 A 'cleaned' transcriptomics dataset
 }
 \description{
+geneclean:
 Removes columns and rows which show no gene activity over time
 }
 \examples{

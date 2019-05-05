@@ -14,6 +14,11 @@ Provides functions to detect rhythmicity using Cosinor models or turning point a
 \code{\link{cosinorplot}}: Fits a cosinor model to a given gene in a given dataset and plots the model. \cr \cr
 }
 
+\section{Turning Point Analysis}{
+
+\code{\link{turningplot}}: Fits a spline to a given gene in a given dataset. Finds the turning points. Plots the turning points and spline.
+}
+
 \section{Clean-Up Functions}{
 
 \code{\link{maketimevector}}: Produces a vector of time values for the gene activity readings. \cr \cr

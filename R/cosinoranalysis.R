@@ -1,3 +1,4 @@
+#' cosinoranalysis:
 #' Fits cosinor models to transcriptomics data and plots the best-fitting models using ggplot2.
 #'
 #' @param dataset A transcriptomics dataset. First columns should be gene names. All other columns should be expression levels.
@@ -12,8 +13,8 @@
 #' cosinoranalysis(LauraSingleMap)
 
 
-cosinoranalysis <- function(dataset, period = 24, timelag = 6, threshold = 6e-07, save = FALSE, print = TRUE,
-    pvalues = TRUE) {
+cosinoranalysis <- function(dataset, period = 24, timelag = 6, threshold = 6e-07,
+    save = FALSE, print = TRUE, pvalues = TRUE) {
     dataset <- geneclean(dataset)
     genenumber <- nrow(dataset)  #number of genes in the dataset
     pvalues <- rep(0, genenumber)  #init list of pvalues
@@ -43,18 +44,21 @@ cosinoranalysis <- function(dataset, period = 24, timelag = 6, threshold = 6e-07
         genematrix <- t(genematrix)
         geneexpression <- data.frame(timevector - timelag, genematrix)
         names(geneexpression) <- c("timevector", "activity")
-        cosinormodel <- cosinor::cosinor.lm(activity ~ time(timevector), period = 24, data = geneexpression)
+        cosinormodel <- cosinor::cosinor.lm(activity ~ time(timevector), period = 24,
+            data = geneexpression)
         cosinor.pvalue.df[i, 2] <- cosinor2::cosinor.detect(cosinormodel)[4]
         if (cosinor2::cosinor.detect(cosinormodel)[4] < threshold) {
             cosinorplot <- cosinor::ggplot.cosinor.lm(cosinormodel) + ggplot2::geom_point(ggplot2::aes(y = activity,
-                x = timevector), data = geneexpression, size = 3, alpha = 0.5, color = "#39A5AE") + ggplot2::ggtitle(paste("Gene=",
-                genename, ", P-value=", round(cosinor2::cosinor.detect(cosinormodel)[4], 10))) + ggplot2::theme_bw() +
-                ggplot2::theme(plot.title = ggplot2::element_text(hjust = 1)) + ggplot2::theme(text = ggplot2::element_text(size = 12)) +
-                ggplot2::xlab("Time (hours)") + ggplot2::ylab("Trancripts Per Million (TPM)")
+                x = timevector), data = geneexpression, size = 3, alpha = 0.5, color = "#39A5AE") +
+                ggplot2::ggtitle(paste("Gene=", genename, ", P-value=", round(cosinor2::cosinor.detect(cosinormodel)[4],
+                  10))) + ggplot2::theme_bw() + ggplot2::theme(plot.title = ggplot2::element_text(hjust = 1)) +
+                ggplot2::theme(text = ggplot2::element_text(size = 12)) + ggplot2::xlab("Time (hours)") +
+                ggplot2::ylab("Trancripts Per Million (TPM)")
 
 
             if (save == TRUE) {
-                ggplot2::ggsave(paste("Gene=", genename, ".png"), cosinorplot, width = 10, height = 4.5, units = "in")
+                ggplot2::ggsave(paste("Gene=", genename, ".png"), cosinorplot, width = 10,
+                  height = 4.5, units = "in")
             }
             if (print == TRUE) {
                 print(cosinorplot)
