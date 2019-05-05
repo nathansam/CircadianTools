@@ -44,7 +44,7 @@ turningplot <- function(genename, dataset, print = TRUE, save = FALSE) {
     }
 
     if (save == TRUE) {
-        ggsave(paste("Turning Point of ", genename, ".png"), splineplot, width = 10,
+        ggplot2::ggsave(paste("Turning Point of ", genename, ".png"), splineplot, width = 10,
             height = 4.5, units = "in")
     }
 
