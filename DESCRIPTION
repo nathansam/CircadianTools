@@ -13,7 +13,7 @@ Depends: R (>= 3.6.0)
 Encoding: UTF-8
 LazyData: true
 Imports:
-  cosinor,
+  cosinor, 
   cosinor2,
   dplyr (>= 0.8.0.1),
   ggplot2 (>= 3.1.1),
