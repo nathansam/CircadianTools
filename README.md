@@ -8,6 +8,13 @@ From R:
 install.packages("devtools")
 devtools::install_github("nathansam/CircadianTools")
 ```
+
+## Basic Plotting
+```{r}
+ basicplot("comp100001_c0_seq1",Laurasmappings)
+```
+![](saveplotex.png)
+
 ## Cosinor Plotting
 ```{r}
 cosinorplot("comp102333_c0_seq21", Laurasmappings)
