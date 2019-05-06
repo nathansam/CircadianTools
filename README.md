@@ -1,12 +1,12 @@
 # CircadianTools
 A Collection of Tools for Detecting Rhythmic Genes
 ## Overview
-Allows Cosinor Models and Turning Point Analysis to be easily carried out on transcriptomics data using R. 
+Allows Cosinor Models and Turning Point Analysis to be easily carried out on transcriptomics data using R. Designed to be as flexible as possible such as by allowing an unequal number of replicates.  
 ## Install Guide
 From R:
 ```{r}
 install.packages("devtools")
-devtools::("nathansam/CircadianTools")
+devtools::install_github("nathansam/CircadianTools")
 ```
 ## Cosinor Plotting
 ```{r}
