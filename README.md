@@ -6,7 +6,7 @@ Allows Cosinor Models and Turning Point Analysis to be easily carried out on tra
 From R:
 ```{r}
 install.packages("devtools")
-devtools::("nathansam/CircadianTools")
+devtools::install_github("nathansam/CircadianTools")
 ```
 ## Cosinor Plotting
 ```{r}
