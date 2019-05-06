@@ -26,6 +26,6 @@ cosinorplot("comp102333_c0_seq21", Laurasmappings)
 ```{r}
 turningplot("comp101252_c0_seq2", Laurasmappings)
 ```
-![](turnpointex.png)
+![](turnpointex.png) 
 
 
