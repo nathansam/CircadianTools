@@ -5,12 +5,15 @@
 \title{Turningplot:
 Fits a spline to a given gene in a given dataset. Finds the turning points. Plots the turning points and spline.}
 \usage{
-turningplot(genename, dataset, print = TRUE, save = FALSE)
+turningplot(genename, dataset, timelag = 0, print = TRUE,
+  save = FALSE)
 }
 \arguments{
 \item{genename}{The name of a gene intended for plotting. Must be a string.}
 
 \item{dataset}{A transcriptomics dataset. First columns should be gene names. All other columns should be expression levels.}
+
+\item{timelag}{Lags the time. Usually desired if wanting to start from t=0. Defaults to 0.}
 
 \item{print}{Logical. If TRUE renders plot in the plot viewer. Defaults to TRUE}
 

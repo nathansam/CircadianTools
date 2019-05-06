@@ -3,6 +3,7 @@
 #'
 #' @param dataset A transcriptomics dataset. First columns should be gene names. All other columns should be expression levels.
 #' @param genename The name of a gene intended for plotting. Must be a string.
+#' @param timelag Lags the time. Usually desired if wanting to start from t=0. Defaults to 0.
 #' @param save Logical. If TRUE, saves plot to working directory. Defaults to FALSE.
 #' @param print Logical. If TRUE renders plot in the plot viewer. Defaults to TRUE
 #' @return Prints or saves ggplot2 object(s)
@@ -10,14 +11,14 @@
 #' turningplot('comp100000_c0_seq2',LauraSingleMap)
 
 
-turningplot <- function(genename, dataset, print = TRUE, save = FALSE) {
+turningplot <- function(genename,dataset,timelag=0 ,print = TRUE, save = FALSE) {
     genematrix <- subset(dataset, dataset[1] == genename)
-    timevector <- maketimevector(genematrix)  # makes timevector
+    timevector <- maketimevector(genematrix)-timelag  # makes timevector
     genematrix <- genematrix[-1]  #remove gene name from subset
 
 
     genesplinefunc <- splinefun(timevector, genematrix)
-    x <- seq(6, 27, by = 0.001)
+    x <- seq(timevector[1], tail(timevector, n=1), by = 0.001)
     y <- genesplinefunc(x, deriv = 0)  # deriv=0 gives the spline itself
     z <- genesplinefunc(x, deriv = 1)  # This is the first derivative of the spline
 
