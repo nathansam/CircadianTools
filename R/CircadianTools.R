@@ -1,7 +1,8 @@
 #' CircadianTools: Collection of Tools for Detecting Rhythmic Genes
 #'
 #'Provides functions to detect rhythmicity using Cosinor models or turning point analysis.
-#'
+#' @section General Tools
+#' \code{\link{basicplot}}: Plots activity data as points and mean data as lines
 #' @section Cosinor Functions:
 #' \code{\link{cosinoranalysis}}: Fits cosinor models to transcriptomics data and plots the best-fitting models using ggplot2. \cr \cr
 #' \code{\link{cosinorplot}}: Fits a cosinor model to a given gene in a given dataset and plots the model. \cr \cr
