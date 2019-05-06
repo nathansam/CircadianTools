@@ -9,8 +9,16 @@ install.packages("devtools")
 devtools::("nathansam/CircadianTools")
 ```
 ## Cosinor Plotting
+```{r}
+cosinorplot("comp102333_c0_seq21", Laurasmappings)
+```
 ![](cosinorex.png)
 
+
 ## Turnpoint Plotting
+```{r}
+turningplot("comp101252_c0_seq2", Laurasmappings)
+```
 ![](turnpointex.png)
+
 
