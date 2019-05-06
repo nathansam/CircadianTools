@@ -41,8 +41,7 @@ basicplot <- function(genename, dataset, timelag = 0, save = FALSE, print = TRUE
     graphic <- graphic + ggplot2::ggtitle(paste("Gene = ", genename))
 
     if (save == TRUE) {
-        ggplot2::ggsave(paste(genename, ".png"), graphic, width = 4, heigh = 3, units = "in",
-            dpi = 600)
+        ggplot2::ggsave(paste(genename, ".png"), graphic,  width = 10, height = 4.5, units = "in")
     }
     if (print == TRUE) {
         return(graphic)
