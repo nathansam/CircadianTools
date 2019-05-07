@@ -6,7 +6,7 @@
 Fits cosinor models to transcriptomics data and plots the best-fitting models using ggplot2.}
 \usage{
 cosinoranalysis(dataset, period = 24, timelag = 6, threshold = 6e-07,
-  save = FALSE, print = TRUE, pvalues = TRUE)
+  save = FALSE, print = TRUE, df = TRUE)
 }
 \arguments{
 \item{dataset}{A transcriptomics dataset. First columns should be gene names. All other columns should be expression levels.}
@@ -21,7 +21,7 @@ cosinoranalysis(dataset, period = 24, timelag = 6, threshold = 6e-07,
 
 \item{print}{Logical. If TRUE renders significant genes in the plot viewer. Defaults to TRUE}
 
-\item{pvalues}{Logical. If TRUE a dataframe containing the results of the cosinor analysis will be returned. Defaults to TRUE.}
+\item{df}{Logical. If TRUE a dataframe containing the results of the cosinor analysis will be returned. Defaults to TRUE.}
 }
 \value{
 Prints or saves ggplot2 object(s). Optionally returns dataframe containing gene name and p values from F-test ranking of cosinor models
