@@ -31,5 +31,5 @@ cosinoranalysis:
 Fits cosinor models to transcriptomics data and plots the best-fitting models using ggplot2.
 }
 \examples{
-cosinoranalysis(LauraSingleMap)
+cosinor_results <- cosinoranalysis(LauraSingleMap)
 }
