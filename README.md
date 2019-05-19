@@ -3,7 +3,7 @@
 A Collection of Tools for Detecting Rhythmic Genes
 ## Overview
 Allows cosinor analysis and turning Point techniques to be easily carried out on transcriptomics data using R. Designed to be as flexible as possible such as by allowing an unequal number of replicates across all time points. Mundane tasks such as removing genes which show no activity can also be handled by CircadianTools.
-## Install Guide
+## Install Guide 
 From R:
 ```{r}
 install.packages("devtools")
