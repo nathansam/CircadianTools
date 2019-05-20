@@ -1,4 +1,4 @@
-<img src="CT_github.png" alt="alt text" width="70%">
+<img src="CT_github.jpg" alt="alt text" width="70%">
 
 A Collection of Tools for Detecting Rhythmic Genes
 ## Overview
