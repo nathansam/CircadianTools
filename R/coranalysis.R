@@ -80,9 +80,9 @@ coranalysis <- function(dataset, genename, threshold = 0.9, save = FALSE, print 
                 activity.df <- rbind(selectedactivity, compactivity)
 
 
-                corplot <- ggplot2::ggplot(ggplot2::aes(x = timevector, y = means, color = Gene), data = means.df) + ggplot2::geom_line(alpha = 0.5, size=1.2) + ggplot2::geom_point(ggplot2::aes(x = timevector,
+                corplot <- ggplot2::ggplot(ggplot2::aes(x = timevector, y = means, color = Gene), data = means.df) + ggplot2::geom_line(size=1.2) + ggplot2::geom_point(ggplot2::aes(x = timevector,
                   y = activity), data = activity.df, alpha = 0.5, size=3) + ggplot2::theme_bw() + ggplot2::ggtitle(paste("Cor=", correlation)) + ggplot2::theme(plot.title = ggplot2::element_text(hjust = 1))+
-                     ggplot2::scale_color_manual(values=c("#999999", "#39A5AE")) +ggplot2::theme(text = ggplot2::element_text(size = 12))+ggplot2::xlab("Time (hours)")+ ggplot2::ylab("Trancripts Per Million (TPM)")
+                     ggplot2::scale_color_manual(values=c("black", "#39A5AE")) +ggplot2::theme(text = ggplot2::element_text(size = 12))+ggplot2::xlab("Time (hours)")+ ggplot2::ylab("Trancripts Per Million (TPM)")
 
 
                 if (save == TRUE) {
