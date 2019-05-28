@@ -35,4 +35,9 @@ turningplot("comp101252_c0_seq2", Laurasmappings)
 ```
 ![](turnpointex.png) 
 
+## Correlation Analysis
+```{r}
+coranalysis(Laurasmappings, "comp100002_c0_seq2", print=TRUE, threshold=0.97, save=TRUE)
+```
+![](corex.png) 
 
