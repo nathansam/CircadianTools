@@ -18,6 +18,7 @@ basicplot <- function(genename, dataset, timelag = 0, save = FALSE, print = TRUE
     genedata <- data.frame(timevector, genematrix)
     names(genedata) <- c("timevector", "activity")
     
+    
     mean.list <- rep(0, length((unique(timevector))))
     count <- 1
     for (i in timevector) {
@@ -27,12 +28,11 @@ basicplot <- function(genename, dataset, timelag = 0, save = FALSE, print = TRUE
     }
     
     
-    
     genedata <- cbind(genedata$timevector, genedata$activity, mean.list)
     genedata <- data.frame(genedata)
     names(genedata) <- c("timevector", "activity", "newmean")
-    graphic <- ggplot2::ggplot(data = genedata, ggplot2::aes(x = timevector, y = activity)) + ggplot2::geom_line(ggplot2::aes(x = timevector, 
-        y = newmean), size = 1) + ggplot2::geom_point(size = 3, alpha = 0.5, color = "#39A5AE")
+    graphic <- ggplot2::ggplot(data = genedata, ggplot2::aes(x = timevector, y = activity)) + ggplot2::geom_line(ggplot2::aes(x = timevector, y = newmean), size = 1) + ggplot2::geom_point(size = 3, 
+        alpha = 0.5, color = "#39A5AE")
     graphic <- graphic + ggplot2::xlab("Time (Hours)") + ggplot2::ylab("Transcripts Per Million (TPM)") + ggplot2::theme_bw()
     graphic <- graphic + ggplot2::theme(plot.title = ggplot2::element_text(hjust = 1)) + ggplot2::theme(text = ggplot2::element_text(size = 12))
     graphic <- graphic + ggplot2::ggtitle(paste("Gene = ", genename))

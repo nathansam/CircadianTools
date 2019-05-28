@@ -26,10 +26,9 @@ turningplot <- function(genename, dataset, timelag = 0, print = TRUE, save = FAL
     
     turning.points <- rootSolve::uniroot.all(genesplinefunc, interval = c(6, 27), deriv = 1)  # this outputs a vector of the turning points, i.e. the points where the derivative=0
     
-    splineplot <- ggplot2::ggplot(ggplot2::aes(x = x, y = y), data = spline.df) + ggplot2::geom_line(color = "#39A5AE", 
-        size = 2) + ggplot2::theme_bw() + ggplot2::xlab("Time(hours)") + ggplot2::ylab("Transcripts Per Million (TPM)") + 
-        ggplot2::ggtitle(paste("Gene=", genename, ", Mean difference=", round(mean(diff(turning.points)), 2), 
-            " SD=", round(sd(diff(turning.points)), 2))) + ggplot2::theme(plot.title = ggplot2::element_text(hjust = 1))
+    splineplot <- ggplot2::ggplot(ggplot2::aes(x = x, y = y), data = spline.df) + ggplot2::geom_line(color = "#39A5AE", size = 2) + ggplot2::theme_bw() + ggplot2::xlab("Time(hours)") + 
+        ggplot2::ylab("Transcripts Per Million (TPM)") + ggplot2::ggtitle(paste("Gene=", genename, ", Mean difference=", round(mean(diff(turning.points)), 2), " SD=", round(sd(diff(turning.points)), 
+        2))) + ggplot2::theme(plot.title = ggplot2::element_text(hjust = 1))
     
     for (i in 1:length(turning.points)) {
         splineplot <- splineplot + ggplot2::geom_vline(xintercept = turning.points[i], size = 1.5, alpha = 0.75)
@@ -40,8 +39,7 @@ turningplot <- function(genename, dataset, timelag = 0, print = TRUE, save = FAL
     
     
     if (save == TRUE) {
-        ggplot2::ggsave(paste("Turning Point of ", genename, ".png"), splineplot, width = 10, height = 4.5, 
-            units = "in")
+        ggplot2::ggsave(paste("Turning Point of ", genename, ".png"), splineplot, width = 10, height = 4.5, units = "in")
     }
     
     if (print == TRUE) {

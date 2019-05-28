@@ -1,4 +1,4 @@
-periodogram<-function(){
-
-
+periodogram <- function() {
+    
+    
 }
