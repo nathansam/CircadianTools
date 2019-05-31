@@ -20,13 +20,13 @@ cosinoranalysis <- function(dataset, period = 24, timelag = 6, threshold = 6e-07
     cosinor.pvalue.df <- data.frame(sample = dplyr::select(dataset, 1), pvalues)  #first column gene name, second:pvalue
     timevector <- maketimevector(dataset)
     loading_values <- loading_gen(genenumber)
-    
-    
+
+
     for (i in 1:genenumber) {
         loading_print(i, loading_values)
-        
+
         genematrix <- dplyr::filter(dataset, dplyr::row_number() == i)
-        
+
         genename <- genematrix[1, 1]
         genematrix <- genematrix[-1]
         genematrix <- t(genematrix)
@@ -35,13 +35,13 @@ cosinoranalysis <- function(dataset, period = 24, timelag = 6, threshold = 6e-07
         cosinormodel <- cosinor::cosinor.lm(activity ~ time(timevector), period = period, data = geneexpression)
         cosinor.pvalue.df[i, 2] <- cosinor2::cosinor.detect(cosinormodel)[4]
         if (cosinor2::cosinor.detect(cosinormodel)[4] < threshold) {
-            cosinorplot <- ggplot.cosinor.lm(cosinormodel, endtime = tail(timevector, n = 1) - timelag) + ggplot2::geom_point(ggplot2::aes(y = activity, x = timevector), data = geneexpression, 
-                size = 3, alpha = 0.5, color = "#39A5AE") + ggplot2::ggtitle(paste("Gene=", genename, ", P-value=", round(cosinor2::cosinor.detect(cosinormodel)[4], 10))) + ggplot2::theme_bw() + 
+            cosinorplot <- ggplot.cosinor.lm(cosinormodel, endtime = tail(timevector, n = 1) - timelag) + ggplot2::geom_point(ggplot2::aes(y = activity, x = timevector), data = geneexpression,
+                size = 3, alpha = 0.5, color = "#39A5AE") + ggplot2::ggtitle(paste("Gene=", genename, ", P-value=", round(cosinor2::cosinor.detect(cosinormodel)[4], 10))) + ggplot2::theme_bw() +
                 ggplot2::theme(plot.title = ggplot2::element_text(hjust = 1)) + ggplot2::theme(text = ggplot2::element_text(size = 12)) + ggplot2::xlab("Time (hours)") + ggplot2::ylab("Trancripts Per Million (TPM)")
-            
-            
+
+
             if (save == TRUE) {
-                ggplot2::ggsave(paste("Gene=", genename, ".png"), cosinorplot, width = 10, height = 4.5, units = "in")
+                ggplot2::ggsave(paste("Cosinor_", genename, ".png"), cosinorplot, width = 10, height = 4.5, units = "in")
             }
             if (print == TRUE) {
                 print(cosinorplot)

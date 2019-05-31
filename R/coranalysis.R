@@ -61,11 +61,8 @@ coranalysis <- function(dataset, genename, threshold = 0.9, save = FALSE, print 
             count = count + 1
         }
 
-
-
         correlation <- cor(selectedmean.list, compmean.list)
         cor.df[i, 2] <- correlation
-
 
         if (correlation > threshold) {
             if (correlation != 1) {
@@ -86,7 +83,7 @@ coranalysis <- function(dataset, genename, threshold = 0.9, save = FALSE, print 
 
 
                 if (save == TRUE) {
-                  ggplot2::ggsave(paste("Gene=", compgenename, ".png"), corplot, width = 10, height = 4.5, units = "in")
+                  ggplot2::ggsave(paste("Cor_",genename,"_",compgenename, ".png"), corplot, width = 10, height = 4.5, units = "in")
                 }
                 if (print == TRUE) {
                   print(corplot)
