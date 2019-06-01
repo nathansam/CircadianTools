@@ -5,8 +5,8 @@
 \title{cosinorplot:
 Fits a cosinor model to a given gene in a given dataset and plots the model}
 \usage{
-cosinorplot(genename, dataset, timelag = 6, print = TRUE,
-  save = FALSE)
+cosinorplot(genename, dataset, timelag = 6, period = 24,
+  print = TRUE, save = FALSE)
 }
 \arguments{
 \item{genename}{The name of a gene intended for plotting. Must be a string.}
