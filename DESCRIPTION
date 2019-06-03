@@ -5,8 +5,7 @@ Version: 0.0.2
 Date: 2019-05-05
 Authors@R: person("Nathan","Constantine-Cooke", email="nsc@aber.ac.uk", role=c("cre","aut"))
 Maintainer: The package maintainer <nsc@aber.ac.uk>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description
+Description: Allows Cosinor Models and Turning Point Analysis to be easily carried out on transcriptomics data using R. Designed to be as flexible as possible such as by allowing an unequal number of replicates.
 URL: https://github.com/nathansam/CircadianTools
 License: GPL-3 
 Depends: R (>= 3.4.4)
