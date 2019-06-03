@@ -6,6 +6,10 @@ Allows cosinor analysis and turning Point techniques to be easily carried out on
 ## Install Guide 
 From R:
 ```{r}
+if (!requireNamespace("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+BiocManager::install("rain")
+
 install.packages("devtools")
 devtools::install_github("nathansam/CircadianTools")
 library(CircadianTools)
