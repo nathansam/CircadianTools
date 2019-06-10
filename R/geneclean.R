@@ -10,5 +10,6 @@
 geneclean <- function(dataset) {
     dataset <- dataset[rowSums(dataset[, -1]) > 0, ]  #removes row(s) which has 0 gene activity
     dataset <- dataset[colSums(dataset[, -1]) > 0, ]  #removes column(s) which has 0 gene activity
+    rownames(dataset)<-seq(1, length(dataset[,1]))
     return(dataset)
 }
