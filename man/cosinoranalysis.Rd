@@ -5,8 +5,8 @@
 \title{cosinoranalysis:
 Fits cosinor models to transcriptomics data and plots the best-fitting models using ggplot2.}
 \usage{
-cosinoranalysis(dataset, period = 24, timelag = 6, threshold = 6e-07,
-  save = FALSE, print = TRUE, df = TRUE)
+cosinoranalysis(dataset, period = 24, timelag = 6, threshold = 0.05,
+  adj = "bonferroni", save = FALSE, print = TRUE, df = TRUE)
 }
 \arguments{
 \item{dataset}{A transcriptomics dataset. First columns should be gene names. All other columns should be expression levels.}
@@ -16,6 +16,8 @@ cosinoranalysis(dataset, period = 24, timelag = 6, threshold = 6e-07,
 \item{timelag}{The value of time for which observations begin. Defaults to 6.}
 
 \item{threshold}{Set significance value for which genes are considered significant and thus plotted. Defaults to 6e-07}
+
+\item{adj}{String. p-value adjustment. Defaults to 'bonferonni'. 'none is also supported'}
 
 \item{save}{Logical. If TRUE, saves plots to working directory. Defaults to FALSE.}
 
