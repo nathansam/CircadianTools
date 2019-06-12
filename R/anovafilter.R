@@ -1,3 +1,12 @@
+#' anovafilter:
+#' filters a genedata via
+#'
+#' @param dataset A transcriptomics dataset. First columns should be gene names. All other columns should be expression levels.
+#'
+#' @examples
+#' Laurasmappings_filtered <- cosinoranalysis(Laurasmappings)
+
+
 anovafilter <- function(dataset){
   genenumber<-nrow(dataset)
   dataset<-geneclean(dataset)
