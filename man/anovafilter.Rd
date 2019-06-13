@@ -5,15 +5,17 @@
 \title{anovafilter:
 filters a genedata via}
 \usage{
-anovafilter(dataset)
+anovafilter(dataset, nthreads = 2)
 }
 \arguments{
 \item{dataset}{A transcriptomics dataset. First columns should be gene names. All other columns should be expression levels.}
+
+\item{nthreads}{Number of processor threads for the filtering. Defaults to 2.}
 }
 \description{
 anovafilter:
 filters a genedata via
 }
 \examples{
-Laurasmappings_filtered <- cosinoranalysis(Laurasmappings)
+Laurasmappings_filtered <- anovafilter(Laurasmappings, nthreads=4)
 }
