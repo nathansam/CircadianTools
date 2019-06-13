@@ -3,11 +3,12 @@
 #'
 #' @param dataset A transcriptomics dataset. First columns should be gene names. All other columns should be expression levels.
 #' @param nthreads Number of processor threads for the filtering. If not specifed then the maximum logical cores are used.
+#' @param threshold Set the p-value threshold for the filtering
 #' @examples
 #' Laurasmappings_filtered <- anovafilter(Laurasmappings, nthreads=4)
 
 
-anovafilter <- function(dataset, nthreads = NULL) {
+anovafilter <- function(dataset, threshold = 0.05, nthreads = NULL) {
     library(foreach)
     if (is.null(nthreads) == TRUE) {
         nthreads <- parallel::detectCores()
@@ -29,7 +30,7 @@ anovafilter <- function(dataset, nthreads = NULL) {
         names(test) <- c("genematrix", "timevector")
         tempaov <- aov(lm(genematrix ~ timevector, data = test))
         pvalue <- summary(tempaov)[[1]][1, 5]
-        if (pvalue < 0.05) {
+        if (pvalue < threshold) {
             dplyr::filter(dataset, dplyr::row_number() == i)
         }
     }

@@ -5,12 +5,14 @@
 \title{anovafilter:
 filters a genedata via}
 \usage{
-anovafilter(dataset, nthreads = 2)
+anovafilter(dataset, threshold = 0.05, nthreads = NULL)
 }
 \arguments{
 \item{dataset}{A transcriptomics dataset. First columns should be gene names. All other columns should be expression levels.}
 
-\item{nthreads}{Number of processor threads for the filtering. Defaults to 2.}
+\item{threshold}{Set the p-value threshold for the filtering}
+
+\item{nthreads}{Number of processor threads for the filtering. If not specifed then the maximum logical cores are used.}
 }
 \description{
 anovafilter:
