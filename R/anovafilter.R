@@ -32,6 +32,5 @@ anovafilter <- function(dataset, threshold = 0.05, nthreads = NULL) {
     }
     rownames(filterdf)<-seq(1, nrow(filterdf)) #Rebuild the row names
     parallel::stopCluster(cl)
-    detach("package:foreach", unload=TRUE)
     return(filterdf)
 }

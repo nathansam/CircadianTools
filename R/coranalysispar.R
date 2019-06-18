@@ -63,6 +63,5 @@ coranalysispar <- function(genename, dataset,nthreads=NULL) {
       }
 
   parallel::stopCluster(cl)
-  detach("package:foreach", unload=TRUE)
   return(cor.df)
 }
