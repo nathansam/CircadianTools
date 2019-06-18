@@ -3,7 +3,7 @@
 \name{anovafilter}
 \alias{anovafilter}
 \title{anovafilter:
-filters a genedata via}
+Filters a gene activity dataframe via ANOVA}
 \usage{
 anovafilter(dataset, threshold = 0.05, nthreads = NULL)
 }
@@ -12,11 +12,11 @@ anovafilter(dataset, threshold = 0.05, nthreads = NULL)
 
 \item{threshold}{Set the p-value threshold for the filtering}
 
-\item{nthreads}{Number of processor threads for the filtering. If not specifed then the maximum logical cores are used.}
+\item{nthreads}{Number of processor threads for the filtering. If not specifed then the maximum number of logical cores are used.}
 }
 \description{
 anovafilter:
-filters a genedata via
+Filters a gene activity dataframe via ANOVA
 }
 \examples{
 Laurasmappings_filtered <- anovafilter(Laurasmappings, nthreads=4)

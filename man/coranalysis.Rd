@@ -5,13 +5,13 @@
 \title{coranalysis:
 Ranks correlation between a given gene and all over genes in a dataset. Plots both the given gene and highly correlated genes for a given correlation value}
 \usage{
-coranalysis(dataset, genename, threshold = 0.9, save = FALSE,
+coranalysis(genename, dataset, threshold = 0.9, save = FALSE,
   print = TRUE, df = TRUE)
 }
 \arguments{
-\item{dataset}{A transcriptomics dataset. First columns should be gene names. All other columns should be expression levels.}
-
 \item{genename}{the name of a gene intended for comparison with all other genes in the dataset. Must be a string.}
+
+\item{dataset}{A transcriptomics dataset. First columns should be gene names. All other columns should be expression levels.}
 
 \item{threshold}{Set correlation threshold value for which genes are considered significant and thus plotted. Defaults to 0.9}
 
@@ -22,7 +22,7 @@ coranalysis(dataset, genename, threshold = 0.9, save = FALSE,
 \item{df}{Logical. If TRUE a dataframe containing the correlations of the given gene with all genes in the dataset is returned. Defaults to TRUE.}
 }
 \value{
-Prints or saves ggplot2 object(s). Optionally returns dataframe containing gene name and correlation values
+Prints or saves ggplot2 object(s). Optionally returns dataframe containing gene names and correlation values
 }
 \description{
 coranalysis:
