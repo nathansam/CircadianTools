@@ -82,7 +82,7 @@ turningplot("comp101252_c0_seq2", Laurasmappings)
 
 ### Correlation Analysis
 ```{r}
-coranalysis(Laurasmappings, "comp100002_c0_seq2", print=TRUE, threshold=0.97, save=TRUE)
+coranalysis("comp100002_c0_seq2",Laurasmappings, print=TRUE, threshold=0.97, save=TRUE)
 ```
 ![](corex.png) 
 
