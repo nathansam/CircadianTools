@@ -10,13 +10,13 @@
 
 
 coranalysispar <- function(genename, dataset, nthreads = NULL) {
-    
+
     library(foreach)  #Required for parallelism
     if (is.null(nthreads) == TRUE) {
         # Set the threads to maximum if none is specified
         nthreads <- parallel::detectCores()
     }
-    
+
     dataset <- geneclean(dataset)  # Remove any rows which shows no gene activity
     genenumber <- nrow(dataset)  # Number of genes in the dataset
     cor.df <- data.frame(sample = dplyr::select(dataset, 1), corvalues = rep(0, genenumber))  #first column gene name, second column correlation value
@@ -24,45 +24,45 @@ coranalysispar <- function(genename, dataset, nthreads = NULL) {
     selectedgene <- activity_select(genename, dataset)
     selectedgenedf <- data.frame(timevector, selectedgene)
     names(selectedgenedf) <- c("timevector", "activity")
-    
-    
+
+
     selectedmean.list <- rep(0, length((unique(timevector))))
     count <- 1
-    for (i in timevector) {
+    for (i in unique(timevector)) {
         genesub <- subset(selectedgenedf, timevector == i, select = activity)
         selectedmean.list[[count]] <- (mean(genesub$activity))
         count = count + 1
     }
-    
+
     cl <- parallel::makeForkCluster(nthreads)  # Create cluster for parallelism
     doParallel::registerDoParallel(cl)
-    
+
     cor.df <- foreach(i = 1:genenumber, .combine = rbind) %dopar% {
-        
+
         genematrix <- dplyr::filter(dataset, dplyr::row_number() == i)
         compgenename <- paste(dataset[i, 1])
         genematrix <- activity_select(i, dataset)
-        
-        
+
+
         selectedgenedf <- data.frame(timevector, genematrix)
-        
+
         names(selectedgenedf) <- c("timevector", "activity")
-        
-        
+
+
         compmean.list <- rep(0, length((unique(timevector))))
         count <- 1
-        for (j in timevector) {
+        for (j in unique(timevector)) {
             compgenesub <- subset(selectedgenedf, timevector == j, select = activity)
             compmean.list[[count]] <- (mean(compgenesub$activity))
             count = count + 1
         }
-        
+
         correlation <- cor(selectedmean.list, compmean.list)
         data.frame(compgenename, correlation)
-        
-        
+
+
     }
-    
+
     parallel::stopCluster(cl)
     return(cor.df)
 }
