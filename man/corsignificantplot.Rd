@@ -24,7 +24,7 @@ corsignificantplot(results, dataset, number = 10, print = TRUE,
 Prints or saves ggplot2 object(s).
 }
 \description{
-Prints or saves the genes found to be most significant by \link{cosinoranalysis}
+Prints or saves the genes found to be most significant by \link{coranalysis} or \link{coranalysispar}
 }
 \examples{
 cor_results <- coranalysis('comp100002_c0_seq2',Laurasmappings)

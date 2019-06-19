@@ -4,7 +4,7 @@
 \alias{rainanalysis}
 \title{rainanalysis :}
 \usage{
-rainanalysis(dataset)
+rainanalysis(dataset, period)
 }
 \arguments{
 \item{dataset}{A transcriptomics dataset. First columns should be gene names. All other columns should be expression levels.}
