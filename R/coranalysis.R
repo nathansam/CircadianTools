@@ -68,34 +68,16 @@ coranalysis <- function(genename, dataset, threshold = 0.9, save = FALSE, print 
         if (correlation > threshold) {
             if (correlation != 1) {
 
-                selectedmeans <- data.frame(timevector, means = selectedmean.list, Gene = rep(genename,
-                  length(timevector)))
-                compmeans <- data.frame(timevector, means = compmean.list, Gene = rep(compgenename,
-                  length(timevector)))
-                means.df <- rbind(selectedmeans, compmeans)
 
-                selectedactivity <- data.frame(timevector, activity = selectedgene, Gene = rep(genename,
-                  length(timevector)))
-                names(selectedactivity)[2] <- paste("activity")
-                compactivity <- data.frame(timevector, activity = genematrix, Gene = rep(compgenename,
-                  length(timevector)))
-                activity.df <- rbind(selectedactivity, compactivity)
-
-
-                corplot <- ggplot2::ggplot(ggplot2::aes(x = timevector, y = means, color = Gene),
-                  data = means.df) + ggplot2::geom_line(size = 1) + ggplot2::geom_point(ggplot2::aes(x = timevector,
-                  y = activity), data = activity.df, alpha = 0.5, size = 3) + ggplot2::theme_bw() +
-                  ggplot2::ggtitle(paste("Cor=", correlation)) + ggplot2::theme(plot.title = ggplot2::element_text(hjust = 1)) +
-                  ggplot2::scale_color_manual(values = c("black", "#39A5AE")) + ggplot2::theme(text = ggplot2::element_text(size = 12)) +
-                  ggplot2::xlab("Time (hours)") + ggplot2::ylab("Trancripts Per Million (TPM)")
-
+                myplot <- compplot(as.character(genename), compgenename, dataset)
+                myplot <- myplot + ggplot2::ggtitle(paste("Correlation = ", correlation))
 
                 if (save == TRUE) {
                   ggplot2::ggsave(paste("Cor_", genename, "_", compgenename, ".png"),
-                    corplot, width = 10, height = 4.5, units = "in")
+                    myplot,path=directory ,width = 10, height = 4.5, units = "in")
                 }
                 if (print == TRUE) {
-                  print(corplot)
+                  print(myplot)
                 }
             }
         }

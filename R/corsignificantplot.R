@@ -24,8 +24,7 @@ corsignificantplot <- function(results, dataset, number = 10, print = TRUE, save
     if (negative == FALSE) {
         for (i in 2:(number + 1)) {
             myplot <- compplot(as.character(gene1), as.character(results[i, 1]), dataset)
-            myplot <- myplot + ggplot2::ggtitle(paste("Gene = ", as.character(results[i,
-                1]), " Cor = ", as.character(results[i, 2])))
+            myplot <- myplot + ggplot2::ggtitle(paste(" Correlation = ", as.character(results[i, 2])))
 
             if (print == TRUE) {
                 print(myplot)
@@ -50,7 +49,7 @@ corsignificantplot <- function(results, dataset, number = 10, print = TRUE, save
 
             if (save == TRUE) {
                 ggplot2::ggsave(paste("rank=", i, "Cor_", as.character(results[i, 1]),
-                  ".png"), myplot, width = 10, height = 4.5, units = "in")
+                  ".png"), myplot,path=directory ,width = 10, height = 4.5, units = "in")
             }
         }
     }
