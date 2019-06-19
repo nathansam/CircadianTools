@@ -2,8 +2,7 @@
 % Please edit documentation in R/anovafilter.R
 \name{anovafilter}
 \alias{anovafilter}
-\title{anovafilter:
-Filters a gene activity dataframe via ANOVA}
+\title{anovafilter}
 \usage{
 anovafilter(dataset, threshold = 0.05, nthreads = NULL)
 }
@@ -15,7 +14,6 @@ anovafilter(dataset, threshold = 0.05, nthreads = NULL)
 \item{nthreads}{Number of processor threads for the filtering. If not specifed then the maximum number of logical cores are used.}
 }
 \description{
-anovafilter:
 Filters a gene activity dataframe via ANOVA
 }
 \examples{

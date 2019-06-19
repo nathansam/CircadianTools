@@ -1,11 +1,17 @@
-#' CircadianTools: Collection of Tools for Detecting Rhythmic Genes
+#' CircadianTools: A Collection of Tools for Detecting Rhythmic Genes
 #'
-#' Allows Cosinor Models and Turning Point Analysis to be easily carried out on transcriptomics data using R. Designed to be as flexible as possible such as by allowing an unequal number of replicates. \cr \cr
+#' Allows analysis of rhythmic genes to be easily carried out on transcriptomics data using R. Designed to be as flexible as possible such as by allowing an unequal number of replicates. \cr \cr
 #' @section General Tools:
 #' \code{\link{basicplot}}: Plots activity data as points and mean data as lines \cr \cr
-#' \code{\link{coranalysis}}: Ranks correlation between a given gene and all over genes in a dataset. Plots both the given gene and highly correlated genes for a given correlation value \cr \cr
+#' \code{\link{anovafilter}}: Filters a gene activity dataframe via ANOVA \cr \cr
+#' \code{\link{compplot}}: Plots two genes from a gene activity dataset \cr \cr
+#' @section Correlation:
+#' \code{\link{coranalysis}}: Ranks correlation between a given gene and all other genes in a dataset. Plots both the given gene and highly correlated genes for a given correlation value \cr \cr
+#' \code{\link{coranalysispar}}: Parallel Implementation of \code{coranalysis} \cr \cr
+#' \code{\link{corsignificantplot}}: Prints or saves the genes found to be most significant by \code{cosinoranalysis} \cr \cr
 #' @section Cosinor Functions:
 #' \code{\link{cosinoranalysis}}: Fits cosinor models to transcriptomics data and plots the best-fitting models using ggplot2. \cr \cr
+#' \code{\link{cosinoranalysispar}}: Parallel Implementation of \code{cosinoranalysis} \cr \cr
 #' \code{\link{cosinorplot}}: Fits a cosinor model to a given gene in a given dataset and plots the model. \cr \cr
 #' \code{\link{cosinorsignificantplot}}: Prints or saves the genes found to be most significant by \code{cosinoranalysis} \cr \cr
 #' @section RAIN Functions:

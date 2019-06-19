@@ -2,8 +2,7 @@
 % Please edit documentation in R/rainanalysis.R
 \name{rainanalysis}
 \alias{rainanalysis}
-\title{rainanalysis :
-Carries out RAIN analysis on a gene dataset}
+\title{rainanalysis :}
 \usage{
 rainanalysis(dataset)
 }
@@ -14,7 +13,6 @@ rainanalysis(dataset)
 A dataframe object detailing the result of the rain analysis.
 }
 \description{
-rainanalysis :
 Carries out RAIN analysis on a gene dataset
 }
 \examples{

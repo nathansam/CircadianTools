@@ -18,9 +18,11 @@
 ggplot.cosinor.lm <- function(object, x_str = NULL, endtime) {
     
     timeax <- seq(0, endtime, length.out = 200)
-    covars <- grep("(rrr|sss)", attr(object$fit$terms, "term.labels"), invert = TRUE, value = TRUE)
+    covars <- grep("(rrr|sss)", attr(object$fit$terms, "term.labels"), invert = TRUE, 
+        value = TRUE)
     
-    newdata <- data.frame(time = timeax, rrr = cos(2 * pi * timeax/object$period), sss = sin(2 * pi * timeax/object$period))
+    newdata <- data.frame(time = timeax, rrr = cos(2 * pi * timeax/object$period), sss = sin(2 * 
+        pi * timeax/object$period))
     for (j in covars) {
         newdata[, j] <- 0
     }
@@ -52,7 +54,8 @@ ggplot.cosinor.lm <- function(object, x_str = NULL, endtime) {
         
     } else {
         
-        ggplot2:ggplot(newdata, aes_string(x = "time", y = "Y.hat", col = "levels")) + ggplot2::geom_line()
+        ggplot2:ggplot(newdata, aes_string(x = "time", y = "Y.hat", col = "levels")) + 
+            ggplot2::geom_line()
         
     }
 }

@@ -1,5 +1,5 @@
 #' rainanalysis :
-#' Carries out RAIN analysis on a gene dataset
+#' @description Carries out RAIN analysis on a gene dataset
 #' @param dataset A transcriptomics dataset. First columns should be gene names. All other columns should be expression levels.
 #' @return A dataframe object detailing the result of the rain analysis.
 #' @examples

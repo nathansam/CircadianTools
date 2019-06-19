@@ -2,8 +2,7 @@
 % Please edit documentation in R/basicplot.R
 \name{basicplot}
 \alias{basicplot}
-\title{basicplot:
-Plots activity data as points and mean data as lines}
+\title{basicplot:}
 \usage{
 basicplot(genename, dataset, timelag = 0, save = FALSE, print = TRUE)
 }
@@ -22,7 +21,6 @@ basicplot(genename, dataset, timelag = 0, save = FALSE, print = TRUE)
 Prints or saves ggplot2 object(s)
 }
 \description{
-basicplot:
 Plots activity data as points and mean data as lines
 }
 \examples{

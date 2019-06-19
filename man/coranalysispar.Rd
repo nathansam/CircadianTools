@@ -2,8 +2,7 @@
 % Please edit documentation in R/coranalysispar.R
 \name{coranalysispar}
 \alias{coranalysispar}
-\title{coranalysispar:
-Parallel Implementation of coranalysis. Ranks correlation between a given gene and all over genes in a dataset. Plots both the given gene and highly correlated genes for a given correlation value}
+\title{coranalysispar:}
 \usage{
 coranalysispar(genename, dataset, nthreads = NULL)
 }
@@ -18,9 +17,8 @@ coranalysispar(genename, dataset, nthreads = NULL)
 Returns dataframe containing gene names and correlation values
 }
 \description{
-coranalysispar:
-Parallel Implementation of coranalysis. Ranks correlation between a given gene and all over genes in a dataset. Plots both the given gene and highly correlated genes for a given correlation value
+Parallel Implementation of \link{coranalysis}. Ranks correlation between a given gene and all over genes in a dataset. Plots both the given gene and highly correlated genes for a given correlation value
 }
 \examples{
-cor_results <- coranalysis(LauraSingleMap, 'comp100002_c0_seq2')
+cor_results <- coranalysis('comp100002_c0_seq2',Laurasmappings)
 }

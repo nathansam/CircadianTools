@@ -2,8 +2,7 @@
 % Please edit documentation in R/turningplot.R
 \name{turningplot}
 \alias{turningplot}
-\title{Turningplot:
-Fits a spline to a given gene in a given dataset. Finds the turning points. Plots the turning points and spline.}
+\title{Turningplot:}
 \usage{
 turningplot(genename, dataset, timelag = 0, print = TRUE,
   save = FALSE)
@@ -23,7 +22,6 @@ turningplot(genename, dataset, timelag = 0, print = TRUE,
 Prints or saves ggplot2 object(s)
 }
 \description{
-Turningplot:
 Fits a spline to a given gene in a given dataset. Finds the turning points. Plots the turning points and spline.
 }
 \examples{

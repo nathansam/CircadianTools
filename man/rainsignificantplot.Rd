@@ -2,8 +2,7 @@
 % Please edit documentation in R/rainsignificantplot.R
 \name{rainsignificantplot}
 \alias{rainsignificantplot}
-\title{rainsignificantplot :
-Prints or saves the genes found to be most significant by \code{rainanalysis}}
+\title{rainsignificantplot :}
 \usage{
 rainsignificantplot(results, dataset, number = 10, print = TRUE,
   save = FALSE)
@@ -23,8 +22,7 @@ rainsignificantplot(results, dataset, number = 10, print = TRUE,
 Prints or saves ggplot2 object(s).
 }
 \description{
-rainsignificantplot :
-Prints or saves the genes found to be most significant by \code{rainanalysis}
+Prints or saves the genes found to be most significant by \link{rainanalysis}
 }
 \examples{
 results <- rainanalysis(Laurasmappings)

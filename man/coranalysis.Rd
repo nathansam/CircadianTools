@@ -2,8 +2,7 @@
 % Please edit documentation in R/coranalysis.R
 \name{coranalysis}
 \alias{coranalysis}
-\title{coranalysis:
-Ranks correlation between a given gene and all over genes in a dataset. Plots both the given gene and highly correlated genes for a given correlation value}
+\title{coranalysis:}
 \usage{
 coranalysis(genename, dataset, threshold = 0.9, save = FALSE,
   print = TRUE, df = TRUE)
@@ -25,8 +24,7 @@ coranalysis(genename, dataset, threshold = 0.9, save = FALSE,
 Prints or saves ggplot2 object(s). Optionally returns dataframe containing gene names and correlation values
 }
 \description{
-coranalysis:
-Ranks correlation between a given gene and all over genes in a dataset. Plots both the given gene and highly correlated genes for a given correlation value
+Ranks correlation between a given gene and all other genes in a dataset. Plots both the given gene and highly correlated genes for a given correlation value
 }
 \examples{
 cor_results <- coranalysis(LauraSingleMap, 'comp100002_c0_seq2')
