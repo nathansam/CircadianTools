@@ -24,7 +24,6 @@ Documentation is available for CircadianTools and all of its functions via the u
 # Full List Of Functions
 ### General Tools
 ```basicplot```: Plots activity data as points and mean data as lines <br>
-```anovafilter```: Filters a gene activity dataframe via ANOVA <br>
 ```compplot```: Plots two genes from a gene activity dataset <br>
 
 ### Correlation
@@ -40,6 +39,13 @@ Documentation is available for CircadianTools and all of its functions via the u
 ```cosinorplot```: Fits a cosinor model to a given gene in a given dataset and plots the model. <br>
 ```cosinorsignificantplot```: Prints or saves the genes found to be most significant by ```cosinoranalysis``` <br>
 
+### Filtering
+
+```anovafilter```: Filters a gene activity dataframe via ANOVA <br>
+```combifilter```:  Filters a transcriptomics dataset by using ```zerofilter```, ```anovafilter``` and ```sizefilter```<br>
+```sizefilter```: Filters the genes with the smallest range from a transcriptomics dataset <br>
+```zerofilter```: Filters a transcriptomics dataset such that there is a minimum number of non-zero activity readings for each gene. <br>
+
 ### RAIN Functions
 
 ```rainanalysis```: Carries out RAIN analysis on a gene dataset  <br>
@@ -53,6 +59,8 @@ Documentation is available for CircadianTools and all of its functions via the u
 ### Utility Functions
 
 ```ggplot.cosinor.lm```: Adapted from the Cosinor package by Michael Sachs. Given a cosinor.lm model fit, generate a plot of the data with the fitted values. <br>
+```generange```: Finds the range of gene activity for each gene in a dataframe. The median for the replicates is used for each time point. <br>
+```genesub```: Takes an object where the first column is genenames (IE a column of known Circadian genes) and subsets from a dataset containing activity for these genes. <br>
 ```maketimevector```: Produces a vector of time values for the gene activity readings. <br>
 ```geneclean```: Removes columns and rows which show no gene activity over time. <br>
 
