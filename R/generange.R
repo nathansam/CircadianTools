@@ -37,6 +37,7 @@ generange <- function(dataset, nthreads = NULL) {
         generange <- max(medlist) - min(medlist) # Get range
         data.frame(genename, generange)
     }
+    parallel::stopCluster(cl)
     return(rangedf)
 
 }
