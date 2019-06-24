@@ -6,38 +6,27 @@
 #' rangedf <- generange(Laurasmappings, nthreads=4)
 
 generange <- function(dataset, nthreads = NULL) {
-
-    library(foreach)  #Required for parallelism
-
+    
     if (is.null(nthreads) == TRUE) {
         # Set the threads to maximum if none is specified
         nthreads <- parallel::detectCores()
     }
-
-    timevector <- CircadianTools::maketimevector(dataset) # List of time values (repeated for replicates)
-
-    genenumber <- nrow(dataset)
-
+    
+    mediandf <- medlist(dataset = dataset, nthreads = nthreads)
+    genenumber <- nrow(mediandf)
+    
     cl <- parallel::makeForkCluster(nthreads)  # Create cluster for parallelism
     doParallel::registerDoParallel(cl)
-
-
+    
     rangedf <- foreach(i = 1:genenumber, .combine = rbind) %dopar% {
-        # Parallel for loop to create a dataframe of gene names and their respective ranges
-        gene <- dplyr::filter(dataset, dplyr::row_number() == i)  # Get gene by row
-        genename <- gene[, 1]
-        genematrix <- t(gene[-1])  # Gene activity as column
-        activity.df <- data.frame(genematrix, timevector)
-        colnames(activity.df) <- c("activity", "timevector")
-        medlist <- c()  #List of medians for the gene
-        for (i in unique(timevector)) {
-            genesubset <- subset(activity.df, timevector == i) # Populate the median list
-            medlist <- c(medlist, median(genesubset$activity))
-        }
-        generange <- max(medlist) - min(medlist) # Get range
+        gene <- dplyr::filter(mediandf, dplyr::row_number() == i)  # Get gene by row
+        generange <- max(gene) - min(gene)
+        genename <- dataset[i, 1]
         data.frame(genename, generange)
     }
+    
+    
     parallel::stopCluster(cl)
     return(rangedf)
-
+    
 }

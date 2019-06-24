@@ -26,6 +26,10 @@ Documentation is available for CircadianTools and all of its functions via the u
 ```basicplot```: Plots activity data as points and mean data as lines <br>
 ```compplot```: Plots two genes from a gene activity dataset <br>
 
+### Clustering
+```clusteroverview```: Plots the mean and error bars for all clusters across time <br>
+```clusterplot```: Plots the mean and error bars for the genes in a cluster across time <br>
+
 ### Correlation
 
 ```coranalysis```: Ranks correlation between a given gene and all other genes in a dataset. Plots both the given gene and highly correlated genes for a given correlation value <br>
@@ -35,25 +39,24 @@ Documentation is available for CircadianTools and all of its functions via the u
 ### Cosinor Functions
 
 ```cosinoranalysis```: Fits cosinor models to transcriptomics data and plots the best-fitting models using ggplot2. <br>
-```cosinoranalysispar```: Parallel Implementation of ```cosinoranalysis``` <br>
+```cosinoranalysispar```: Parallel Implementation of ```cosinoranalysis```. <br>
 ```cosinorplot```: Fits a cosinor model to a given gene in a given dataset and plots the model. <br>
-```cosinorsignificantplot```: Prints or saves the genes found to be most significant by ```cosinoranalysis``` <br>
+```cosinorsignificantplot```: Prints or saves the genes found to be most significant by ```cosinoranalysis```. <br>
 
 ### Filtering
 
-```anovafilter```: Filters a gene activity dataframe via ANOVA <br>
-```combifilter```:  Filters a transcriptomics dataset by using ```zerofilter```, ```anovafilter``` and ```sizefilter```<br>
-```sizefilter```: Filters the genes with the smallest range from a transcriptomics dataset <br>
+```anovafilter```: Filters a gene activity dataframe via ANOVA. <br>
+```combifilter```:  Filters a transcriptomics dataset by using ```zerofilter```, ```anovafilter``` and ```sizefilter```.<br>
+```sizefilter```: Filters the genes with the smallest range from a transcriptomics dataset. <br>
 ```zerofilter```: Filters a transcriptomics dataset such that there is a minimum number of non-zero activity readings for each gene. <br>
-
 ### RAIN Functions
 
-```rainanalysis```: Carries out RAIN analysis on a gene dataset  <br>
-```rainsignificantplot``` Prints or saves the genes found to be most significant by ```rainanalysis``` <br>
+```rainanalysis```: Carries out RAIN analysis on a gene dataset. <br>
+```rainsignificantplot``` Prints or saves the genes found to be most significant by ```rainanalysis```. <br>
 
 ### Turning Point Functions
 
-```turningplot```: Fits a spline to a given gene in a given dataset. Finds the turning points. Plots the turning points and spline <br>
+```turningplot```: Fits a spline to a given gene in a given dataset. Finds the turning points. Plots the turning points and spline. <br>
 
 
 ### Utility Functions
@@ -63,6 +66,8 @@ Documentation is available for CircadianTools and all of its functions via the u
 ```genesub```: Takes an object where the first column is genenames (IE a column of known Circadian genes) and subsets from a dataset containing activity for these genes. <br>
 ```maketimevector```: Produces a vector of time values for the gene activity readings. <br>
 ```geneclean```: Removes columns and rows which show no gene activity over time. <br>
+```medlist```: Provides a dataframe of median values at each time point for each gene from a transcriptomics dataset. <br>
+
 
 
 
