@@ -50,7 +50,7 @@ ggplot.cosinor.lm <- function(object, x_str = NULL, endtime) {
     
     if (missing(x_str) || is.null(x_str)) {
         
-        ggplot2::ggplot(newdata, ggplot2::aes_string(x = "time", y = "Y.hat")) + ggplot2::geom_line()
+        ggplot2::ggplot(newdata, ggplot2::aes_string(x = "time", y = "Y.hat")) + ggplot2::geom_line(size=1.2, color="#ffa630")
         
     } else {
         

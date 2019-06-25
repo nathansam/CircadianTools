@@ -46,11 +46,11 @@ clusterplot <- function(clusterno, cluster.dataset, nthreads = NULL, print = TRU
     if (single.gene.cluster == FALSE) {
         p <- p + ggplot2::geom_errorbar(ggplot2::aes(ymin = meanval - sdval, ymax = meanval + 
             sdval), width = 1.5, size = 1, position = ggplot2::position_dodge(0.05), 
-            color = "#D22D04", alpha = 0.7)  # Add error bars if more than 1 gene in cluster
+            color = "#ba1200", alpha = 0.7)  # Add error bars if more than 1 gene in cluster
     }
     
     
-    p <- p + ggplot2::geom_line(size = 1) + ggplot2::geom_point(size = 5, color = "#39A5AE") + 
+    p <- p + ggplot2::geom_line(size = 1, color="#412d6b") + ggplot2::geom_point(size = 5, color = "#008dd5") + 
         ggplot2::xlab("Time (Hours)") + ggplot2::ylab("Transcripts Per Million (TPM)") + 
         ggplot2::theme_bw() + ggplot2::theme(plot.title = ggplot2::element_text(hjust = 1)) + 
         ggplot2::theme(text = ggplot2::element_text(size = 12)) + ggplot2::ggtitle(paste("Cluster = ", 

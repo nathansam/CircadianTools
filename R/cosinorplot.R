@@ -22,7 +22,7 @@ cosinorplot <- function(genename, dataset, timelag = 6, period = 24, print = TRU
     cosinormodel <- cosinor::cosinor.lm(activity ~ time(timevector), period = period,
         data = geneexpression)
     cosinorplotobject <- ggplot.cosinor.lm(cosinormodel, endtime = 21) + ggplot2::geom_point(ggplot2::aes(y = activity,
-        x = timevector), data = geneexpression, size = 3, alpha = 0.5, color = "#39A5AE") +
+        x = timevector), data = geneexpression, size = 3, alpha = 0.5, color = "#008dd5") +
         ggplot2::ggtitle(paste("Gene=", genename, ", P-value=", round(cosinor2::cosinor.detect(cosinormodel)[4],
             10))) + ggplot2::theme_bw() + ggplot2::theme(plot.title = ggplot2::element_text(hjust = 1)) +
         ggplot2::theme(text = ggplot2::element_text(size = 12)) + ggplot2::xlab("Time (hours)") +

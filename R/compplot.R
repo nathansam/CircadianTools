@@ -61,8 +61,8 @@ compplot <- function(gene1, gene2, dataset, save = FALSE) {
         ggplot2::geom_point(ggplot2::aes(y = gene2_activity, colour = "second gene"),
             size = 3, alpha = 0.5) + ggplot2::theme_bw() + ggplot2::geom_line(ggplot2::aes(y = mean2,
         color = "second gene"),size=1) + ggplot2::theme(plot.title = ggplot2::element_text(hjust = 1))+ggplot2::scale_color_manual(name = "Gene", breaks = c("first gene",
-                                                                                                                                                      "second gene"), labels = c(gene1, gene2),values = c("black",
-                                                                                                                                                        "#39A5AE"))
+                                                                                                                                                      "second gene"), labels = c(gene1, gene2),values = c("#008dd5",
+                                                                                                                                                        "#ffa630"))
     if (save == TRUE) {
         ggplot2::ggsave(paste(gene1, gene2, "comp.png"), graphic, width = 10, height = 4.5,
             units = "in")
