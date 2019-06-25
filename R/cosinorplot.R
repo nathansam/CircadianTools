@@ -29,7 +29,7 @@ cosinorplot <- function(genename, dataset, timelag = 6, period = 24, print = TRU
         ggplot2::ylab("Trancripts Per Million (TPM)")
 
     if (save == TRUE) {
-        ggplot2::ggsave(paste("Cosinor_", genename, ".png"), cosinorplot, width = 10,
+        ggplot2::ggsave(paste("Cosinor_", genename, ".png"), cosinorplotobject, width = 10,
             height = 4.5, units = "in")
     }
     if (print == TRUE) {
