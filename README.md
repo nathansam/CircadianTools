@@ -29,6 +29,7 @@ Documentation is available for CircadianTools and all of its functions via the u
 ### Clustering
 ```clusteroverview```: Plots the mean and error bars for all clusters across time <br>
 ```clusterplot```: Plots the mean and error bars for the genes in a cluster across time <br>
+```clusterspread```: Shows how many genes are in each cluster after clustering has been applied. <br>
 ```hclustering```: Applies hierarchical clustering, clustering to a transcriptomics dataset and appends a cluster column to this dataset for all genes. <br>
 ```pamclustering```: Applies PAM (Partitioning around Medoids) clustering to a transcriptomics dataset and appends a cluster column to this dataset for all genes. <br>
 

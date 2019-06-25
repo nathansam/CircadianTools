@@ -18,6 +18,7 @@ Allows analysis of rhythmic genes to be easily carried out on transcriptomics da
 
 \code{\link{clusteroverview}}: Plots the mean and error bars for all clusters across time. \cr \cr
 \code{\link{clusterplot}}: Plots the mean and error bars for the genes in a cluster across time. \cr \cr
+\code{\link{clusterspread}}: Shows how many genes are in each cluster after clustering has been applied. \cr \cr
 \code{\link{hclustering}}: Applies hierarchical clustering, clustering to a transcriptomics dataset and appends a cluster column to this dataset for all genes. \cr \cr
 \code{\link{pamclustering}}: Applies PAM (Partitioning around Medoids) clustering to a transcriptomics dataset and appends a cluster column to this dataset for all genes. \cr \cr
 }
