@@ -47,7 +47,6 @@ coranalysis <- function(genename, dataset, threshold = 0.9,lag=0 ,save = FALSE, 
     if (lag<0){
         selectedmean.list<-head(selectedmean.list, n=length(selectedmean.list)-lag)
     }
-    print(selectedmean.list)
 
     for (i in 1:genenumber) {
         loading_print(i, loading_values)
@@ -55,7 +54,7 @@ coranalysis <- function(genename, dataset, threshold = 0.9,lag=0 ,save = FALSE, 
         genematrix <- dplyr::filter(dataset, dplyr::row_number() == i)
         compgenename <- paste(dataset[i, 1])
         genematrix <- activity_select(i, dataset)
-        print(compgenename)
+
 
 
         selectedgenedf <- data.frame(timevector, genematrix)
@@ -77,7 +76,7 @@ coranalysis <- function(genename, dataset, threshold = 0.9,lag=0 ,save = FALSE, 
         if (lag<0){
             compmean.list<-head(compmean.list, n=length(compmean.list)-lag)
         }
-        print(compmean.list)
+
 
         correlation <- cor(selectedmean.list, compmean.list)
         cor.df[i, 2] <- correlation
