@@ -5,8 +5,10 @@
 #' \code{\link{basicplot}}: Plots activity data as points and mean data as lines. \cr \cr
 #' \code{\link{compplot}}: Plots two genes from a gene activity dataset. \cr \cr
 #' @section Clustering:
-#' \code{\link{clusteroverview}}: Plots the mean and error bars for all clusters across time. \cr
-#' \code{\link{clusterplot}}: Plots the mean and error bars for the genes in a cluster across time. \cr
+#' \code{\link{clusteroverview}}: Plots the mean and error bars for all clusters across time. \cr \cr
+#' \code{\link{clusterplot}}: Plots the mean and error bars for the genes in a cluster across time. \cr \cr
+#' \code{\link{hclustering}}: Applies hierarchical clustering, clustering to a transcriptomics dataset and appends a cluster column to this dataset for all genes. \cr \cr
+#' \code{\link{pamclustering}}: Applies PAM (Partitioning around Medoids) clustering to a transcriptomics dataset and appends a cluster column to this dataset for all genes. \cr \cr
 #' @section Correlation:
 #' \code{\link{coranalysis}}: Ranks correlation between a given gene and all other genes in a dataset. Plots both the given gene and highly correlated genes for a given correlation value. \cr \cr
 #' \code{\link{coranalysispar}}: Parallel Implementation of \code{coranalysis}. \cr \cr
