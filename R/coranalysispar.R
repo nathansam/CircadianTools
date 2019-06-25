@@ -9,7 +9,7 @@
 #' cor_results <- coranalysis('comp100002_c0_seq2',Laurasmappings)
 
 
-coranalysispar <- function(genename, dataset, nthreads = NULL) {
+coranalysispar <- function(genename, dataset,lag=0, nthreads = NULL) {
 
     library(foreach)  #Required for parallelism
     if (is.null(nthreads) == TRUE) {
@@ -33,6 +33,15 @@ coranalysispar <- function(genename, dataset, nthreads = NULL) {
         selectedmean.list[[count]] <- (mean(genesub$activity))
         count = count + 1
     }
+    
+    if (lag>0){
+        selectedmean.list<-tail(selectedmean.list, n=length(selectedmean.list)-lag)
+    }
+    
+    if (lag<0){
+        selectedmean.list<-head(selectedmean.list, n=length(selectedmean.list)-lag)
+    }
+    
 
     cl <- parallel::makeForkCluster(nthreads)  # Create cluster for parallelism
     doParallel::registerDoParallel(cl)
@@ -55,6 +64,12 @@ coranalysispar <- function(genename, dataset, nthreads = NULL) {
             compgenesub <- subset(selectedgenedf, timevector == j, select = activity)
             compmean.list[[count]] <- (mean(compgenesub$activity))
             count = count + 1
+        }
+        if (lag>0){
+            compmean.list<-tail(compmean.list, n=length(compmean.list)-lag)
+        }
+        if (lag<0){
+            compmean.list<-head(compmean.list, n=length(compmean.list)-lag)
         }
 
         correlation <- cor(selectedmean.list, compmean.list)
