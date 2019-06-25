@@ -9,11 +9,10 @@
 #' Laurasmappings_filtered <- combifilter(Laurasmappings, nthreads=4)
 
 combifilter <- function(dataset, non_zero_num = 4, threshold = 0.05, cutoff = 0.1, nthreads = NULL) {
-    
-    filterdf <- zerofilter(dataset=dataset,non_zero_num = non_zero_num ,nthreads=nthreads)  # Remove genes showing very little activity
-    invisible(gc())  # Garbage collection to return RAM to OS before next function
     filterdf <- anovafilter(dataset = filterdf, threshold = threshold, nthreads = nthreads)  # Filter via ANOVA
     invisible(gc())
+    filterdf <- zerofilter(dataset=dataset,non_zero_num = non_zero_num ,nthreads=nthreads)  # Remove genes showing very little activity
+    invisible(gc())  # Garbage collection to return RAM to OS before next function
     filterdf <- sizefilter(dataset=filterdf, cutoff = cutoff, nthreads = nthreads)  # Filter by removing genes with the smallest range
     invisible(gc())
     return(filterdf)
