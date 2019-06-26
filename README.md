@@ -23,8 +23,10 @@ Documentation is available for CircadianTools and all of its functions via the u
 
 # Full List Of Functions
 ### General Tools
-```basicplot```: Plots activity data as points and mean data as lines <br>
+```basicplot```: Plots activity data as points and average activity as lines <br>
 ```compplot```: Plots two genes from a gene activity dataset <br>
+```datasetplot```: Saves plots of all genes in a dataset. WARNING! Don't run on a large dataset! Intended for a filtered dataset <br>
+#' 
 
 ### Clustering
 ```clusteroverview```: Plots the mean and error bars for all clusters across time <br>
@@ -51,6 +53,8 @@ Documentation is available for CircadianTools and all of its functions via the u
 ```anovafilter```: Filters a gene activity dataframe via ANOVA. <br>
 ```combifilter```:  Filters a transcriptomics dataset by using ```zerofilter```, ```anovafilter``` and ```sizefilter```.<br>
 ```sizefilter```: Filters the genes with the smallest range from a transcriptomics dataset. <br>
+```tfilter```: Experimental! Applies a filter where a t.test is carried out on gene activity levels between time points. <br>
+
 ```zerofilter```: Filters a transcriptomics dataset such that there is a minimum number of non-zero activity readings for each gene. <br>
 ### RAIN Functions
 
@@ -70,6 +74,7 @@ Documentation is available for CircadianTools and all of its functions via the u
 ```maketimevector```: Produces a vector of time values for the gene activity readings. <br>
 ```geneclean```: Removes columns and rows which show no gene activity over time. <br>
 ```medlist```: Provides a dataframe of median values at each time point for each gene from a transcriptomics dataset. <br>
+```tanalysis```: Experimental! A t.test is carried out on gene activity levels between time points and the number of significant increases & decreases is returned. <br>
 
 
 

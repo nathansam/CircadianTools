@@ -2,8 +2,9 @@
 #'
 #' Allows analysis of rhythmic genes to be easily carried out on transcriptomics data using R. Designed to be as flexible as possible such as by allowing an unequal number of replicates. \cr \cr
 #' @section General Tools:
-#' \code{\link{basicplot}}: Plots activity data as points and mean data as lines. \cr \cr
+#' \code{\link{basicplot}}: Plots activity data as points and average activity as lines \cr \cr
 #' \code{\link{compplot}}: Plots two genes from a gene activity dataset. \cr \cr
+#' \code{\link{datasetplot}}: Saves plots of all genes in a dataset. WARNING! Don't run on a large dataset! Intended for a filtered dataset \cr \cr
 #' @section Clustering:
 #' \code{\link{clusteroverview}}: Plots the mean and error bars for all clusters across time. \cr \cr
 #' \code{\link{clusterplot}}: Plots the mean and error bars for the genes in a cluster across time. \cr \cr
@@ -23,6 +24,7 @@
 #' \code{\link{anovafilter}}: Filters a gene activity dataframe via ANOVA. \cr \cr
 #' \code{\link{combifilter}}: Filters a transcriptomics dataset by using \code{zerofilter}, \code{anovafilter} and \code{sizefilter}. \cr \cr
 #' \code{\link{sizefilter}}: Filters the genes with the smallest range from a transcriptomics dataset. \cr \cr
+#' \code{\link{tfilter}}: Experimental! Applies a filter where a t.test is carried out on gene activity levels between time points. \cr \cr
 #' \code{\link{zerofilter}}: Filters a transcriptomics dataset such that there is a minimum number of non-zero activity readings for each gene. \cr \cr
 #' @section RAIN Functions:
 #' \code{\link{rainanalysis}}: Carries out RAIN analysis on a gene dataset.  \cr \cr
@@ -36,6 +38,7 @@
 #' \code{\link{ggplot.cosinor.lm}}: Adapted from the Cosinor package by Michael Sachs. Given a cosinor.lm model fit, generate a plot of the data with the fitted values.\cr \cr
 #' \code{\link{maketimevector}}: Produces a vector of time values for the gene activity readings. \cr \cr
 #' \code{\link{medlist}}: Provides a dataframe of median values at each time point for each gene from a transcriptomics dataset. \cr \cr
+#' \code{\link{tanalysis}}: Experimental! A t.test is carried out on gene activity levels between time points and the number of significant increases & decreases is returned. \cr \cr
 #' @docType package
 #' @name CircadianTools
 NULL
