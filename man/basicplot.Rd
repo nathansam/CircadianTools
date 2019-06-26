@@ -4,7 +4,8 @@
 \alias{basicplot}
 \title{basicplot:}
 \usage{
-basicplot(genename, dataset, timelag = 0, save = FALSE, print = TRUE)
+basicplot(genename, dataset, timelag = 0, method = "median",
+  print = TRUE, save = FALSE, path = NULL)
 }
 \arguments{
 \item{genename}{The name of a gene intended for plotting. Must be a string.}
@@ -13,15 +14,19 @@ basicplot(genename, dataset, timelag = 0, save = FALSE, print = TRUE)
 
 \item{timelag}{Shifts the plot to earlier in time.}
 
-\item{save}{Logical. If TRUE, saves plot to working directory. Defaults to FALSE.}
+\item{method}{How should the average activity for each time point be calculated? "median" or "mean"}
 
 \item{print}{Logical. If TRUE renders plot in the plot viewer. Defaults to TRUE}
+
+\item{save}{Logical. If TRUE, saves plot to working directory. Defaults to FALSE.}
+
+\item{path}{The directory to be used for saving plots to. Uses the working directory by default. Not used if save=FALSE}
 }
 \value{
 Prints or saves ggplot2 object(s)
 }
 \description{
-Plots activity data as points and mean data as lines
+Plots activity data as points and average activity as lines
 }
 \examples{
 basicplot('comp101252_c0_seq2',LauraSingleMap)
