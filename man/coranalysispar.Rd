@@ -4,7 +4,8 @@
 \alias{coranalysispar}
 \title{coranalysispar:}
 \usage{
-coranalysispar(genename, dataset, lag = 0, nthreads = NULL)
+coranalysispar(genename, dataset, lag = 0, average = "median",
+  nthreads = NULL)
 }
 \arguments{
 \item{genename}{the name of a gene intended for comparison with all other genes in the dataset. Must be a string.}

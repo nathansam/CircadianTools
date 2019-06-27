@@ -9,7 +9,7 @@
 #' cor_results <- coranalysis('comp100002_c0_seq2',Laurasmappings)
 
 
-coranalysispar <- function(genename, dataset,lag=0, nthreads = NULL) {
+coranalysispar <- function(genename, dataset,lag=0,average="median" ,nthreads = NULL) {
 
     library(foreach)  #Required for parallelism
     if (is.null(nthreads) == TRUE) {
@@ -26,22 +26,23 @@ coranalysispar <- function(genename, dataset,lag=0, nthreads = NULL) {
     names(selectedgenedf) <- c("timevector", "activity")
 
 
-    selectedmean.list <- rep(0, length((unique(timevector))))
+    selectedaverage.list <- rep(0, length((unique(timevector))))
     count <- 1
     for (i in unique(timevector)) {
         genesub <- subset(selectedgenedf, timevector == i, select = activity)
-        selectedmean.list[[count]] <- (mean(genesub$activity))
+        if (average=="mean"){selectedaverage.list[[count]] <- (mean(genesub$activity))}
+        if (average=="median"){selectedaverage.list[[count]] <- (median(genesub$activity))}
         count = count + 1
     }
-    
+
     if (lag>0){
-        selectedmean.list<-tail(selectedmean.list, n=length(selectedmean.list)-lag)
+        selectedaverage.list<-tail(selectedaverage.list, n=length(selectedaverage.list)-lag)
     }
-    
+
     if (lag<0){
-        selectedmean.list<-head(selectedmean.list, n=length(selectedmean.list)-lag)
+        selectedaverage.list<-head(selectedaverage.list, n=length(selectedaverage.list)-lag)
     }
-    
+
 
     cl <- parallel::makeForkCluster(nthreads)  # Create cluster for parallelism
     doParallel::registerDoParallel(cl)
@@ -58,21 +59,22 @@ coranalysispar <- function(genename, dataset,lag=0, nthreads = NULL) {
         names(selectedgenedf) <- c("timevector", "activity")
 
 
-        compmean.list <- rep(0, length((unique(timevector))))
+        compaverage.list <- rep(0, length((unique(timevector))))
         count <- 1
         for (j in unique(timevector)) {
             compgenesub <- subset(selectedgenedf, timevector == j, select = activity)
-            compmean.list[[count]] <- (mean(compgenesub$activity))
+            if (average=="mean"){compaverage.list[[count]] <- (mean(compgenesub$activity))}
+            if (average=="median"){compaverage.list[[count]] <- (median(compgenesub$activity))}
             count = count + 1
         }
         if (lag>0){
-            compmean.list<-tail(compmean.list, n=length(compmean.list)-lag)
+            compaverage.list<-tail(compaverage.list, n=length(compaverage.list)-lag)
         }
         if (lag<0){
-            compmean.list<-head(compmean.list, n=length(compmean.list)-lag)
+            compaverage.list<-head(compaverage.list, n=length(compaverage.list)-lag)
         }
 
-        correlation <- cor(selectedmean.list, compmean.list)
+        correlation <- cor(selectedaverage.list, compaverage.list)
         data.frame(compgenename, correlation)
 
 

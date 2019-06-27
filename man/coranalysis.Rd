@@ -4,8 +4,8 @@
 \alias{coranalysis}
 \title{coranalysis:}
 \usage{
-coranalysis(genename, dataset, threshold = 0.9, lag = 0,
-  save = FALSE, print = TRUE, df = TRUE)
+coranalysis(genename, dataset, threshold = 0.9, average = "median",
+  lag = 0, save = FALSE, print = TRUE, df = TRUE)
 }
 \arguments{
 \item{genename}{the name of a gene intended for comparison with all other genes in the dataset. Must be a string.}
@@ -13,6 +13,8 @@ coranalysis(genename, dataset, threshold = 0.9, lag = 0,
 \item{dataset}{A transcriptomics dataset. First columns should be gene names. All other columns should be expression levels.}
 
 \item{threshold}{Set correlation threshold value for which genes are considered significant and thus plotted. Defaults to 0.9}
+
+\item{average}{The average to be used for comparing the time points. Either "median" or "mean".}
 
 \item{save}{Logical. If TRUE, saves plots to working directory. Defaults to FALSE.}
 

@@ -4,6 +4,7 @@
 #' @param dataset A transcriptomics dataset. First columns should be gene names. All other columns should be expression levels.
 #' @param genename the name of a gene intended for comparison with all other genes in the dataset. Must be a string.
 #' @param threshold Set correlation threshold value for which genes are considered significant and thus plotted. Defaults to 0.9
+#' @param average The average to be used for comparing the time points. Either "median" or "mean".
 #' @param save Logical. If TRUE, saves plots to working directory. Defaults to FALSE.
 #' @param print Logical. If TRUE renders highly correlated genes in the plot viewer. Defaults to TRUE
 #' @param df Logical. If TRUE a dataframe containing the correlations of the given gene with all genes in the dataset is returned. Defaults to TRUE.
@@ -12,7 +13,7 @@
 #' cor_results <- coranalysis(LauraSingleMap, 'comp100002_c0_seq2')
 
 
-coranalysis <- function(genename, dataset, threshold = 0.9,lag=0 ,save = FALSE, print = TRUE,
+coranalysis <- function(genename, dataset, threshold = 0.9, average="median", lag=0 ,save = FALSE, print = TRUE,
     df = TRUE) {
     dataset <- geneclean(dataset)  # Remove any rows which shows no gene activity
 
@@ -32,20 +33,21 @@ coranalysis <- function(genename, dataset, threshold = 0.9,lag=0 ,save = FALSE, 
     names(selectedgenedf) <- c("timevector", "activity")
 
 
-    selectedmean.list <- rep(0, length((unique(timevector))))
+    selectedaverage.list <- rep(0, length((unique(timevector))))
     count <- 1
     for (i in unique(timevector)) {
         genesub <- subset(selectedgenedf, timevector == i, select = activity)
-        selectedmean.list[[count]] <- (mean(genesub$activity))
+        if (average=="mean"){selectedaverage.list[[count]] <- (mean(genesub$activity))}
+        if (average=="median"){selectedaverage.list[[count]] <- (median(genesub$activity))}
         count = count + 1
     }
 
     if (lag>0){
-        selectedmean.list<-tail(selectedmean.list, n=length(selectedmean.list)-lag)
+        selectedaverage.list<-tail(selectedaverage.list, n=length(selectedaverage.list)-lag)
     }
 
     if (lag<0){
-        selectedmean.list<-head(selectedmean.list, n=length(selectedmean.list)-lag)
+        selectedaverage.list<-head(selectedaverage.list, n=length(selectedaverage.list)-lag)
     }
 
     for (i in 1:genenumber) {
@@ -62,23 +64,24 @@ coranalysis <- function(genename, dataset, threshold = 0.9,lag=0 ,save = FALSE, 
         names(selectedgenedf) <- c("timevector", "activity")
 
 
-        compmean.list <- rep(0, length((unique(timevector))))
+        compaverage.list <- rep(0, length((unique(timevector))))
         count <- 1
         for (j in unique(timevector)) {
             compgenesub <- subset(selectedgenedf, timevector == j, select = activity)
-            compmean.list[[count]] <- (mean(compgenesub$activity))
+            if (average=="mean"){compaverage.list[[count]] <- (mean(compgenesub$activity))}
+            if (average=="median"){compaverage.list[[count]] <- (median(compgenesub$activity))}
             count = count + 1
         }
 
         if (lag>0){
-            compmean.list<-tail(compmean.list, n=length(compmean.list)-lag)
+            compaverage.list<-tail(compaverage.list, n=length(compaverage.list)-lag)
         }
         if (lag<0){
-            compmean.list<-head(compmean.list, n=length(compmean.list)-lag)
+            compaverage.list<-head(compaverage.list, n=length(compaverage.list)-lag)
         }
 
 
-        correlation <- cor(selectedmean.list, compmean.list)
+        correlation <- cor(selectedaverage.list, compaverage.list)
         cor.df[i, 2] <- correlation
         if (save == TRUE || print == TRUE){
         if (correlation > threshold) {
