@@ -74,10 +74,10 @@ coranalysis <- function(genename, dataset, threshold = 0.9, average="median", la
         }
 
         if (lag>0){
-            compaverage.list<-tail(compaverage.list, n=length(compaverage.list)-lag)
+            compaverage.list<-head(compaverage.list, n=length(compaverage.list)-lag)
         }
         if (lag<0){
-            compaverage.list<-head(compaverage.list, n=length(compaverage.list)-lag)
+            compaverage.list<-tail(compaverage.list, n=length(compaverage.list)-lag)
         }
 
 

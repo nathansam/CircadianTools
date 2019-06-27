@@ -68,10 +68,10 @@ coranalysispar <- function(genename, dataset,lag=0,average="median" ,nthreads = 
             count = count + 1
         }
         if (lag>0){
-            compaverage.list<-tail(compaverage.list, n=length(compaverage.list)-lag)
+            compaverage.list<-head(compaverage.list, n=length(compaverage.list)-lag)
         }
         if (lag<0){
-            compaverage.list<-head(compaverage.list, n=length(compaverage.list)-lag)
+            compaverage.list<-tail(compaverage.list, n=length(compaverage.list)-lag)
         }
 
         correlation <- cor(selectedaverage.list, compaverage.list)
