@@ -27,7 +27,8 @@ Allows analysis of rhythmic genes to be easily carried out on transcriptomics da
 \section{Correlation}{
 
 \code{\link{coranalysis}}: Ranks correlation between a given gene and all other genes in a dataset. Plots both the given gene and highly correlated genes for a given correlation value. \cr \cr
-\code{\link{coranalysispar}}: Parallel Implementation of \code{coranalysis}. \cr \cr
+\code{\link{coranalysisdataset}}: Correlates every gene in a dataset with every other gene in the same dataset. Allows a timelag between genes to be correlated. \cr \cr
+ \code{\link{coranalysispar}}: Parallel Implementation of \code{coranalysis}. \cr \cr
 \code{\link{corsignificantplot}}: Prints or saves the genes found to be most significant by \code{cosinoranalysis}. \cr \cr
 }
 

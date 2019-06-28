@@ -38,6 +38,7 @@ Documentation is available for CircadianTools and all of its functions via the u
 ### Correlation
 
 ```coranalysis```: Ranks correlation between a given gene and all other genes in a dataset. Plots both the given gene and highly correlated genes for a given correlation value <br>
+```coranalysisdataset```: Correlates every gene in a dataset with every other gene in the same dataset. Allows a timelag between genes to be correlated. <br>
 ```coranalysispar```: Parallel Implementation of ```coranalysis``` <br>
 ```corsignificantplot```: Prints or saves the genes found to be most significant by ```coranalysis``` or ```coranalysispar``` <br>
 
