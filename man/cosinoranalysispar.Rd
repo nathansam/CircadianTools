@@ -30,4 +30,5 @@ Parallel Implementation of \link{cosinoranalysis}. Fits cosinor models to transc
 }
 \examples{
 cosinor_results <- cosinoranalysis(LauraSingleMap)
+
 }

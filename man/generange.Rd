@@ -16,4 +16,5 @@ Finds the range of gene activity for each gene in a dataframe. The median for th
 }
 \examples{
 rangedf <- generange(Laurasmappings, nthreads=4)
+
 }

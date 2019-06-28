@@ -17,4 +17,5 @@ Shows how many genes are in each cluster after clustering has been applied.
 }
 \examples{
 clusterstats<-clusterspread(clusterdf)
+
 }

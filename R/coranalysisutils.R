@@ -1,5 +1,6 @@
+#' @export
 activity_select <- function(ID, dataset) {
-    
+
     if (typeof(ID) == "character") {
         gene <- subset(dataset, dataset[1] == ID)
     } else {

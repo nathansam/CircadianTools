@@ -4,9 +4,12 @@
 #' @return A dataframe object. The first column is the cluster number. Second column is how many genes belong to that cluster.
 #' @examples
 #' clusterstats<-clusterspread(clusterdf)
+#'
+#' @export
+
 clusterspread <- function(cluster.dataset) {
     library(foreach)
-    clustersize.df <- foreach(i = unique(cluster.dataset$cluster), .combine = rbind) %do% 
+    clustersize.df <- foreach(i = unique(cluster.dataset$cluster), .combine = rbind) %do%
         {
             # Cluster by cluster
             cluster.subset <- subset(cluster.dataset, cluster == i)  # Find all genes in the ith cluster

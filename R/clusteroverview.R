@@ -9,8 +9,9 @@
 #' @return Prints or saves ggplot2 object(s).
 #' @examples
 #'
+#' @export
 
-clusteroverview <- function(cluster.dataset, nthreads = NULL, print = TRUE, save = FALSE, 
+clusteroverview <- function(cluster.dataset, nthreads = NULL, print = TRUE, save = FALSE,
     path = "cluster_overview") {
     if (save == TRUE) {
         if (dir.exists(path) == FALSE) {
@@ -19,9 +20,9 @@ clusteroverview <- function(cluster.dataset, nthreads = NULL, print = TRUE, save
             dir.create(path)
         }
     }
-    
+
     for (i in unique(cluster.dataset$cluster)) {
-        plot <- clusterplot(clusterno = i, cluster.dataset, nthreads = nthreads, 
+        plot <- clusterplot(clusterno = i, cluster.dataset, nthreads = nthreads,
             print = print, save = save, path = path)
         if (print == TRUE) {
             print(plot)

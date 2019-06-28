@@ -17,4 +17,5 @@ Produces a vector of time values for the gene activity readings.
 }
 \examples{
 maketimevector(LauraSingleMap)
+
 }

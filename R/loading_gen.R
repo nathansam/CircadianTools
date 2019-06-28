@@ -1,3 +1,4 @@
+#' @export
 loading_gen <- function(genenumber) {
     loading_values <- rep(0, 20)
     for (i in 1:20) {

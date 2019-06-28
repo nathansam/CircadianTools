@@ -26,4 +26,5 @@ Fits a cosinor model to a given gene in a given dataset and plots the model
 }
 \examples{
 cosinorplot('comp100000_c0_seq2', LauraSingleMap )
+
 }

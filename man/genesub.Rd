@@ -18,4 +18,5 @@ Takes an object where the first column is genenames (IE a column of known Circad
 }
 \examples{
 newdf <- genesub(circadian, Laurasmappings, nthreads=4)
+
 }

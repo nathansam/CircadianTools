@@ -5,6 +5,8 @@
 #' @return A vector of time values for the genes
 #' @examples
 #' maketimevector(LauraSingleMap)
+#'
+#' @export
 
 maketimevector <- function(dataset) {
     columnnames <- colnames(dataset)

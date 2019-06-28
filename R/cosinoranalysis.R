@@ -12,6 +12,8 @@
 #' @return Prints or saves ggplot2 object(s). Optionally returns dataframe containing gene name and p values from F-test ranking of cosinor models
 #' @examples
 #' cosinor_results <- cosinoranalysis(LauraSingleMap)
+#'
+#' @export
 
 
 cosinoranalysis <- function(dataset, period = 24, timelag = 6, threshold = 0.05, adj = "bonferroni",

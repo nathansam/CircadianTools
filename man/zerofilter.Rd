@@ -18,4 +18,5 @@ Filters a transcriptomics dataset such that there is a minimum number of non-zer
 }
 \examples{
 Laurasmappings_filtered <- zerofilter(Laurasmappings, nthreads=4)
+
 }

@@ -26,4 +26,5 @@ Experimental! Applies a filter where a t.test is carried out on gene activity le
 }
 \examples{
 filterdf <- tfilter(Laurasmappings)
+
 }

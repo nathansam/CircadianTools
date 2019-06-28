@@ -7,6 +7,8 @@
 #' @param nthreads Number of processor threads for the filtering. If not specifed then the maximum number of logical cores are used.
 #' @examples
 #' Laurasmappings_filtered <- combifilter(Laurasmappings, nthreads=4)
+#'
+#' @export
 
 combifilter <- function(dataset, non_zero_num = 4, threshold = 0.05, cutoff = 0.1, nthreads = NULL) {
     filterdf <- anovafilter(dataset = dataset, threshold = threshold, nthreads = nthreads)  # Filter via ANOVA

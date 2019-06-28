@@ -5,6 +5,8 @@
 #' @param threshold Set the p-value threshold for the filtering
 #' @examples
 #' Laurasmappings_filtered <- anovafilter(Laurasmappings, nthreads=4)
+#'
+#' @export
 
 anovafilter <- function(dataset, threshold = 0.05, nthreads = NULL) {
     library(foreach)  #Required for parallelism

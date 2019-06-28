@@ -10,6 +10,8 @@
 #' @examples
 #' results <- rainanalysis(Laurasmappings)
 #' rainsignificantplot(results,Laurasmappings, save=TRUE, number=15)
+#'
+#' @export
 rainsignificantplot <- function(results, dataset, number = 10, print = TRUE, save = FALSE) {
     results <- results[order(results$pVal), ]  # Order by most significant p-value
 

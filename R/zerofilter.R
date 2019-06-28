@@ -5,6 +5,8 @@
 #' @param nthreads Number of processor threads for the filtering. If not specifed then the maximum number of logical cores are used.
 #' @examples
 #' Laurasmappings_filtered <- zerofilter(Laurasmappings, nthreads=4)
+#'
+#' @export
 
 zerofilter <- function(dataset, non_zero_num = 4, nthreads = NULL) {
     dataset <- CircadianTools::geneclean(dataset)
@@ -12,7 +14,7 @@ zerofilter <- function(dataset, non_zero_num = 4, nthreads = NULL) {
     if (is.null(nthreads) == TRUE) {
         nthreads <- parallel::detectCores()  # Set the threads to maximum if none is specified
     }
-    
+
     genenumber <- nrow(dataset)
     timevector <- maketimevector(dataset)
     cl <- parallel::makeForkCluster(nthreads)  # Create cluster for parallelism

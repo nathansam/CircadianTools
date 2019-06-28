@@ -12,6 +12,8 @@
 #' @examples
 #' subdf<-tfilter(Laurasmappings)
 #' coranalysisdataset <- coranalysis(subdf, lag=1,filename="cor_tfiltered")
+#'
+#' @export
 coranalysisdataset<-function(dataset, average="median",lag=0, par=TRUE, nthreads=NULL, save=TRUE, filename=NULL){
 
 if (is.null(filename)==TRUE){

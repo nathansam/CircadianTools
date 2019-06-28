@@ -9,6 +9,8 @@
 #' @return Returns dataframe containing gene names and correlation values
 #' @examples
 #' cor_results <- coranalysis('comp100002_c0_seq2',Laurasmappings)
+#'
+#' @export
 
 
 coranalysispar <- function(genename, dataset,lag=0,average="median" ,nthreads = NULL) {

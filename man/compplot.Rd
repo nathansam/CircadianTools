@@ -23,4 +23,5 @@ Plots two genes from a gene activity dataset
 }
 \examples{
 cor_results <- coranalysis(LauraSingleMap, 'comp100002_c0_seq2')
+
 }

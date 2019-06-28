@@ -4,6 +4,8 @@
 #' @param nthreads Number of processor threads for the filtering. If not specifed then the maximum number of logical cores are used.
 #' @examples
 #' mediandf <- medlist(Laurasmappings, nthreads=4)
+#'
+#' @export
 
 medlist <- function(dataset, nthreads = NULL) {
 

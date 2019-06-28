@@ -5,6 +5,8 @@
 #' @param method How should the average activity for each time point be calculated? "median" or "mean"
 #' @param nthreads Number of processor threads to be used for calculating the distance matrix. If not specifed then the maximum number of logical cores are used.
 #' @param path The directory to be used for saving plots to. Uses the working directory by default. Not used if save=FALSE
+#'
+#' @export
 
 datasetplot <- function(dataset, timelag = 0,method="median", nthreads = NULL, path = "datasetplot") {
 

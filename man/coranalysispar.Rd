@@ -26,4 +26,5 @@ Parallel Implementation of \link{coranalysis}. Ranks correlation between a given
 }
 \examples{
 cor_results <- coranalysis('comp100002_c0_seq2',Laurasmappings)
+
 }

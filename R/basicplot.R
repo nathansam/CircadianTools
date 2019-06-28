@@ -7,10 +7,11 @@
 #' @param save Logical. If TRUE, saves plot to working directory. Defaults to FALSE.
 #' @param print Logical. If TRUE renders plot in the plot viewer. Defaults to TRUE
 #' @param path The directory to be used for saving plots to. Uses the working directory by default. Not used if save=FALSE
-
 #' @return Prints or saves ggplot2 object(s)
 #' @examples
 #' basicplot('comp101252_c0_seq2',LauraSingleMap)
+#'
+#' @export
 
 basicplot <- function(genename, dataset, timelag = 0, method="median", print = TRUE, save=FALSE, path=NULL) {
     if (save == TRUE){

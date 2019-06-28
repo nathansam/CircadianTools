@@ -12,6 +12,8 @@
 #' @return Prints or saves ggplot2 object(s). Optionally returns dataframe containing gene names and correlation values
 #' @examples
 #' cor_results <- coranalysis(LauraSingleMap, 'comp100002_c0_seq2')
+#'
+#' @export
 
 
 coranalysis <- function(genename, dataset, threshold = 0.9, average="median", lag=0 ,save = FALSE, print = TRUE,

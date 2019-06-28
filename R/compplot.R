@@ -10,6 +10,8 @@
 #' @return Returns or saves ggplot2 object(s).
 #' @examples
 #' cor_results <- coranalysis(LauraSingleMap, 'comp100002_c0_seq2')
+#'
+#' @export
 
 compplot <- function(gene1, gene2, dataset, save = FALSE) {
     timevector <- maketimevector(dataset)

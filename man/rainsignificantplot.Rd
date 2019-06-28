@@ -27,4 +27,5 @@ Prints or saves the genes found to be most significant by \link{rainanalysis}
 \examples{
 results <- rainanalysis(Laurasmappings)
 rainsignificantplot(results,Laurasmappings, save=TRUE, number=15)
+
 }

@@ -11,6 +11,8 @@
 #' @examples
 #' cor_results <- coranalysis('comp100002_c0_seq2',Laurasmappings)
 #' corsignificantplot(cor_results, Laurasmappings, number = 15,save=TRUE, negative=FALSE)
+#'
+#' @export
 corsignificantplot <- function(results, dataset, number = 10, print = TRUE, save = FALSE,
     negative = FALSE) {
     results <- results[order(results$correlation, decreasing = TRUE), ]  # Order by most positive correlation

@@ -17,4 +17,5 @@ Carries out RAIN analysis on a gene dataset
 }
 \examples{
 results <- rainanalysis(Laurasmappings)
+
 }

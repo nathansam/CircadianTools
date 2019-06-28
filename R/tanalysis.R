@@ -6,6 +6,8 @@
 #' @return The number of signficant increases and decreases as a vector
 #' @examples
 #' ups.downs <- tanalysis(row.no = 1, dataset = Laurasmappings,  psignificance = 0.01)
+#'
+#' @export
 
 tanalysis <- function(row.no, dataset, psignificance = 0.05) {
     timevector <- CircadianTools::maketimevector(dataset)  # vector of timevalues

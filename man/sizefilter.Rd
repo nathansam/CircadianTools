@@ -18,4 +18,5 @@ Filters the genes with the smallest range from a transcriptomics dataset
 }
 \examples{
 rangedf <- sizefilter(Laurasmappings, nthreads=4)
+
 }

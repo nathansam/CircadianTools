@@ -9,6 +9,8 @@
 #' @return Returns a filtered transcriptomics dataset
 #' @examples
 #' filterdf <- tfilter(Laurasmappings)
+#'
+#' @export
 
 tfilter <- function(dataset, maxdifference = 1, minchanges = 2, psignificance = 0.05, nthreads = NULL) {
     library(foreach)

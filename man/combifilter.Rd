@@ -23,4 +23,5 @@ Filters a transcriptomics dataset by using zerofilter, anovafilter and sizefilte
 }
 \examples{
 Laurasmappings_filtered <- combifilter(Laurasmappings, nthreads=4)
+
 }

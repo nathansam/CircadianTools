@@ -11,6 +11,8 @@
 #' @examples
 #' cosinor_results <- cosinoranalysis(Laurasmappings)
 #' cosinorsignificantplot(cosinor_results, Laurasmappings, number = 15, period=24 ,save=TRUE)
+#'
+#' @export
 cosinorsignificantplot <- function(results, dataset, number = 10, period = 24, print = TRUE,
     save = FALSE) {
     results <- results[order(results$pVal), ]  # Order by most significant p-value

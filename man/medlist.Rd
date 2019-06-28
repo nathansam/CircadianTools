@@ -16,4 +16,5 @@ Provides a dataframe of median values at each time point for each gene from a tr
 }
 \examples{
 mediandf <- medlist(Laurasmappings, nthreads=4)
+
 }

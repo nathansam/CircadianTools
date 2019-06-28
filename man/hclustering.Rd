@@ -28,4 +28,5 @@ Applies hierarchical clustering, clustering to a transcriptomics dataset and app
 }
 \examples{
 pam.df <- pamclustering(Laurasmappings,20)
+
 }

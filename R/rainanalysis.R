@@ -4,6 +4,8 @@
 #' @return A dataframe object detailing the result of the rain analysis.
 #' @examples
 #' results <- rainanalysis(Laurasmappings)
+#'
+#' @export
 
 rainanalysis <- function(dataset,period) {
     dataset <- geneclean(dataset)

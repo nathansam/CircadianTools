@@ -31,4 +31,5 @@ Correlates every gene in a dataset with every other gene in the same dataset. Al
 \examples{
 subdf<-tfilter(Laurasmappings)
 coranalysisdataset <- coranalysis(subdf, lag=1,filename="cor_tfiltered")
+
 }

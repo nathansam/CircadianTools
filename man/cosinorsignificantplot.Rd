@@ -29,4 +29,5 @@ Prints or saves the genes found to be most significant by \link{cosinoranalysis}
 \examples{
 cosinor_results <- cosinoranalysis(Laurasmappings)
 cosinorsignificantplot(cosinor_results, Laurasmappings, number = 15, period=24 ,save=TRUE)
+
 }

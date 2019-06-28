@@ -29,4 +29,5 @@ Prints or saves the genes found to be most significant by \link{coranalysis} or 
 \examples{
 cor_results <- coranalysis('comp100002_c0_seq2',Laurasmappings)
 corsignificantplot(cor_results, Laurasmappings, number = 15,save=TRUE, negative=FALSE)
+
 }

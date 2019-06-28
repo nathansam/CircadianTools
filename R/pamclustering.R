@@ -10,6 +10,7 @@
 #' @return Returns transcriptomics dataset provided with additional cluster column appended denoted which cluster each gene belongs to.
 #' @examples
 #' pam.df <- pamclustering(Laurasmappings,20)
+#' @export
 
 pamclustering <- function(dataset, k, metric = "euclidean", nthreads = NULL, scale = FALSE, center = TRUE) {
 
@@ -20,7 +21,8 @@ pamclustering <- function(dataset, k, metric = "euclidean", nthreads = NULL, sca
 
     dataset.scaled <- dataset
     dataset.scaled[-1] <- scale(dataset.scaled[-1], scale = scale, center = center)  # Scale and center the activity data if TRUE
-    distance <- parallelDist::parDist(as.matrix(dataset.scaled[-1]), method = metric, threads = nthreads)  #Calculate the distance matrix
+    medians.dataset <- CircadianTools::medlist(dataset.scaled, nthreads=nthreads) # Calculate the medians at each timepoint
+    distance <- parallelDist::parDist(as.matrix(medians.dataset[-1]), method = metric, threads = nthreads)  #Calculate the distance matrix
     fit <- cluster::pam(distance, k = k)  # Run the clustering proces
     dataset.scaled$cluster <- fit$cluster  # Append the cluster column to the dataset
     return(dataset.scaled)

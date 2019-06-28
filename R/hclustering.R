@@ -10,6 +10,8 @@
 #' @return Returns transcriptomics dataset provided with additional cluster column appended denoted which cluster each gene belongs to.
 #' @examples
 #' pam.df <- pamclustering(Laurasmappings,20)
+#'
+#' @export
 hclustering <- function(dataset, k = 10, metric = "euclidean", nthreads = NULL, scale = FALSE, center = TRUE) {
 
     if (is.null(nthreads) == TRUE) {
@@ -17,11 +19,12 @@ hclustering <- function(dataset, k = 10, metric = "euclidean", nthreads = NULL, 
         nthreads <- parallel::detectCores()
     }
 
-    dataset.scaled <- dataset
-    dataset.scaled[-1] <- scale(dataset.scaled[-1], scale = scale, center = center)  # Scale and center the activity data if TRUE
-    distance <- parallelDist::parDist(as.matrix(dataset.scaled[-1]), method = metric, threads = nthreads)  #Calculate the distance matrix
+      # Scale and center the activity data if TRUE
+    medians.dataset <- CircadianTools::medlist(dataset, nthreads=nthreads) # Calculate the medians at each timepoint
+    medians.dataset[-1] <- scale(medians.dataset[-1], scale = scale, center = center) # Scale/center the data
+    distance <- parallelDist::parDist(as.matrix(medians.dataset[-1]), method = metric, threads = nthreads)  #Calculate the distance matrix
     fit <- hclust(distance)  # Run the clustering process
     clusters <- dendextend::cutree(fit, k = k)  # Cut the dendogram such that there are k clusters
-    dataset.scaled$cluster <- clusters  # Append the cluster column to the dataset
-    return(dataset.scaled)
+    dataset$cluster <- clusters  # Append the cluster column to the dataset
+    return(dataset)
 }

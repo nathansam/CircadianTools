@@ -9,6 +9,8 @@
 #' @return Prints or saves ggplot2 object(s)
 #' @examples
 #' cosinorplot('comp100000_c0_seq2', LauraSingleMap )
+#'
+#' @export
 
 
 cosinorplot <- function(genename, dataset, timelag = 6, period = 24, print = TRUE, save = FALSE) {

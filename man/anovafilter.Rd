@@ -18,4 +18,5 @@ Filters a gene activity dataframe via ANOVA
 }
 \examples{
 Laurasmappings_filtered <- anovafilter(Laurasmappings, nthreads=4)
+
 }

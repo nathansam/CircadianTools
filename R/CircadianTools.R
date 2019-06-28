@@ -42,4 +42,5 @@
 #' \code{\link{tanalysis}}: Experimental! A t.test is carried out on gene activity levels between time points and the number of significant increases & decreases is returned. \cr \cr
 #' @docType package
 #' @name CircadianTools
+
 NULL

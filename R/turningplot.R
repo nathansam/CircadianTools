@@ -8,6 +8,8 @@
 #' @return Prints or saves ggplot2 object(s)
 #' @examples
 #' turningplot('comp100000_c0_seq2',LauraSingleMap)
+#'
+#' @export
 
 
 turningplot <- function(genename, dataset, timelag = 0, print = TRUE, save = FALSE) {

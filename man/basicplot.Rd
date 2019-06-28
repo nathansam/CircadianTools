@@ -30,4 +30,5 @@ Plots activity data as points and average activity as lines
 }
 \examples{
 basicplot('comp101252_c0_seq2',LauraSingleMap)
+
 }

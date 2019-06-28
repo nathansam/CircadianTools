@@ -4,6 +4,8 @@
 #' @return A 'cleaned' transcriptomics dataset
 #' @examples
 #' geneclean(LauraSingleMap)
+#'
+#' @export
 
 
 geneclean <- function(dataset) {

@@ -21,4 +21,5 @@ Experimental! A t.test is carried out on gene activity levels between time point
 }
 \examples{
 ups.downs <- tanalysis(row.no = 1, dataset = Laurasmappings,  psignificance = 0.01)
+
 }

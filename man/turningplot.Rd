@@ -26,4 +26,5 @@ Fits a spline to a given gene in a given dataset. Finds the turning points. Plot
 }
 \examples{
 turningplot('comp100000_c0_seq2',LauraSingleMap)
+
 }

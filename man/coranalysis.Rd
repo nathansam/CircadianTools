@@ -32,4 +32,5 @@ Ranks correlation between a given gene and all other genes in a dataset. Plots b
 }
 \examples{
 cor_results <- coranalysis(LauraSingleMap, 'comp100002_c0_seq2')
+
 }
