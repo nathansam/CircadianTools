@@ -4,6 +4,7 @@
 #' @param dataset A transcriptomics dataset. First columns should be gene names. All other columns should be expression levels.
 #' @param genename the name of a gene intended for comparison with all other genes in the dataset. Must be a string.
 #' @param threshold Set correlation threshold value for which genes are considered significant and thus plotted. Defaults to 0.9
+#' @param lag Setting any value other than 0 allows a gene to be correlated with lagged genes in the dataset. The number denotes the number of timesteps to lag by.
 #' @param average The average to be used for comparing the time points. Either "median" or "mean".
 #' @param save Logical. If TRUE, saves plots to working directory. Defaults to FALSE.
 #' @param print Logical. If TRUE renders highly correlated genes in the plot viewer. Defaults to TRUE

@@ -3,6 +3,8 @@
 #'
 #' @param dataset A transcriptomics dataset. First columns should be gene names. All other columns should be expression levels.
 #' @param genename the name of a gene intended for comparison with all other genes in the dataset. Must be a string.
+#' @param lag Setting any value other than 0 allows a gene to be correlated with lagged genes in the dataset. The number denotes the number of timesteps to lag by.
+#' @param average The average to be used for comparing the time points. Either "median" or "mean".
 #' @param nthreads Number of processor threads for the process. If not specifed then the maximum number of logical cores are used.
 #' @return Returns dataframe containing gene names and correlation values
 #' @examples
