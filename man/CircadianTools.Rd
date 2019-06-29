@@ -20,6 +20,7 @@ Allows analysis of rhythmic genes to be easily carried out on transcriptomics da
 \code{\link{clusteroverview}}: Plots the mean and error bars for all clusters across time. \cr \cr
 \code{\link{clusterplot}}: Plots the mean and error bars for the genes in a cluster across time. \cr \cr
 \code{\link{clusterspread}}: Shows how many genes are in each cluster after clustering has been applied. \cr \cr
+\code{\link{clustertimeprofile}}: Provides a dataframe of median values at each time point for each cluster. \cr \cr
 \code{\link{hclustering}}: Applies hierarchical clustering, clustering to a transcriptomics dataset and appends a cluster column to this dataset for all genes. \cr \cr
 \code{\link{pamclustering}}: Applies PAM (Partitioning around Medoids) clustering to a transcriptomics dataset and appends a cluster column to this dataset for all genes. \cr \cr
 }
@@ -27,8 +28,10 @@ Allows analysis of rhythmic genes to be easily carried out on transcriptomics da
 \section{Correlation}{
 
 \code{\link{coranalysis}}: Ranks correlation between a given gene and all other genes in a dataset. Plots both the given gene and highly correlated genes for a given correlation value. \cr \cr
+\code{\link{coranalysiscluster}}: Correlates the average activity of a cluster with the average activity of every other cluster. \cr \cr
 \code{\link{coranalysisdataset}}: Correlates every gene in a dataset with every other gene in the same dataset. Allows a timelag between genes to be correlated. \cr \cr
- \code{\link{coranalysispar}}: Parallel Implementation of \code{coranalysis}. \cr \cr
+\code{\link{coranalysisclusterdataset}}: Correlates the average activity of each cluster with every other cluster in a dataset. \cr \cr
+\code{\link{coranalysispar}}: Parallel Implementation of \code{coranalysis}. \cr \cr
 \code{\link{corsignificantplot}}: Prints or saves the genes found to be most significant by \code{cosinoranalysis}. \cr \cr
 }
 

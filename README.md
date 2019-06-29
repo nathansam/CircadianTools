@@ -32,6 +32,7 @@ Documentation is available for CircadianTools and all of its functions via the u
 ```clusteroverview```: Plots the mean and error bars for all clusters across time <br>
 ```clusterplot```: Plots the mean and error bars for the genes in a cluster across time <br>
 ```clusterspread```: Shows how many genes are in each cluster after clustering has been applied. <br>
+```clustertimeprofile```: Provides a dataframe of median values at each time point for each cluster. <br>
 ```hclustering```: Applies hierarchical clustering, clustering to a transcriptomics dataset and appends a cluster column to this dataset for all genes. <br>
 ```pamclustering```: Applies PAM (Partitioning around Medoids) clustering to a transcriptomics dataset and appends a cluster column to this dataset for all genes. <br>
 
@@ -39,6 +40,8 @@ Documentation is available for CircadianTools and all of its functions via the u
 
 ```coranalysis```: Ranks correlation between a given gene and all other genes in a dataset. Plots both the given gene and highly correlated genes for a given correlation value <br>
 ```coranalysisdataset```: Correlates every gene in a dataset with every other gene in the same dataset. Allows a timelag between genes to be correlated. <br>
+```coranalysiscluster```: Correlates the average activity of a cluster with the average activity of every other cluster. <br>
+```coranalysisclusterdataset```: Correlates the average activity of each cluster with every other cluster in a dataset. <br>
 ```coranalysispar```: Parallel Implementation of ```coranalysis``` <br>
 ```corsignificantplot```: Prints or saves the genes found to be most significant by ```coranalysis``` or ```coranalysispar``` <br>
 

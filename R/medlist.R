@@ -34,10 +34,11 @@ medlist <- function(dataset, nthreads = NULL) {
             genesubset <- subset(activity.df, timevector == j)  # Populate the median list
             med.list <- c(med.list, median(genesubset$activity))
         }
-        med.list
+        t(data.frame(med.list))
 
     }
     parallel::stopCluster(cl)
-    medlistdf <- data.frame(medlistdf)
+    colnames(medlistdf)<-unique(timevector) # Columns of the returned dataframe is the time point
+    rownames(medlistdf)<-dataset[,1] #Row name is gene name
     return(medlistdf)
 }
