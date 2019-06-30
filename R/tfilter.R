@@ -14,6 +14,7 @@
 
 tfilter <- function(dataset, maxdifference = 1, minchanges = 2, psignificance = 0.05, nthreads = NULL) {
     library(foreach)
+
     if (is.null(nthreads) == TRUE) {
         # Set the threads to maximum if none is specified
         nthreads <- parallel::detectCores()
@@ -21,6 +22,8 @@ tfilter <- function(dataset, maxdifference = 1, minchanges = 2, psignificance = 
 
     cl <- parallel::makeForkCluster(nthreads)  # Create cluster for parallelism
     doParallel::registerDoParallel(cl)
+
+    dataset[-1]<-scale(dataset[-1], scale=FALSE, center = TRUE)
 
     filterdf <- foreach(i = 1:nrow(dataset), .combine = rbind) %dopar% {
         ups.downs <- tanalysis(row.no = i, dataset = dataset, psignificance = psignificance)
