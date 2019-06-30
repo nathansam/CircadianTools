@@ -20,24 +20,24 @@ clusterplot <- function(clusterno, cluster.dataset, nthreads = NULL, print = TRU
 
     unique.time.vector <- unique(maketimevector(subdf))  # Get the time values
     subdfmedians <- medlist(subdf, nthreads = nthreads)  # Generates the median at each time point for each gene
-    if (ncol(subdfmedians) != 1) {
+
+    if (nrow(subdfmedians) != 1) {
         single.gene.cluster = FALSE  # Set logical flag for there being more than one gene in the cluster (Error bars and standard deviation is required)
-        subdfmedians <- t(subdfmedians)  # Transpose so that each column represents a gene and each row represents a time point
-    } else {
+        } else {
         single.gene.cluster = TRUE  # Set logical flag for there being 1 gene in the cluster (Error bars and standard deviation is not required)
     }
 
-    graphdf <- foreach(i = 1:nrow(subdfmedians), .combine = rbind) %do% {
+    graphdf <- foreach(i = 1:ncol(subdfmedians), .combine = rbind) %do% {
 
-        row <- subdfmedians[i, ]  # Select all values per row (per timepoint)
-        meanval <- mean(row)  # Calculate the mean value for this timepoint
+        column <- subdfmedians[,i ]  # Select all values per column (per timepoint)
+        meanval <- mean(column)  # Calculate the mean value for this timepoint
         time <- unique.time.vector[i]  # Find the actual value of time for this timepoint
 
         if (single.gene.cluster == TRUE) {
             data.frame(time, meanval)  # Store just the time value and mean if only one gene
         } else {
             # If more than one gene in the cluster
-            sdval <- sd(row)  # Calculate the standard deviation for this time point
+            sdval <- sd(column)  # Calculate the standard deviation for this time point
             data.frame(time, meanval, sdval)  # Store time value, mean and standard deviation
         }
     }
