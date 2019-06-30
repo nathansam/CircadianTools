@@ -5,7 +5,7 @@
 \title{datasetplot:}
 \usage{
 datasetplot(dataset, timelag = 0, method = "median", nthreads = NULL,
-  path = "datasetplot")
+  path = NULL)
 }
 \arguments{
 \item{dataset}{A transcriptomics dataset. First columns should be gene names. All other columns should be expression levels.}
@@ -16,7 +16,7 @@ datasetplot(dataset, timelag = 0, method = "median", nthreads = NULL,
 
 \item{nthreads}{Number of processor threads to be used for calculating the distance matrix. If not specifed then the maximum number of logical cores are used.}
 
-\item{path}{The directory to be used for saving plots to. Uses the working directory by default. Not used if save=FALSE}
+\item{path}{The directory to be used for saving plots to. Uses the working directory by default and uses the name of the dataset object if this argument is nots specified)  Not used if save=FALSE}
 }
 \description{
 Saves plots of all genes in a dataset. WARNING! Don't run on a large dataset! Intended for a filtered dataset
