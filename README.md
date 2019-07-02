@@ -74,6 +74,7 @@ Documentation is available for CircadianTools and all of its functions via the u
 
 ```ggplot.cosinor.lm```: Adapted from the Cosinor package by Michael Sachs. Given a cosinor.lm model fit, generate a plot of the data with the fitted values. <br>
 ```generange```: Finds the range of gene activity for each gene in a dataframe. The median for the replicates is used for each time point. <br>
+```genescale```: Centers/scales every gene in a transcriptomics dataset. <br>
 ```genesub```: Takes an object where the first column is genenames (IE a column of known Circadian genes) and subsets from a dataset containing activity for these genes. <br>
 ```maketimevector```: Produces a vector of time values for the gene activity readings. <br>
 ```geneclean```: Removes columns and rows which show no gene activity over time. <br>
