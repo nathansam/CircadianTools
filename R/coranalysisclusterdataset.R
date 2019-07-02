@@ -24,7 +24,7 @@ coranalysisclusterdataset<-function(cluster.dataset, lag=0, nthreads=NULL, save=
 
   correlationdf<-foreach(i=1:length(clusters), .combine=cbind) %do% {
     loading_print(iteration=i, loading.values) # print progress if surpassed a significant milestone
-    temp.df<-coranalysiscluster(i,cluster.dataset, nthreads=nthreads)
+    temp.df<-coranalysiscluster(i,cluster.dataset, lag=lag,nthreads=nthreads)
     temp.df[,2]
   }
 
