@@ -3,7 +3,7 @@
 #' @param dataset A transcriptomics dataset. First columns should be gene names. All other columns should be expression levels.
 #' @return A 'cleaned' transcriptomics dataset
 #' @examples
-#' geneclean(LauraSingleMap)
+#' cleaned.df<-geneclean(Laurasmappings)
 #'
 #' @export
 

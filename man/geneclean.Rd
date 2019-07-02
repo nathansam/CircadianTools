@@ -16,6 +16,6 @@ A 'cleaned' transcriptomics dataset
 Removes columns and rows which show no gene activity over time
 }
 \examples{
-geneclean(LauraSingleMap)
+cleaned.df<-geneclean(Laurasmappings)
 
 }
