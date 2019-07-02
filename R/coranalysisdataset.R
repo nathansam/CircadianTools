@@ -39,7 +39,7 @@ if (is.null(filename)==TRUE){
   rownames(correlationdf)<-genenames # Give the columns the genenames
   colnames(correlationdf)<-genenames # Give the rows the genenames
   if (save==TRUE){
-    write.csv(correlationdf, paste(filename,".csv")) # Write as a csv file if save=TRUE
+    write.csv(correlationdf, paste(filename,".csv", sep = "")) # Write as a csv file if save=TRUE
   }
   return(correlationdf) # Return the correlation dataframe.
 }

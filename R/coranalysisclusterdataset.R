@@ -32,7 +32,7 @@ coranalysisclusterdataset<-function(cluster.dataset, lag=0, nthreads=NULL, save=
   colnames(correlationdf)<-clusters # Give the rows the genenames
 
   if (save==TRUE){
-    write.csv(correlationdf, paste(filename,".csv")) # Write as a csv file if save=TRUE
+    write.csv(correlationdf, paste(filename,".csv", sep = "")) # Write as a csv file if save=TRUE
   }
 
   return(correlationdf)
