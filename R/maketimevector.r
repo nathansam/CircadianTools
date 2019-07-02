@@ -4,7 +4,7 @@
 #' @param dataset A transcriptomics dataset. First columns should be gene names. All other columns should be expression levels.
 #' @return A vector of time values for the genes
 #' @examples
-#' maketimevector(LauraSingleMap)
+#' maketimevector(Laurasmappings)
 #'
 #' @export
 

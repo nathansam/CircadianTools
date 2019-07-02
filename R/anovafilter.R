@@ -10,19 +10,19 @@
 
 anovafilter <- function(dataset, threshold = 0.05, nthreads = NULL) {
     library(foreach)  #Required for parallelism
-
+    
     if (is.null(nthreads) == TRUE) {
         # Set the threads to maximum if none is specified
         nthreads <- parallel::detectCores()
     }
-
-    dataset <- geneclean(dataset)  # Remove genes with no activity
-    genenumber <- nrow(dataset) # Number of genes in the dataset
-    timevector <- maketimevector(dataset) # List of time values (repeated for replicates)
-
+    
+    dataset <- CircadianTools::geneclean(dataset)  # Remove genes with no activity
+    genenumber <- nrow(dataset)  # Number of genes in the dataset
+    timevector <- CircadianTools::maketimevector(dataset)  # List of time values (repeated for replicates)
+    
     cl <- parallel::makeForkCluster(nthreads)  # Create cluster for parallelism
-    doParallel::registerDoParallel(cl) # Register cluster
-
+    doParallel::registerDoParallel(cl)  # Register cluster
+    
     filterdf <- foreach(i = 1:genenumber, .combine = rbind) %dopar% {
         # Parallel for loop to create dataframe of significant genes
         gene <- dplyr::filter(dataset, dplyr::row_number() == i)  # Get gene by row
@@ -34,8 +34,8 @@ anovafilter <- function(dataset, threshold = 0.05, nthreads = NULL) {
         }
     }
     parallel::stopCluster(cl)
-
+    
     rownames(filterdf) <- seq(1, nrow(filterdf))  #Rebuild the row names
-
+    
     return(filterdf)
 }

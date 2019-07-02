@@ -10,7 +10,7 @@ coranalysisdataset(dataset, average = "median", lag = 0, par = TRUE,
 \arguments{
 \item{dataset}{A transcriptomics dataset. First columns should be gene names. All other columns should be expression levels.}
 
-\item{average}{The average to be used for comparing the time points. Either "median" or "mean".}
+\item{average}{The average to be used for comparing the time points. Either 'median' or 'mean'.}
 
 \item{lag}{Setting any value other than 0 allows a gene to be correlated with lagged genes in the dataset. The number denotes the number of timesteps to lag by.}
 
@@ -30,6 +30,6 @@ Correlates every gene in a dataset with every other gene in the same dataset. Al
 }
 \examples{
 subdf<-tfilter(Laurasmappings)
-coranalysisdataset <- coranalysis(subdf, lag=1,filename="cor_tfiltered")
+coranalysisdataset <- coranalysis(subdf, lag=1,filename='cor_tfiltered')
 
 }

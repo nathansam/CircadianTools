@@ -13,8 +13,7 @@
 #' corsignificantplot(cor_results, Laurasmappings, number = 15,save=TRUE, negative=FALSE)
 #'
 #' @export
-corsignificantplot <- function(results, dataset, number = 10, print = TRUE, save = FALSE,
-    negative = FALSE) {
+corsignificantplot <- function(results, dataset, number = 10, print = TRUE, save = FALSE, negative = FALSE) {
     results <- results[order(results$correlation, decreasing = TRUE), ]  # Order by most positive correlation
     gene1 <- as.character(results[1, 1])
     if (save == TRUE) {
@@ -25,33 +24,33 @@ corsignificantplot <- function(results, dataset, number = 10, print = TRUE, save
     }
     if (negative == FALSE) {
         for (i in 2:(number + 1)) {
-            myplot <- compplot(as.character(gene1), as.character(results[i, 1]), dataset)
+            myplot <- CircadianTools::compplot(as.character(gene1), as.character(results[i, 1]), dataset)
             myplot <- myplot + ggplot2::ggtitle(paste(" Correlation = ", as.character(results[i, 2])))
-
+            
             if (print == TRUE) {
                 print(myplot)
             }
-
+            
             if (save == TRUE) {
-                ggplot2::ggsave(paste("rank=", i - 1, "Cor_", as.character(results[i,
-                  1]), ".png"), myplot, path = directory, width = 10, height = 4.5, units = "in")
+                ggplot2::ggsave(paste("rank=", i - 1, "Cor_", as.character(results[i, 1]), ".png"), myplot, path = directory, 
+                  width = 10, height = 4.5, units = "in")
             }
         }
     }
     if (negative == TRUE) {
         results <- results[order(results$correlation, decreasing = FALSE), ]
         for (i in 1:number) {
-            myplot <- compplot(as.character(gene1), as.character(results[i, 1]), dataset)
-            myplot <- myplot + ggplot2::ggtitle(paste("Gene = ", as.character(results[i,
-                1]), " Cor = ", as.character(results[i, 2])))
-
+            myplot <- CircadianTools::compplot(as.character(gene1), as.character(results[i, 1]), dataset)
+            myplot <- myplot + ggplot2::ggtitle(paste("Gene = ", as.character(results[i, 1]), " Cor = ", as.character(results[i, 
+                2])))
+            
             if (print == TRUE) {
                 print(myplot)
             }
-
+            
             if (save == TRUE) {
-                ggplot2::ggsave(paste("rank=", i, "Cor_", as.character(results[i, 1]),
-                  ".png"), myplot,path=directory ,width = 10, height = 4.5, units = "in")
+                ggplot2::ggsave(paste("rank=", i, "Cor_", as.character(results[i, 1]), ".png"), myplot, path = directory, 
+                  width = 10, height = 4.5, units = "in")
             }
         }
     }

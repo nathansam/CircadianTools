@@ -9,12 +9,11 @@
 
 clusterspread <- function(cluster.dataset) {
     library(foreach)
-    clustersize.df <- foreach(i = unique(cluster.dataset$cluster), .combine = rbind) %do%
-        {
-            # Cluster by cluster
-            cluster.subset <- subset(cluster.dataset, cluster == i)  # Find all genes in the ith cluster
-            cluster.size <- nrow(cluster.subset)  # Find how many genes in the cluster
-            data.frame(cluster = i, cluster.size)  # Create row of dataframe object
-        }
+    clustersize.df <- foreach(i = unique(cluster.dataset$cluster), .combine = rbind) %do% {
+        # Cluster by cluster
+        cluster.subset <- subset(cluster.dataset, cluster == i)  # Find all genes in the ith cluster
+        cluster.size <- nrow(cluster.subset)  # Find how many genes in the cluster
+        data.frame(cluster = i, cluster.size)  # Create row of dataframe object
+    }
     return(clustersize.df)
 }

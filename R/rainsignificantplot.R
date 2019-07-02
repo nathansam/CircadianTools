@@ -14,21 +14,20 @@
 #' @export
 rainsignificantplot <- function(results, dataset, number = 10, print = TRUE, save = FALSE) {
     results <- results[order(results$pVal), ]  # Order by most significant p-value
-
+    
     for (i in 1:number) {
-        myplot <- basicplot(as.character(results[i, 1]), dataset)
-        myplot <- myplot + ggplot2::ggtitle(paste("Gene = ", as.character(results[i, 1]),
-            " P-Value = ", as.character(results[i, 2])))
-
+        p <- CircadianTools::basicplot(as.character(results[i, 1]), dataset)
+        p <- p + ggplot2::ggtitle(paste("Gene = ", as.character(results[i, 1]), " P-Value = ", as.character(results[i, 
+            2])))
+        
         if (print == TRUE) {
-            print(myplot)
+            print(p)
         }
-
+        
         if (save == TRUE) {
-            ggplot2::ggsave(paste("rank=", i, "RAIN_", as.character(results[i, 1]), ".png"),
-                myplot, width = 10, height = 4.5, units = "in")
+            ggplot2::ggsave(paste("rank=", i, "RAIN_", as.character(results[i, 1]), ".png"), p, width = 10, height = 4.5, 
+                units = "in")
         }
-
+        
     }
-
 }

@@ -14,7 +14,7 @@ coranalysispar(genename, dataset, lag = 0, average = "median",
 
 \item{lag}{Setting any value other than 0 allows a gene to be correlated with lagged genes in the dataset. The number denotes the number of timesteps to lag by.}
 
-\item{average}{The average to be used for comparing the time points. Either "median" or "mean".}
+\item{average}{The average to be used for comparing the time points. Either 'median' or 'mean'.}
 
 \item{nthreads}{Number of processor threads for the process. If not specifed then the maximum number of logical cores are used.}
 }

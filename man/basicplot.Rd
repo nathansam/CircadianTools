@@ -14,7 +14,7 @@ basicplot(genename, dataset, timelag = 0, method = "median",
 
 \item{timelag}{Shifts the plot to earlier in time.}
 
-\item{method}{How should the average activity for each time point be calculated? "median" or "mean"}
+\item{method}{How should the average activity for each time point be calculated? 'median' or 'mean'}
 
 \item{print}{Logical. If TRUE renders plot in the plot viewer. Defaults to TRUE}
 

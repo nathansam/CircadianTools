@@ -14,7 +14,7 @@ coranalysis(genename, dataset, threshold = 0.9, average = "median",
 
 \item{threshold}{Set correlation threshold value for which genes are considered significant and thus plotted. Defaults to 0.9}
 
-\item{average}{The average to be used for comparing the time points. Either "median" or "mean".}
+\item{average}{The average to be used for comparing the time points. Either 'median' or 'mean'.}
 
 \item{lag}{Setting any value other than 0 allows a gene to be correlated with lagged genes in the dataset. The number denotes the number of timesteps to lag by.}
 

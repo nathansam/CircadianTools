@@ -8,17 +8,17 @@
 #'
 #' @export
 
-clustertimeprofile<-function(cluster.no, cluster.dataset, nthreads=NULL){
-  cluster.sub<-subset(cluster.dataset, cluster==cluster.no) # Subset cluster
-  cluster.sub$cluster<-NULL # Remove cluster column
-  med<-medlist(cluster.sub, nthreads=nthreads) # Return the median activity label for each timepoint of each gene
-
-  timesteps<-ncol(med) # Number of timesteps
-
-  profile<-rep(0, timesteps)
-
-    for (i in 1:timesteps){
-      profile[i]<-mean(med[,i]) # Find the mean activity value for the cluster at each time points
+clustertimeprofile <- function(cluster.no, cluster.dataset, nthreads = NULL) {
+    cluster.sub <- subset(cluster.dataset, cluster == cluster.no)  # Subset cluster
+    cluster.sub$cluster <- NULL  # Remove cluster column
+    med <- CircadianTools::medlist(cluster.sub, nthreads = nthreads)  # Return the median activity label for each timepoint of each gene
+    
+    timesteps <- ncol(med)  # Number of timesteps
+    
+    profile <- rep(0, timesteps)
+    
+    for (i in 1:timesteps) {
+        profile[i] <- mean(med[, i])  # Find the mean activity value for the cluster at each time points
     }
-  return(profile)
+    return(profile)
 }

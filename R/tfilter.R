@@ -14,32 +14,32 @@
 
 tfilter <- function(dataset, maxdifference = 1, minchanges = 2, psignificance = 0.05, nthreads = NULL) {
     library(foreach)
-
+    
     if (is.null(nthreads) == TRUE) {
         # Set the threads to maximum if none is specified
         nthreads <- parallel::detectCores()
     }
-
+    
     cl <- parallel::makeForkCluster(nthreads)  # Create cluster for parallelism
     doParallel::registerDoParallel(cl)
-
-    dataset[-1]<-scale(dataset[-1], scale=FALSE, center = TRUE)
-
+    
+    dataset[-1] <- scale(dataset[-1], scale = FALSE, center = TRUE)
+    
     filterdf <- foreach(i = 1:nrow(dataset), .combine = rbind) %dopar% {
         ups.downs <- tanalysis(row.no = i, dataset = dataset, psignificance = psignificance)
-        # tanalysis returns two values as a vector. First values represents a positive significant change
-        # between time points whilst second value represents a negative significant change.
+        # tanalysis returns two values as a vector. First values represents a positive significant change between time
+        # points whilst second value represents a negative significant change.
         observed.difference <- abs(ups.downs[1] - ups.downs[2])  # Finds the difference between the number of positive and negative changes
         total.changes <- ups.downs[1] + ups.downs[2]  # The total number of significant changes
-
+        
         if (total.changes >= minchanges) {
-            # if total changes is above the user set minimum if the difference between signficant 'ups' and 'downs'
-            # is below the user set maximum
+            # if total changes is above the user set minimum if the difference between signficant 'ups' and 'downs' is below
+            # the user set maximum
             if (observed.difference <= maxdifference) {
                 data.frame(dataset[i, ])  # Add the gene as part of the filtered dataset
             }
         }
-
+        
     }
     parallel::stopCluster(cl)
     return(filterdf)

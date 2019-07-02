@@ -19,11 +19,11 @@ tanalysis <- function(row.no, dataset, psignificance = 0.05) {
     names(genedf) <- c("activity", "timevector")
     n.ups <- 0  # Set variable to list the number of significant positive changes found via the t-tests.
     n.downs <- 0  # Set variable to list the number of significant negative changes found via the t-tests.
-
+    
     for (i in 1:(length(unique.timevector) - 1)) {
         group1 <- subset(genedf, timevector == unique.timevector[i])
         group2 <- subset(genedf, timevector == unique.timevector[i + 1])
-
+        
         zerogroup <- FALSE  # Flag for if both groups entirely consists of zero values. Assume false
         if (all(group1[, 1] == 0)) {
             # Is group 1 entirely zero values?  Is group 2 entirely zero values?
@@ -31,7 +31,7 @@ tanalysis <- function(row.no, dataset, psignificance = 0.05) {
                 zerogroup <- TRUE  # Both groups are entirely zero values. Don't attempt t-test
             }
         }
-
+        
         if (zerogroup == FALSE) {
             t.test.obj <- t.test(group1[, 1], group2[, 1], var.equal = TRUE)  # Carry out t-test assuming equal variance
             if (t.test.obj$p.value < psignificance) {
@@ -45,6 +45,6 @@ tanalysis <- function(row.no, dataset, psignificance = 0.05) {
             }
         }
     }
-
+    
     return(c(n.ups, n.downs))  # Return the number of signficant increases and decreases
 }

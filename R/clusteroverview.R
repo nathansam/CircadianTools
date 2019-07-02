@@ -11,19 +11,17 @@
 #'
 #' @export
 
-clusteroverview <- function(cluster.dataset, nthreads = NULL, print = TRUE, save = FALSE,
-    path = "cluster_overview") {
+clusteroverview <- function(cluster.dataset, nthreads = NULL, print = TRUE, save = FALSE, path = "cluster_overview") {
     if (save == TRUE) {
         if (dir.exists(path) == FALSE) {
-            # If save==TRUE then create directory for saved plots if it doesn't already
-            # exist
+            # If save==TRUE then create directory for saved plots if it doesn't already exist
             dir.create(path)
         }
     }
-
+    
     for (i in unique(cluster.dataset$cluster)) {
-        plot <- clusterplot(clusterno = i, cluster.dataset, nthreads = nthreads,
-            print = print, save = save, path = path)
+        plot <- CircadianTools::clusterplot(clusterno = i, cluster.dataset, nthreads = nthreads, print = print, 
+            save = save, path = path)
         if (print == TRUE) {
             print(plot)
         }

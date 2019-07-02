@@ -13,14 +13,16 @@
 #' @export
 
 pamclustering <- function(dataset, k, metric = "euclidean", nthreads = NULL, scale = FALSE, center = TRUE) {
-
+    
     if (is.null(nthreads) == TRUE) {
         # Set the threads to maximum if none is specified
         nthreads <- parallel::detectCores()
     }
-    medians.dataset <- CircadianTools::medlist(dataset, nthreads=nthreads) # Calculate the medians at each timepoint
-    medians.dataset[-1] <- scale(medians.dataset[-1], scale = scale, center = center)  # Scale and center the activity data if TRUE
-    medians.dataset<-data.frame(medians.dataset)
+    dataset <- CircadianTools::genescale(dataset, scale = scale, center = center)  # Center / scale the gene activity for each gene
+    medians.dataset <- CircadianTools::medlist(dataset, nthreads = nthreads)  # Calculate the medians at each timepoint
+    # medians.dataset[-1] <- scale(medians.dataset[-1], scale = scale, center = center) # Scale and center the
+    # activity data if TRUE
+    medians.dataset <- data.frame(medians.dataset)
     distance <- parallelDist::parDist(as.matrix(medians.dataset[-1]), method = metric, threads = nthreads)  #Calculate the distance matrix
     fit <- cluster::pam(distance, k = k)  # Run the clustering proces
     dataset$cluster <- fit$cluster  # Append the cluster column to the dataset

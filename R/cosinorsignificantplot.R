@@ -13,22 +13,21 @@
 #' cosinorsignificantplot(cosinor_results, Laurasmappings, number = 15, period=24 ,save=TRUE)
 #'
 #' @export
-cosinorsignificantplot <- function(results, dataset, number = 10, period = 24, print = TRUE,
-    save = FALSE) {
+cosinorsignificantplot <- function(results, dataset, number = 10, period = 24, print = TRUE, save = FALSE) {
     results <- results[order(results$pVal), ]  # Order by most significant p-value
-
+    
     for (i in 1:number) {
-        myplot <- cosinorplot(as.character(results[i, 1]), dataset, period = period)
-        myplot <- myplot + ggplot2::ggtitle(paste("Gene = ", as.character(results[i, 1]),
-            " P-Value = ", as.character(results[i, 2])))
-
+        myplot <- CircadianTools::cosinorplot(as.character(results[i, 1]), dataset, period = period)
+        myplot <- myplot + ggplot2::ggtitle(paste("Gene = ", as.character(results[i, 1]), " P-Value = ", as.character(results[i, 
+            2])))
+        
         if (print == TRUE) {
             print(myplot)
         }
-
+        
         if (save == TRUE) {
-            ggplot2::ggsave(paste("rank=", i, "Cosinor_", as.character(results[i, 1]),
-                ".png"), myplot, width = 10, height = 4.5, units = "in")
+            ggplot2::ggsave(paste("rank=", i, "Cosinor_", as.character(results[i, 1]), ".png"), myplot, width = 10, 
+                height = 4.5, units = "in")
         }
     }
 }

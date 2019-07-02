@@ -12,30 +12,30 @@
 #'
 #' @export
 
-coranalysisclusterdataset<-function(cluster.dataset, lag=0, nthreads=NULL, save=TRUE,filename=NULL){
-  if (is.null(filename)==TRUE){
-    filename<-deparse(substitute(cluster.dataset)) # If a filename isn't specified then the name of the dataframe object is used
-  }
-
-
-  library(foreach)
-  clusters<-unique(cluster.dataset$cluster) # Vector of cluster numbers
-  loading.values<-loading_gen(length(clusters)) # Calculate milestones for printing progress
-
-  correlationdf<-foreach(i=1:length(clusters), .combine=cbind) %do% {
-    loading_print(iteration=i, loading.values) # print progress if surpassed a significant milestone
-    temp.df<-coranalysiscluster(i,cluster.dataset, lag=lag,nthreads=nthreads)
-    temp.df[,2]
-  }
-
-  rownames(correlationdf)<-clusters # Give the columns the genenames
-  colnames(correlationdf)<-clusters # Give the rows the genenames
-
-  if (save==TRUE){
-    write.csv(correlationdf, paste(filename,".csv", sep = "")) # Write as a csv file if save=TRUE
-  }
-
-  return(correlationdf)
-
-
+coranalysisclusterdataset <- function(cluster.dataset, lag = 0, nthreads = NULL, save = TRUE, filename = NULL) {
+    if (is.null(filename) == TRUE) {
+        filename <- deparse(substitute(cluster.dataset))  # If a filename isn't specified then the name of the dataframe object is used
+    }
+    
+    
+    library(foreach)
+    clusters <- unique(cluster.dataset$cluster)  # Vector of cluster numbers
+    loading.values <- CircadianTools::loading_gen(length(clusters))  # Calculate milestones for printing progress
+    
+    correlationdf <- foreach(i = 1:length(clusters), .combine = cbind) %do% {
+        CircadianTools::loading_print(iteration = i, loading.values)  # print progress if surpassed a significant milestone
+        temp.df <- CircadianTools::coranalysiscluster(i, cluster.dataset, lag = lag, nthreads = nthreads)
+        temp.df[, 2]
+    }
+    
+    rownames(correlationdf) <- clusters  # Give the columns the genenames
+    colnames(correlationdf) <- clusters  # Give the rows the genenames
+    
+    if (save == TRUE) {
+        write.csv(correlationdf, paste(filename, ".csv", sep = ""))  # Write as a csv file if save=TRUE
+    }
+    
+    return(correlationdf)
+    
+    
 }

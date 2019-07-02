@@ -23,35 +23,33 @@ cosinoranalysispar <- function(dataset, period = 24, nthreads = NULL, timelag = 
     if (is.null(nthreads) == TRUE) {
         nthreads <- parallel::detectCores()
     }
-
-
-    dataset <- geneclean(dataset)
+    
+    
+    dataset <- CircadianTools::geneclean(dataset)
     genenumber <- nrow(dataset)  #number of genes in the dataset
     pvalues <- rep(0, genenumber)  #init list of pvalues
     cosinor.pvalue.df <- data.frame(sample = dplyr::select(dataset, 1), pVal = pvalues)  #first column gene name, second:pvalue
-    timevector <- maketimevector(dataset)
-    loading_values <- loading_gen(genenumber)
-
-
-
+    timevector <- CircadianTools::maketimevector(dataset)
+    loading_values <- CircadianTools::loading_gen(genenumber)
+    
+    
+    
     cl <- parallel::makeForkCluster(nthreads)
     doParallel::registerDoParallel(cl)
-    cosinor.pvalue.df <- foreach::foreach(i = 1:genenumber, .combine = rbind) %dopar%
-        {
-            loading_print(i, loading_values)
-
-            genematrix <- dplyr::filter(dataset, dplyr::row_number() == i)
-            sample <- genematrix[1, 1]
-            genematrix <- genematrix[-1]
-            genematrix <- t(genematrix)
-            geneexpression <- data.frame(timevector - timelag, genematrix)
-            names(geneexpression) <- c("timevector", "activity")
-            cosinormodel <- cosinor::cosinor.lm(activity ~ time(timevector), period = period,
-                data = geneexpression)
-            pVal <- cosinor2::cosinor.detect(cosinormodel)[4]
-            data.frame(sample, pVal)
-        }
-
+    cosinor.pvalue.df <- foreach::foreach(i = 1:genenumber, .combine = rbind) %dopar% {
+        CircadianTools::loading_print(i, loading_values)
+        
+        genematrix <- dplyr::filter(dataset, dplyr::row_number() == i)
+        sample <- genematrix[1, 1]
+        genematrix <- genematrix[-1]
+        genematrix <- t(genematrix)
+        geneexpression <- data.frame(timevector - timelag, genematrix)
+        names(geneexpression) <- c("timevector", "activity")
+        cosinormodel <- cosinor::cosinor.lm(activity ~ time(timevector), period = period, data = geneexpression)
+        pVal <- cosinor2::cosinor.detect(cosinormodel)[4]
+        data.frame(sample, pVal)
+    }
+    
     return(cosinor.pvalue.df)
-
+    
 }

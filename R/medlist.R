@@ -8,20 +8,20 @@
 #' @export
 
 medlist <- function(dataset, nthreads = NULL) {
-
+    
     library(foreach)  #Required for parallelism
     timevector <- CircadianTools::maketimevector(dataset)  # List of time values (repeated for replicates)
-
+    
     genenumber <- nrow(dataset)
-
+    
     if (is.null(nthreads) == TRUE) {
         # Set the threads to maximum if none is specified
         nthreads <- parallel::detectCores()
     }
-
+    
     cl <- parallel::makeForkCluster(nthreads)  # Create cluster for parallelism
     doParallel::registerDoParallel(cl)
-
+    
     medlistdf <- foreach(i = 1:genenumber, .combine = rbind) %dopar% {
         # Parallel for loop to create a dataframe of gene names and their respective ranges
         gene <- dplyr::filter(dataset, dplyr::row_number() == i)  # Get gene by row
@@ -35,10 +35,10 @@ medlist <- function(dataset, nthreads = NULL) {
             med.list <- c(med.list, median(genesubset$activity))
         }
         t(data.frame(med.list))
-
+        
     }
     parallel::stopCluster(cl)
-    colnames(medlistdf)<-unique(timevector) # Columns of the returned dataframe is the time point
-    rownames(medlistdf)<-dataset[,1] #Row name is gene name
+    colnames(medlistdf) <- unique(timevector)  # Columns of the returned dataframe is the time point
+    rownames(medlistdf) <- dataset[, 1]  #Row name is gene name
     return(medlistdf)
 }

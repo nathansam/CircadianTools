@@ -16,6 +16,6 @@ A vector of time values for the genes
 Produces a vector of time values for the gene activity readings.
 }
 \examples{
-maketimevector(LauraSingleMap)
+maketimevector(Laurasmappings)
 
 }

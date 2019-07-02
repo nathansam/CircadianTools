@@ -13,14 +13,15 @@
 #'
 #' @export
 hclustering <- function(dataset, k = 10, metric = "euclidean", nthreads = NULL, scale = FALSE, center = TRUE) {
-
+    
     if (is.null(nthreads) == TRUE) {
         # Set the threads to maximum if none is specified
         nthreads <- parallel::detectCores()
     }
-    medians.dataset <- CircadianTools::medlist(dataset, nthreads=nthreads) # Calculate the medians at each timepoint
-    medians.dataset[-1] <- scale(medians.dataset[-1], scale = scale, center = center) # Scale/center the data
-    medians.dataset<-data.frame(medians.dataset)
+    dataset <- CircadianTools::genescale(dataset, scale = scale, center = center)  # Center / scale the gene activity for each gene
+    medians.dataset <- CircadianTools::medlist(dataset, nthreads = nthreads)  # Calculate the medians at each timepoint
+    # medians.dataset[-1] <- scale(medians.dataset[-1], scale = scale, center = center) # Scale/center the data
+    medians.dataset <- data.frame(medians.dataset)
     distance <- parallelDist::parDist(as.matrix(medians.dataset[-1]), method = metric, threads = nthreads)  #Calculate the distance matrix
     fit <- hclust(distance)  # Run the clustering process
     clusters <- dendextend::cutree(fit, k = k)  # Cut the dendogram such that there are k clusters

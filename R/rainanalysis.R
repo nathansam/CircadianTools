@@ -7,14 +7,14 @@
 #'
 #' @export
 
-rainanalysis <- function(dataset,period) {
-    dataset <- geneclean(dataset)
-    timevector<-maketimevector(dataset)
+rainanalysis <- function(dataset, period) {
+    dataset <- CircadianTools::geneclean(dataset)
+    timevector <- CircadianTools::maketimevector(dataset)
     measure <- as.numeric(table(timevector))
     genenames <- dataset[1]
     dataset <- dataset[-1]
-    deltat<-unique(timevector)[2]-unique(timevector)[1]
-    results <- rain::rain(t(dataset), deltat =deltat, period = period, measure.sequence = measure)
+    deltat <- unique(timevector)[2] - unique(timevector)[1]
+    results <- rain::rain(t(dataset), deltat = deltat, period = period, measure.sequence = measure)
     results <- cbind(genenames, results)
     return(results)
 }

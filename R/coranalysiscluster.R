@@ -9,34 +9,34 @@
 #'
 #' @export
 
-  coranalysiscluster<-function(cluster.no, cluster.dataset, lag=0, nthreads=NULL){
+coranalysiscluster <- function(cluster.no, cluster.dataset, lag = 0, nthreads = NULL) {
     library(foreach)
-
-    main.time.profile<-clustertimeprofile(cluster.no, cluster.dataset, nthreads = nthreads) # Get time profile for the cluster specified
-
-    if (lag>0){
-      main.time.profile<-tail(main.time.profile, n=length(main.time.profile)-lag) # Lag if required
+    
+    main.time.profile <- CircadianTools::clustertimeprofile(cluster.no, cluster.dataset, nthreads = nthreads)  # Get time profile for the cluster specified
+    
+    if (lag > 0) {
+        main.time.profile <- tail(main.time.profile, n = length(main.time.profile) - lag)  # Lag if required
     }
-    if (lag<0){
-      main.time.profile<-head(main.time.profile, n=length(main.time.profile)-lag) # Lag if required
+    if (lag < 0) {
+        main.time.profile <- head(main.time.profile, n = length(main.time.profile) - lag)  # Lag if required
     }
-
-    cluster.quantity<-max(cluster.dataset$cluster) # Number of clusters
-    correlation.df<-data.frame(seq(1, cluster.quantity),rep(0, cluster.quantity))
-    colnames(correlation.df)<-c("cluster","correlation")
-
-      for (j in 1:cluster.quantity){
-      comp.time.profile<- clustertimeprofile(j, cluster.dataset, nthreads = nthreads) # Get time profile of cluster being compared with the main cluster
-
-      if (lag>0){
-        comp.time.profile<-head(comp.time.profile, n=length(comp.time.profile)-lag) # Lag if required
-      }
-      if (lag<0){
-        comp.time.profile<-tail(comp.time.profile, n=length(comp.time.profile)-lag) # Lag if required
-      }
-
-      compcor<-cor(main.time.profile, comp.time.profile) # Calculate correlation
-      correlation.df[j,2]<-compcor # Add correlation to dataframe
+    
+    cluster.quantity <- max(cluster.dataset$cluster)  # Number of clusters
+    correlation.df <- data.frame(seq(1, cluster.quantity), rep(0, cluster.quantity))
+    colnames(correlation.df) <- c("cluster", "correlation")
+    
+    for (j in 1:cluster.quantity) {
+        comp.time.profile <- CircadianTools::clustertimeprofile(j, cluster.dataset, nthreads = nthreads)  # Get time profile of cluster being compared with the main cluster
+        
+        if (lag > 0) {
+            comp.time.profile <- head(comp.time.profile, n = length(comp.time.profile) - lag)  # Lag if required
+        }
+        if (lag < 0) {
+            comp.time.profile <- tail(comp.time.profile, n = length(comp.time.profile) - lag)  # Lag if required
+        }
+        
+        compcor <- cor(main.time.profile, comp.time.profile)  # Calculate correlation
+        correlation.df[j, 2] <- compcor  # Add correlation to dataframe
     }
     return(correlation.df)
-  }
+}

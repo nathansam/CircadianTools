@@ -14,9 +14,9 @@ zerofilter <- function(dataset, non_zero_num = 4, nthreads = NULL) {
     if (is.null(nthreads) == TRUE) {
         nthreads <- parallel::detectCores()  # Set the threads to maximum if none is specified
     }
-
+    
     genenumber <- nrow(dataset)
-    timevector <- maketimevector(dataset)
+    timevector <- CircadianTools::maketimevector(dataset)
     cl <- parallel::makeForkCluster(nthreads)  # Create cluster for parallelism
     doParallel::registerDoParallel(cl)
     filterdf <- foreach(i = 1:genenumber, .combine = rbind) %dopar% {

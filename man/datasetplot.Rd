@@ -12,7 +12,7 @@ datasetplot(dataset, timelag = 0, method = "median", nthreads = NULL,
 
 \item{timelag}{Shifts the plot to earlier in time.}
 
-\item{method}{How should the average activity for each time point be calculated? "median" or "mean"}
+\item{method}{How should the average activity for each time point be calculated? 'median' or 'mean'}
 
 \item{nthreads}{Number of processor threads to be used for calculating the distance matrix. If not specifed then the maximum number of logical cores are used.}
 

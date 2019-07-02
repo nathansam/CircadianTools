@@ -5,7 +5,8 @@
 \title{combifilter}
 \usage{
 combifilter(dataset, non_zero_num = 4, threshold = 0.05,
-  cutoff = 0.1, nthreads = NULL)
+  cutoff = 0.1, anovafilter = TRUE, zerofilter = TRUE,
+  sizefilter = TRUE, nthreads = NULL)
 }
 \arguments{
 \item{dataset}{A transcriptomics dataset. First columns should be gene names. All other columns should be expression levels.}
@@ -15,6 +16,12 @@ combifilter(dataset, non_zero_num = 4, threshold = 0.05,
 \item{threshold}{Set the p-value threshold for the filtering}
 
 \item{cutoff}{Proportion of total number of genes (which show at least some activity) to be removed}
+
+\item{anovafilter}{Logical. If anovafiltering should be used. Defaults to TRUE.}
+
+\item{zerofilter}{Logical. If zerofiltering should be used. Defaults to TRUE.}
+
+\item{sizefilter}{Logical. If sizefiltering should be used. Defaults to TRUE.}
 
 \item{nthreads}{Number of processor threads for the filtering. If not specifed then the maximum number of logical cores are used.}
 }
