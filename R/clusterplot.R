@@ -21,6 +21,7 @@ clusterplot <- function(clusterno, cluster.dataset, nthreads = NULL, print = TRU
     unique.time.vector <- unique(maketimevector(subdf))  # Get the time values
     subdfmedians <- medlist(subdf, nthreads = nthreads)  # Generates the median at each time point for each gene
 
+
     if (nrow(subdfmedians) != 1) {
         single.gene.cluster = FALSE  # Set logical flag for there being more than one gene in the cluster (Error bars and standard deviation is required)
         } else {
@@ -37,21 +38,22 @@ clusterplot <- function(clusterno, cluster.dataset, nthreads = NULL, print = TRU
             data.frame(time, meanval)  # Store just the time value and mean if only one gene
         } else {
             # If more than one gene in the cluster
-            sdval <- sd(column)  # Calculate the standard deviation for this time point
-            data.frame(time, meanval, sdval)  # Store time value, mean and standard deviation
+            se <- sd(column)/length(column)  # Calculate the standard error for this time point
+
+            data.frame(time, meanval, se)  # Store time value, mean and standard deviation
         }
     }
 
     p <- ggplot2::ggplot(graphdf, ggplot2::aes(x = time, y = meanval))  # Create the ggplot2 object
 
     if (single.gene.cluster == FALSE) {
-        p <- p + ggplot2::geom_errorbar(ggplot2::aes(ymin = meanval - sdval, ymax = meanval +
-            sdval), width = 1.5, size = 1, position = ggplot2::position_dodge(0.05),
+        p <- p + ggplot2::geom_errorbar(ggplot2::aes(ymin = meanval - (2*se), ymax = meanval +
+            (2*se)), width = 1.5, size = 1, position = ggplot2::position_dodge(0.05),
             color = "#ba1200", alpha = 0.7)  # Add error bars if more than 1 gene in cluster
     }
 
 
-    p <- p + ggplot2::geom_line(size = 1, color="#412d6b") + ggplot2::geom_point(size = 5, color = "#008dd5") +
+    p <- p + ggplot2::geom_line(size = 1, color="#412d6b") + ggplot2::geom_point(size = 4, color = "#008dd5") +
         ggplot2::xlab("Time (Hours)") + ggplot2::ylab("Transcripts Per Million (TPM)") +
         ggplot2::theme_bw() + ggplot2::theme(plot.title = ggplot2::element_text(hjust = 1)) +
         ggplot2::theme(text = ggplot2::element_text(size = 12)) + ggplot2::ggtitle(paste("Cluster = ",
