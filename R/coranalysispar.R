@@ -21,13 +21,13 @@ coranalysispar <- function(genename, dataset, lag = 0, average = "median", nthre
         nthreads <- parallel::detectCores()
     }
     
-    dataset <- CircadianTools::geneclean(dataset)  # Remove any rows which shows no gene activity
+    #dataset <- CircadianTools::geneclean(dataset)  # Remove any rows which shows no gene activity
     genenumber <- nrow(dataset)  # Number of genes in the dataset
     cor.df <- data.frame(sample = dplyr::select(dataset, 1), corvalues = rep(0, genenumber))  #first column gene name, second column correlation value
     timevector <- CircadianTools::maketimevector(dataset)  # Create vector of time values
-    selectedgene <- CircadianTools::activity_select(genename, dataset)
+    selectedgene <- as.vector(CircadianTools::activity_select(genename, dataset))
     selectedgenedf <- data.frame(timevector, selectedgene)
-    names(selectedgenedf) <- c("timevector", "activity")
+    colnames(selectedgenedf) <- c("timevector", "activity")
     
     
     selectedaverage.list <- rep(0, length((unique(timevector))))
