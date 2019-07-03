@@ -18,7 +18,7 @@
 
 coranalysis <- function(genename, dataset, threshold = 0.9, average = "median", lag = 0, save = FALSE, print = TRUE, 
     df = TRUE) {
-    dataset <- geneclean(dataset)  # Remove any rows which shows no gene activity
+    #dataset <- geneclean(dataset)  # Remove any rows which shows no gene activity
     
     if (save == TRUE) {
         directory <- paste("cor_", genename)
