@@ -36,7 +36,7 @@ coranalysisdataset <- function(dataset, average = "median", lag = 0, par = TRUE,
             }  # Run in parallel if TRUE
         if (par == FALSE) 
             {
-                results <- CircadianTools::coranalysis(genename = genenames[i], dataset = dataset, lag = lag, average = average)
+                results <- CircadianTools::coranalysis(genename = genenames[i], dataset = dataset, lag = lag, average = average, print=FALSE)
             }  # Don't run in parallel if FALSE
         data.frame(results[, 2])  # Add the list of correlations as a column to the correlationdf
     }
