@@ -7,7 +7,7 @@ loading_gen <- function(genenumber) {
     return(loading_values)
 }
 
-
+#' @export
 loading_print <- function(iteration, loading_values) {
     if (iteration == 1) {
         cat(crayon::red(noquote("This may take a while if using a large dataset! \n")))
