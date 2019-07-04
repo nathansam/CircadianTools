@@ -26,7 +26,6 @@ Documentation is available for CircadianTools and all of its functions via the u
 ```basicplot```: Plots activity data as points and average activity as lines <br>
 ```compplot```: Plots two genes from a gene activity dataset <br>
 ```datasetplot```: Saves plots of all genes in a dataset. WARNING! Don't run on a large dataset! Intended for a filtered dataset <br>
-#' 
 
 ### Clustering
 ```clusteroverview```: Plots the mean and error bars for all clusters across time <br>
