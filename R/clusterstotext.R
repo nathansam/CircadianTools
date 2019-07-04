@@ -1,9 +1,9 @@
-#' clusters.to.text
+#' ClustersText
 #' @description Takes a dataframe of clusters and stores the name of all genes in a text file. The row number deontes the cluster number.
 #' @param cluster.dataset A transcriptomics dataset where the final column details the cluster the gene belongs to. First column should be gene names. All remaining columns should be expression levels.
 #' @param filename The filename of the saved text file. If not given then the name of the correlation dataframe object will be used. The.txt extension is not needed.
 #' @export
-clusters.to.text <- function(cluster.dataset, filename = NULL) {
+ClusterText <- function(cluster.dataset, filename = NULL) {
 
     if (is.null(filename) == TRUE) {
         filename <- deparse(substitute(cluster.dataset)) # If filename is not given then use name of cluster.dataset object

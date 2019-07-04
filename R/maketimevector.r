@@ -1,14 +1,14 @@
-#' maketimevector:
+#' MakeTimevector:
 #' @description Produces a vector of time values for the gene activity readings.
 #'
 #' @param dataset A transcriptomics dataset. First columns should be gene names. All other columns should be expression levels.
 #' @return A vector of time values for the genes
 #' @examples
-#' maketimevector(Laurasmappings)
+#' MakeTimevector(Laurasmappings)
 #'
 #' @export
 
-maketimevector <- function(dataset) {
+MakeTimevector <- function(dataset) {
     columnnames <- colnames(dataset)
     columnnames <- columnnames[-1]  #remove first column (sample)
     timevector <- gsub("CT", "", columnnames)  #remove CT characters

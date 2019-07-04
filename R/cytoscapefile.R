@@ -1,11 +1,11 @@
-#' cytoscape.file:
+#' CytoscapeFile:
 #' @description Converts a correlation dataframe object into a format suitable for cytoscape and saves as a csv file.
 #' @param cor.dataset A NxN datframe of correlation values created by \link{coranalysisdataset} or \link{coranalysisclusterdataset}
 #' @param nthreads Number of processor threads for the process. If not specifed then the maximum number of logical cores are used.
 #' @return Dataframe object in the new format.
 #' @export
 
-cytoscape.file <- function(cor.dataset,filename=NULL,nthreads=NULL){
+CytoscapeFile <- function(cor.dataset,filename=NULL,nthreads=NULL){
 
   if (is.null(filename)==TRUE){
     filename <- deparse(substitute(cor.dataset))
@@ -13,9 +13,8 @@ cytoscape.file <- function(cor.dataset,filename=NULL,nthreads=NULL){
   }
 
   filename <- paste(filename,".csv",sep="")
-  file.conflict(filename)
+  CircadianTools::FileConflict(filename)
   # Checks if a file which will be created already exists. Asks the user if this file should be overwritten.
-
 
 
   library(foreach)  #Required for parallelism

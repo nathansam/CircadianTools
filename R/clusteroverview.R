@@ -1,4 +1,4 @@
-#' clusteroverview :
+#' ClusterOverview :
 #' @description Plots the mean and error bars for all clusters across time
 #'
 #' @param cluster.dataset A transcriptomics dataset where the final column details the cluster the gene belongs to. First column should be gene names. All remaining columns should be expression levels.
@@ -11,16 +11,16 @@
 #'
 #' @export
 
-clusteroverview <- function(cluster.dataset, nthreads = NULL, print = TRUE, save = FALSE, path = "cluster_overview") {
+ClusterOverview <- function(cluster.dataset, nthreads = NULL, print = TRUE, save = FALSE, path = "cluster_overview") {
     if (save == TRUE) {
         if (dir.exists(path) == FALSE) {
             # If save==TRUE then create directory for saved plots if it doesn't already exist
             dir.create(path)
         }
     }
-    
+
     for (i in unique(cluster.dataset$cluster)) {
-        plot <- CircadianTools::clusterplot(clusterno = i, cluster.dataset, nthreads = nthreads, print = print, 
+        plot <- CircadianTools::ClusterPlot(clusterno = i, cluster.dataset, nthreads = nthreads, print = print,
             save = save, path = path)
         if (print == TRUE) {
             print(plot)

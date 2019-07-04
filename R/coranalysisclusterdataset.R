@@ -1,4 +1,4 @@
-#' coranalysisclusterdataset:
+#' CorAnalysisClusterDataset:
 #'
 #' @description Correlates the average activity of each cluster with every other cluster in a dataset.
 #' @param cluster.dataset A transcriptomics dataset where the final column details the cluster the gene belongs to. First column should be gene names. All remaining columns should be expression levels.
@@ -8,34 +8,33 @@
 #' @param filename filename for saved csv file. Only used if save=TRUE. If not specified then the dataset object name is used.
 #' @return A dataframe of correlation values. The column genes represent the original clusters whilst the rows represent lagged clusters.
 #' @examples
-#'
+#' filter.df <- CombiFilter(Laurasmappings)
+#' pam.df <- PamClustering(filterdf)
+#' cor.df <- CorAnalysisClusterDataset(pam.df)
 #'
 #' @export
 
-coranalysisclusterdataset <- function(cluster.dataset, lag = 0, nthreads = NULL, save = TRUE, filename = NULL) {
+CoranalysisClusterDataset <- function(cluster.dataset, lag = 0, nthreads = NULL, save = TRUE, filename = NULL) {
     if (is.null(filename) == TRUE) {
         filename <- deparse(substitute(cluster.dataset))  # If a filename isn't specified then the name of the dataframe object is used
     }
-    
-    
+
     library(foreach)
     clusters <- unique(cluster.dataset$cluster)  # Vector of cluster numbers
-    loading.values <- CircadianTools::loading_gen(length(clusters))  # Calculate milestones for printing progress
-    
+    loading.values <- CircadianTools::LoadingGen(length(clusters))  # Calculate milestones for printing progress
+
     correlationdf <- foreach(i = 1:length(clusters), .combine = cbind) %do% {
-        CircadianTools::loading_print(iteration = i, loading.values)  # print progress if surpassed a significant milestone
-        temp.df <- CircadianTools::coranalysiscluster(i, cluster.dataset, lag = lag, nthreads = nthreads)
+        CircadianTools::LoadingPrint(iteration = i, loading.values)  # print progress if surpassed a significant milestone
+        temp.df <- CircadianTools::CoranalysisCluster(i, cluster.dataset, lag = lag, nthreads = nthreads)
         temp.df[, 2]
     }
-    
+
     rownames(correlationdf) <- clusters  # Give the columns the genenames
     colnames(correlationdf) <- clusters  # Give the rows the genenames
-    
+
     if (save == TRUE) {
         write.csv(correlationdf, paste(filename, ".csv", sep = ""))  # Write as a csv file if save=TRUE
     }
-    
+
     return(correlationdf)
-    
-    
 }

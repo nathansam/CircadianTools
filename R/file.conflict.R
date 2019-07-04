@@ -1,9 +1,9 @@
-#' file.conflict
+#' FileConflict
 #' @description Checks if a file which will be created already exists and, if necessary asks the user if this file should be overwritten.
 #' @param filename The name of a file (with extension included)
 #' @export
 
-file.conflict <- function(filename){
+FileConflict <- function(filename){
 
   if (file.exists(filename) == TRUE) { # If the file already exists, should it be overwritten?
     prompt <- cat(paste("The file, ", filename, ", already exists. Do you wish to overwrite the file? [Y/n]  \n"))

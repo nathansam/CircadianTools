@@ -1,4 +1,4 @@
-#' anovafilter
+#' AnovaFilter
 #' @description Filters a gene activity dataframe via ANOVA
 #' @param dataset A transcriptomics dataset. First columns should be gene names. All other columns should be expression levels.
 #' @param nthreads Number of processor threads for the filtering. If not specifed then the maximum number of logical cores are used.
@@ -8,21 +8,21 @@
 #'
 #' @export
 
-anovafilter <- function(dataset, threshold = 0.05, nthreads = NULL) {
+AnovaFilter <- function(dataset, threshold = 0.05, nthreads = NULL) {
     library(foreach)  #Required for parallelism
-    
+
     if (is.null(nthreads) == TRUE) {
         # Set the threads to maximum if none is specified
         nthreads <- parallel::detectCores()
     }
-    
-    dataset <- CircadianTools::geneclean(dataset)  # Remove genes with no activity
+
+    dataset <- CircadianTools::GeneClean(dataset)  # Remove genes with no activity
     genenumber <- nrow(dataset)  # Number of genes in the dataset
-    timevector <- CircadianTools::maketimevector(dataset)  # List of time values (repeated for replicates)
-    
+    timevector <- CircadianTools::MakeTimevector(dataset)  # List of time values (repeated for replicates)
+
     cl <- parallel::makeForkCluster(nthreads)  # Create cluster for parallelism
     doParallel::registerDoParallel(cl)  # Register cluster
-    
+
     filterdf <- foreach(i = 1:genenumber, .combine = rbind) %dopar% {
         # Parallel for loop to create dataframe of significant genes
         gene <- dplyr::filter(dataset, dplyr::row_number() == i)  # Get gene by row
@@ -34,8 +34,8 @@ anovafilter <- function(dataset, threshold = 0.05, nthreads = NULL) {
         }
     }
     parallel::stopCluster(cl)
-    
+
     rownames(filterdf) <- seq(1, nrow(filterdf))  #Rebuild the row names
-    
+
     return(filterdf)
 }

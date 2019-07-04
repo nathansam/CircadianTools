@@ -1,15 +1,15 @@
-#' rainanalysis :
+#' RainAnalysis :
 #' @description Carries out RAIN analysis on a gene dataset
 #' @param dataset A transcriptomics dataset. First columns should be gene names. All other columns should be expression levels.
 #' @return A dataframe object detailing the result of the rain analysis.
 #' @examples
-#' results <- rainanalysis(Laurasmappings)
+#' results <- RainAnalysis(Laurasmappings)
 #'
 #' @export
 
-rainanalysis <- function(dataset, period) {
-    dataset <- CircadianTools::geneclean(dataset)
-    timevector <- CircadianTools::maketimevector(dataset)
+RainAnalysis <- function(dataset, period) {
+    dataset <- CircadianTools::GeneClean(dataset)
+    timevector <- CircadianTools::MakeTimevector(dataset)
     measure <- as.numeric(table(timevector))
     genenames <- dataset[1]
     dataset <- dataset[-1]

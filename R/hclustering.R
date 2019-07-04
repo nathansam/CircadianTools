@@ -1,5 +1,5 @@
-#' hclustering:
-#' @description Applies hierarchical clustering, clustering to a transcriptomics dataset and appends a cluster column to this dataset for all genes.
+#' HClustering:
+#' @description Applies Hierarchical clustering, clustering to a transcriptomics dataset and appends a cluster column to this dataset for all genes.
 #'
 #' @param dataset A transcriptomics dataset. First columns should be gene names. All other columns should be expression levels.
 #' @param k The total number of clusters.
@@ -9,17 +9,17 @@
 #' @param center If the gene activity should be centered before clustering.
 #' @return Returns transcriptomics dataset provided with additional cluster column appended denoted which cluster each gene belongs to.
 #' @examples
-#' pam.df <- pamclustering(Laurasmappings,20)
+#' pam.df <- Hclustering(Laurasmappings,75)
 #'
 #' @export
-hclustering <- function(dataset, k = 10, metric = "euclidean", nthreads = NULL, scale = FALSE, center = TRUE) {
-    
+HClustering <- function(dataset, k = 10, metric = "euclidean", nthreads = NULL, scale = FALSE, center = TRUE) {
+
     if (is.null(nthreads) == TRUE) {
         # Set the threads to maximum if none is specified
         nthreads <- parallel::detectCores()
     }
-    dataset <- CircadianTools::genescale(dataset, scale = scale, center = center)  # Center / scale the gene activity for each gene
-    medians.dataset <- CircadianTools::medlist(dataset, nthreads = nthreads)  # Calculate the medians at each timepoint
+    dataset <- CircadianTools::GeneScale(dataset, scale = scale, center = center)  # Center / scale the gene activity for each gene
+    medians.dataset <- CircadianTools::MedList(dataset, nthreads = nthreads)  # Calculate the medians at each timepoint
     # medians.dataset[-1] <- scale(medians.dataset[-1], scale = scale, center = center) # Scale/center the data
     medians.dataset <- data.frame(medians.dataset)
     distance <- parallelDist::parDist(as.matrix(medians.dataset[-1]), method = metric, threads = nthreads)  #Calculate the distance matrix

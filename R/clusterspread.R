@@ -1,4 +1,4 @@
-#' clusterspread:
+#' ClusterSpread:
 #' @description Shows how many genes are in each cluster after clustering has been applied.
 #' @param cluster.dataset A transcriptomics dataset where the final column details the cluster the gene belongs to. First column should be gene names. All remaining columns should be expression levels.
 #' @return A dataframe object. The first column is the cluster number. Second column is how many genes belong to that cluster.
@@ -7,7 +7,7 @@
 #'
 #' @export
 
-clusterspread <- function(cluster.dataset) {
+ClusterSpread <- function(cluster.dataset) {
     library(foreach)
     clustersize.df <- foreach(i = unique(cluster.dataset$cluster), .combine = rbind) %do% {
         # Cluster by cluster

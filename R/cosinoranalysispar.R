@@ -1,5 +1,5 @@
-#' cosinoranalysispar:
-#' @description Parallel Implementation of \link{cosinoranalysis}. Fits cosinor models to transcriptomics data and plots the best-fitting models using ggplot2.
+#' CosinorAnalysisPar:
+#' @description Parallel Implementation of \link{CosinorAnalysis}. Fits cosinor models to transcriptomics data and plots the best-fitting models using ggplot2.
 #'
 #' @param dataset A transcriptomics dataset. First columns should be gene names. All other columns should be expression levels.
 #' @param period The period of rhythmicity which is being tested for. Defaults to 24 (circadian).
@@ -10,12 +10,12 @@
 #' @param df Logical. If TRUE a dataframe containing the results of the cosinor analysis will be returned. Defaults to TRUE.
 #' @return Prints or saves ggplot2 object(s). Optionally returns dataframe containing gene name and p values from F-test ranking of cosinor models
 #' @examples
-#' cosinor_results <- cosinoranalysis(LauraSingleMap)
+#' cosinor_results <- CosinorAnalysisPar(Laurasmappings)
 #'
 #' @export
 
 
-cosinoranalysispar <- function(dataset, period = 24, nthreads = NULL, timelag = 6) {
+CosinorAnalysisPar <- function(dataset, period = 24, nthreads = NULL, timelag = 6) {
     if (is.null(nthreads) == TRUE) {
         nthreads <- parallel::detectCores()
     }
@@ -23,22 +23,21 @@ cosinoranalysispar <- function(dataset, period = 24, nthreads = NULL, timelag = 
     if (is.null(nthreads) == TRUE) {
         nthreads <- parallel::detectCores()
     }
-    
-    
-    dataset <- CircadianTools::geneclean(dataset)
+
+
+    dataset <- CircadianTools::GeneClean(dataset)
     genenumber <- nrow(dataset)  #number of genes in the dataset
     pvalues <- rep(0, genenumber)  #init list of pvalues
     cosinor.pvalue.df <- data.frame(sample = dplyr::select(dataset, 1), pVal = pvalues)  #first column gene name, second:pvalue
-    timevector <- CircadianTools::maketimevector(dataset)
-    loading_values <- CircadianTools::loading_gen(genenumber)
-    
-    
-    
+    timevector <- CircadianTools::MakeTimevector(dataset)
+    loading_values <- CircadianTools::LoadingGen(genenumber)
+
+
     cl <- parallel::makeForkCluster(nthreads)
     doParallel::registerDoParallel(cl)
     cosinor.pvalue.df <- foreach::foreach(i = 1:genenumber, .combine = rbind) %dopar% {
-        CircadianTools::loading_print(i, loading_values)
-        
+        CircadianTools::LoadingPrint(i, loading_values)
+
         genematrix <- dplyr::filter(dataset, dplyr::row_number() == i)
         sample <- genematrix[1, 1]
         genematrix <- genematrix[-1]
@@ -49,7 +48,6 @@ cosinoranalysispar <- function(dataset, period = 24, nthreads = NULL, timelag = 
         pVal <- cosinor2::cosinor.detect(cosinormodel)[4]
         data.frame(sample, pVal)
     }
-    
+
     return(cosinor.pvalue.df)
-    
 }

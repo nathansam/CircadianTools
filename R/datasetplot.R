@@ -1,4 +1,4 @@
-#' datasetplot:
+#' DatasetPlot:
 #' @description Saves plots of all genes in a dataset. WARNING! Don't run on a large dataset! Intended for a filtered dataset
 #' @param dataset A transcriptomics dataset. First columns should be gene names. All other columns should be expression levels.
 #' @param timelag Shifts the plot to earlier in time.
@@ -8,27 +8,24 @@
 #'
 #' @export
 
-datasetplot <- function(dataset, timelag = 0, method = "median", nthreads = NULL, path = NULL) {
-    
+DatasetPlot <- function(dataset, timelag = 0, method = "median", nthreads = NULL, path = NULL) {
+
     if (is.null(path) == TRUE) {
         path <- deparse(substitute(dataset))  # If a filename isn't specified then the name of the dataframe object is used
     }
-    
+
     library(foreach)
     if (is.null(nthreads) == TRUE) {
         # Set the threads to maximum if none is specified
         nthreads <- parallel::detectCores()
     }
-    
+
     cl <- parallel::makeForkCluster(nthreads)  # Create cluster for parallelism
     doParallel::registerDoParallel(cl)
-    
+
     genenames <- dataset[, 1]
     filterdf <- foreach(i = 1:length(genenames)) %dopar% {
-        CircadianTools::basicplot(genenames[i], dataset = dataset, timelag = timelag, method = method, print = FALSE, 
+        CircadianTools::BasicPlot(genenames[i], dataset = dataset, timelag = timelag, method = method, print = FALSE,
             save = TRUE, path = path)
     }
-    
-    
-    
 }

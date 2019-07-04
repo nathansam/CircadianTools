@@ -1,4 +1,4 @@
-#' clusterplot :
+#' ClusterPlot :
 #' @description Plots the mean and error bars for the genes in a cluster across time
 #'
 #' @param clusterno The number which identifies the cluster
@@ -12,13 +12,13 @@
 #'
 #' @export
 
-clusterplot <- function(clusterno, cluster.dataset, nthreads = NULL, print = TRUE, save = FALSE, path = NULL) {
+ClusterPlot <- function(clusterno, cluster.dataset, nthreads = NULL, print = TRUE, save = FALSE, path = NULL) {
     library(foreach)
     subdf <- subset(cluster.dataset, cluster == clusterno)  # Subset by cluster
     subdf$cluster <- NULL  #remove the cluster column
 
-    unique.time.vector <- unique(CircadianTools::maketimevector(subdf))  # Get the time values
-    subdfmedians <- CircadianTools::medlist(subdf, nthreads = nthreads)  # Generates the median at each time point for each gene
+    unique.time.vector <- unique(CircadianTools::MakeTimevector(subdf))  # Get the time values
+    subdfmedians <- CircadianTools::MedList(subdf, nthreads = nthreads)  # Generates the median at each time point for each gene
 
     if (nrow(subdfmedians) != 1) {
         single.gene.cluster = FALSE  # Set logical flag for there being more than one gene in the cluster (Error bars and standard deviation is required)

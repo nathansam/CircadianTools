@@ -1,4 +1,4 @@
-#' coranalysisdataset:
+#' CorAnalysisDataset:
 #'
 #' @description Correlates every gene in a dataset with every other gene in the same dataset. Allows a timelag between genes to be correlated.
 #' @param dataset A transcriptomics dataset. First columns should be gene names. All other columns should be expression levels.
@@ -9,11 +9,11 @@
 #' @param filename filename for saved csv file. Only used if save=TRUE. If not specified then the dataset object name is used.
 #' @return A dataframe of correlation values. The column genes represent the original genes whilst the rows represent lagged genes.
 #' @examples
-#' subdf<-tfilter(Laurasmappings)
-#' cordf <- coranalysisdataset(subdf, lag=1,filename='cor_tfiltered')
+#' subdf<-TFilter(Laurasmappings)
+#' cordf <- CorAnalysisDataset(subdf, lag=1,filename='cor_tfiltered')
 #'
 #' @export
-coranalysisdataset <- function(dataset, average = "median", lag = 0, nthreads = NULL, save = TRUE, filename = NULL) {
+CorAnalysisDataset <- function(dataset, average = "median", lag = 0, nthreads = NULL, save = TRUE, filename = NULL) {
     if (is.null(nthreads) == TRUE) {
         # Set the threads to maximum if none is specified
         nthreads <- parallel::detectCores()
@@ -33,7 +33,7 @@ coranalysisdataset <- function(dataset, average = "median", lag = 0, nthreads = 
     correlationdf <- foreach(i = 1:length(genenames), .combine = cbind) %dopar% {
 
         # Calculate correlation for the ith gene with all ( possibly lagged) genes.
-        results <- coranalysis(genename = genenames[i], dataset = dataset, lag = lag, average = average, print=FALSE)
+        results <- CircadianTools::CorAnalysis(genename = genenames[i], dataset = dataset, lag = lag, average = average, print=FALSE)
 
         data.frame(results[, 2])  # Add the list of correlations as a column to the correlation dataframe
     }
