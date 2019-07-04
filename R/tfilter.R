@@ -19,7 +19,7 @@ tfilter <- function(dataset, maxdifference = 1, minchanges = 2, psignificance = 
         # Set the threads to maximum if none is specified
         nthreads <- parallel::detectCores()
     }
-    
+        
     cl <- parallel::makeForkCluster(nthreads)  # Create cluster for parallelism
     doParallel::registerDoParallel(cl)
     
@@ -39,8 +39,8 @@ tfilter <- function(dataset, maxdifference = 1, minchanges = 2, psignificance = 
                 data.frame(dataset[i, ])  # Add the gene as part of the filtered dataset
             }
         }
-        
     }
+    
     parallel::stopCluster(cl)
     return(filterdf)
 }

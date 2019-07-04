@@ -4,7 +4,7 @@
 \alias{coranalysisdataset}
 \title{coranalysisdataset:}
 \usage{
-coranalysisdataset(dataset, average = "median", lag = 0, par = TRUE,
+coranalysisdataset(dataset, average = "median", lag = 0,
   nthreads = NULL, save = TRUE, filename = NULL)
 }
 \arguments{
@@ -14,9 +14,7 @@ coranalysisdataset(dataset, average = "median", lag = 0, par = TRUE,
 
 \item{lag}{Setting any value other than 0 allows a gene to be correlated with lagged genes in the dataset. The number denotes the number of timesteps to lag by.}
 
-\item{par}{Logical. If TRUE, the correlation for each gene will be generated using multiple threads(in parallel).}
-
-\item{nthreads}{The number of threads to be used for parallel computations. Only used if par=TRUE. Defaults to the maximum number of threads available.}
+\item{nthreads}{The number of threads to be used for parallel computations. Defaults to the maximum number of threads available.}
 
 \item{save}{Logical. If TRUE, the dataframe of correlations for the dataset is saved as a .csv file.}
 
@@ -30,6 +28,6 @@ Correlates every gene in a dataset with every other gene in the same dataset. Al
 }
 \examples{
 subdf<-tfilter(Laurasmappings)
-coranalysisdataset <- coranalysis(subdf, lag=1,filename='cor_tfiltered')
+cordf <- coranalysisdataset(subdf, lag=1,filename='cor_tfiltered')
 
 }

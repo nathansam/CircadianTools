@@ -21,6 +21,7 @@ Allows analysis of rhythmic genes to be easily carried out on transcriptomics da
 \code{\link{clusterplot}}: Plots the mean and error bars for the genes in a cluster across time. \cr \cr
 \code{\link{clusterspread}}: Shows how many genes are in each cluster after clustering has been applied. \cr \cr
 \code{\link{clustertimeprofile}}: Provides a dataframe of median values at each time point for each cluster. \cr \cr
+\code{\link{clusters.to.text}}: Takes a dataframe of clusters and stores the name of all genes in a text file. The row number deontes the cluster number. \cr \cr
 \code{\link{hclustering}}: Applies hierarchical clustering, clustering to a transcriptomics dataset and appends a cluster column to this dataset for all genes. \cr \cr
 \code{\link{pamclustering}}: Applies PAM (Partitioning around Medoids) clustering to a transcriptomics dataset and appends a cluster column to this dataset for all genes. \cr \cr
 }
@@ -65,6 +66,8 @@ Allows analysis of rhythmic genes to be easily carried out on transcriptomics da
 
 \section{Utility Functions}{
 
+\code{\link{cytoscape.file}}: Converts a correlation dataframe object into a format suitable for cytoscape and saves as a csv file. \cr \cr
+\code{\link{file.conflict}}: Checks if a file which will be created already exists and, if necessary asks the user if this file should be overwritten. \cr \cr
 \code{\link{geneclean}}: Removes columns and rows which show no gene activity over time. \cr \cr
 \code{\link{generange}}: Finds the range of gene activity for each gene in a dataframe. The median for the replicates is used for each time point. \cr \cr
 \code{\link{genescale}}: Centers/scales every gene in a transcriptomics dataset. \cr \cr

@@ -33,6 +33,7 @@ Documentation is available for CircadianTools and all of its functions via the u
 ```clusterplot```: Plots the mean and error bars for the genes in a cluster across time <br>
 ```clusterspread```: Shows how many genes are in each cluster after clustering has been applied. <br>
 ```clustertimeprofile```: Provides a dataframe of median values at each time point for each cluster. <br>
+```clusters.to.text```: Takes a dataframe of clusters and stores the name of all genes in a text file. The row number deontes the cluster number. <br>
 ```hclustering```: Applies hierarchical clustering, clustering to a transcriptomics dataset and appends a cluster column to this dataset for all genes. <br>
 ```pamclustering```: Applies PAM (Partitioning around Medoids) clustering to a transcriptomics dataset and appends a cluster column to this dataset for all genes. <br>
 
@@ -71,7 +72,8 @@ Documentation is available for CircadianTools and all of its functions via the u
 
 
 ### Utility Functions
-
+```cytoscape.file```: Converts a correlation dataframe object into a format suitable for cytoscape and saves as a csv file. <br>
+```file.conflict.R```: Checks if a file which will be created already exists and, if necessary asks the user if this file should be overwritten. <br>
 ```ggplot.cosinor.lm```: Adapted from the Cosinor package by Michael Sachs. Given a cosinor.lm model fit, generate a plot of the data with the fitted values. <br>
 ```generange```: Finds the range of gene activity for each gene in a dataframe. The median for the replicates is used for each time point. <br>
 ```genescale```: Centers/scales every gene in a transcriptomics dataset. <br>
