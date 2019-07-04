@@ -1,4 +1,10 @@
-^.*\.Rproj$
+^.*\.Rproj
 ^\.Rproj\.user$
-^\cosinorex.png$
-^turningpointex/png$
+^Colors\.png$
+^CODE_OF_CONDUCT\.md$
+^corex\.png$
+^cosinorex\.png$
+^CT_github\.jpg$
+^README\.md$
+^saveplotex\.png$
+^turnpointex\.png$
