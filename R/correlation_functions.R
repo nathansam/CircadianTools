@@ -11,7 +11,7 @@
 #' @param df Logical. If TRUE a dataframe containing the correlations of the given gene with all genes in the dataset is returned. Defaults to TRUE.
 #' @return Prints or saves ggplot2 object(s). Optionally returns dataframe containing gene names and correlation values
 #' @examples
-#' cor_results <- coranalysis(Laurasmappings, 'comp100002_c0_seq2')
+#' cor_results <- coranalysis('comp100002_c0_seq2', Laurasmappings)
 #'
 #' @export
 
@@ -125,7 +125,9 @@ CorAnalysis <- function(genename, dataset, threshold = 0.9, average = "median", 
 #' @param lag Setting any value other than 0 allows a cluster to be correlated with lagged clusters in the dataset. The number denotes the number of timesteps to lag by.
 #' @param nthreads The number of threads to be used for parallel computations. Defaults to the maximum number of threads available.
 #' @examples
-#'
+#' filter.df <- CombiFilter(Laurasmappings)
+#' pam.df <- PamClustering(filter.df, 50)
+#' cor.df <- CorAnalysisCluster(3, pam.df)
 #'
 #' @export
 

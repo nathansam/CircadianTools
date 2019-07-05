@@ -14,3 +14,8 @@ ClusterText(cluster.dataset, filename = NULL)
 \description{
 Takes a dataframe of clusters and stores the name of all genes in a text file. The row number deontes the cluster number.
 }
+\examples{
+filter.df <- CombiFilter(Laurasmappings)
+pam.df <- PamClustering(filter.df)
+ClusterText(pam.df)
+}

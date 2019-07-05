@@ -8,6 +8,9 @@
 #' @param path The directory to be used for saving plots to. Creates the directory if it doesn't already exist. Defaults to cluster_overview
 #' @return Prints or saves ggplot2 object(s).
 #' @examples
+#' filter.df <- CombiFilter(Laurasmappings)
+#' pam.df <- PamClustering(filter.df)
+#' ClusterOverview(pam.df)
 #'
 #' @export
 
@@ -37,9 +40,11 @@ ClusterOverview <- function(cluster.dataset, nthreads = NULL, print = TRUE, save
 #' @param save Logical. If TRUE, saves plots. Defaults to FALSE.
 #' @param print Logical. If TRUE renders significant genes in the plot viewer. Defaults to TRUE
 #' @param path The directory to be used for saving plots to. Uses the working directory by default. Not used if save=FALSE
-#' @return Prints or saves ggplot2 object(s).
+#' @return Prints or saves a ggplot2 object.
 #' @examples
-#'
+#' filter.df <- CombiFilter(Laurasmappings)
+#' pam.df <- PamClustering(filter.df)
+#' ClusterPlot(2, pam.df)
 #' @export
 
 ClusterPlot <- function(clusterno, cluster.dataset, nthreads = NULL, print = TRUE, save = FALSE, path = NULL) {
@@ -101,8 +106,9 @@ ClusterPlot <- function(clusterno, cluster.dataset, nthreads = NULL, print = TRU
 #' @param cluster.dataset A transcriptomics dataset where the final column details the cluster the gene belongs to. First column should be gene names. All remaining columns should be expression levels.
 #' @return A dataframe object. The first column is the cluster number. Second column is how many genes belong to that cluster.
 #' @examples
-#' clusterstats<-ClusterSpread(clusterdf)
-#'
+#' filter.df <- CombiFilter(Laurasmappings)
+#' pam.df <- PamClustering(filter.df)
+#' clusterstats<-ClusterSpread(pam.df)
 #' @export
 
 ClusterSpread <- function(cluster.dataset) {
@@ -121,6 +127,10 @@ ClusterSpread <- function(cluster.dataset) {
 #' @description Takes a dataframe of clusters and stores the name of all genes in a text file. The row number deontes the cluster number.
 #' @param cluster.dataset A transcriptomics dataset where the final column details the cluster the gene belongs to. First column should be gene names. All remaining columns should be expression levels.
 #' @param filename The filename of the saved text file. If not given then the name of the correlation dataframe object will be used. The.txt extension is not needed.
+#' @examples
+#' filter.df <- CombiFilter(Laurasmappings)
+#' pam.df <- PamClustering(filter.df)
+#' ClusterText(pam.df)
 #' @export
 ClusterText <- function(cluster.dataset, filename = NULL) {
 
@@ -152,7 +162,9 @@ ClusterText <- function(cluster.dataset, filename = NULL) {
 #' @param cluster.dataset A transcriptomics dataset where the final column details the cluster the gene belongs to. First column should be gene names. All remaining columns should be expression levels.
 #' @param nthreads The number of threads to be used for parallel computations. Defaults to the maximum number of threads available.
 #' @examples
-#'
+#' filter.df <- CombiFilter(Laurasmappings)
+#' pam.df <- PamClustering(filter.df)
+#' time.profile<-ClusterTimeProfile(1,pam.df)
 #'
 #' @export
 

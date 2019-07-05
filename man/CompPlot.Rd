@@ -16,12 +16,12 @@ CompPlot(gene1, gene2, dataset, save = FALSE)
 \item{save}{Logical. If TRUE, saves plots to working directory. Defaults to FALSE.}
 }
 \value{
-Returns or saves ggplot2 object(s).
+Returns or saves a ggplot2 object.
 }
 \description{
 Plots two genes from a gene activity dataset
 }
 \examples{
-cor_results <- coranalysis(LauraSingleMap, 'comp100002_c0_seq2')
+CompPlot('comp100000_c0_seq3', 'comp100002_c0_seq2', Laurasmappings)
 
 }

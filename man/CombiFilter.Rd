@@ -29,6 +29,6 @@ CombiFilter(dataset, non_zero_num = 4, threshold = 0.05,
 Filters a transcriptomics dataset by using ZeroFilter, AnovaFilter and SizeFilter
 }
 \examples{
-Laurasmappings_filtered <- combifilter(Laurasmappings, nthreads=4)
+Laurasmappings_filtered <- CombiFilter(Laurasmappings, nthreads=4)
 
 }

@@ -20,6 +20,8 @@ CorAnalysisCluster(cluster.no, cluster.dataset, lag = 0,
 Correlates the average activity of a cluster with the average activity of every other cluster.
 }
 \examples{
-
+filter.df <- CombiFilter(Laurasmappings)
+pam.df <- PamClustering(filter.df, 50)
+cor.df <- CorAnalysisCluster(3, pam.df)
 
 }

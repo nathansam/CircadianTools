@@ -17,6 +17,8 @@ ClusterTimeProfile(cluster.no, cluster.dataset, nthreads = NULL)
 Provides a dataframe of median values at each time point for each cluster.
 }
 \examples{
-
+filter.df <- CombiFilter(Laurasmappings)
+pam.df <- PamClustering(filter.df)
+time.profile<-ClusterTimeProfile(1,pam.df)
 
 }

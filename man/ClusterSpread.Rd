@@ -16,6 +16,7 @@ A dataframe object. The first column is the cluster number. Second column is how
 Shows how many genes are in each cluster after clustering has been applied.
 }
 \examples{
-clusterstats<-ClusterSpread(clusterdf)
-
+filter.df <- CombiFilter(Laurasmappings)
+pam.df <- PamClustering(filter.df)
+clusterstats<-ClusterSpread(pam.df)
 }

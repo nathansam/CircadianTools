@@ -7,9 +7,9 @@
 #' @param save Logical. If TRUE, saves plot to working directory. Defaults to FALSE.
 #' @param print Logical. If TRUE renders plot in the plot viewer. Defaults to TRUE
 #' @param path The directory to be used for saving plots to. Uses the working directory by default. Not used if save=FALSE
-#' @return Prints or saves ggplot2 object(s)
+#' @return A ggplot2 object
 #' @examples
-#' basicplot('comp101252_c0_seq2',LauraSingleMap)
+#' basicplot('comp101252_c0_seq2',Laurasmappings)
 #'
 #' @export
 
@@ -75,9 +75,9 @@ BasicPlot <- function(genename, dataset, timelag = 0, method = "median", print =
 #' @param save Logical. If TRUE, saves plots to working directory. Defaults to FALSE.
 #'
 #'
-#' @return Returns or saves ggplot2 object(s).
+#' @return Returns or saves a ggplot2 object.
 #' @examples
-#' cor_results <- coranalysis(LauraSingleMap, 'comp100002_c0_seq2')
+#' CompPlot('comp100000_c0_seq3', 'comp100002_c0_seq2', Laurasmappings)
 #'
 #' @export
 
@@ -145,7 +145,9 @@ CompPlot <- function(gene1, gene2, dataset, save = FALSE) {
 #' @param method How should the average activity for each time point be calculated? 'median' or 'mean'
 #' @param nthreads Number of processor threads to be used for calculating the distance matrix. If not specifed then the maximum number of logical cores are used.
 #' @param path The directory to be used for saving plots to. Uses the working directory by default and uses the name of the dataset object if this argument is nots specified)  Not used if save=FALSE
-#'
+#' @examples
+#' filter.df<-CombiFilter(Laurasmappings)
+#' DatasetPlot(filter.df)
 #' @export
 
 DatasetPlot <- function(dataset, timelag = 0, method = "median", nthreads = NULL, path = NULL) {

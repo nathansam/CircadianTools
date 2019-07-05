@@ -21,11 +21,13 @@ ClusterPlot(clusterno, cluster.dataset, nthreads = NULL, print = TRUE,
 \item{path}{The directory to be used for saving plots to. Uses the working directory by default. Not used if save=FALSE}
 }
 \value{
-Prints or saves ggplot2 object(s).
+Prints or saves a ggplot2 object.
 }
 \description{
 Plots the mean and error bars for the genes in a cluster across time
 }
 \examples{
-
+filter.df <- CombiFilter(Laurasmappings)
+pam.df <- PamClustering(filter.df)
+ClusterPlot(2, pam.df)
 }

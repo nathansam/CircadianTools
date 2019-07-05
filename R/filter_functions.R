@@ -4,7 +4,7 @@
 #' @param nthreads Number of processor threads for the filtering. If not specifed then the maximum number of logical cores are used.
 #' @param threshold Set the p-value threshold for the filtering
 #' @examples
-#' Laurasmappings_filtered <- anovafilter(Laurasmappings, nthreads=4)
+#' Laurasmappings_filtered <- AnovaFilter(Laurasmappings, nthreads=4)
 #'
 #' @export
 
@@ -111,7 +111,7 @@ ZeroFilter <- function(dataset, non_zero_num = 4, nthreads = NULL) {
 #' @param zerofilter Logical. If zerofiltering should be used. Defaults to TRUE.
 #' @param sizefilter Logical. If sizefiltering should be used. Defaults to TRUE.
 #' @examples
-#' Laurasmappings_filtered <- combifilter(Laurasmappings, nthreads=4)
+#' Laurasmappings_filtered <- CombiFilter(Laurasmappings, nthreads=4)
 #'
 #' @export
 

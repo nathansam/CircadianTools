@@ -17,6 +17,6 @@ AnovaFilter(dataset, threshold = 0.05, nthreads = NULL)
 Filters a gene activity dataframe via ANOVA
 }
 \examples{
-Laurasmappings_filtered <- anovafilter(Laurasmappings, nthreads=4)
+Laurasmappings_filtered <- AnovaFilter(Laurasmappings, nthreads=4)
 
 }

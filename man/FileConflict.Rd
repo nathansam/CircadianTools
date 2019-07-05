@@ -12,3 +12,6 @@ FileConflict(filename)
 \description{
 Checks if a file which will be created already exists and, if necessary asks the user if this file should be overwritten.
 }
+\examples{
+FileConflict("correlation.csv")
+}

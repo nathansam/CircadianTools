@@ -31,6 +31,6 @@ Prints or saves ggplot2 object(s). Optionally returns dataframe containing gene 
 Ranks correlation between a given gene and all other genes in a dataset. Plots both the given gene and highly correlated genes for a given correlation value
 }
 \examples{
-cor_results <- coranalysis(Laurasmappings, 'comp100002_c0_seq2')
+cor_results <- coranalysis('comp100002_c0_seq2', Laurasmappings)
 
 }

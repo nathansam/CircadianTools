@@ -29,6 +29,6 @@ Prints or saves ggplot2 object(s). Optionally returns dataframe containing gene 
 Parallel Implementation of \link{CosinorAnalysis}. Fits cosinor models to transcriptomics data and plots the best-fitting models using ggplot2.
 }
 \examples{
-cosinor_results <- CosinorAnalysisPar(Laurasmappings)
+cosinor.results <- CosinorAnalysisPar(Laurasmappings)
 
 }

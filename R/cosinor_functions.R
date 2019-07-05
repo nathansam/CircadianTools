@@ -90,7 +90,7 @@ CosinorAnalysis <- function(dataset, period = 24, timelag = 6, threshold = 0.05,
 #' @param df Logical. If TRUE a dataframe containing the results of the cosinor analysis will be returned. Defaults to TRUE.
 #' @return Prints or saves ggplot2 object(s). Optionally returns dataframe containing gene name and p values from F-test ranking of cosinor models
 #' @examples
-#' cosinor_results <- CosinorAnalysisPar(Laurasmappings)
+#' cosinor.results <- CosinorAnalysisPar(Laurasmappings)
 #'
 #' @export
 
@@ -182,8 +182,8 @@ CosinorPlot <- function(genename, dataset, timelag = 6, period = 24, print = TRU
 #' @param print Logical. If TRUE renders significant genes in the plot viewer. Defaults to TRUE
 #' @return Prints or saves ggplot2 object(s).
 #' @examples
-#' cosinor_results <- CosinorAnalysis(Laurasmappings)
-#' CosinorSignificantPlot(cosinor_results, Laurasmappings, number = 15, period=24 ,save=TRUE)
+#' cosinor.results <- CosinorAnalysis(Laurasmappings)
+#' CosinorSignificantPlot(cosinor.results, Laurasmappings, number = 15, period=24 ,save=TRUE)
 #'
 #' @export
 CosinorSignificantPlot <- function(results, dataset, number = 10, period = 24, print = TRUE, save = FALSE) {

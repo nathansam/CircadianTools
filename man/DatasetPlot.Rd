@@ -21,3 +21,7 @@ DatasetPlot(dataset, timelag = 0, method = "median", nthreads = NULL,
 \description{
 Saves plots of all genes in a dataset. WARNING! Don't run on a large dataset! Intended for a filtered dataset
 }
+\examples{
+filter.df<-CombiFilter(Laurasmappings)
+DatasetPlot(filter.df)
+}

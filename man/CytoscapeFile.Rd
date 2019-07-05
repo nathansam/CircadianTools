@@ -7,7 +7,7 @@
 CytoscapeFile(cor.dataset, filename = NULL, nthreads = NULL)
 }
 \arguments{
-\item{cor.dataset}{A NxN datframe of correlation values created by \link{coranalysisdataset} or \link{coranalysisclusterdataset}}
+\item{cor.dataset}{A NxN dataframe of correlation values created by \link{coranalysisdataset} or \link{coranalysisclusterdataset}}
 
 \item{nthreads}{Number of processor threads for the process. If not specifed then the maximum number of logical cores are used.}
 }
@@ -16,4 +16,9 @@ Dataframe object in the new format.
 }
 \description{
 Converts a correlation dataframe object into a format suitable for cytoscape and saves as a csv file.
+}
+\examples{
+correlation.df <- CorAnalysisDataset(Laurasmappings)
+CytoscapeFile(correlation.df)
+
 }

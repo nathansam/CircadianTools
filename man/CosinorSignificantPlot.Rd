@@ -27,7 +27,7 @@ Prints or saves ggplot2 object(s).
 Prints or saves the genes found to be most significant by \link{CosinorAnalysis}
 }
 \examples{
-cosinor_results <- CosinorAnalysis(Laurasmappings)
-CosinorSignificantPlot(cosinor_results, Laurasmappings, number = 15, period=24 ,save=TRUE)
+cosinor.results <- CosinorAnalysis(Laurasmappings)
+CosinorSignificantPlot(cosinor.results, Laurasmappings, number = 15, period=24 ,save=TRUE)
 
 }

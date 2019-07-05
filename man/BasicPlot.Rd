@@ -23,12 +23,12 @@ BasicPlot(genename, dataset, timelag = 0, method = "median",
 \item{path}{The directory to be used for saving plots to. Uses the working directory by default. Not used if save=FALSE}
 }
 \value{
-Prints or saves ggplot2 object(s)
+A ggplot2 object
 }
 \description{
 Plots activity data as points and average activity as lines
 }
 \examples{
-basicplot('comp101252_c0_seq2',LauraSingleMap)
+basicplot('comp101252_c0_seq2',Laurasmappings)
 
 }

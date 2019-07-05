@@ -4,6 +4,9 @@
 #' @param ID Gene name or row number
 #' @param dataset A transcriptomics dataset. First columns should be gene names. All other columns should be expression levels.
 #' @return Gene activity as a matrix
+#' @examples
+#' activity <- ActivitySelect(1, Laurasmappings)
+#' activity <- ActivitySelect("comp100000_c0_seq2", Laurasmappings)
 #' @export
 ActivitySelect <- function(ID, dataset) {
 
@@ -22,6 +25,8 @@ ActivitySelect <- function(ID, dataset) {
 #' FileConflict
 #' @description Checks if a file which will be created already exists and, if necessary asks the user if this file should be overwritten.
 #' @param filename The name of a file (with extension included)
+#' @examples
+#' FileConflict("correlation.csv")
 #' @export
 
 FileConflict <- function(filename){
@@ -152,8 +157,12 @@ MedListPar <- function(dataset, nthreads = NULL) {
 
 #' CytoscapeFile:
 #' @description Converts a correlation dataframe object into a format suitable for cytoscape and saves as a csv file.
-#' @param cor.dataset A NxN datframe of correlation values created by \link{coranalysisdataset} or \link{coranalysisclusterdataset}
+#' @param cor.dataset A NxN dataframe of correlation values created by \link{coranalysisdataset} or \link{coranalysisclusterdataset}
 #' @param nthreads Number of processor threads for the process. If not specifed then the maximum number of logical cores are used.
+#' @examples
+#' correlation.df <- CorAnalysisDataset(Laurasmappings)
+#' CytoscapeFile(correlation.df)
+#'
 #' @return Dataframe object in the new format.
 #' @export
 
