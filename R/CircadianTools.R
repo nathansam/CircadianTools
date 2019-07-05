@@ -7,9 +7,9 @@
 #' \code{\link{DatasetPlot}}: Saves plots of all genes in a dataset. \cr \cr
 #' @section Clustering:
 #' \code{\link{ClusterOverview}}: Plots the mean and error bars for all clusters across time. \cr \cr
-#' \code{\link{Clusterplot}}: Plots the mean and error bars for the genes in a cluster across time. \cr \cr
-#' \code{\link{Clusterspread}}: Shows how many genes are in each cluster after clustering has been applied. \cr \cr
-#' \code{\link{ClustersText}}: Takes a dataframe of clusters and stores the name of all genes in a text file. The row number deontes the cluster number. \cr \cr
+#' \code{\link{ClusterPlot}}: Plots the mean and error bars for the genes in a cluster across time. \cr \cr
+#' \code{\link{ClusterSpread}}: Shows how many genes are in each cluster after clustering has been applied. \cr \cr
+#' \code{\link{ClusterText}}: Takes a dataframe of clusters and stores the name of all genes in a text file. The row number deontes the cluster number. \cr \cr
 #' \code{\link{ClusterTimeProfile}}: Provides a dataframe of median values at each time point for each cluster. \cr \cr
 #' \code{\link{HClustering}}: Applies hierarchical clustering, clustering to a transcriptomics dataset and appends a cluster column to this dataset for all genes. \cr \cr
 #' \code{\link{PamClustering}}: Applies PAM (Partitioning around Medoids) clustering to a transcriptomics dataset and appends a cluster column to this dataset for all genes. \cr \cr
