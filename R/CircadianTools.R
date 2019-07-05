@@ -22,25 +22,27 @@
 #' \code{\link{CorAnalysisDataset}}: Correlates every gene in a dataset with every other gene in the same dataset. Allows a timelag between genes to be correlated. \cr \cr
 #' \code{\link{CorAnalysisPar}}: Parallel Implementation of \code{CorAnalysis}. \cr \cr
 #' \code{\link{CorSignificantPlot}}: Prints or saves the genes found to be most significant by \code{CorAnalysis}. \cr \cr
-#' @section Cosinor Functions:
+#' @section Cosinor:
 #' \code{\link{CosinorAnalysis}}: Fits cosinor models to transcriptomics data and plots the best-fitting models using ggplot2. \cr \cr
 #' \code{\link{CosinorAnalysisPar}}: Parallel Implementation of \code{CosinorAnalysis}. \cr \cr
 #' \code{\link{CosinorPlot}}: Fits a cosinor model to a given gene in a given dataset and plots the model. \cr \cr
 #' \code{\link{CosinorSignificantPlot}}: Prints or saves the genes found to be most significant by \code{cosinoranalysis}. \cr \cr
+#' @section Cytoscape:
+#' \code{\link{CytoscapeFile}}: Converts a correlation dataframe object into a format suitable for cytoscape and saves as a csv file. \cr \cr
+#' \code{\link{CytoscapeFilter}}: Reduces the size of a file intended for Cytoscape by filtering out the genes/clusters which are not correlated \cr \cr
 #' @section Filtering:
 #' \code{\link{AnovaFilter}}: Filters a gene activity dataframe via ANOVA. \cr \cr
 #' \code{\link{CombiFilter}}: Filters a transcriptomics dataset by using \code{Zerofilter}, \code{Anovafilter} and \code{Sizefilter}. \cr \cr
 #' \code{\link{SizeFilter}}: Filters the genes with the smallest range from a transcriptomics dataset. \cr \cr
 #' \code{\link{TFilter}}: Experimental! Applies a filter where a t-test is carried out on gene activity levels between time points. \cr \cr
 #' \code{\link{ZeroFilter}}: Filters a transcriptomics dataset such that there is a minimum number of non-zero activity readings for each gene. \cr \cr
-#' @section RAIN Functions:
+#' @section RAIN:
 #' \code{\link{RainAnalysis}}: Carries out RAIN analysis on a gene dataset.  \cr \cr
 #' \code{\link{RainSignificantPlot}}: Prints or saves the genes found to be most significant by \code{rainanalysis}. \cr \cr
 #' @section Turning Point Functions:
 #' \code{\link{TurningPlot}}: Fits a spline to a given gene in a given dataset. Finds the turning points. Plots the turning points and spline.\cr \cr
 #' @section Utility Functions:
 #' \code{\link{ActivitySelect}}: Returns gene activity by either gene name or row number \cr \cr
-#' \code{\link{CytoscapeFile}}: Converts a correlation dataframe object into a format suitable for cytoscape and saves as a csv file. \cr \cr
 #' \code{\link{FileConflict}}: Checks if a file which will be created already exists and, if necessary asks the user if this file should be overwritten. \cr \cr
 #' \code{\link{GeneClean}}: Removes columns and rows which show no gene activity over time. \cr \cr
 #' \code{\link{GeneRange}}: Finds the range of gene activity for each gene in a dataframe. The median for the replicates is used for each time point. \cr \cr

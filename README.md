@@ -47,12 +47,16 @@ Documentation is available for CircadianTools and all of its functions via the u
 ```CorAnalysisPar```: Parallel Implementation of ```CorAnalysis``` <br>
 ```CorSignificantPlot```: Prints or saves the genes found to be most significant by ```CorAnalysis``` or ```CorAnalysisPar``` <br>
 
-### Cosinor Functions
+### Cosinor
 
 ```CosinorAnalysis```: Fits cosinor models to transcriptomics data and plots the best-fitting models using ggplot2. <br>
 ```CosinorAnalysisPar```: Parallel Implementation of ```CosinorAnalysis```. <br>
 ```CosinorPlot```: Fits a cosinor model to a given gene in a given dataset and plots the model. <br>
 ```CosinorSignificantPlot```: Prints or saves the genes found to be most significant by ```CosinorAnalysis```. <br>
+
+### Cytoscape
+```CytoscapeFile```: Converts a correlation dataframe object into a format suitable for cytoscape and saves as a csv file. <br>
+```CytoscapeFilter``: Reduces the size of a file intended for Cytoscape by filtering out the genes/clusters which are not correlated <br>
 
 ### Filtering
 
@@ -63,19 +67,18 @@ Documentation is available for CircadianTools and all of its functions via the u
 
 ```ZeroFilter```: Filters a transcriptomics dataset such that there is a minimum number of non-zero activity readings for each gene. <br>
 
-### RAIN Functions
+### RAIN
 
 ```RainAnalysis```: Carries out RAIN analysis on a gene dataset. <br>
 ```RainSignificantPlot``` Prints or saves the genes found to be most significant by ```RainAnalysis```. <br>
 
-### Turning Point Functions
+### Turning Point
 
 ```TurningPlot```: Fits a spline to a given gene in a given dataset. Finds the turning points. Plots the turning points and spline. <br>
 
 
 ### Utility Functions
 ```ActivitySelect```: Returns gene activity by either gene name or row number <br>
-```CytoscapeFile```: Converts a correlation dataframe object into a format suitable for cytoscape and saves as a csv file. <br>
 ```FileConflict```: Checks if a file which will be created already exists and, if necessary asks the user if this file should be overwritten. <br>
 ```ggplot.cosinor.lm```: Adapted from the Cosinor package by Michael Sachs. Given a cosinor.lm model fit, generate a plot of the data with the fitted values. <br>
 ```GeneRange```: Finds the range of gene activity for each gene in a dataframe. The median for the replicates is used for each time point. <br>
