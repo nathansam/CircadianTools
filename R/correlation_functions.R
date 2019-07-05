@@ -226,7 +226,7 @@ CorAnalysisDataset <- function(dataset, average = "median", lag = 0, nthreads = 
 #'
 #' @export
 
-CoranalysisClusterDataset <- function(cluster.dataset, lag = 0, nthreads = NULL, save = TRUE, filename = NULL) {
+CorAnalysisClusterDataset <- function(cluster.dataset, lag = 0, nthreads = NULL, save = TRUE, filename = NULL) {
   if (is.null(filename) == TRUE) {
     filename <- deparse(substitute(cluster.dataset))  # If a filename isn't specified then the name of the dataframe object is used
   }
@@ -237,7 +237,7 @@ CoranalysisClusterDataset <- function(cluster.dataset, lag = 0, nthreads = NULL,
 
   correlationdf <- foreach(i = 1:length(clusters), .combine = cbind) %do% {
     CircadianTools::LoadingPrint(iteration = i, loading.values)  # print progress if surpassed a significant milestone
-    temp.df <- CircadianTools::CoranalysisCluster(i, cluster.dataset, lag = lag, nthreads = nthreads)
+    temp.df <- CircadianTools::CorAnalysisCluster(i, cluster.dataset, lag = lag, nthreads = nthreads)
     temp.df[, 2]
   }
 

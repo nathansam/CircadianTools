@@ -18,6 +18,6 @@ Finds the genes which belong to common singleton clusters in two different clust
 filter.df <- CombiFilter(Laurasmappings)
 pam.df <- PamClustering(filter.df, 40)
 hclust.df <- HClustering(filter.df, 40)
-common.singletons <- CommonSingletonFinder(pam.df)
+common.singletons <- CommonSingletonFinder(pam.df, hclust.df)
 
 }
