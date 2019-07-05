@@ -61,7 +61,7 @@ ClusterPlot <- function(clusterno, cluster.dataset, nthreads = NULL, print = TRU
     single.gene.cluster = TRUE  # Set logical flag for there being 1 gene in the cluster (Error bars and standard deviation is not required)
   }
 
-  graphdf <- foreach(i = 1:ncol(subdfmedians), .combine = rbind) %do% {
+  graphdf <- foreach::foreach(i = 1:ncol(subdfmedians), .combine = rbind) %do% {
 
     column <- subdfmedians[, i]  # Select all values per column (per timepoint)
     meanval <- mean(column)  # Calculate the mean value for this timepoint
@@ -113,7 +113,7 @@ ClusterPlot <- function(clusterno, cluster.dataset, nthreads = NULL, print = TRU
 
 ClusterSpread <- function(cluster.dataset) {
   `%do%` <- foreach::`%do%` # Load the do binary operator from foreach package
-  clustersize.df <- foreach(i = unique(cluster.dataset$cluster), .combine = rbind) %do% {
+  clustersize.df <- foreach::foreach(i = unique(cluster.dataset$cluster), .combine = rbind) %do% {
     # Cluster by cluster
     cluster.subset <- subset(cluster.dataset, cluster == i)  # Find all genes in the ith cluster
     cluster.size <- nrow(cluster.subset)  # Find how many genes in the cluster

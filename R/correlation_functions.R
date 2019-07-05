@@ -132,7 +132,7 @@ CorAnalysis <- function(genename, dataset, threshold = 0.9, average = "median", 
 #' @export
 
 CorAnalysisCluster <- function(cluster.no, cluster.dataset, lag = 0, nthreads = NULL) {
-  library(foreach)
+
 
   main.time.profile <- CircadianTools::ClusterTimeProfile(cluster.no, cluster.dataset, nthreads = nthreads)  # Get time profile for the cluster specified
 
@@ -194,7 +194,7 @@ CorAnalysisDataset <- function(dataset, average = "median", lag = 0, nthreads = 
 
   genenames <- as.vector(dataset[, 1])  # Vector of names for every gene
 
-  correlationdf <- foreach(i = 1:length(genenames), .combine = cbind) %dopar% {
+  correlationdf <- foreach::foreach(i = 1:length(genenames), .combine = cbind) %dopar% {
 
     # Calculate correlation for the ith gene with all ( possibly lagged) genes.
     results <- CircadianTools::CorAnalysis(genename = genenames[i], dataset = dataset, lag = lag, average = average, print=FALSE)
@@ -244,7 +244,7 @@ CorAnalysisClusterDataset <- function(cluster.dataset, lag = 0, nthreads = NULL,
 
   clusters <- unique(cluster.dataset$cluster)  # Vector of cluster numbers
 
-  correlationdf <- foreach(i = 1:length(clusters), .combine = cbind) %dopar% {
+  correlationdf <- foreach::foreach(i = 1:length(clusters), .combine = cbind) %dopar% {
     temp.df <- CircadianTools::CorAnalysisCluster(i, cluster.dataset, lag = lag, nthreads = 1)
     temp.df[, 2]
   }
@@ -316,7 +316,7 @@ CorAnalysisPar <- function(genename, dataset, lag = 0, average = "median", nthre
   cl <- parallel::makeForkCluster(nthreads)  # Create cluster for parallelism
   doParallel::registerDoParallel(cl)
 
-  cor.df <- foreach(i = 1:genenumber, .combine = rbind) %dopar% {
+  cor.df <- foreach::foreach(i = 1:genenumber, .combine = rbind) %dopar% {
 
     genematrix <- dplyr::filter(dataset, dplyr::row_number() == i)
     compgenename <- paste(dataset[i, 1])

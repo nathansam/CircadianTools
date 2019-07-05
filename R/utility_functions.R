@@ -58,6 +58,10 @@ FileConflict <- function(filename){
 #' @export
 
 MedList <- function(dataset, nthreads){
+  if (is.null(nthreads)==TRUE){
+    nthreads <- parallel::detectCores()
+  }
+
   if (nthreads==1){
     results <- MedListSeq(dataset)
   } else{
@@ -83,7 +87,7 @@ MedListSeq <- function(dataset) {
   genenumber <- nrow(dataset)
 
 
-  medlistdf <- foreach(i = 1:genenumber, .combine = rbind) %do% {
+  medlistdf <- foreach::foreach(i = 1:genenumber, .combine = rbind) %do% {
     # Parallel for loop to create a dataframe of gene names and their respective ranges
     gene <- dplyr::filter(dataset, dplyr::row_number() == i)  # Get gene by row
     genename <- gene[, 1]
@@ -131,7 +135,7 @@ MedListPar <- function(dataset, nthreads = NULL) {
   cl <- parallel::makeForkCluster(nthreads)  # Create cluster for parallelism
   doParallel::registerDoParallel(cl)
 
-  medlistdf <- foreach(i = 1:genenumber, .combine = rbind) %dopar% {
+  medlistdf <- foreach::foreach(i = 1:genenumber, .combine = rbind) %dopar% {
     # Parallel for loop to create a dataframe of gene names and their respective ranges
     gene <- dplyr::filter(dataset, dplyr::row_number() == i)  # Get gene by row
     genename <- gene[, 1]
@@ -194,11 +198,11 @@ CytoscapeFile <- function(cor.dataset,filename=NULL,nthreads=NULL){
   cl <- parallel::makeForkCluster(nthreads)  # Create cluster for parallelism
   doParallel::registerDoParallel(cl)
 
-  finaldf <- foreach(j=1:length(sourcelist), .combine = rbind) %dopar% {
+  finaldf <- foreach::foreach(j=1:length(sourcelist), .combine = rbind) %dopar% {
 
     subsetdf <- cor.dataset[,j] # Select column (correlation values for the source)
 
-    sourcedf <- foreach(i=1:length(targetlist), .combine=rbind) %do% {
+    sourcedf <- foreach::foreach(i=1:length(targetlist), .combine=rbind) %do% {
       data.frame(sourcelist[j], targetlist[i], subsetdf[i]) # Save source, target gene names and correlation values as a row.
       # All rows are combined in returned dataframe
     }
@@ -386,7 +390,7 @@ GeneRange <- function(dataset, nthreads = NULL) {
   cl <- parallel::makeForkCluster(nthreads)  # Create cluster for parallelism
   doParallel::registerDoParallel(cl)
 
-  rangedf <- foreach(i = 1:genenumber, .combine = rbind) %dopar% {
+  rangedf <- foreach::foreach(i = 1:genenumber, .combine = rbind) %dopar% {
     gene <- dplyr::filter(mediandf, dplyr::row_number() == i)  # Get gene by row
     generange <- max(gene) - min(gene)
     genename <- dataset[i, 1]
@@ -435,7 +439,7 @@ GeneSub <- function(subdf, dataframe, nthreads = NULL) {
   doParallel::registerDoParallel(cl)
 
 
-  newdf <- foreach(i = 1:nrow(subdf), .combine = rbind) %dopar% {
+  newdf <- foreach::foreach(i = 1:nrow(subdf), .combine = rbind) %dopar% {
     subset(dataframe, sample == paste(subdf[i, 1]))  # For each gene name in subdf, pull from activity dataframe
   }
   parallel::stopCluster(cl)

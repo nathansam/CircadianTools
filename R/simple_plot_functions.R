@@ -166,7 +166,7 @@ DatasetPlot <- function(dataset, timelag = 0, method = "median", nthreads = NULL
     doParallel::registerDoParallel(cl)
 
     genenames <- dataset[, 1]
-    foreach(i = 1:length(genenames)) %dopar% {
+    foreach::foreach(i = 1:length(genenames)) %dopar% {
         CircadianTools::BasicPlot(genenames[i], dataset = dataset, timelag = timelag, method = method, print = FALSE,
                                   save = TRUE, path = path)
     }

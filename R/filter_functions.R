@@ -23,7 +23,7 @@ AnovaFilter <- function(dataset, threshold = 0.05, nthreads = NULL) {
   cl <- parallel::makeForkCluster(nthreads)  # Create cluster for parallelism
   doParallel::registerDoParallel(cl)  # Register cluster
 
-  filterdf <- foreach(i = 1:genenumber, .combine = rbind) %dopar% {
+  filterdf <- foreach::foreach(i = 1:genenumber, .combine = rbind) %dopar% {
     # Parallel for loop to create dataframe of significant genes
     gene <- dplyr::filter(dataset, dplyr::row_number() == i)  # Get gene by row
     genematrix <- t(gene[-1])  # Remove gene name
@@ -88,7 +88,7 @@ ZeroFilter <- function(dataset, non_zero_num = 4, nthreads = NULL) {
   timevector <- CircadianTools::MakeTimevector(dataset)
   cl <- parallel::makeForkCluster(nthreads)  # Create cluster for parallelism
   doParallel::registerDoParallel(cl)
-  filterdf <- foreach(i = 1:genenumber, .combine = rbind) %dopar% {
+  filterdf <- foreach::foreach(i = 1:genenumber, .combine = rbind) %dopar% {
     num_zeroes <- sum(as.list((dataset[i, ][-1])) == 0)  # Number of zeroes
     if (num_zeroes < (length(timevector) - non_zero_num)) {
       dataset[i, ]
@@ -163,7 +163,7 @@ TFilter <- function(dataset, maxdifference = 1, minchanges = 2, psignificance = 
 
   dataset[-1] <- scale(dataset[-1], scale = FALSE, center = TRUE)
 
-  filterdf <- foreach(i = 1:nrow(dataset), .combine = rbind) %dopar% {
+  filterdf <- foreach::foreach(i = 1:nrow(dataset), .combine = rbind) %dopar% {
     ups.downs <- TAnalysis(row.no = i, dataset = dataset, psignificance = psignificance)
     # tanalysis returns two values as a vector. First values represents a positive significant change between time
     # points whilst second value represents a negative significant change.
