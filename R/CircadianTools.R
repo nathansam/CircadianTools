@@ -11,8 +11,10 @@
 #' \code{\link{ClusterSpread}}: Shows how many genes are in each cluster after clustering has been applied. \cr \cr
 #' \code{\link{ClusterText}}: Takes a dataframe of clusters and stores the name of all genes in a text file. The row number deontes the cluster number. \cr \cr
 #' \code{\link{ClusterTimeProfile}}: Provides a dataframe of median values at each time point for each cluster. \cr \cr
+#' \code{\link{{CommonSingletonFinder}}: Finds the genes which belong to common singleton clusters in two different clustered datasets. \cr \cr
 #' \code{\link{HClustering}}: Applies hierarchical clustering, clustering to a transcriptomics dataset and appends a cluster column to this dataset for all genes. \cr \cr
 #' \code{\link{PamClustering}}: Applies PAM (Partitioning around Medoids) clustering to a transcriptomics dataset and appends a cluster column to this dataset for all genes. \cr \cr
+#' \code{\link{SingletonNameFinder}}: Finds the genes which belong to singleton clusters. \cr \cr
 #' @section Correlation:
 #' \code{\link{CorAnalysis}}: Ranks correlation between a given gene and all other genes in a dataset. Plots both the given gene and highly correlated genes for a given correlation value. \cr \cr
 #' \code{\link{CorAnalysisCluster}}: Correlates the average activity of a cluster with the average activity of every other cluster. \cr \cr

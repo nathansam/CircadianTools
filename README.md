@@ -33,9 +33,11 @@ Documentation is available for CircadianTools and all of its functions via the u
 ```ClusterSpread```: Shows how many genes are in each cluster after clustering has been applied. <br>
 ```ClusterText```: Takes a dataframe of clusters and stores the name of all genes in a text file. The row number deontes the cluster number. <br>
 ```ClusterTimeProfile```: Provides a dataframe of median values at each time point for each cluster. <br>
+```CommonSingletonFinder```: Finds the genes which belong to common singleton clusters in two different clustered datasets. <br>
 ```HClustering```: Applies hierarchical clustering, clustering to a transcriptomics dataset and appends a cluster column to this dataset for all genes. <br>
 ```PamClustering```: Applies PAM (Partitioning around Medoids) clustering to a transcriptomics dataset and appends a cluster column to this dataset for all genes. <br>
-
+```SingletonNameFinder```: Finds the genes which belong to singleton clusters. <br>
+  
 ### Correlation
 
 ```CorAnalysis```: Ranks correlation between a given gene and all other genes in a dataset. Plots both the given gene and highly correlated genes for a given correlation value <br>
