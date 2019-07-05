@@ -181,7 +181,6 @@ CorAnalysisDataset <- function(dataset, average = "median", lag = 0, nthreads = 
     # Set the threads to maximum if none is specified
     nthreads <- parallel::detectCores()
   }
-  %dopar%
   if (is.null(filename) == TRUE) {
     # If a filename isn't specified then the name of the dataframe object is used
     filename <- deparse(substitute(dataset))
