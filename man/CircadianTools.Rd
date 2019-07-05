@@ -8,7 +8,7 @@
 \description{
 Allows analysis of rhythmic genes to be easily carried out on transcriptomics data using R. Designed to be as flexible as possible such as by allowing an unequal number of replicates. \cr \cr
 }
-\section{General Tools}{
+\section{Simple Plots}{
 
 \code{\link{BasicPlot}}: Plots activity data as points and average activity as lines \cr \cr
 \code{\link{CompPlot}}: Plots two genes from a gene activity dataset. \cr \cr
