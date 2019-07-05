@@ -99,7 +99,7 @@ CosinorAnalysisPar <- function(dataset, period = 24, nthreads = NULL, timelag = 
   if (is.null(nthreads) == TRUE) {
     nthreads <- parallel::detectCores()
   }
-  library(foreach)
+  `%dopar%` <- foreach::`%dopar%` # Load the dopar binary operator from foreach package
   if (is.null(nthreads) == TRUE) {
     nthreads <- parallel::detectCores()
   }

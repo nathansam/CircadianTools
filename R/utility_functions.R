@@ -45,17 +45,75 @@ FileConflict <- function(filename){
 
 
 #' MedList
-#' @description Provides a dataframe of median values at each time point for each gene from a transcriptomics dataset.
+#' @description A Wrapper for MedList. Calls MedlistSeq if a singlethreaded function is required or MedListPar if a multithreaded function is needed.
 #' @param dataset A transcriptomics dataset. First columns should be gene names. All other columns should be expression levels.
-#' @param nthreads Number of processor threads for the filtering. If not specifed then the maximum number of logical cores are used.
 #' @examples
 #' mediandf <- MedList(Laurasmappings, nthreads=4)
 #'
 #' @export
 
-MedList <- function(dataset, nthreads = NULL) {
+MedList <- function(dataset, nthreads){
+  if (nthreads==1){
+    results <- MedListSeq(dataset)
+  } else{
+    results <- MedListPar(dataset, nthreads = nthreads)
+  }
+  return(results)
+}
 
-  library(foreach)  #Required for parallelism
+
+#' MedListSeq
+#' @description Provides a dataframe of median values at each time point for each gene from a transcriptomics dataset.
+#' @param dataset A transcriptomics dataset. First columns should be gene names. All other columns should be expression levels.
+#' @examples
+#' mediandf <- MedListSeq(Laurasmappings)
+#'
+#' @export
+
+MedListSeq <- function(dataset) {
+
+  `%do%` <- foreach::`%do%` # Load the do binary operator from foreach package
+  timevector <- CircadianTools::MakeTimevector(dataset)  # List of time values (repeated for replicates)
+
+  genenumber <- nrow(dataset)
+
+
+  medlistdf <- foreach(i = 1:genenumber, .combine = rbind) %do% {
+    # Parallel for loop to create a dataframe of gene names and their respective ranges
+    gene <- dplyr::filter(dataset, dplyr::row_number() == i)  # Get gene by row
+    genename <- gene[, 1]
+    genematrix <- t(gene[-1])  # Gene activity as column
+    activity.df <- data.frame(genematrix, timevector)
+    colnames(activity.df) <- c("activity", "timevector")
+    med.list <- c()  #List of medians for the gene
+    for (j in unique(timevector)) {
+      genesubset <- subset(activity.df, timevector == j)  # Populate the median list
+      med.list <- c(med.list, median(genesubset$activity))
+    }
+    t(data.frame(med.list))
+
+  }
+
+  colnames(medlistdf) <- unique(timevector)  # Columns of the returned dataframe is the time point
+  rownames(medlistdf) <- dataset[, 1]  #Row name is gene name
+  return(medlistdf)
+}
+
+
+
+
+#' MedListPar
+#' @description Provides a dataframe of median values at each time point for each gene from a transcriptomics dataset.
+#' @param dataset A transcriptomics dataset. First columns should be gene names. All other columns should be expression levels.
+#' @param nthreads Number of processor threads for the filtering. If not specifed then the maximum number of logical cores are used.
+#' @examples
+#' mediandf <- MedListPar(Laurasmappings, nthreads=4)
+#'
+#' @export
+
+MedListPar <- function(dataset, nthreads = NULL) {
+
+  `%dopar%` <- foreach::`%dopar%` # Load the dopar binary operator from foreach package
   timevector <- CircadianTools::MakeTimevector(dataset)  # List of time values (repeated for replicates)
 
   genenumber <- nrow(dataset)
@@ -111,14 +169,15 @@ CytoscapeFile <- function(cor.dataset,filename=NULL,nthreads=NULL){
   # Checks if a file which will be created already exists. Asks the user if this file should be overwritten.
 
 
-  library(foreach)  #Required for parallelism
+  `%dopar%` <- foreach::`%dopar%` # Load the dopar binary operator from foreach package
+  `%do%` <- foreach::`%do%` # Load the do binary operator from foreach package
+
 
   if (is.null(nthreads) == TRUE) {
     # Set the threads to maximum if none is specified
     nthreads <- parallel::detectCores()
   }
 
-  require(foreach)
   sourcelist <- colnames(cor.dataset) # The columns will act as source nodes in Cytoscape
   targetlist <- rownames(cor.dataset)  # The rows will act as target nodes in Cytoscape
 
@@ -304,11 +363,13 @@ GeneClean <- function(dataset) {
 #' @export
 
 GeneRange <- function(dataset, nthreads = NULL) {
+  `%dopar%` <- foreach::`%dopar%` # Load the dopar binary operator from foreach package
 
   if (is.null(nthreads) == TRUE) {
     # Set the threads to maximum if none is specified
     nthreads <- parallel::detectCores()
   }
+
 
   mediandf <- CircadianTools::MedList(dataset = dataset, nthreads = nthreads)
   genenumber <- nrow(mediandf)
@@ -354,7 +415,7 @@ GeneScale <- function(dataset, scale = FALSE, center = TRUE) {
 
 GeneSub <- function(subdf, dataframe, nthreads = NULL) {
 
-  library(foreach)  #Required for parallelism
+  `%dopar%` <- foreach::`%dopar%` # Load the dopar binary operator from foreach package
 
   if (is.null(nthreads) == TRUE) {
     # Set the threads to maximum if none is specified

@@ -9,7 +9,7 @@
 #' @export
 
 AnovaFilter <- function(dataset, threshold = 0.05, nthreads = NULL) {
-  library(foreach)  #Required for parallelism
+  `%dopar%` <- foreach::`%dopar%` # Load the dopar binary operator from foreach package
 
   if (is.null(nthreads) == TRUE) {
     # Set the threads to maximum if none is specified
@@ -79,7 +79,7 @@ SizeFilter <- function(dataset, cutoff = 0.1, nthreads = NULL) {
 
 ZeroFilter <- function(dataset, non_zero_num = 4, nthreads = NULL) {
   dataset <- CircadianTools::geneclean(dataset)
-  library(foreach)
+  `%dopar%` <- foreach::`%dopar%` # Load the dopar binary operator from foreach package
   if (is.null(nthreads) == TRUE) {
     nthreads <- parallel::detectCores()  # Set the threads to maximum if none is specified
   }
@@ -151,7 +151,7 @@ CombiFilter <- function(dataset, non_zero_num = 4, threshold = 0.05, cutoff = 0.
 #' @export
 
 TFilter <- function(dataset, maxdifference = 1, minchanges = 2, psignificance = 0.05, nthreads = NULL) {
-  library(foreach)
+  `%dopar%` <- foreach::`%dopar%` # Load the dopar binary operator from foreach package
 
   if (is.null(nthreads) == TRUE) {
     # Set the threads to maximum if none is specified

@@ -31,7 +31,7 @@ CorAnalysis <- function(genename, dataset, threshold = 0.9, average = "median", 
   cor.df <- data.frame(sample = dplyr::select(dataset, 1), corvalues = rep(0, genenumber))  #first column gene name, second column correlation value
   timevector <- CircadianTools::MakeTimevector(dataset)  # Create vector of time values
   loading_values <- CircadianTools::LoadingGen(genenumber)  # Used for the loading bar
-  selectedgene <- CircadianTools::Activity_Select(genename, dataset)
+  selectedgene <- CircadianTools::ActivitySelect(genename, dataset)
   selectedgenedf <- data.frame(timevector, selectedgene)
   names(selectedgenedf) <- c("timevector", "activity")
 
@@ -62,7 +62,7 @@ CorAnalysis <- function(genename, dataset, threshold = 0.9, average = "median", 
 
     genematrix <- dplyr::filter(dataset, dplyr::row_number() == i)
     compgenename <- paste(dataset[i, 1])
-    genematrix <- activity_select(i, dataset)
+    genematrix <- CircadianTools::ActivitySelect(i, dataset)
 
 
 
@@ -181,13 +181,13 @@ CorAnalysisDataset <- function(dataset, average = "median", lag = 0, nthreads = 
     # Set the threads to maximum if none is specified
     nthreads <- parallel::detectCores()
   }
-
+  %dopar%
   if (is.null(filename) == TRUE) {
     # If a filename isn't specified then the name of the dataframe object is used
     filename <- deparse(substitute(dataset))
   }
 
-  library(foreach)
+  `%dopar%` <- foreach::`%dopar%` # Load the dopar binary operator from foreach package
   cl <- parallel::makeForkCluster(nthreads)  # Create cluster for parallelism
   doParallel::registerDoParallel(cl)
 
@@ -227,17 +227,24 @@ CorAnalysisDataset <- function(dataset, average = "median", lag = 0, nthreads = 
 #' @export
 
 CorAnalysisClusterDataset <- function(cluster.dataset, lag = 0, nthreads = NULL, save = TRUE, filename = NULL) {
+
   if (is.null(filename) == TRUE) {
     filename <- deparse(substitute(cluster.dataset))  # If a filename isn't specified then the name of the dataframe object is used
   }
 
-  library(foreach)
-  clusters <- unique(cluster.dataset$cluster)  # Vector of cluster numbers
-  loading.values <- CircadianTools::LoadingGen(length(clusters))  # Calculate milestones for printing progress
+  if (is.null(nthreads) == TRUE) {
+    # Set the threads to maximum if none is specified
+    nthreads <- parallel::detectCores()
+  }
+  `%dopar%` <- foreach::`%dopar%` # Load the dopar binary operator from foreach package
+  cl <- parallel::makeForkCluster(nthreads)  # Create cluster for parallelism
+  doParallel::registerDoParallel(cl)
 
-  correlationdf <- foreach(i = 1:length(clusters), .combine = cbind) %do% {
-    CircadianTools::LoadingPrint(iteration = i, loading.values)  # print progress if surpassed a significant milestone
-    temp.df <- CircadianTools::CorAnalysisCluster(i, cluster.dataset, lag = lag, nthreads = nthreads)
+
+  clusters <- unique(cluster.dataset$cluster)  # Vector of cluster numbers
+
+  correlationdf <- foreach(i = 1:length(clusters), .combine = cbind) %dopar% {
+    temp.df <- CircadianTools::CorAnalysisCluster(i, cluster.dataset, lag = lag, nthreads = 1)
     temp.df[, 2]
   }
 
@@ -268,7 +275,7 @@ CorAnalysisClusterDataset <- function(cluster.dataset, lag = 0, nthreads = NULL,
 
 CorAnalysisPar <- function(genename, dataset, lag = 0, average = "median", nthreads = NULL) {
 
-  library(foreach)  #Required for parallelism
+  `%dopar%` <- foreach::`%dopar%` # Load the dopar binary operator from foreach package
   if (is.null(nthreads) == TRUE) {
     # Set the threads to maximum if none is specified
     nthreads <- parallel::detectCores()
@@ -312,7 +319,7 @@ CorAnalysisPar <- function(genename, dataset, lag = 0, average = "median", nthre
 
     genematrix <- dplyr::filter(dataset, dplyr::row_number() == i)
     compgenename <- paste(dataset[i, 1])
-    genematrix <- CircadianTools::activity_select(i, dataset)
+    genematrix <- CircadianTools::ActivitySelect(i, dataset)
 
     selectedgenedf <- data.frame(timevector, genematrix)
 

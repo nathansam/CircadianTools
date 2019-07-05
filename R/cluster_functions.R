@@ -43,7 +43,7 @@ ClusterOverview <- function(cluster.dataset, nthreads = NULL, print = TRUE, save
 #' @export
 
 ClusterPlot <- function(clusterno, cluster.dataset, nthreads = NULL, print = TRUE, save = FALSE, path = NULL) {
-  library(foreach)
+  `%do%` <- foreach::`%do%` # Load the do binary operator from foreach package
   subdf <- subset(cluster.dataset, cluster == clusterno)  # Subset by cluster
   subdf$cluster <- NULL  #remove the cluster column
 
@@ -106,7 +106,7 @@ ClusterPlot <- function(clusterno, cluster.dataset, nthreads = NULL, print = TRU
 #' @export
 
 ClusterSpread <- function(cluster.dataset) {
-  library(foreach)
+  `%do%` <- foreach::`%do%` # Load the do binary operator from foreach package
   clustersize.df <- foreach(i = unique(cluster.dataset$cluster), .combine = rbind) %do% {
     # Cluster by cluster
     cluster.subset <- subset(cluster.dataset, cluster == i)  # Find all genes in the ith cluster

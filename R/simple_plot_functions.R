@@ -154,7 +154,7 @@ DatasetPlot <- function(dataset, timelag = 0, method = "median", nthreads = NULL
         path <- deparse(substitute(dataset))  # If a filename isn't specified then the name of the dataframe object is used
     }
 
-    library(foreach)
+    `%dopar%` <- foreach::`%dopar%` # Load the dopar binary operator from foreach package
     if (is.null(nthreads) == TRUE) {
         # Set the threads to maximum if none is specified
         nthreads <- parallel::detectCores()
@@ -164,7 +164,7 @@ DatasetPlot <- function(dataset, timelag = 0, method = "median", nthreads = NULL
     doParallel::registerDoParallel(cl)
 
     genenames <- dataset[, 1]
-    filterdf <- foreach(i = 1:length(genenames)) %dopar% {
+    foreach(i = 1:length(genenames)) %dopar% {
         CircadianTools::BasicPlot(genenames[i], dataset = dataset, timelag = timelag, method = method, print = FALSE,
                                   save = TRUE, path = path)
     }
