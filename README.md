@@ -39,9 +39,9 @@ Documentation is available for CircadianTools and all of its functions via the u
 ### Correlation
 
 ```CorAnalysis```: Ranks correlation between a given gene and all other genes in a dataset. Plots both the given gene and highly correlated genes for a given correlation value <br>
-```CorAnalysisDataset```: Correlates every gene in a dataset with every other gene in the same dataset. Allows a timelag between genes to be correlated. <br>
 ```CoranalysisCluster```: Correlates the average activity of a cluster with the average activity of every other cluster. <br>
 ```CoranalysisClusterDataset```: Correlates the average activity of each cluster with every other cluster in a dataset. <br>
+```CorAnalysisDataset```: Correlates every gene in a dataset with every other gene in the same dataset. Allows a timelag between genes to be correlated. <br>
 ```CorAnalysisPar```: Parallel Implementation of ```CorAnalysis``` <br>
 ```CorSignificantPlot```: Prints or saves the genes found to be most significant by ```CorAnalysis``` or ```CorAnalysisPar``` <br>
 
@@ -72,6 +72,7 @@ Documentation is available for CircadianTools and all of its functions via the u
 
 
 ### Utility Functions
+```ActivitySelect```: Returns gene activity by either gene name or row number <br>
 ```CytoscapeFile```: Converts a correlation dataframe object into a format suitable for cytoscape and saves as a csv file. <br>
 ```FileConflict```: Checks if a file which will be created already exists and, if necessary asks the user if this file should be overwritten. <br>
 ```ggplot.cosinor.lm```: Adapted from the Cosinor package by Michael Sachs. Given a cosinor.lm model fit, generate a plot of the data with the fitted values. <br>

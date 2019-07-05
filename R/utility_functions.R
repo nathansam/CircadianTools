@@ -1,3 +1,24 @@
+
+#' ActivitySelect
+#' @description Returns gene activity by either gene name or row number
+#' @param ID Gene name or row number
+#' @param dataset A transcriptomics dataset. First columns should be gene names. All other columns should be expression levels.
+#' @return Gene activity as a matrix
+#' @export
+ActivitySelect <- function(ID, dataset) {
+
+  if (typeof(ID) == "character") {
+    gene <- subset(dataset, dataset[1] == ID)
+  } else {
+    gene <- dplyr::filter(dataset, dplyr::row_number() == ID)
+  }
+  gene <- gene[-1]
+  gene <- t(gene)
+  gene <- matrix(gene)
+  return(gene)
+}
+
+
 #' FileConflict
 #' @description Checks if a file which will be created already exists and, if necessary asks the user if this file should be overwritten.
 #' @param filename The name of a file (with extension included)
