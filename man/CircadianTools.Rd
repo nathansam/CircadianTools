@@ -18,13 +18,16 @@ Allows analysis of rhythmic genes to be easily carried out on transcriptomics da
 \section{Clustering}{
 
 \code{\link{ClusterOverview}}: Plots the mean and error bars for all clusters across time. \cr \cr
+\code{\link{ClusterParamSelection}}: Calculates validation metrics for different clustering methods and varying the number of partitions. The validation metrics are plotted. \cr \cr
 \code{\link{ClusterPlot}}: Plots the mean and error bars for the genes in a cluster across time. \cr \cr
 \code{\link{ClusterSpread}}: Shows how many genes are in each cluster after clustering has been applied. \cr \cr
 \code{\link{ClusterText}}: Takes a dataframe of clusters and stores the name of all genes in a text file. The row number deontes the cluster number. \cr \cr
 \code{\link{ClusterTimeProfile}}: Provides a dataframe of median values at each time point for each cluster. \cr \cr
 \code{\link{CommonSingletonFinder}}: Finds the genes which belong to common singleton clusters in two different clustered datasets. \cr \cr
 \code{\link{HClustering}}: Applies hierarchical clustering, clustering to a transcriptomics dataset and appends a cluster column to this dataset for all genes. \cr \cr
+\code{\link{HclustParamSelection}}: Runs hierarchical clustering with differing numbers of partitions and returns validation metrics. \cr \cr
 \code{\link{PamClustering}}: Applies PAM (Partitioning around Medoids) clustering to a transcriptomics dataset and appends a cluster column to this dataset for all genes. \cr \cr
+\code{\link{PamParamSelection}}: Runs PAM with differing numbers of partitions and returns validation metrics. \cr \cr
 \code{\link{SingletonNameFinder}}: Finds the genes which belong to singleton clusters. \cr \cr
 }
 

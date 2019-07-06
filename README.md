@@ -29,13 +29,16 @@ Documentation is available for CircadianTools and all of its functions via the u
 
 ### Clustering
 ```ClusterOverview```: Plots the mean and error bars for all clusters across time <br>
+```ClusterParamSelection```: Calculates validation metrics for different clustering methods and varying the number of partitions. The validation metrics are plotted. <br>
 ```ClusterPlot```: Plots the mean and error bars for the genes in a cluster across time <br>
 ```ClusterSpread```: Shows how many genes are in each cluster after clustering has been applied. <br>
 ```ClusterText```: Takes a dataframe of clusters and stores the name of all genes in a text file. The row number deontes the cluster number. <br>
 ```ClusterTimeProfile```: Provides a dataframe of median values at each time point for each cluster. <br>
 ```CommonSingletonFinder```: Finds the genes which belong to common singleton clusters in two different clustered datasets. <br>
 ```HClustering```: Applies hierarchical clustering, clustering to a transcriptomics dataset and appends a cluster column to this dataset for all genes. <br>
+```HclustParamSelection```: Runs hierarchical clustering with differing numbers of partitions and returns validation metrics. <br>
 ```PamClustering```: Applies PAM (Partitioning around Medoids) clustering to a transcriptomics dataset and appends a cluster column to this dataset for all genes. <br>
+```PamParamSelection```: Runs PAM with differing numbers of partitions and returns validation metrics. <br>
 ```SingletonNameFinder```: Finds the genes which belong to singleton clusters. <br>
   
 ### Correlation
