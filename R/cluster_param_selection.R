@@ -113,7 +113,7 @@ ClusterParamSelection <- function(dataset,k=c(2,5,10), method=c('pam', 'hclust')
     validation.df <- rbind(validation.df, hclust.results) # Add hclust validation results if hclust is specified in methods
   }
 
-  colours.vector <- c("#008dd5", "#ba1200", "ffa630", "#840032", "#412d6b") # Vector of colours used in package
+  colours.vector <- c("#008dd5", "ffa630", "#ba1200" ,"#840032", "#412d6b") # Vector of colours used in package
   colours.vector <- colours.vector[1:length(method)] # Select number of colours required
 
 
