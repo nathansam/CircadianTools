@@ -95,6 +95,8 @@ BasicPlot <- function(genename, dataset, timelag = 0, method = "median",
 #' @param gene2 The name of the second gene to be plotted. Must be a string.
 #' @param save Logical. If TRUE, saves plots to working directory.
 #'   Defaults to FALSE.
+#' @param points Logical. If FALSE then each observation will not be plotted
+#' as points.
 #'
 #'
 #' @return Returns or saves a ggplot2 object.
@@ -103,7 +105,7 @@ BasicPlot <- function(genename, dataset, timelag = 0, method = "median",
 #'
 #' @export
 
-CompPlot <- function(gene1, gene2, dataset, save = FALSE) {
+CompPlot <- function(gene1, gene2, dataset, save = FALSE, points=TRUE) {
     timevector <- CircadianTools::MakeTimevector(dataset)
     newgenematrix <- subset(dataset, sample == gene1)
     newgenematrix <- t(newgenematrix[-1])
@@ -148,18 +150,25 @@ CompPlot <- function(gene1, gene2, dataset, save = FALSE) {
 
 
     graphic <- ggplot2::ggplot(data = combined, ggplot2::aes(timevector)) +
-        ggplot2::geom_point(ggplot2::aes(y = gene1_activity,
-                colour = "first gene"), size = 3, alpha = 0.5) +
         ggplot2::scale_x_continuous(breaks = unique(timevector)) +
         ggplot2::geom_line(ggplot2::aes(y = mean1, colour = "first gene"),
                            size = 1)
     graphic <- graphic + ggplot2::xlab("Time (hours)") +
         ggplot2::ylab("Trancripts Per Million (TPM)") +
-        ggplot2::geom_point(ggplot2::aes(y = gene2_activity,
-         colour = "second gene"), size = 3, alpha = 0.5) + ggplot2::theme_bw() +
-        ggplot2::geom_line(ggplot2::aes(y = mean2,
-                                                                                                                                                                                                                                                  color = "second gene"), size = 1) + ggplot2::theme(plot.title = ggplot2::element_text(hjust = 1)) + ggplot2::scale_color_manual(name = "Gene",
-                                                                                                                                                                                                                                                                                                                                                                                  breaks = c("first gene", "second gene"), labels = c(gene1, gene2), values = c("#008dd5", "#ffa630"))
+        ggplot2::theme_bw() +
+        ggplot2::geom_line(ggplot2::aes(y = mean2, color = "second gene"),
+        size = 1)
+    if (points==TRUE){
+        graphic <- graphic + ggplot2::geom_point(ggplot2::aes(y = gene2_activity,
+            colour = "second gene"), size = 3, alpha = 0.5) +
+            ggplot2::geom_point(ggplot2::aes(y = gene1_activity,
+                        colour = "first gene"), size = 3, alpha = 0.5)
+    }
+    graphic <- graphic +
+        ggplot2::theme(plot.title = ggplot2::element_text(hjust = 1)) +
+        ggplot2::scale_color_manual(name = "Gene",
+      breaks = c("first gene", "second gene"),
+      labels = c(gene1, gene2), values = c("#008dd5", "#ffa630"))
     if (save == TRUE) {
         ggplot2::ggsave(paste(gene1, gene2, "comp.png"), graphic, width = 10,
                         height = 4.5, units = "in")

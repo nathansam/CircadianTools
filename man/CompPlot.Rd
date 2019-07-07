@@ -4,7 +4,7 @@
 \alias{CompPlot}
 \title{CompPlot:}
 \usage{
-CompPlot(gene1, gene2, dataset, save = FALSE)
+CompPlot(gene1, gene2, dataset, save = FALSE, points = TRUE)
 }
 \arguments{
 \item{gene1}{The name of the first gene to be plotted. Must be a string.}
@@ -16,6 +16,9 @@ All other columns should be expression levels.}
 
 \item{save}{Logical. If TRUE, saves plots to working directory.
 Defaults to FALSE.}
+
+\item{points}{Logical. If FALSE then each observation will not be plotted
+as points.}
 }
 \value{
 Returns or saves a ggplot2 object.
