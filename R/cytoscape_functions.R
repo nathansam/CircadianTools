@@ -13,7 +13,7 @@
 
 CytoscapeFilter <- function(cytoscape.file, threshold = 0.9, save = TRUE, filename = NULL) {
     pos.sig <- subset(cytoscape.file, correlation >= threshold)
-    pos.sig <- subset(pos.sig, correlation != 1)  # Significant +ve interactions
+    pos.sig <- subset(pos.sig, correlation < 1)  # Significant +ve interactions
     
     neg.sig <- subset(cytoscape.file, correlation <= (-1 * threshold))  # Significant -ve interactions
     
@@ -26,7 +26,7 @@ CytoscapeFilter <- function(cytoscape.file, threshold = 0.9, save = TRUE, filena
         }
         filename <- paste(filename, ".csv", sep = "")
         FileConflict(filename)
-        write.csv(filename, row.names = FALSE)
+        write.csv(sig.df, filename, row.names = FALSE)
     }
     return(sig.df)
 }
