@@ -5,22 +5,30 @@
 \title{BasicPlot:}
 \usage{
 BasicPlot(genename, dataset, timelag = 0, method = "median",
-  print = TRUE, save = FALSE, path = NULL)
+  points = TRUE, print = TRUE, save = FALSE, path = NULL)
 }
 \arguments{
 \item{genename}{The name of a gene intended for plotting. Must be a string.}
 
-\item{dataset}{A transcriptomics dataset. First columns should be gene names. All other columns should be expression levels.}
+\item{dataset}{A transcriptomics dataset. First columns should be gene names.
+All other columns should be expression levels.}
 
 \item{timelag}{Shifts the plot to earlier in time.}
 
-\item{method}{How should the average activity for each time point be calculated? 'median' or 'mean'}
+\item{method}{How should the average activity for each time point be
+calculated? 'median' or 'mean'}
 
-\item{print}{Logical. If TRUE renders plot in the plot viewer. Defaults to TRUE}
+\item{points}{Logical. If FALSE then each observation will not be plotted
+as points.}
 
-\item{save}{Logical. If TRUE, saves plot to working directory. Defaults to FALSE.}
+\item{print}{Logical. If TRUE renders plot in the plot viewer. Defaults to
+TRUE}
 
-\item{path}{The directory to be used for saving plots to. Uses the working directory by default. Not used if save=FALSE}
+\item{save}{Logical. If TRUE, saves plot to working directory. Defaults to
+FALSE.}
+
+\item{path}{The directory to be used for saving plots to. Uses the working
+directory by default. Not used if save=FALSE}
 }
 \value{
 A ggplot2 object

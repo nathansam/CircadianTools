@@ -4,22 +4,31 @@
 \alias{DatasetPlot}
 \title{DatasetPlot:}
 \usage{
-DatasetPlot(dataset, timelag = 0, method = "median", nthreads = NULL,
-  path = NULL)
+DatasetPlot(dataset, timelag = 0, method = "median", points = TRUE,
+  nthreads = NULL, path = NULL)
 }
 \arguments{
-\item{dataset}{A transcriptomics dataset. First columns should be gene names. All other columns should be expression levels.}
+\item{dataset}{A transcriptomics dataset. First columns should be gene names.
+All other columns should be expression levels.}
 
 \item{timelag}{Shifts the plot to earlier in time.}
 
-\item{method}{How should the average activity for each time point be calculated? 'median' or 'mean'}
+\item{method}{How should the average activity for each time point be
+calculated? 'median' or 'mean'}
 
-\item{nthreads}{Number of processor threads to be used for calculating the distance matrix. If not specifed then the maximum number of logical cores are used.}
+\item{points}{Logical. If FALSE then each observation will not be plotted
+as points.}
 
-\item{path}{The directory to be used for saving plots to. Uses the name of the dataset object if this argument is not specified)  Not used if save=FALSE}
+\item{nthreads}{Number of processor threads to be used for calculating the
+distance matrix. If not specifed then the maximum number of logical cores
+are used.}
+
+\item{path}{The directory to be used for saving plots to. Uses the name of
+the dataset object if this argument is not specified)  Not used if save=FALSE}
 }
 \description{
-Saves plots of all genes in a dataset. WARNING! Don't run on a large dataset! Intended for a filtered dataset
+Saves plots of all genes in a dataset. WARNING! Don't run on a
+ large dataset! Intended for a filtered dataset
 }
 \examples{
 filter.df<-CombiFilter(Laurasmappings)

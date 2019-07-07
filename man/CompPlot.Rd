@@ -11,9 +11,11 @@ CompPlot(gene1, gene2, dataset, save = FALSE)
 
 \item{gene2}{The name of the second gene to be plotted. Must be a string.}
 
-\item{dataset}{A transcriptomics dataset. First columns should be gene names. All other columns should be expression levels.}
+\item{dataset}{A transcriptomics dataset. First columns should be gene names.
+All other columns should be expression levels.}
 
-\item{save}{Logical. If TRUE, saves plots to working directory. Defaults to FALSE.}
+\item{save}{Logical. If TRUE, saves plots to working directory.
+Defaults to FALSE.}
 }
 \value{
 Returns or saves a ggplot2 object.
