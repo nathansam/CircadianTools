@@ -53,7 +53,7 @@ AnovaFilter <- function(dataset, threshold = 0.05, nthreads = NULL) {
 
 SizeFilter <- function(dataset, cutoff = 0.1, nthreads = NULL) {
 
-  #dataset <- CircadianTools::geneclean(dataset)  # Remove genes with no activity
+  dataset <- CircadianTools::GeneClean(dataset)  # Remove genes with no activity
   genenumber <- nrow(dataset)
   timevector <- CircadianTools::MakeTimevector(dataset)
 
@@ -78,7 +78,7 @@ SizeFilter <- function(dataset, cutoff = 0.1, nthreads = NULL) {
 #' @export
 
 ZeroFilter <- function(dataset, non_zero_num = 4, nthreads = NULL) {
-  dataset <- CircadianTools::geneclean(dataset)
+  dataset <- CircadianTools::GeneClean(dataset)
   `%dopar%` <- foreach::`%dopar%` # Load the dopar binary operator from foreach package
   if (is.null(nthreads) == TRUE) {
     nthreads <- parallel::detectCores()  # Set the threads to maximum if none is specified
