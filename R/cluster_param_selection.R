@@ -16,9 +16,9 @@ PamParamSelection <- function(dataset, k=c(2,5,10), nthreads=2){
   }
 
   `%dopar%` <- foreach::`%dopar%` # Load the dopar binary operator from foreach package
-  dataset <- CircadianTools::GeneScale(dataset) # Center each gene
-  dataset <- data.frame(CircadianTools::MedList(dataset, nthreads=nthreads)) # Reduce dataset to median at each time point.
-  distance <- parallelDist::parDist(as.matrix(dataset[-1])) # Calculate distance using euclidean distance
+  dataset.sc <- CircadianTools::GeneScale(dataset) # Center each gene
+  dataset.sc <- CircadianTools::MedList(dataset.sc, nthreads=nthreads) # Reduce dataset to median at each time point.
+  distance <- parallelDist::parDist(dataset.sc) # Calculate distance using euclidean distance
   cl <- parallel::makeForkCluster(nthreads)  # Create cluster for parallelism
   doParallel::registerDoParallel(cl)
 
@@ -27,7 +27,8 @@ PamParamSelection <- function(dataset, k=c(2,5,10), nthreads=2){
     clust<-cluster::pam(distance, k=i) # Run PAM
     dunn <- clValid::dunn(distance, clust$cluster) # Calculate Dunn index
     connect <- (clValid::connectivity(distance, clust$cluster)) # Calculate connectivity
-    silhouette <- mean(cluster::silhouette(clust$clustering, distance)) # Calculate Silhouette width
+    silhoutte_values <-cluster::silhouette(clust)
+    silhouette <- mean(silhoutte_values[,3]) # Calculate Silhouette width
     data.frame(i,dunn, connect, silhouette, "PAM") # Make row of result.df
 
   }
@@ -54,19 +55,21 @@ PamParamSelection <- function(dataset, k=c(2,5,10), nthreads=2){
    }
 
    `%dopar%` <- foreach::`%dopar%` # Load the dopar binary operator from foreach package
-   dataset <- CircadianTools::GeneScale(dataset) # Center each gene
-   dataset <- data.frame(CircadianTools::MedList(dataset, nthreads=nthreads)) # Reduce dataset to median at each time point.
-   distance <- parallelDist::parDist(as.matrix(dataset[-1])) # Calculate distance using euclidean distance
+   dataset.sc <- CircadianTools::GeneScale(dataset) # Center each gene
+   dataset.sc <- CircadianTools::MedList(dataset.sc, nthreads=nthreads) # Reduce dataset to median at each time point.
+   distance <- parallelDist::parDist(dataset.sc) # Calculate distance using euclidean distance
    clust <- hclust(distance) # Run hclustering
 
    cl <- parallel::makeForkCluster(nthreads)  # Create cluster for parallelism
    doParallel::registerDoParallel(cl)
 
    result.df <- foreach::foreach(i = k, .combine = rbind ) %dopar% {
-     cluster <- dendextend::cutree(clust, k=i) # Cut tree
+     cluster <- cutree(clust, k=i) # Cut tree
      dunn <- clValid::dunn(distance, cluster) # Calculate Dunn index
      connect <- (clValid::connectivity(distance, cluster)) # Calculate connectivity
-     silhouette <- mean(cluster::silhouette(cluster, distance)) # Calculate Silhouette width
+     silhoutte_values <-cluster::silhouette(cluster, distance)
+     silhouette <- mean(silhoutte_values[,3]) # Calculate Silhouette width
+
      data.frame(i,dunn, connect, silhouette ,"Hierarchical") # Make row of result.df
 
    }
