@@ -18,6 +18,7 @@ AnovaFilter <- function(dataset, threshold = 0.05, nthreads = NULL) {
 
   dataset <- CircadianTools::GeneClean(dataset)  # Remove genes with no activity
   genenumber <- nrow(dataset)  # Number of genes in the dataset
+  dataset <- CircadianTools::GeneScale(dataset) # center the genes
   timevector <- CircadianTools::MakeTimevector(dataset)  # List of time values (repeated for replicates)
 
   cl <- parallel::makeForkCluster(nthreads)  # Create cluster for parallelism
@@ -161,7 +162,7 @@ TFilter <- function(dataset, maxdifference = 1, minchanges = 2, psignificance = 
   cl <- parallel::makeForkCluster(nthreads)  # Create cluster for parallelism
   doParallel::registerDoParallel(cl)
 
-  dataset[-1] <- scale(dataset[-1], scale = FALSE, center = TRUE)
+  dataset <-CircadianTools::GeneScale(dataset) # Center the dataset
 
   filterdf <- foreach::foreach(i = 1:nrow(dataset), .combine = rbind) %dopar% {
     ups.downs <- TAnalysis(row.no = i, dataset = dataset, psignificance = psignificance)
