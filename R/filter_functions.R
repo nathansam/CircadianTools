@@ -162,7 +162,7 @@ TFilter <- function(dataset, maxdifference = 1, minchanges = 2, psignificance = 
   cl <- parallel::makeForkCluster(nthreads)  # Create cluster for parallelism
   doParallel::registerDoParallel(cl)
 
-  dataset <-CircadianTools::GeneScale(dataset) # Center the dataset
+
 
   filterdf <- foreach::foreach(i = 1:nrow(dataset), .combine = rbind) %dopar% {
     ups.downs <- TAnalysis(row.no = i, dataset = dataset, psignificance = psignificance)
