@@ -1,4 +1,4 @@
-#' ClusterOverview :
+#' ClusterDatasetPlot :
 #' @description Plots the mean and error bars for all clusters across time
 #'
 #' @param cluster.dataset A transcriptomics dataset where the final column details the cluster the gene belongs to. First column should be gene names. All remaining columns should be expression levels.
@@ -10,11 +10,11 @@
 #' @examples
 #' filter.df <- CombiFilter(Laurasmappings)
 #' pam.df <- PamClustering(filter.df)
-#' ClusterOverview(pam.df)
+#' ClusterDatasetPlot(pam.df)
 #'
 #' @export
 
-ClusterOverview <- function(cluster.dataset, nthreads = NULL, print = TRUE, save = FALSE, path = "cluster_overview") {
+ClusterDatasetPlot <- function(cluster.dataset, nthreads = NULL, print = TRUE, save = FALSE, path = "cluster_overview") {
   if (save == TRUE) {
     if (dir.exists(path) == FALSE) {
       # If save==TRUE then create directory for saved plots if it doesn't already exist

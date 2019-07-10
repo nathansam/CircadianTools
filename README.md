@@ -28,7 +28,7 @@ Documentation is available for CircadianTools and all of its functions via the u
 ```DatasetPlot```: Saves plots of all genes in a dataset. WARNING! Don't run on a large dataset! Intended for a filtered dataset <br>
 
 ### Clustering
-```ClusterOverview```: Plots the mean and error bars for all clusters across time <br>
+```ClusterDatasetPlot```: Plots the mean and error bars for all clusters across time <br>
 ```ClusterParamSelection```: Calculates validation metrics for different clustering methods and varying the number of partitions. The validation metrics are plotted. <br>
 ```ClusterPlot```: Plots the mean and error bars for the genes in a cluster across time <br>
 ```ClusterSpread```: Shows how many genes are in each cluster after clustering has been applied. <br>

@@ -3,7 +3,7 @@
 export(ActivitySelect)
 export(AnovaFilter)
 export(BasicPlot)
-export(ClusterOverview)
+export(ClusterDatasetPlot)
 export(ClusterParamSelection)
 export(ClusterPlot)
 export(ClusterSpread)

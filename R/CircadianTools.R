@@ -6,7 +6,7 @@
 #' \code{\link{CompPlot}}: Plots two genes from a gene activity dataset. \cr \cr
 #' \code{\link{DatasetPlot}}: Saves plots of all genes in a dataset. \cr \cr
 #' @section Clustering:
-#' \code{\link{ClusterOverview}}: Plots the mean and error bars for all clusters across time. \cr \cr
+#' \code{\link{ClusterDatasetPlot}}: Plots the mean and error bars for all clusters across time. \cr \cr
 #' \code{\link{ClusterParamSelection}}: Calculates validation metrics for different clustering methods and varying the number of partitions. The validation metrics are plotted. \cr \cr
 #' \code{\link{ClusterPlot}}: Plots the mean and error bars for the genes in a cluster across time. \cr \cr
 #' \code{\link{ClusterSpread}}: Shows how many genes are in each cluster after clustering has been applied. \cr \cr
