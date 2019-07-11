@@ -17,7 +17,7 @@ Finds the genes which belong to singleton clusters.
 }
 \examples{
 filter.df <- CombiFilter(Laurasmappings)
-pam.df <- PamClustering(filter.df, 40)
+pam.df <- PamClustering(filter.df, k = 40)
 singletons <- SingletonNameFinder(pam.df)
 
 

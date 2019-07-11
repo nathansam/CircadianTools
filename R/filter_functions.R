@@ -16,9 +16,9 @@ AnovaFilter <- function(dataset, threshold = 0.05, nthreads = NULL) {
     nthreads <- parallel::detectCores()
   }
 
-  dataset <- CircadianTools::GeneClean(dataset)  # Remove genes with no activity
-  genenumber <- nrow(dataset)  # Number of genes in the dataset
-  dataset <- CircadianTools::GeneScale(dataset) # center the genes
+
+
+  genenumber <- nrow(dataset)
   timevector <- CircadianTools::MakeTimevector(dataset)  # List of time values (repeated for replicates)
 
   cl <- parallel::makeForkCluster(nthreads)  # Create cluster for parallelism

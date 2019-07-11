@@ -16,6 +16,6 @@ Takes a dataframe of clusters and stores the name of all genes in a text file. T
 }
 \examples{
 filter.df <- CombiFilter(Laurasmappings)
-pam.df <- PamClustering(filter.df)
+pam.df <- PamClustering(filter.df, k = 75)
 ClusterText(pam.df)
 }

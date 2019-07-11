@@ -1,0 +1,74 @@
+#' DianaClustering:
+#' @description Applies DIANA (DIvisive ANAlysis) clustering to a transcriptomics dataset and appends a cluster column to this dataset for all genes.
+#'
+#' @param dataset A transcriptomics dataset. First columns should be gene names. All other columns should be expression levels.
+#' @param k The total number of clusters.
+#' @param metric The distance metric to be used to calculate the distances between genes. See parallelDist::parDist for all accepted arguments.
+#' @param nthreads Number of processor threads to be used for calculating the distance matrix. If not specifed then the maximum number of logical cores are used.
+#' @param scale If the gene activity should be scaled before clustering.
+#' @param center If the gene activity should be centered before clustering.
+#' @return Returns transcriptomics dataset provided with additional cluster column appended denoted which cluster each gene belongs to.
+#' @examples
+#' diana.df <- DianaClustering(Laurasmappings, k= 75)
+#'
+#' @export
+DianaClustering <- function(dataset, k = 10, metric = "euclidean", nthreads = NULL, scale = FALSE, center = TRUE) {
+  
+  if (is.null(nthreads) == TRUE) {
+    # Set the threads to maximum if none is specified
+    nthreads <- parallel::detectCores()
+  }
+  
+  dataset <- CircadianTools::GeneScale(dataset, scale = scale, center = center)  # Center / scale the gene activity for each gene
+  medians.dataset <- CircadianTools::MedList(dataset, nthreads = nthreads)  # Calculate the medians at each timepoint
+  medians.dataset <- data.frame(medians.dataset)
+  distance <- parallelDist::parDist(as.matrix(medians.dataset[-1]), method = metric, threads = nthreads)  #Calculate the distance matrix
+  fit <- cluster::diana(distance)  # Run the clustering process
+  clusters <- cutree(as.hclust(fit), k = k)  # Cut the dendogram such that there are k clusters
+  dataset$cluster <- clusters  # Append the cluster column to the dataset
+  return(dataset)
+}
+
+
+#' DianaParamSelection
+#' @description Runs DIANA (DIvisive ANAlysis) clustering with differing numbers of partitions and returns validation metrics.
+#' @param dataset A transcriptomics dataset. Preferably filtered first. First columns should be gene names. All other columns should be expression levels.
+#' @param k A numeric vector giving the number of clusters to be evaluated.
+#' @param nthreads The number of threads to be used for parallel computations.If NULL then the maximum number of threads available will be used.
+#' filter.df <- CombiFilter(Laurasmappings)
+#' k.options <- seq(10,100, by=10)
+#' diana.validation <- DianaParamSelection(filterdf, k=k.options)
+#' @export
+DianaParamSelection <- function(dataset, k=c(2,5,10), nthreads=4){
+  
+  if (is.null(nthreads) == TRUE) {
+    # Set the threads to maximum if null is specified
+    nthreads <- parallel::detectCores()
+  }
+  
+  `%dopar%` <- foreach::`%dopar%` # Load the dopar binary operator from foreach package
+  dataset.sc <- CircadianTools::GeneScale(dataset) # Center each gene
+  dataset.sc <- CircadianTools::MedList(dataset.sc, nthreads=nthreads) # Reduce dataset to median at each time point.
+  distance <- parallelDist::parDist(dataset.sc) # Calculate distance using euclidean distance
+  fit <- cluster::diana(distance) # Run Diana clustering
+  
+  cl <- parallel::makeForkCluster(nthreads)  # Create cluster for parallelism
+  doParallel::registerDoParallel(cl)
+  
+  result.df <- foreach::foreach(i = k, .combine = rbind ) %dopar% {
+    cluster <- cutree(fit, k=i) # Cut tree
+    dunn <- clValid::dunn(distance, cluster) # Calculate Dunn index
+    connect <- (clValid::connectivity(distance, cluster)) # Calculate connectivity
+    silhoutte_values <-cluster::silhouette(cluster, distance)
+    silhouette <- mean(silhoutte_values[,3]) # Calculate Silhouette width
+    
+    data.frame(i,dunn, connect, silhouette ,"Diana") # Make row of result.df
+    
+  }
+  parallel::stopCluster(cl)
+  colnames(result.df)<-c("k", "Dunn", "Connectivity", "Silhouette", "Method") # Column headings
+  return(result.df)
+}
+
+
+

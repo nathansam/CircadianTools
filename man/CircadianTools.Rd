@@ -24,6 +24,8 @@ Allows analysis of rhythmic genes to be easily carried out on transcriptomics da
 \code{\link{ClusterText}}: Takes a dataframe of clusters and stores the name of all genes in a text file. The row number deontes the cluster number. \cr \cr
 \code{\link{ClusterTimeProfile}}: Provides a dataframe of median values at each time point for each cluster. \cr \cr
 \code{\link{CommonSingletonFinder}}: Finds the genes which belong to common singleton clusters in two different clustered datasets. \cr \cr
+\code{\link{DianaClustering}}: Applies DIANA (DIvisive ANAlysis) clustering to a transcriptomics dataset and appends a cluster column to this dataset for all genes. \cr \cr
+\code{\link{DianaParamSelection}}:  Runs DIANA (DIvisive ANAlysis) clustering with differing numbers of partitions and returns validation metrics. \cr \cr
 \code{\link{HClustering}}: Applies hierarchical clustering, clustering to a transcriptomics dataset and appends a cluster column to this dataset for all genes. \cr \cr
 \code{\link{HclustParamSelection}}: Runs hierarchical clustering with differing numbers of partitions and returns validation metrics. \cr \cr
 \code{\link{PamClustering}}: Applies PAM (Partitioning around Medoids) clustering to a transcriptomics dataset and appends a cluster column to this dataset for all genes. \cr \cr

@@ -9,7 +9,7 @@
 #' @return Prints or saves ggplot2 object(s).
 #' @examples
 #' filter.df <- CombiFilter(Laurasmappings)
-#' pam.df <- PamClustering(filter.df)
+#' pam.df <- PamClustering(filter.df, k = 75)
 #' ClusterDatasetPlot(pam.df)
 #'
 #' @export
@@ -43,7 +43,7 @@ ClusterDatasetPlot <- function(cluster.dataset, nthreads = NULL, print = TRUE, s
 #' @return Prints or saves a ggplot2 object.
 #' @examples
 #' filter.df <- CombiFilter(Laurasmappings)
-#' pam.df <- PamClustering(filter.df)
+#' pam.df <- PamClustering(filter.df, k = 75)
 #' ClusterPlot(2, pam.df)
 #' @export
 
@@ -107,7 +107,7 @@ ClusterPlot <- function(clusterno, cluster.dataset, nthreads = NULL, print = TRU
 #' @return A dataframe object. The first column is the cluster number. Second column is how many genes belong to that cluster.
 #' @examples
 #' filter.df <- CombiFilter(Laurasmappings)
-#' pam.df <- PamClustering(filter.df)
+#' pam.df <- PamClustering(filter.df, k = 75)
 #' clusterstats<-ClusterSpread(pam.df)
 #' @export
 
@@ -129,7 +129,7 @@ ClusterSpread <- function(cluster.dataset) {
 #' @param filename The filename of the saved text file. If not given then the name of the correlation dataframe object will be used. The.txt extension is not needed.
 #' @examples
 #' filter.df <- CombiFilter(Laurasmappings)
-#' pam.df <- PamClustering(filter.df)
+#' pam.df <- PamClustering(filter.df, k = 75)
 #' ClusterText(pam.df)
 #' @export
 ClusterText <- function(cluster.dataset, filename = NULL) {
@@ -163,7 +163,7 @@ ClusterText <- function(cluster.dataset, filename = NULL) {
 #' @param nthreads The number of threads to be used for parallel computations. Defaults to the maximum number of threads available.
 #' @examples
 #' filter.df <- CombiFilter(Laurasmappings)
-#' pam.df <- PamClustering(filter.df)
+#' pam.df <- PamClustering(filter.df, k = 75)
 #' time.profile<-ClusterTimeProfile(1,pam.df)
 #'
 #' @export
@@ -190,8 +190,8 @@ ClusterTimeProfile <- function(cluster.no, cluster.dataset, nthreads = NULL) {
 #' @param cluster.dataset2 A transcriptomics dataset in the same format as cluster.dataset1 but generated via a different clustering method or with different parameters.
 #' @examples
 #' filter.df <- CombiFilter(Laurasmappings)
-#' pam.df <- PamClustering(filter.df, 40)
-#' hclust.df <- HClustering(filter.df, 40)
+#' pam.df <- PamClustering(filter.df, k = 40)
+#' hclust.df <- HClustering(filter.df, k = 40)
 #' common.singletons <- CommonSingletonFinder(pam.df, hclust.df)
 #'
 #' @export
@@ -209,7 +209,7 @@ CommonSingletonFinder <- function(cluster.dataset1, cluster.dataset2){
 
 
 #' HClustering:
-#' @description Applies Hierarchical clustering, clustering to a transcriptomics dataset and appends a cluster column to this dataset for all genes.
+#' @description Applies Hierarchical clustering to a transcriptomics dataset and appends a cluster column to this dataset for all genes.
 #'
 #' @param dataset A transcriptomics dataset. First columns should be gene names. All other columns should be expression levels.
 #' @param k The total number of clusters.
@@ -219,7 +219,7 @@ CommonSingletonFinder <- function(cluster.dataset1, cluster.dataset2){
 #' @param center If the gene activity should be centered before clustering.
 #' @return Returns transcriptomics dataset provided with additional cluster column appended denoted which cluster each gene belongs to.
 #' @examples
-#' pam.df <- Hclustering(Laurasmappings,75)
+#' pam.df <- Hclustering(Laurasmappings, k = 75)
 #'
 #' @export
 HClustering <- function(dataset, k = 10, metric = "euclidean", nthreads = NULL, scale = FALSE, center = TRUE) {
@@ -230,9 +230,8 @@ HClustering <- function(dataset, k = 10, metric = "euclidean", nthreads = NULL, 
   }
   dataset <- CircadianTools::GeneScale(dataset, scale = scale, center = center)  # Center / scale the gene activity for each gene
   medians.dataset <- CircadianTools::MedList(dataset, nthreads = nthreads)  # Calculate the medians at each timepoint
-  # medians.dataset[-1] <- scale(medians.dataset[-1], scale = scale, center = center) # Scale/center the data
-  medians.dataset <- data.frame(medians.dataset)
-  distance <- parallelDist::parDist(as.matrix(medians.dataset[-1]), method = metric, threads = nthreads)  #Calculate the distance matrix
+   medians.dataset <- data.frame(medians.dataset)
+  distance <- parallelDist::parDist(as.matrix(medians.dataset), method = metric, threads = nthreads)  #Calculate the distance matrix
   fit <- hclust(distance)  # Run the clustering process
   clusters <- dendextend::cutree(fit, k = k)  # Cut the dendogram such that there are k clusters
   dataset$cluster <- clusters  # Append the cluster column to the dataset
@@ -251,7 +250,7 @@ HClustering <- function(dataset, k = 10, metric = "euclidean", nthreads = NULL, 
 #' @param center If the gene activity should be centered before clustering.
 #' @return Returns transcriptomics dataset provided with additional cluster column appended denoted which cluster each gene belongs to.
 #' @examples
-#' pam.df <- PamClustering(Laurasmappings,20)
+#' pam.df <- PamClustering(Laurasmappings,k = 20)
 #' @export
 
 PamClustering <- function(dataset, k, metric = "euclidean", nthreads = NULL, scale = FALSE, center = TRUE) {
@@ -262,10 +261,12 @@ PamClustering <- function(dataset, k, metric = "euclidean", nthreads = NULL, sca
   }
   dataset <- CircadianTools::GeneScale(dataset, scale = scale, center = center)  # Center / scale the gene activity for each gene
   medians.dataset <- CircadianTools::MedList(dataset, nthreads = nthreads)  # Calculate the medians at each timepoint
-  # medians.dataset[-1] <- scale(medians.dataset[-1], scale = scale, center = center) # Scale and center the
-  # activity data if TRUE
-  medians.dataset <- data.frame(medians.dataset)
-  distance <- parallelDist::parDist(as.matrix(medians.dataset[-1]), method = metric, threads = nthreads)  #Calculate the distance matrix
+  
+  if (metric =="abs.correlation"){
+    distance <- AbsCorDist(medians.dataset)
+  } else{
+  distance <- parallelDist::parDist(as.matrix(medians.dataset), method = metric, threads = nthreads)  #Calculate the distance matrix
+  }
   fit <- cluster::pam(distance, k = k)  # Run the clustering proces
   dataset$cluster <- fit$cluster  # Append the cluster column to the dataset
   return(dataset)
@@ -278,7 +279,7 @@ PamClustering <- function(dataset, k, metric = "euclidean", nthreads = NULL, sca
 #' @return Returns a vector of gene names for all genes belonging to singleton clusters in the provided dataset.
 #' @examples
 #' filter.df <- CombiFilter(Laurasmappings)
-#' pam.df <- PamClustering(filter.df, 40)
+#' pam.df <- PamClustering(filter.df, k = 40)
 #' singletons <- SingletonNameFinder(pam.df)
 #'
 #'

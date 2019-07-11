@@ -27,5 +27,5 @@ Returns transcriptomics dataset provided with additional cluster column appended
 Applies PAM (Partitioning around Medoids) clustering to a transcriptomics dataset and appends a cluster column to this dataset for all genes.
 }
 \examples{
-pam.df <- PamClustering(Laurasmappings,20)
+pam.df <- PamClustering(Laurasmappings,k = 20)
 }

@@ -35,6 +35,8 @@ Documentation is available for CircadianTools and all of its functions via the u
 ```ClusterText```: Takes a dataframe of clusters and stores the name of all genes in a text file. The row number deontes the cluster number. <br>
 ```ClusterTimeProfile```: Provides a dataframe of median values at each time point for each cluster. <br>
 ```CommonSingletonFinder```: Finds the genes which belong to common singleton clusters in two different clustered datasets. <br>
+```DianaClustering```: Applies Diana (DIvisive ANAlysis) clustering to a transcriptomics dataset and appends a cluster column to this dataset for all genes. <br>
+```DianaParamSelection```:  Runs DIANA (DIvisive ANAlysis) clustering with differing numbers of partitions and returns validation metrics. <br>
 ```HClustering```: Applies hierarchical clustering, clustering to a transcriptomics dataset and appends a cluster column to this dataset for all genes. <br>
 ```HclustParamSelection```: Runs hierarchical clustering with differing numbers of partitions and returns validation metrics. <br>
 ```PamClustering```: Applies PAM (Partitioning around Medoids) clustering to a transcriptomics dataset and appends a cluster column to this dataset for all genes. <br>

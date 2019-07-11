@@ -26,7 +26,7 @@ Plots the mean and error bars for all clusters across time
 }
 \examples{
 filter.df <- CombiFilter(Laurasmappings)
-pam.df <- PamClustering(filter.df)
+pam.df <- PamClustering(filter.df, k = 75)
 ClusterDatasetPlot(pam.df)
 
 }

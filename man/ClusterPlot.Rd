@@ -28,6 +28,6 @@ Plots the mean and error bars for the genes in a cluster across time
 }
 \examples{
 filter.df <- CombiFilter(Laurasmappings)
-pam.df <- PamClustering(filter.df)
+pam.df <- PamClustering(filter.df, k = 75)
 ClusterPlot(2, pam.df)
 }

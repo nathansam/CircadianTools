@@ -18,7 +18,7 @@ Provides a dataframe of median values at each time point for each cluster.
 }
 \examples{
 filter.df <- CombiFilter(Laurasmappings)
-pam.df <- PamClustering(filter.df)
+pam.df <- PamClustering(filter.df, k = 75)
 time.profile<-ClusterTimeProfile(1,pam.df)
 
 }

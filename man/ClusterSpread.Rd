@@ -17,6 +17,6 @@ Shows how many genes are in each cluster after clustering has been applied.
 }
 \examples{
 filter.df <- CombiFilter(Laurasmappings)
-pam.df <- PamClustering(filter.df)
+pam.df <- PamClustering(filter.df, k = 75)
 clusterstats<-ClusterSpread(pam.df)
 }

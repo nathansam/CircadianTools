@@ -5,7 +5,7 @@
 \title{ClusterParamSelection}
 \usage{
 ClusterParamSelection(dataset, k = c(2, 5, 10), method = c("pam",
-  "hclust"), nthreads = 2, save.plot = TRUE, save.df = TRUE,
+  "hclust", "diana"), nthreads = 2, save.plot = TRUE, save.df = TRUE,
   path = NULL)
 }
 \arguments{
@@ -13,7 +13,7 @@ ClusterParamSelection(dataset, k = c(2, 5, 10), method = c("pam",
 
 \item{k}{A numeric vector giving the number of clusters to be evaluated.}
 
-\item{method}{The clustering method(s) to be used. Multiple methods can be considered by passing a vector. Currently accepts 'pam' and 'hclust'}
+\item{method}{The clustering method(s) to be used. Multiple methods can be considered by providing a character vector. Currently accepts 'pam', 'hclust' and 'diana'}
 
 \item{nthreads}{The number of threads to be used for parallel computations.If NULL then the maximum number of threads available will be used.}
 

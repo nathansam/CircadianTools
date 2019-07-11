@@ -82,7 +82,7 @@ PamParamSelection <- function(dataset, k=c(2,5,10), nthreads=2){
 #' @description Calculates validation metrics for different clustering methods and varying the number of partitions. The validation metrics are plotted.
 #' @param dataset A transcriptomics dataset. Preferably filtered first. First columns should be gene names. All other columns should be expression levels.
 #' @param k A numeric vector giving the number of clusters to be evaluated.
-#' @param method The clustering method(s) to be used. Multiple methods can be considered by passing a vector. Currently accepts 'pam' and 'hclust'
+#' @param method The clustering method(s) to be used. Multiple methods can be considered by providing a character vector. Currently accepts 'pam', 'hclust' and 'diana'
 #' @param nthreads The number of threads to be used for parallel computations.If NULL then the maximum number of threads available will be used.
 #' @param save.plot Logical. If TRUE then saves the plots generated
 #' @param save.df Logical. If TRUE then saves the validation metric results as a csv file.
@@ -92,7 +92,7 @@ PamParamSelection <- function(dataset, k=c(2,5,10), nthreads=2){
 #' k.options <- seq(10,100, by=10)
 #' hclust.validation <- ClusterParamSelection(filterdf, k=k.options)
 #' @export
-ClusterParamSelection <- function(dataset,k=c(2,5,10), method=c('pam', 'hclust'), nthreads=2,save.plot=TRUE,save.df=TRUE, path=NULL ){
+ClusterParamSelection <- function(dataset,k=c(2,5,10), method=c('pam', 'hclust', 'diana'), nthreads=2,save.plot=TRUE,save.df=TRUE, path=NULL ){
   if (is.null(path) == TRUE) {
     path <- deparse(substitute(dataset))  # If a filename isn't specified then the name of the dataframe object is used
     path <- paste(path, '_validation', sep="") # Add _validation to directory
@@ -114,6 +114,11 @@ ClusterParamSelection <- function(dataset,k=c(2,5,10), method=c('pam', 'hclust')
   if ("hclust" %in% method == TRUE){
     hclust.results <- CircadianTools::HclustParamSelection(dataset = dataset, k=k, nthreads = nthreads)
     validation.df <- rbind(validation.df, hclust.results) # Add hclust validation results if hclust is specified in methods
+  }
+  
+  if ("diana" %in% method == TRUE){
+    diana.results <- CircadianTools::DianaParamSelection(dataset =dataset, k=k, nthreads = nthreads)
+    validation.df <- rbind(validation.df, diana.results) # Add diana validation results if diana is specified in methods
   }
 
   colours.vector <- c("#008dd5", "#ffa630", "#ba1200" ,"#840032", "#412d6b") # Vector of colours used in package
