@@ -13,20 +13,20 @@
 #'
 #' @export
 DianaClustering <- function(dataset, k = 10, metric = "euclidean", nthreads = NULL, scale = FALSE, center = TRUE) {
-  
+
   if (is.null(nthreads) == TRUE) {
     # Set the threads to maximum if none is specified
     nthreads <- parallel::detectCores()
   }
-  
+
   dataset <- CircadianTools::GeneScale(dataset, scale = scale, center = center)  # Center / scale the gene activity for each gene
-  
+
   if (metric =="abs.correlation"){
     distance <- AbsCorDist(dataset)
   }
-  
+
   else{
-  
+
   medians.dataset <- CircadianTools::MedList(dataset, nthreads = nthreads)  # Calculate the medians at each timepoint
   medians.dataset <- data.frame(medians.dataset)
   distance <- parallelDist::parDist(as.matrix(medians.dataset[-1]), method = metric, threads = nthreads)  #Calculate the distance matrix
@@ -49,36 +49,36 @@ DianaClustering <- function(dataset, k = 10, metric = "euclidean", nthreads = NU
 #' diana.validation <- DianaParamSelection(filterdf, k=k.options)
 #' @export
 DianaParamSelection <- function(dataset, k=c(2,5,10), metric="euclidean", nthreads=4){
-  
+
   if (is.null(nthreads) == TRUE) {
     # Set the threads to maximum if null is specified
     nthreads <- parallel::detectCores()
   }
-  
+
   `%dopar%` <- foreach::`%dopar%` # Load the dopar binary operator from foreach package
   dataset.sc <- CircadianTools::GeneScale(dataset) # Center each gene
-  
+
   if (metric =="abs.correlation"){
     distance <- AbsCorDist(dataset.sc)
   } else{
     dataset.sc <- CircadianTools::MedList(dataset.sc, nthreads=nthreads) # Reduce dataset to median at each time point.
-    distance <- parallelDist::parDist(dataset.sc) # Calculate distance using euclidean distance
+    distance <- parallelDist::parDist(dataset.sc, method=metric) # Calculate distance using euclidean distance
   }
 
   fit <- cluster::diana(distance) # Run Diana clustering
-  
+
   cl <- parallel::makeForkCluster(nthreads)  # Create cluster for parallelism
   doParallel::registerDoParallel(cl)
-  
+
   result.df <- foreach::foreach(i = k, .combine = rbind ) %dopar% {
     cluster <- cutree(fit, k=i) # Cut tree
     dunn <- clValid::dunn(distance, cluster) # Calculate Dunn index
     connect <- (clValid::connectivity(distance, cluster)) # Calculate connectivity
     silhoutte_values <-cluster::silhouette(cluster, distance)
     silhouette <- mean(silhoutte_values[,3]) # Calculate Silhouette width
-    
+
     data.frame(i,dunn, connect, silhouette ,"Diana") # Make row of result.df
-    
+
   }
   parallel::stopCluster(cl)
   colnames(result.df)<-c("k", "Dunn", "Connectivity", "Silhouette", "Method") # Column headings

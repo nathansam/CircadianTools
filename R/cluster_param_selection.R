@@ -15,19 +15,19 @@ PamParamSelection <- function(dataset, k=c(2,5,10), metric="euclidean" ,nthreads
     # Set the threads to maximum if NULL is given as argument for nthreads
     nthreads <- parallel::detectCores()
   }
-  
-  
+
+
 
   `%dopar%` <- foreach::`%dopar%` # Load the dopar binary operator from foreach package
   dataset.sc <- CircadianTools::GeneScale(dataset) # Center each gene
-  
+
   if (metric =="abs.correlation"){
     distance <- AbsCorDist(dataset.sc)
   } else{
   dataset.sc <- CircadianTools::MedList(dataset.sc, nthreads=nthreads) # Reduce dataset to median at each time point.
-  distance <- parallelDist::parDist(dataset.sc, metric) # Calculate distance using euclidean distance
+  distance <- parallelDist::parDist(dataset.sc, metric, method=metric) # Calculate distance using euclidean distance
   }
-  
+
   cl <- parallel::makeForkCluster(nthreads)  # Create cluster for parallelism
   doParallel::registerDoParallel(cl)
 
@@ -70,7 +70,7 @@ PamParamSelection <- function(dataset, k=c(2,5,10), metric="euclidean" ,nthreads
      distance <- AbsCorDist(dataset.sc)
    } else {
      dataset.sc <- CircadianTools::MedList(dataset.sc, nthreads=nthreads) # Reduce dataset to median at each time point.
-     distance <- parallelDist::parDist(dataset.sc, metric="euclidean") # Calculate distance using euclidean distance
+     distance <- parallelDist::parDist(dataset.sc, method=metric) # Calculate distance using euclidean distance
    }
 
    clust <- hclust(distance) # Run hclustering
@@ -123,17 +123,17 @@ ClusterParamSelection <- function(dataset,k=c(2,5,10), method=c('pam', 'hclust',
   validation.df <- data.frame() # Initialize dataframe to hold validation results
 
   if ("pam" %in% method ==TRUE){
-    pam.results <- CircadianTools::PamParamSelection(dataset=dataset, k=k, metric="euclidean",nthreads=nthreads)
+    pam.results <- CircadianTools::PamParamSelection(dataset=dataset, k=k, metric=metric,nthreads=nthreads)
     validation.df <- rbind(validation.df, pam.results) # Add pam validation results if pam is specified in methods
   }
 
   if ("hclust" %in% method == TRUE){
-    hclust.results <- CircadianTools::HclustParamSelection(dataset = dataset, k=k, metric="euclidean", nthreads = nthreads)
+    hclust.results <- CircadianTools::HclustParamSelection(dataset = dataset, k=k, metric=metric, nthreads = nthreads)
     validation.df <- rbind(validation.df, hclust.results) # Add hclust validation results if hclust is specified in methods
   }
-  
+
   if ("diana" %in% method == TRUE){
-    diana.results <- CircadianTools::DianaParamSelection(dataset =dataset, k=k, nthreads = nthreads, metric="euclidean")
+    diana.results <- CircadianTools::DianaParamSelection(dataset =dataset, k=k, nthreads = nthreads, metric=metric)
     validation.df <- rbind(validation.df, diana.results) # Add diana validation results if diana is specified in methods
   }
 
