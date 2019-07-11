@@ -57,7 +57,7 @@ FileConflict <- function(filename){
 #'
 #' @export
 
-MedList <- function(dataset, nthreads){
+MedList <- function(dataset, nthreads=NULL){
   if (is.null(nthreads)==TRUE){
     nthreads <- parallel::detectCores()
   }
