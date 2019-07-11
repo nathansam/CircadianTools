@@ -2,23 +2,32 @@
 #' @description Runs PAM with differing numbers of partitions and returns validation metrics.
 #' @param dataset A transcriptomics dataset. Preferably filtered first. First columns should be gene names. All other columns should be expression levels.
 #' @param k A numeric vector giving the number of clusters to be evaluated.
+#' @param metric The distance metric to be used to calculate the distances between genes. See parallelDist::parDist for all accepted arguments. Also allows the option of "abs.correlation".
 #' @param nthreads The number of threads to be used for parallel computations. Warning! Increasing this value will massively increase RAM usage. If NULL then the maximum number of threads available will be used.
 #' @examples
 #' filter.df <- CombiFilter(Laurasmappings)
 #' k.options <- seq(10,100, by=10)
 #' pam.validation <- PamParamSelection(filterdf, k=k.options)
 #' @export
-PamParamSelection <- function(dataset, k=c(2,5,10), nthreads=2){
+PamParamSelection <- function(dataset, k=c(2,5,10), metric="euclidean" ,nthreads=2){
 
   if (is.null(nthreads) == TRUE) {
     # Set the threads to maximum if NULL is given as argument for nthreads
     nthreads <- parallel::detectCores()
   }
+  
+  
 
   `%dopar%` <- foreach::`%dopar%` # Load the dopar binary operator from foreach package
   dataset.sc <- CircadianTools::GeneScale(dataset) # Center each gene
+  
+  if (metric =="abs.correlation"){
+    distance <- AbsCorDist(dataset.sc)
+  } else{
   dataset.sc <- CircadianTools::MedList(dataset.sc, nthreads=nthreads) # Reduce dataset to median at each time point.
-  distance <- parallelDist::parDist(dataset.sc) # Calculate distance using euclidean distance
+  distance <- parallelDist::parDist(dataset.sc, metric) # Calculate distance using euclidean distance
+  }
+  
   cl <- parallel::makeForkCluster(nthreads)  # Create cluster for parallelism
   doParallel::registerDoParallel(cl)
 
@@ -42,12 +51,13 @@ PamParamSelection <- function(dataset, k=c(2,5,10), nthreads=2){
 #' @description Runs hierarchical clustering with differing numbers of partitions and returns validation metrics.
 #' @param dataset A transcriptomics dataset. Preferably filtered first. First columns should be gene names. All other columns should be expression levels.
 #' @param k A numeric vector giving the number of clusters to be evaluated.
+#' @param metric The distance metric to be used to calculate the distances between genes. See parallelDist::parDist for all accepted arguments. Also allows the option of "abs.correlation".
 #' @param nthreads The number of threads to be used for parallel computations.If NULL then the maximum number of threads available will be used.
 #' filter.df <- CombiFilter(Laurasmappings)
 #' k.options <- seq(10,100, by=10)
 #' hclust.validation <- hclustParamSelection(filterdf, k=k.options)
 #' @export
- HclustParamSelection <- function(dataset, k=c(2,5,10), nthreads=4){
+ HclustParamSelection <- function(dataset, k=c(2,5,10), metric="euclidean", nthreads=4){
 
    if (is.null(nthreads) == TRUE) {
      # Set the threads to maximum if none is specified
@@ -56,8 +66,13 @@ PamParamSelection <- function(dataset, k=c(2,5,10), nthreads=2){
 
    `%dopar%` <- foreach::`%dopar%` # Load the dopar binary operator from foreach package
    dataset.sc <- CircadianTools::GeneScale(dataset) # Center each gene
-   dataset.sc <- CircadianTools::MedList(dataset.sc, nthreads=nthreads) # Reduce dataset to median at each time point.
-   distance <- parallelDist::parDist(dataset.sc) # Calculate distance using euclidean distance
+   if (metric =="abs.correlation"){
+     distance <- AbsCorDist(dataset.sc)
+   } else {
+     dataset.sc <- CircadianTools::MedList(dataset.sc, nthreads=nthreads) # Reduce dataset to median at each time point.
+     distance <- parallelDist::parDist(dataset.sc, metric="euclidean") # Calculate distance using euclidean distance
+   }
+
    clust <- hclust(distance) # Run hclustering
 
    cl <- parallel::makeForkCluster(nthreads)  # Create cluster for parallelism
@@ -83,6 +98,7 @@ PamParamSelection <- function(dataset, k=c(2,5,10), nthreads=2){
 #' @param dataset A transcriptomics dataset. Preferably filtered first. First columns should be gene names. All other columns should be expression levels.
 #' @param k A numeric vector giving the number of clusters to be evaluated.
 #' @param method The clustering method(s) to be used. Multiple methods can be considered by providing a character vector. Currently accepts 'pam', 'hclust' and 'diana'
+#' @param metric The distance metric to be used to calculate the distances between genes. See parallelDist::parDist for all accepted arguments. Also allows the option of "abs.correlation".
 #' @param nthreads The number of threads to be used for parallel computations.If NULL then the maximum number of threads available will be used.
 #' @param save.plot Logical. If TRUE then saves the plots generated
 #' @param save.df Logical. If TRUE then saves the validation metric results as a csv file.
@@ -92,7 +108,7 @@ PamParamSelection <- function(dataset, k=c(2,5,10), nthreads=2){
 #' k.options <- seq(10,100, by=10)
 #' hclust.validation <- ClusterParamSelection(filterdf, k=k.options)
 #' @export
-ClusterParamSelection <- function(dataset,k=c(2,5,10), method=c('pam', 'hclust', 'diana'), nthreads=2,save.plot=TRUE,save.df=TRUE, path=NULL ){
+ClusterParamSelection <- function(dataset,k=c(2,5,10), method=c('pam', 'hclust', 'diana'),metric="euclidean",nthreads=2,save.plot=TRUE,save.df=TRUE, path=NULL ){
   if (is.null(path) == TRUE) {
     path <- deparse(substitute(dataset))  # If a filename isn't specified then the name of the dataframe object is used
     path <- paste(path, '_validation', sep="") # Add _validation to directory
@@ -107,17 +123,17 @@ ClusterParamSelection <- function(dataset,k=c(2,5,10), method=c('pam', 'hclust',
   validation.df <- data.frame() # Initialize dataframe to hold validation results
 
   if ("pam" %in% method ==TRUE){
-    pam.results <- CircadianTools::PamParamSelection(dataset=dataset, k=k, nthreads=nthreads)
+    pam.results <- CircadianTools::PamParamSelection(dataset=dataset, k=k, metric="euclidean",nthreads=nthreads)
     validation.df <- rbind(validation.df, pam.results) # Add pam validation results if pam is specified in methods
   }
 
   if ("hclust" %in% method == TRUE){
-    hclust.results <- CircadianTools::HclustParamSelection(dataset = dataset, k=k, nthreads = nthreads)
+    hclust.results <- CircadianTools::HclustParamSelection(dataset = dataset, k=k, metric="euclidean", nthreads = nthreads)
     validation.df <- rbind(validation.df, hclust.results) # Add hclust validation results if hclust is specified in methods
   }
   
   if ("diana" %in% method == TRUE){
-    diana.results <- CircadianTools::DianaParamSelection(dataset =dataset, k=k, nthreads = nthreads)
+    diana.results <- CircadianTools::DianaParamSelection(dataset =dataset, k=k, nthreads = nthreads, metric="euclidean")
     validation.df <- rbind(validation.df, diana.results) # Add diana validation results if diana is specified in methods
   }
 

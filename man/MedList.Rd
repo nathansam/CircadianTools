@@ -4,7 +4,7 @@
 \alias{MedList}
 \title{MedList}
 \usage{
-MedList(dataset, nthreads)
+MedList(dataset, nthreads = NULL)
 }
 \arguments{
 \item{dataset}{A transcriptomics dataset. First columns should be gene names. All other columns should be expression levels.}

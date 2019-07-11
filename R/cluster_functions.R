@@ -229,9 +229,16 @@ HClustering <- function(dataset, k = 10, metric = "euclidean", nthreads = NULL, 
     nthreads <- parallel::detectCores()
   }
   dataset <- CircadianTools::GeneScale(dataset, scale = scale, center = center)  # Center / scale the gene activity for each gene
+  
+  if (metric =="abs.correlation"){
+    distance <- AbsCorDist(dataset)
+  }
+  
+  else{
   medians.dataset <- CircadianTools::MedList(dataset, nthreads = nthreads)  # Calculate the medians at each timepoint
-   medians.dataset <- data.frame(medians.dataset)
   distance <- parallelDist::parDist(as.matrix(medians.dataset), method = metric, threads = nthreads)  #Calculate the distance matrix
+  }
+  
   fit <- hclust(distance)  # Run the clustering process
   clusters <- dendextend::cutree(fit, k = k)  # Cut the dendogram such that there are k clusters
   dataset$cluster <- clusters  # Append the cluster column to the dataset
@@ -260,11 +267,13 @@ PamClustering <- function(dataset, k, metric = "euclidean", nthreads = NULL, sca
     nthreads <- parallel::detectCores()
   }
   dataset <- CircadianTools::GeneScale(dataset, scale = scale, center = center)  # Center / scale the gene activity for each gene
-  medians.dataset <- CircadianTools::MedList(dataset, nthreads = nthreads)  # Calculate the medians at each timepoint
   
   if (metric =="abs.correlation"){
-    distance <- AbsCorDist(medians.dataset)
-  } else{
+    distance <- AbsCorDist(dataset)
+  }
+  
+   else{
+  medians.dataset <- CircadianTools::MedList(dataset, nthreads = nthreads)  # Calculate the medians at each timepoint
   distance <- parallelDist::parDist(as.matrix(medians.dataset), method = metric, threads = nthreads)  #Calculate the distance matrix
   }
   fit <- cluster::pam(distance, k = k)  # Run the clustering proces

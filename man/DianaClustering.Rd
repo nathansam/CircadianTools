@@ -12,7 +12,7 @@ DianaClustering(dataset, k = 10, metric = "euclidean",
 
 \item{k}{The total number of clusters.}
 
-\item{metric}{The distance metric to be used to calculate the distances between genes. See parallelDist::parDist for all accepted arguments.}
+\item{metric}{The distance metric to be used to calculate the distances between genes. See parallelDist::parDist for all accepted arguments. Also allows the option of "abs.correlation".}
 
 \item{nthreads}{Number of processor threads to be used for calculating the distance matrix. If not specifed then the maximum number of logical cores are used.}
 
