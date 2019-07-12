@@ -14,9 +14,8 @@ DistanceGen <- function(dataset, metric = "euclidean", nthreads = NULL) {
     }
     if (metric == "abs.correlation") {
         distance <- AbsCorDist(dataset)
-    } else {
-        medians.dataset <- data.frame(medians.dataset)
-        distance <- parallelDist::parDist(as.matrix(medians.dataset[-1]), method = metric, threads = nthreads)  #Calculate the distance matrix
+    } else{
+        distance <- parallelDist::parDist(dataset, method = metric, threads = nthreads)  #Calculate the distance matrix
     }
     return(distance)
 }

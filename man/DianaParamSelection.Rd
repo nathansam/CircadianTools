@@ -14,7 +14,7 @@ DianaParamSelection(dataset = NULL, distance = NULL, k = c(2, 5, 10),
 
 \item{k}{A numeric vector giving the number of clusters to be evaluated.}
 
-\item{metric}{The distance metric to be used to calculate the distances between genes. See parallelDist::parDist for all accepted arguments. Also allows the option of "abs.correlation". Not used if a distance matrix is provided.
+\item{metric}{The distance metric to be used to calculate the distances between genes. See parallelDist::parDist for all accepted arguments. Also allows the option of 'abs.correlation'. Not used if a distance matrix is provided.
 filter.df <- CombiFilter(Laurasmappings)
 k.options <- seq(10,100, by=10)
 diana.validation <- DianaParamSelection(filterdf, k=k.options)}

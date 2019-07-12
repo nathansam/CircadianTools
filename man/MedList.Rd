@@ -8,6 +8,8 @@ MedList(dataset, nthreads = NULL)
 }
 \arguments{
 \item{dataset}{A transcriptomics dataset. First columns should be gene names. All other columns should be expression levels.}
+
+\item{nthreads}{Number of processor threads for the filtering. If not specifed then the maximum number of logical cores are used.}
 }
 \description{
 A Wrapper for MedList. Calls MedlistSeq if a singlethreaded function is required or MedListPar if a multithreaded function is needed.

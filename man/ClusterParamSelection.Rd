@@ -17,7 +17,7 @@ ClusterParamSelection(dataset = NULL, distance = NULL, k = c(2, 5,
 
 \item{method}{The clustering method(s) to be used. Multiple methods can be considered by providing a character vector. Currently accepts 'pam', 'hclust' and 'diana'}
 
-\item{metric}{The distance metric to be used to calculate the distances between genes. See parallelDist::parDist for all accepted arguments. Also allows the option of "abs.correlation". Not used if a distance matrix is provided.}
+\item{metric}{The distance metric to be used to calculate the distances between genes. See parallelDist::parDist for all accepted arguments. Also allows the option of 'abs.correlation'. Not used if a distance matrix is provided.}
 
 \item{nthreads}{The number of threads to be used for parallel computations.If NULL then the maximum number of threads available will be used.}
 

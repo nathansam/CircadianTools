@@ -19,5 +19,5 @@ Returns gene activity by either gene name or row number
 }
 \examples{
 activity <- ActivitySelect(1, Laurasmappings)
-activity <- ActivitySelect("comp100000_c0_seq2", Laurasmappings)
+activity <- ActivitySelect('comp100000_c0_seq2', Laurasmappings)
 }

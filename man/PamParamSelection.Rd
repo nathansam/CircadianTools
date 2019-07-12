@@ -14,7 +14,7 @@ PamParamSelection(dataset = NULL, distance = NULL, k = c(2, 5, 10),
 
 \item{k}{A numeric vector giving the number of clusters to be evaluated.}
 
-\item{metric}{The distance metric to be used to calculate the distances between genes. See parallelDist::parDist for all accepted arguments. Also allows the option of "abs.correlation". Not used if a distance matrix is provided.}
+\item{metric}{The distance metric to be used to calculate the distances between genes. See parallelDist::parDist for all accepted arguments. Also allows the option of 'abs.correlation'. Not used if a distance matrix is provided.}
 
 \item{nthreads}{The number of threads to be used for parallel computations. Warning! Increasing this value will massively increase RAM usage. If NULL then the maximum number of threads available will be used.}
 }
