@@ -8,15 +8,15 @@
 #' @export
 
 RainAnalysis <- function(dataset, period) {
-  dataset <- CircadianTools::GeneClean(dataset)
-  timevector <- CircadianTools::MakeTimevector(dataset)
-  measure <- as.numeric(table(timevector))
-  genenames <- dataset[1]
-  dataset <- dataset[-1]
-  deltat <- unique(timevector)[2] - unique(timevector)[1]
-  results <- rain::rain(t(dataset), deltat = deltat, period = period, measure.sequence = measure)
-  results <- cbind(genenames, results)
-  return(results)
+    dataset <- CircadianTools::GeneClean(dataset)
+    timevector <- CircadianTools::MakeTimevector(dataset)
+    measure <- as.numeric(table(timevector))
+    genenames <- dataset[1]
+    dataset <- dataset[-1]
+    deltat <- unique(timevector)[2] - unique(timevector)[1]
+    results <- rain::rain(t(dataset), deltat = deltat, period = period, measure.sequence = measure)
+    results <- cbind(genenames, results)
+    return(results)
 }
 
 
@@ -35,22 +35,22 @@ RainAnalysis <- function(dataset, period) {
 #'
 #' @export
 RainSignificantPlot <- function(results, dataset, number = 10, print = TRUE, save = FALSE) {
-  results <- results[order(results$pVal), ]  # Order by most significant p-value
-
-  for (i in 1:number) {
-    p <- CircadianTools::BasicPlot(as.character(results[i, 1]), dataset)
-    p <- p + ggplot2::ggtitle(paste("Gene = ", as.character(results[i, 1]), " P-Value = ", as.character(results[i,
-                                                                                                                2])))
-
-    if (print == TRUE) {
-      print(p)
+    results <- results[order(results$pVal), ]  # Order by most significant p-value
+    
+    for (i in 1:number) {
+        p <- CircadianTools::BasicPlot(as.character(results[i, 1]), dataset)
+        p <- p + ggplot2::ggtitle(paste("Gene = ", as.character(results[i, 1]), " P-Value = ", as.character(results[i, 
+            2])))
+        
+        if (print == TRUE) {
+            print(p)
+        }
+        
+        if (save == TRUE) {
+            ggplot2::ggsave(paste("rank=", i, "RAIN_", as.character(results[i, 1]), ".png"), p, width = 10, 
+                height = 4.5, units = "in")
+        }
+        
     }
-
-    if (save == TRUE) {
-      ggplot2::ggsave(paste("rank=", i, "RAIN_", as.character(results[i, 1]), ".png"), p, width = 10, height = 4.5,
-                      units = "in")
-    }
-
-  }
 }
 

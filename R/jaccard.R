@@ -27,19 +27,18 @@
 #' @return the Jaccard coefficient for the two sets of cluster labels (See
 #' Details.)
 #' @examples
-#
+# 
 #'
 #' @export
 Jaccard <- function(labels1, labels2) {
-  com_table <- clusteval::comembership_table(labels1, labels2)
-  jaccard_out <- with(com_table, n_11 / (n_11 + n_10 + n_01))
-
-  # In the case where 'labels1' and 'labels2' contain all singletons, the Jaccard
-  # coefficient results in the expression 0 / 0, which yields a NaN value in R.
-  # We define such cases as 0.
-  if (is.nan(jaccard_out)) {
-    warning("The two clusterings contain all singletons -- returning 0.")
-    jaccard_out <- 0
-  }
-  jaccard_out
+    com_table <- clusteval::comembership_table(labels1, labels2)
+    jaccard_out <- with(com_table, n_11/(n_11 + n_10 + n_01))
+    
+    # In the case where 'labels1' and 'labels2' contain all singletons, the Jaccard coefficient results in
+    # the expression 0 / 0, which yields a NaN value in R.  We define such cases as 0.
+    if (is.nan(jaccard_out)) {
+        warning("The two clusterings contain all singletons -- returning 0.")
+        jaccard_out <- 0
+    }
+    jaccard_out
 }

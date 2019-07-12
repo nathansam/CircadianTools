@@ -52,7 +52,8 @@ CytoscapeFile <- function(cor.dataset, save = TRUE, filename = NULL, nthreads = 
         
         filename <- paste(filename, ".csv", sep = "")
         CircadianTools::FileConflict(filename)
-        # Checks if a file which will be created already exists. Asks the user if this file should be overwritten.
+        # Checks if a file which will be created already exists. Asks the user if this file should be
+        # overwritten.
     }
     
     `%dopar%` <- foreach::`%dopar%`  # Load the dopar binary operator from foreach package

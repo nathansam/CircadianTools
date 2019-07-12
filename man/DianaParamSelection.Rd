@@ -4,7 +4,7 @@
 \alias{DianaParamSelection}
 \title{DianaParamSelection}
 \usage{
-DianaParamSelection(dataset, distance = NULL, k = c(2, 5, 10),
+DianaParamSelection(dataset = NULL, distance = NULL, k = c(2, 5, 10),
   metric = "euclidean", nthreads = 4)
 }
 \arguments{
