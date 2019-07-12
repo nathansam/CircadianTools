@@ -50,7 +50,7 @@ DianaClustering <- function(dataset=NULL,distance=NULL ,k = 10, metric = "euclid
 #' k.options <- seq(10,100, by=10)
 #' diana.validation <- DianaParamSelection(filterdf, k=k.options)
 #' @export
-DianaParamSelection <- function(dataset, distance=NULL, k=c(2,5,10), metric="euclidean", nthreads=4){
+DianaParamSelection <- function(dataset=NULL, distance=NULL, k=c(2,5,10), metric="euclidean", nthreads=4){
 
   if (is.null(dataset)==TRUE & is.null(distance)==TRUE){
     # Check that either a dataset or a distance matrix has been provided
