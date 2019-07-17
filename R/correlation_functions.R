@@ -16,17 +16,17 @@
 #' @export
 
 
-CorAnalysis <- function(genename, dataset, threshold = 0.9, average = "median", lag = 0, save = FALSE, 
+CorAnalysis <- function(genename, dataset, threshold = 0.9, average = "median", lag = 0, save = FALSE,
     print = TRUE, df = TRUE) {
     # dataset <- geneclean(dataset) # Remove any rows which shows no gene activity
-    
+
     if (save == TRUE) {
         directory <- paste("cor_", genename)
         if (dir.exists(directory) == FALSE) {
             dir.create(directory)
         }
     }
-    
+
     genenumber <- nrow(dataset)  # Number of genes in the dataset
     cor.df <- data.frame(sample = dplyr::select(dataset, 1), corvalues = rep(0, genenumber))  #first column gene name, second column correlation value
     timevector <- CircadianTools::MakeTimevector(dataset)  # Create vector of time values
@@ -34,8 +34,8 @@ CorAnalysis <- function(genename, dataset, threshold = 0.9, average = "median", 
     selectedgene <- CircadianTools::ActivitySelect(genename, dataset)
     selectedgenedf <- data.frame(timevector, selectedgene)
     names(selectedgenedf) <- c("timevector", "activity")
-    
-    
+
+
     selectedaverage.list <- rep(0, length((unique(timevector))))
     count <- 1
     for (i in unique(timevector)) {
@@ -48,29 +48,29 @@ CorAnalysis <- function(genename, dataset, threshold = 0.9, average = "median", 
         }
         count = count + 1
     }
-    
+
     if (lag > 0) {
         selectedaverage.list <- tail(selectedaverage.list, n = length(selectedaverage.list) - lag)
     }
-    
+
     if (lag < 0) {
         selectedaverage.list <- head(selectedaverage.list, n = length(selectedaverage.list) - lag)
     }
-    
+
     for (i in 1:genenumber) {
         CircadianTools::LoadingPrint(i, loading_values)
-        
+
         genematrix <- dplyr::filter(dataset, dplyr::row_number() == i)
         compgenename <- paste(dataset[i, 1])
         genematrix <- CircadianTools::ActivitySelect(i, dataset)
-        
-        
-        
+
+
+
         selectedgenedf <- data.frame(timevector, genematrix)
-        
+
         names(selectedgenedf) <- c("timevector", "activity")
-        
-        
+
+
         compaverage.list <- rep(0, length((unique(timevector))))
         count <- 1
         for (j in unique(timevector)) {
@@ -83,27 +83,27 @@ CorAnalysis <- function(genename, dataset, threshold = 0.9, average = "median", 
             }
             count = count + 1
         }
-        
+
         if (lag > 0) {
             compaverage.list <- head(compaverage.list, n = length(compaverage.list) - lag)
         }
         if (lag < 0) {
             compaverage.list <- tail(compaverage.list, n = length(compaverage.list) - lag)
         }
-        
-        
+
+
         correlation <- cor(selectedaverage.list, compaverage.list)
         cor.df[i, 2] <- correlation
         if (save == TRUE || print == TRUE) {
             if (correlation > threshold) {
                 if (correlation != 1) {
-                  
-                  
+
+
                   myplot <- compplot(as.character(genename), compgenename, dataset)
                   myplot <- myplot + ggplot2::ggtitle(paste("Correlation = ", correlation))
-                  
+
                   if (save == TRUE) {
-                    ggplot2::ggsave(paste("Cor_", genename, "_", compgenename, ".png"), myplot, path = directory, 
+                    ggplot2::ggsave(paste("Cor_", genename, "_", compgenename, ".png"), myplot, path = directory,
                       width = 10, height = 4.5, units = "in")
                   }
                   if (print == TRUE) {
@@ -132,31 +132,31 @@ CorAnalysis <- function(genename, dataset, threshold = 0.9, average = "median", 
 #' @export
 
 CorAnalysisCluster <- function(cluster.no, cluster.dataset, lag = 0, nthreads = NULL) {
-    
-    
+
+
     main.time.profile <- CircadianTools::ClusterTimeProfile(cluster.no, cluster.dataset, nthreads = nthreads)  # Get time profile for the cluster specified
-    
+
     if (lag > 0) {
         main.time.profile <- tail(main.time.profile, n = length(main.time.profile) - lag)  # Lag if required
     }
     if (lag < 0) {
         main.time.profile <- head(main.time.profile, n = length(main.time.profile) - lag)  # Lag if required
     }
-    
+
     cluster.quantity <- max(cluster.dataset$cluster)  # Number of clusters
     correlation.df <- data.frame(seq(1, cluster.quantity), rep(0, cluster.quantity))
     colnames(correlation.df) <- c("cluster", "correlation")
-    
+
     for (j in 1:cluster.quantity) {
         comp.time.profile <- CircadianTools::ClusterTimeProfile(j, cluster.dataset, nthreads = nthreads)  # Get time profile of cluster being compared with the main cluster
-        
+
         if (lag > 0) {
             comp.time.profile <- head(comp.time.profile, n = length(comp.time.profile) - lag)  # Lag if required
         }
         if (lag < 0) {
             comp.time.profile <- tail(comp.time.profile, n = length(comp.time.profile) - lag)  # Lag if required
         }
-        
+
         compcor <- cor(main.time.profile, comp.time.profile)  # Calculate correlation
         correlation.df[j, 2] <- compcor  # Add correlation to dataframe
     }
@@ -187,22 +187,22 @@ CorAnalysisDataset <- function(dataset, average = "median", lag = 0, nthreads = 
         # If a filename isn't specified then the name of the dataframe object is used
         filename <- deparse(substitute(dataset))
     }
-    
+
     `%dopar%` <- foreach::`%dopar%`  # Load the dopar binary operator from foreach package
     cl <- parallel::makeForkCluster(nthreads)  # Create cluster for parallelism
     doParallel::registerDoParallel(cl)
-    
+
     genenames <- as.vector(dataset[, 1])  # Vector of names for every gene
-    
+
     correlationdf <- foreach::foreach(i = 1:length(genenames), .combine = cbind) %dopar% {
-        
+
         # Calculate correlation for the ith gene with all ( possibly lagged) genes.
-        results <- CircadianTools::CorAnalysis(genename = genenames[i], dataset = dataset, lag = lag, average = average, 
+        results <- CircadianTools::CorAnalysis(genename = genenames[i], dataset = dataset, lag = lag, average = average,
             print = FALSE)
-        
+
         data.frame(results[, 2])  # Add the list of correlations as a column to the correlation dataframe
     }
-    
+
     rownames(correlationdf) <- genenames  # Give the columns the genenames
     colnames(correlationdf) <- genenames  # Give the rows the genenames
     if (save == TRUE) {
@@ -229,11 +229,11 @@ CorAnalysisDataset <- function(dataset, average = "median", lag = 0, nthreads = 
 #' @export
 
 CorAnalysisClusterDataset <- function(cluster.dataset, lag = 0, nthreads = NULL, save = TRUE, filename = NULL) {
-    
+
     if (is.null(filename) == TRUE) {
         filename <- deparse(substitute(cluster.dataset))  # If a filename isn't specified then the name of the dataframe object is used
     }
-    
+
     if (is.null(nthreads) == TRUE) {
         # Set the threads to maximum if none is specified
         nthreads <- parallel::detectCores()
@@ -241,22 +241,23 @@ CorAnalysisClusterDataset <- function(cluster.dataset, lag = 0, nthreads = NULL,
     `%dopar%` <- foreach::`%dopar%`  # Load the dopar binary operator from foreach package
     cl <- parallel::makeForkCluster(nthreads)  # Create cluster for parallelism
     doParallel::registerDoParallel(cl)
-    
-    
+
+
     clusters <- unique(cluster.dataset$cluster)  # Vector of cluster numbers
-    
+
     correlationdf <- foreach::foreach(i = 1:length(clusters), .combine = cbind) %dopar% {
         temp.df <- CircadianTools::CorAnalysisCluster(i, cluster.dataset, lag = lag, nthreads = 1)
         temp.df[, 2]
     }
-    
+
     rownames(correlationdf) <- clusters  # Give the columns the genenames
     colnames(correlationdf) <- clusters  # Give the rows the genenames
-    
+
     if (save == TRUE) {
         write.csv(correlationdf, paste(filename, ".csv", sep = ""))  # Write as a csv file if save=TRUE
     }
-    
+    parallel::stopCluster(cl)
+
     return(correlationdf)
 }
 
@@ -276,13 +277,13 @@ CorAnalysisClusterDataset <- function(cluster.dataset, lag = 0, nthreads = NULL,
 
 
 CorAnalysisPar <- function(genename, dataset, lag = 0, average = "median", nthreads = NULL) {
-    
+
     `%dopar%` <- foreach::`%dopar%`  # Load the dopar binary operator from foreach package
     if (is.null(nthreads) == TRUE) {
         # Set the threads to maximum if none is specified
         nthreads <- parallel::detectCores()
     }
-    
+
     # dataset <- CircadianTools::geneclean(dataset) # Remove any rows which shows no gene activity
     genenumber <- nrow(dataset)  # Number of genes in the dataset
     cor.df <- data.frame(sample = dplyr::select(dataset, 1), corvalues = rep(0, genenumber))  #first column gene name, second column correlation value
@@ -290,8 +291,8 @@ CorAnalysisPar <- function(genename, dataset, lag = 0, average = "median", nthre
     selectedgene <- as.vector(CircadianTools::ActivitySelect(genename, dataset))
     selectedgenedf <- data.frame(timevector, selectedgene)
     colnames(selectedgenedf) <- c("timevector", "activity")
-    
-    
+
+
     selectedaverage.list <- rep(0, length((unique(timevector))))
     count <- 1
     for (i in unique(timevector)) {
@@ -304,30 +305,30 @@ CorAnalysisPar <- function(genename, dataset, lag = 0, average = "median", nthre
         }
         count = count + 1
     }
-    
+
     if (lag > 0) {
         selectedaverage.list <- tail(selectedaverage.list, n = length(selectedaverage.list) - lag)
     }
-    
+
     if (lag < 0) {
         selectedaverage.list <- head(selectedaverage.list, n = length(selectedaverage.list) - lag)
     }
-    
-    
+
+
     cl <- parallel::makeForkCluster(nthreads)  # Create cluster for parallelism
     doParallel::registerDoParallel(cl)
-    
+
     cor.df <- foreach::foreach(i = 1:genenumber, .combine = rbind) %dopar% {
-        
+
         genematrix <- dplyr::filter(dataset, dplyr::row_number() == i)
         compgenename <- paste(dataset[i, 1])
         genematrix <- CircadianTools::ActivitySelect(i, dataset)
-        
+
         selectedgenedf <- data.frame(timevector, genematrix)
-        
+
         names(selectedgenedf) <- c("timevector", "activity")
-        
-        
+
+
         compaverage.list <- rep(0, length((unique(timevector))))
         count <- 1
         for (j in unique(timevector)) {
@@ -346,12 +347,12 @@ CorAnalysisPar <- function(genename, dataset, lag = 0, average = "median", nthre
         if (lag < 0) {
             compaverage.list <- tail(compaverage.list, n = length(compaverage.list) - lag)
         }
-        
+
         correlation <- cor(selectedaverage.list, compaverage.list)
         data.frame(compgenename, correlation)
-        
+
     }
-    
+
     parallel::stopCluster(cl)
     return(cor.df)
 }
@@ -384,13 +385,13 @@ CorSignificantPlot <- function(results, dataset, number = 10, print = TRUE, save
         for (i in 2:(number + 1)) {
             myplot <- CircadianTools::CompPlot(as.character(gene1), as.character(results[i, 1]), dataset)
             myplot <- myplot + ggplot2::ggtitle(paste(" Correlation = ", as.character(results[i, 2])))
-            
+
             if (print == TRUE) {
                 print(myplot)
             }
-            
+
             if (save == TRUE) {
-                ggplot2::ggsave(paste("rank=", i - 1, "Cor_", as.character(results[i, 1]), ".png"), myplot, 
+                ggplot2::ggsave(paste("rank=", i - 1, "Cor_", as.character(results[i, 1]), ".png"), myplot,
                   path = directory, width = 10, height = 4.5, units = "in")
             }
         }
@@ -399,15 +400,15 @@ CorSignificantPlot <- function(results, dataset, number = 10, print = TRUE, save
         results <- results[order(results$correlation, decreasing = FALSE), ]
         for (i in 1:number) {
             myplot <- CircadianTools::CompPlot(as.character(gene1), as.character(results[i, 1]), dataset)
-            myplot <- myplot + ggplot2::ggtitle(paste("Gene = ", as.character(results[i, 1]), " Cor = ", 
+            myplot <- myplot + ggplot2::ggtitle(paste("Gene = ", as.character(results[i, 1]), " Cor = ",
                 as.character(results[i, 2])))
-            
+
             if (print == TRUE) {
                 print(myplot)
             }
-            
+
             if (save == TRUE) {
-                ggplot2::ggsave(paste("rank=", i, "Cor_", as.character(results[i, 1]), ".png"), myplot, 
+                ggplot2::ggsave(paste("rank=", i, "Cor_", as.character(results[i, 1]), ".png"), myplot,
                   path = directory, width = 10, height = 4.5, units = "in")
             }
         }

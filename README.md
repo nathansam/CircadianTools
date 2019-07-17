@@ -28,7 +28,11 @@ Documentation is available for CircadianTools and all of its functions via the u
 ```DatasetPlot```: Saves plots of all genes in a dataset. WARNING! Don't run on a large dataset! Intended for a filtered dataset <br>
 
 ### Clustering
+```ClusterCenterGenerator```: Finds the center of every cluster in a dataset <br>
 ```ClusterDatasetPlot```: Plots the mean and error bars for all clusters across time <br>
+```FindClusterDistanceQuantiles```: Finds The distances between the center of each cluster and the centers of all the other clusters. <br>
+```FindClusterMedian```: Finds the center of a cluster <br>
+```FindClusterQuantile```: Finds The distances between the center of a cluster and the centers of all other clusters. <br>
 ```ClusterParamSelection```: Calculates validation metrics for different clustering methods and varying the number of partitions. The validation metrics are plotted. <br>
 ```ClusterPlot```: Plots the mean and error bars for the genes in a cluster across time <br>
 ```ClusterSpread```: Shows how many genes are in each cluster after clustering has been applied. <br>
@@ -41,6 +45,7 @@ Documentation is available for CircadianTools and all of its functions via the u
 ```HclustParamSelection```: Runs hierarchical clustering with differing numbers of partitions and returns validation metrics. <br>
 ```PamClustering```: Applies PAM (Partitioning around Medoids) clustering to a transcriptomics dataset and appends a cluster column to this dataset for all genes. <br>
 ```PamParamSelection```: Runs PAM with differing numbers of partitions and returns validation metrics. <br>
+```QuantilePlots```: Finds the quartiles for intercluster distances and plots these distances as a set of histograms <br>
 ```SingletonNameFinder```: Finds the genes which belong to singleton clusters. <br>
   
 ### Correlation

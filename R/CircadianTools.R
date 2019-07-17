@@ -6,7 +6,11 @@
 #' \code{\link{CompPlot}}: Plots two genes from a gene activity dataset. \cr \cr
 #' \code{\link{DatasetPlot}}: Saves plots of all genes in a dataset. \cr \cr
 #' @section Clustering:
+#' \code{\link{ClusterCenterGenerator}}: Finds the center of every cluster in a dataset \cr \cr
 #' \code{\link{ClusterDatasetPlot}}: Plots the mean and error bars for all clusters across time. \cr \cr
+#' \code{\link{FindClusterDistanceQuantiles}}: Finds The distances between the center of each cluster and the centers of all the other clusters. \cr \cr
+#' \code{\link{FindClusterMedian}}: Finds the center of a cluster \cr \cr
+#' \code{\link{FindClusterQuantile}}: Finds The distances between the center of a cluster and the centers of all other clusters. \cr \cr
 #' \code{\link{ClusterParamSelection}}: Calculates validation metrics for different clustering methods and varying the number of partitions. The validation metrics are plotted. \cr \cr
 #' \code{\link{ClusterPlot}}: Plots the mean and error bars for the genes in a cluster across time. \cr \cr
 #' \code{\link{ClusterSpread}}: Shows how many genes are in each cluster after clustering has been applied. \cr \cr
@@ -19,6 +23,7 @@
 #' \code{\link{HclustParamSelection}}: Runs hierarchical clustering with differing numbers of partitions and returns validation metrics. \cr \cr
 #' \code{\link{PamClustering}}: Applies PAM (Partitioning around Medoids) clustering to a transcriptomics dataset and appends a cluster column to this dataset for all genes. \cr \cr
 #' \code{\link{PamParamSelection}}: Runs PAM with differing numbers of partitions and returns validation metrics. \cr \cr
+#' \code{\link{QuantilePlots}}: Finds the quartiles for intercluster distances and plots these distances as a set of histograms \cr \cr
 #' \code{\link{SingletonNameFinder}}: Finds the genes which belong to singleton clusters. \cr \cr
 #' @section Correlation:
 #' \code{\link{CorAnalysis}}: Ranks correlation between a given gene and all other genes in a dataset. Plots both the given gene and highly correlated genes for a given correlation value. \cr \cr
