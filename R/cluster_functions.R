@@ -21,9 +21,9 @@ ClusterDatasetPlot <- function(cluster.dataset, nthreads = NULL, print = TRUE, s
             dir.create(path)
         }
     }
-    
+
     for (i in unique(cluster.dataset$cluster)) {
-        plot <- CircadianTools::ClusterPlot(clusterno = i, cluster.dataset, nthreads = nthreads, print = print, 
+        plot <- CircadianTools::ClusterPlot(clusterno = i, cluster.dataset, nthreads = nthreads, print = print,
             save = save, path = path)
         if (print == TRUE) {
             print(plot)
@@ -51,55 +51,55 @@ ClusterPlot <- function(clusterno, cluster.dataset, nthreads = NULL, print = TRU
     `%do%` <- foreach::`%do%`  # Load the do binary operator from foreach package
     subdf <- subset(cluster.dataset, cluster == clusterno)  # Subset by cluster
     subdf$cluster <- NULL  #remove the cluster column
-    
+
     unique.time.vector <- unique(CircadianTools::MakeTimevector(subdf))  # Get the time values
     subdfmedians <- CircadianTools::MedList(subdf, nthreads = nthreads)  # Generates the median at each time point for each gene
-    
+
     if (nrow(subdfmedians) != 1) {
         single.gene.cluster = FALSE  # Set logical flag for there being more than one gene in the cluster (Error bars and standard deviation is required)
     } else {
         single.gene.cluster = TRUE  # Set logical flag for there being 1 gene in the cluster (Error bars and standard deviation is not required)
     }
-    
+
     graphdf <- foreach::foreach(i = 1:ncol(subdfmedians), .combine = rbind) %do% {
-        
+
         column <- subdfmedians[, i]  # Select all values per column (per timepoint)
         meanval <- mean(column)  # Calculate the mean value for this timepoint
         time <- unique.time.vector[i]  # Find the actual value of time for this timepoint
-        
+
         if (single.gene.cluster == TRUE) {
             data.frame(time, meanval)  # Store just the time value and mean if only one gene
         } else {
             # If more than one gene in the cluster
             se <- sd(column)/sqrt(length(column))  # Calculate the standard error for this time point
-            
+
             data.frame(time, meanval, se)  # Store time value, mean and standard deviation
         }
     }
-    
+
     p <- ggplot2::ggplot(graphdf, ggplot2::aes(x = time, y = meanval))  # Create the ggplot2 object
-    
+
     if (single.gene.cluster == FALSE) {
-        p <- p + ggplot2::geom_errorbar(ggplot2::aes(ymin = meanval - (2 * se), ymax = meanval + (2 * se)), 
+        p <- p + ggplot2::geom_errorbar(ggplot2::aes(ymin = meanval - (2 * se), ymax = meanval + (2 * se)),
             width = 1.5, size = 1, position = ggplot2::position_dodge(0.05), color = "#ba1200", alpha = 0.7)  # Add error bars if more than 1 gene in cluster
     }
-    
-    
-    p <- p + ggplot2::geom_line(size = 1, color = "#412d6b") + ggplot2::geom_point(size = 4, color = "#008dd5") + 
-        ggplot2::xlab("Time (Hours)") + ggplot2::ylab("Transcripts Per Million (TPM)") + ggplot2::theme_bw() + 
-        ggplot2::theme(plot.title = ggplot2::element_text(hjust = 1)) + ggplot2::theme(text = ggplot2::element_text(size = 12)) + 
+
+
+    p <- p + ggplot2::geom_line(size = 1, color = "#412d6b") + ggplot2::geom_point(size = 4, color = "#008dd5") +
+        ggplot2::xlab("Time (Hours)") + ggplot2::ylab("Transcripts Per Million (TPM)") + ggplot2::theme_bw() +
+        ggplot2::theme(plot.title = ggplot2::element_text(hjust = 1)) + ggplot2::theme(text = ggplot2::element_text(size = 12)) +
         ggplot2::ggtitle(paste("Cluster = ", clusterno))  # Add line, points and change appearance to match packaged appearance
-    
-    
+
+
     if (save == TRUE) {
-        ggplot2::ggsave(paste("cluster=", clusterno, ".png"), p, path = path, width = 10, height = 4.5, 
+        ggplot2::ggsave(paste("cluster=", clusterno, ".png"), p, path = path, width = 10, height = 4.5,
             units = "in")
     }
-    
+
     if (print == TRUE) {
         return(p)
     }
-    
+
 }
 
 
@@ -135,18 +135,18 @@ ClusterSpread <- function(cluster.dataset) {
 #' ClusterText(pam.df)
 #' @export
 ClusterText <- function(cluster.dataset, filename = NULL) {
-    
+
     if (is.null(filename) == TRUE) {
         filename <- deparse(substitute(cluster.dataset))  # If filename is not given then use name of cluster.dataset object
     }
-    
+
     filename <- paste(filename, ".txt", sep = "")  # Add .txt extension to the filename
-    
+
     file.conflict(filename)  # Checks if a file which will be created already exists. Asks the user if this file should be overwritten.
-    
-    
+
+
     cluster.list <- unique(cluster.dataset$cluster)  # vector of cluster 'names'
-    
+
     for (i in cluster.list) {
         subdf <- subset(cluster.dataset, cluster == i)  # Subset by cluster
         line <- subdf[, 1]  # genenames (first column) # Get the gene names for this cluster
@@ -174,11 +174,11 @@ ClusterTimeProfile <- function(cluster.no, cluster.dataset, nthreads = NULL) {
     cluster.sub <- subset(cluster.dataset, cluster == cluster.no)  # Subset cluster
     cluster.sub$cluster <- NULL  # Remove cluster column
     med <- CircadianTools::MedList(cluster.sub, nthreads = nthreads)  # Return the median activity label for each timepoint of each gene
-    
+
     timesteps <- ncol(med)  # Number of timesteps
-    
+
     profile <- rep(0, timesteps)
-    
+
     for (i in 1:timesteps) {
         profile[i] <- mean(med[, i])  # Find the mean activity value for the cluster at each time points
     }
@@ -201,19 +201,19 @@ CommonSingletonFinder <- function(cluster.dataset1, cluster.dataset2) {
     singleton.genes1 <- SingletonNameFinder(cluster.dataset1)  # Get list of genes in singleton clusters
     singleton.genes2 <- SingletonNameFinder(cluster.dataset2)
     common.genes <- intersect(singleton.genes1, singleton.genes2)  # Find the genes which are found in both lists
-    
+
     cat(paste("There are ", length(common.genes), " singleton genes found in both datasets. \n"))
     cat(paste("There are ", length(singleton.genes1) - length(common.genes), " unique singleton genes in each dataset. \n"))
-    
+
     return(common.genes)
-    
+
 }
 
 
 #' HClustering:
-#' @description Applies Hierarchical clustering to a transcriptomics dataset and appends a cluster column to this dataset for all genes.
-#'
+#' @description Applies Hierarchical clustering to a transcriptomics dataset and appends a cluster column to this dataset for all genes. Not needed if an argument to distance is given.
 #' @param dataset A transcriptomics dataset. First columns should be gene names. All other columns should be expression levels.
+#' @param distance A distance matrix. If a distance matrix has already been created (such as by using the DistanceGen function), the matrix can be passed to this function to save time. If a distance matrix is not provided then it will be generated by the function.
 #' @param k The total number of clusters.
 #' @param metric The distance metric to be used to calculate the distances between genes. See parallelDist::parDist for all accepted arguments.
 #' @param nthreads Number of processor threads to be used for calculating the distance matrix. If not specifed then the maximum number of logical cores are used.
@@ -224,21 +224,22 @@ CommonSingletonFinder <- function(cluster.dataset1, cluster.dataset2) {
 #' pam.df <- Hclustering(Laurasmappings, k = 75)
 #'
 #' @export
-HClustering <- function(dataset, k = 10, metric = "euclidean", nthreads = NULL, scale = FALSE, center = TRUE) {
-    
+HClustering <- function(dataset, distance, k = 10, metric = "euclidean", nthreads = NULL, scale = FALSE, center = TRUE) {
+    if (is.null(dataset) == TRUE & is.null(distance) == TRUE) {
+        # Check that either a dataset or a distance matrix has been provided
+        stop("Either a transcriptomics dataset or a distance matrix needs to be provided!")
+    }
+
     if (is.null(nthreads) == TRUE) {
         # Set the threads to maximum if none is specified
         nthreads <- parallel::detectCores()
     }
-    dataset <- CircadianTools::GeneScale(dataset, scale = scale, center = center)  # Center / scale the gene activity for each gene
-    
-    if (metric == "abs.correlation") {
-        distance <- AbsCorDist(dataset)
-    } else {
-        medians.dataset <- CircadianTools::MedList(dataset, nthreads = nthreads)  # Calculate the medians at each timepoint
-        distance <- parallelDist::parDist(as.matrix(medians.dataset), method = metric, threads = nthreads)  #Calculate the distance matrix
+
+    if (is.null(distance) == TRUE) {
+        dataset.sc <- CircadianTools::GeneScale(dataset, scale = scale, center = center)  # Center / scale the gene activity for each gene
+        distance <- CircadianTools::DistanceGen(dataset = dataset.sc, metric = metric, nthreads = nthreads)
     }
-    
+
     fit <- hclust(distance)  # Run the clustering process
     clusters <- dendextend::cutree(fit, k = k)  # Cut the dendogram such that there are k clusters
     dataset$cluster <- clusters  # Append the cluster column to the dataset
@@ -248,8 +249,8 @@ HClustering <- function(dataset, k = 10, metric = "euclidean", nthreads = NULL, 
 
 #' PamClustering:
 #' @description Applies PAM (Partitioning around Medoids) clustering to a transcriptomics dataset and appends a cluster column to this dataset for all genes.
-#'
-#' @param dataset A transcriptomics dataset. First columns should be gene names. All other columns should be expression levels.
+#' @param dataset A transcriptomics dataset. First columns should be gene names. All other columns should be expression levels. Not needed if an argument to distance is given.
+#' @param distance A distance matrix. If a distance matrix has already been created (such as by using the DistanceGen function), the matrix can be passed to this function to save time. If a distance matrix is not provided then it will be generated by the function.
 #' @param k The total number of clusters.
 #' @param metric The distance metric to be used to calculate the distances between genes. See parallelDist::parDist for all accepted arguments.
 #' @param nthreads Number of processor threads to be used for calculating the distance matrix. If not specifed then the maximum number of logical cores are used.
@@ -260,19 +261,21 @@ HClustering <- function(dataset, k = 10, metric = "euclidean", nthreads = NULL, 
 #' pam.df <- PamClustering(Laurasmappings,k = 20)
 #' @export
 
-PamClustering <- function(dataset, k, metric = "euclidean", nthreads = NULL, scale = FALSE, center = TRUE) {
-    
+PamClustering <- function(dataset,distance ,k, metric = "euclidean", nthreads = NULL, scale = FALSE, center = TRUE) {
+
+    if (is.null(dataset) == TRUE & is.null(distance) == TRUE) {
+        # Check that either a dataset or a distance matrix has been provided
+        stop("Either a transcriptomics dataset or a distance matrix needs to be provided!")
+    }
+
     if (is.null(nthreads) == TRUE) {
         # Set the threads to maximum if none is specified
         nthreads <- parallel::detectCores()
     }
-    dataset <- CircadianTools::GeneScale(dataset, scale = scale, center = center)  # Center / scale the gene activity for each gene
-    
-    if (metric == "abs.correlation") {
-        distance <- AbsCorDist(dataset)
-    } else {
-        medians.dataset <- CircadianTools::MedList(dataset, nthreads = nthreads)  # Calculate the medians at each timepoint
-        distance <- parallelDist::parDist(as.matrix(medians.dataset), method = metric, threads = nthreads)  #Calculate the distance matrix
+
+    if (is.null(distance) == TRUE) {
+        dataset.sc <- CircadianTools::GeneScale(dataset, scale = scale, center = center)  # Center / scale the gene activity for each gene
+        distance <- CircadianTools::DistanceGen(dataset = dataset.sc, metric = metric, nthreads = nthreads)
     }
     fit <- cluster::pam(distance, k = k)  # Run the clustering proces
     dataset$cluster <- fit$cluster  # Append the cluster column to the dataset
