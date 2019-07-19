@@ -4,7 +4,7 @@
 \alias{HClustering}
 \title{HClustering:}
 \usage{
-HClustering(dataset, distance, k = 10, metric = "euclidean",
+HClustering(dataset, distance = NULL, k = 10, metric = "euclidean",
   nthreads = NULL, scale = FALSE, center = TRUE)
 }
 \arguments{

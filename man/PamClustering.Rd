@@ -4,7 +4,7 @@
 \alias{PamClustering}
 \title{PamClustering:}
 \usage{
-PamClustering(dataset, distance, k, metric = "euclidean",
+PamClustering(dataset, distance = NULL, k, metric = "euclidean",
   nthreads = NULL, scale = FALSE, center = TRUE)
 }
 \arguments{

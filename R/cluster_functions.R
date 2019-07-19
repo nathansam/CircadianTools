@@ -224,7 +224,7 @@ CommonSingletonFinder <- function(cluster.dataset1, cluster.dataset2) {
 #' pam.df <- Hclustering(Laurasmappings, k = 75)
 #'
 #' @export
-HClustering <- function(dataset, distance, k = 10, metric = "euclidean", nthreads = NULL, scale = FALSE, center = TRUE) {
+HClustering <- function(dataset, distance=NULL, k = 10, metric = "euclidean", nthreads = NULL, scale = FALSE, center = TRUE) {
     if (is.null(dataset) == TRUE & is.null(distance) == TRUE) {
         # Check that either a dataset or a distance matrix has been provided
         stop("Either a transcriptomics dataset or a distance matrix needs to be provided!")
@@ -261,7 +261,7 @@ HClustering <- function(dataset, distance, k = 10, metric = "euclidean", nthread
 #' pam.df <- PamClustering(Laurasmappings,k = 20)
 #' @export
 
-PamClustering <- function(dataset,distance ,k, metric = "euclidean", nthreads = NULL, scale = FALSE, center = TRUE) {
+PamClustering <- function(dataset,distance=NULL ,k, metric = "euclidean", nthreads = NULL, scale = FALSE, center = TRUE) {
 
     if (is.null(dataset) == TRUE & is.null(distance) == TRUE) {
         # Check that either a dataset or a distance matrix has been provided
