@@ -1,7 +1,7 @@
 #' BasicPlot:
 #' @description Plots activity data as points and average activity as lines
-#' @param dataset A transcriptomics dataset. First columns should be gene names.
-#'  All other columns should be expression levels.
+    #' @param dataset A transcriptomics dataset. First columns should be gene names.
+    #'  All other columns should be expression levels.
 #' @param genename The name of a gene intended for plotting. Must be a string.
 #' @param timelag Shifts the plot to earlier in time.
 #' @param method How should the average activity for each time point be
@@ -20,7 +20,7 @@
 #'
 #' @export
 
-BasicPlot <- function(genename, dataset, timelag = 0, method = "median", points = TRUE, print = TRUE, save = FALSE, 
+BasicPlot <- function(genename, dataset, timelag = 0, method = "median", points = TRUE, print = TRUE, save = FALSE,
     path = NULL) {
     if (save == TRUE) {
         if (is.null(path) == FALSE) {
@@ -30,49 +30,49 @@ BasicPlot <- function(genename, dataset, timelag = 0, method = "median", points 
             }
         }
     }
-    
+
     genematrix <- subset(dataset, dataset[1] == genename)  # Select gene
     timevector <- (CircadianTools::MakeTimevector(genematrix) - timelag)  # Makes vector of time values
     genematrix <- t(genematrix[-1])  #remove gene name
-    
+
     genedata <- data.frame(timevector, genematrix)
     names(genedata) <- c("timevector", "activity")
-    
+
     # Make a list to hold the averaged values for gene activity at each time point.
     average.list <- rep(0, length((unique(timevector))))
-    
+
     count <- 1
     for (i in timevector) {
         genesub <- subset(genedata, timevector == i, select = activity)
-        if (method == "mean") 
+        if (method == "mean")
             {
                 average.list[[count]] <- (mean(genesub$activity))
             }  #compute the mean of the time points
-        if (method == "median") 
+        if (method == "median")
             {
                 average.list[[count]] <- (median(genesub$activity))
             }  #compute the median of the time points
         count = count + 1
     }
-    
+
     genedata <- cbind(genedata$timevector, genedata$activity, average.list)
     genedata <- data.frame(genedata)
     names(genedata) <- c("timevector", "activity", "new.average")
-    graphic <- ggplot2::ggplot(data = genedata, ggplot2::aes(x = timevector, y = activity)) + ggplot2::geom_line(ggplot2::aes(x = timevector, 
+    graphic <- ggplot2::ggplot(data = genedata, ggplot2::aes(x = timevector, y = activity)) + ggplot2::geom_line(ggplot2::aes(x = timevector,
         y = new.average), size = 1, color = "#412d6b")
     if (points == TRUE) {
         graphic <- graphic + ggplot2::geom_point(size = 3, alpha = 0.5, color = "#008dd5")
     }
-    graphic <- graphic + ggplot2::xlab("Time (Hours)") + ggplot2::ylab("Transcripts Per Million (TPM)") + 
+    graphic <- graphic + ggplot2::xlab("Time (Hours)") + ggplot2::ylab("Transcripts Per Million (TPM)") +
         ggplot2::theme_bw()
     graphic <- graphic + ggplot2::theme(plot.title = ggplot2::element_text(hjust = 1)) + ggplot2::theme(text = ggplot2::element_text(size = 12))
     graphic <- graphic + ggplot2::ggtitle(paste("Gene = ", genename))
-    
+
     if (save == TRUE) {
         ggplot2::ggsave(paste(genename, ".png"), graphic, path = path, width = 10, height = 4.5, units = "in")
-        
+
     }
-    
+
     if (print == TRUE) {
         return(graphic)
     }
@@ -102,17 +102,17 @@ CompPlot <- function(gene1, gene2, dataset, save = FALSE, points = TRUE) {
     timevector <- CircadianTools::MakeTimevector(dataset)
     newgenematrix <- subset(dataset, sample == gene1)
     newgenematrix <- t(newgenematrix[-1])
-    
-    
+
+
     newgenematrix2 <- subset(dataset, sample == gene2)
     newgenematrix2 <- t(newgenematrix2[-1])
-    
-    
+
+
     combined <- cbind(timevector, newgenematrix, newgenematrix2)
     combined <- data.frame(combined)
     names(combined) <- c("timevector", "gene1_activity", "gene2_activity")
-    
-    
+
+
     mean.list <- rep(0, length(unique(timevector)))
     count <- 1
     for (i in unique(timevector)) {
@@ -120,7 +120,7 @@ CompPlot <- function(gene1, gene2, dataset, save = FALSE, points = TRUE) {
         mean.list[[count]] <- (mean(bob$gene1_activity))
         count = count + 1
     }
-    
+
     mean.list2 <- rep(0, length(unique(timevector)))
     count <- 1
     for (i in unique(timevector)) {
@@ -128,34 +128,34 @@ CompPlot <- function(gene1, gene2, dataset, save = FALSE, points = TRUE) {
         mean.list2[[count]] <- (mean(bob$gene2_activity))
         count = count + 1
     }
-    
+
     new_mean_list <- rep(mean.list, as.numeric(table(timevector)))
     new_mean_list <- data.matrix(new_mean_list)
-    
+
     new_mean_list2 <- rep(mean.list2, as.numeric(table(timevector)))
     new_mean_list2 <- data.matrix(new_mean_list2)
-    
-    combined <- cbind(combined$timevector, combined$gene1_activity, combined$gene2_activity, new_mean_list, 
+
+    combined <- cbind(combined$timevector, combined$gene1_activity, combined$gene2_activity, new_mean_list,
         new_mean_list2)
     combined <- data.frame(combined)
     names(combined) <- c("timevector", "gene1_activity", "gene2_activity", "mean1", "mean2")
-    
-    
-    graphic <- ggplot2::ggplot(data = combined, ggplot2::aes(timevector)) + ggplot2::scale_x_continuous(breaks = unique(timevector)) + 
+
+
+    graphic <- ggplot2::ggplot(data = combined, ggplot2::aes(timevector)) + ggplot2::scale_x_continuous(breaks = unique(timevector)) +
         ggplot2::geom_line(ggplot2::aes(y = mean1, colour = "first gene"), size = 1)
-    graphic <- graphic + ggplot2::xlab("Time (hours)") + ggplot2::ylab("Trancripts Per Million (TPM)") + 
+    graphic <- graphic + ggplot2::xlab("Time (hours)") + ggplot2::ylab("Trancripts Per Million (TPM)") +
         ggplot2::theme_bw() + ggplot2::geom_line(ggplot2::aes(y = mean2, color = "second gene"), size = 1)
     if (points == TRUE) {
-        graphic <- graphic + ggplot2::geom_point(ggplot2::aes(y = gene2_activity, colour = "second gene"), 
-            size = 3, alpha = 0.5) + ggplot2::geom_point(ggplot2::aes(y = gene1_activity, colour = "first gene"), 
+        graphic <- graphic + ggplot2::geom_point(ggplot2::aes(y = gene2_activity, colour = "second gene"),
+            size = 3, alpha = 0.5) + ggplot2::geom_point(ggplot2::aes(y = gene1_activity, colour = "first gene"),
             size = 3, alpha = 0.5)
     }
-    graphic <- graphic + ggplot2::theme(plot.title = ggplot2::element_text(hjust = 1)) + ggplot2::scale_color_manual(name = "Gene", 
+    graphic <- graphic + ggplot2::theme(plot.title = ggplot2::element_text(hjust = 1)) + ggplot2::scale_color_manual(name = "Gene",
         breaks = c("first gene", "second gene"), labels = c(gene1, gene2), values = c("#008dd5", "#ffa630"))
     if (save == TRUE) {
         ggplot2::ggsave(paste(gene1, gene2, "comp.png"), graphic, width = 10, height = 4.5, units = "in")
     }
-    
+
     return(graphic)
 }
 
@@ -181,7 +181,7 @@ CompPlot <- function(gene1, gene2, dataset, save = FALSE, points = TRUE) {
 #' @export
 
 DatasetPlot <- function(dataset, timelag = 0, method = "median", points = TRUE, nthreads = NULL, path = NULL) {
-    
+
     if (is.null(path) == TRUE) {
         # If a filename isn't specified then the name of the dataframe object is used
         path <- deparse(substitute(dataset))
@@ -192,13 +192,13 @@ DatasetPlot <- function(dataset, timelag = 0, method = "median", points = TRUE, 
         # Set the threads to maximum if none is specified
         nthreads <- parallel::detectCores()
     }
-    
+
     cl <- parallel::makeForkCluster(nthreads)  # Create cluster for parallelism
     doParallel::registerDoParallel(cl)
-    
+
     genenames <- dataset[, 1]
     foreach::foreach(i = 1:length(genenames)) %dopar% {
-        CircadianTools::BasicPlot(genenames[i], dataset = dataset, timelag = timelag, method = method, 
+        CircadianTools::BasicPlot(genenames[i], dataset = dataset, timelag = timelag, method = method,
             points = points, print = FALSE, save = TRUE, path = path)
     }
 }
