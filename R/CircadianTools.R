@@ -40,6 +40,9 @@
 #' @section Cytoscape:
 #' \code{\link{CytoscapeFile}}: Converts a correlation dataframe object into a format suitable for cytoscape and saves as a csv file. \cr \cr
 #' \code{\link{CytoscapeFilter}}: Reduces the size of a file intended for Cytoscape by filtering out the genes/clusters which are not correlated \cr \cr
+#' @section Fasta Files:
+#' \code{\link{ContigGen}}: Finds all unique contig IDs in a transcriptomics dataset \cr
+#' \code{\link{FastaSub}}: Creates a fasta file from only certain sequences in another fasta file \cr
 #' @section Filtering:
 #' \code{\link{AnovaFilter}}: Filters a gene activity dataframe via ANOVA. \cr \cr
 #' \code{\link{CombiFilter}}: Filters a transcriptomics dataset by using \code{Zerofilter}, \code{Anovafilter} and \code{Sizefilter}. \cr \cr

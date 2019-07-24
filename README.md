@@ -68,6 +68,11 @@ Documentation is available for CircadianTools and all of its functions via the u
 ```CytoscapeFile```: Converts a correlation dataframe object into a format suitable for cytoscape and saves as a csv file. <br>
 ```CytoscapeFilter``: Reduces the size of a file intended for Cytoscape by filtering out the genes/clusters which are not correlated <br>
 
+### Fasta Files
+```ContigGen```: Finds all unique contig IDs in a transcriptomics dataset <br>
+```FastaSub```: Creates a fasta file from only certain sequences in another fasta file <br>
+
+
 ### Filtering
 
 ```AnovaFilter```: Filters a gene activity dataframe via ANOVA. <br>

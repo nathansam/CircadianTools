@@ -62,6 +62,12 @@ Allows analysis of rhythmic genes to be easily carried out on transcriptomics da
 \code{\link{CytoscapeFilter}}: Reduces the size of a file intended for Cytoscape by filtering out the genes/clusters which are not correlated \cr \cr
 }
 
+\section{Fasta Files}{
+
+\code{\link{ContigGen}}: Finds all unique contig IDs in a transcriptomics dataset \cr
+\code{\link{FastaSub}}: Creates a fasta file from only certain sequences in another fasta file \cr
+}
+
 \section{Filtering}{
 
 \code{\link{AnovaFilter}}: Filters a gene activity dataframe via ANOVA. \cr \cr
