@@ -10,7 +10,7 @@ From R:
 ```{r}
 if (!requireNamespace("BiocManager", quietly = TRUE))
     install.packages("BiocManager")
-BiocManager::install("rain")
+BiocManager::install("rain", "seqinr")
 
 install.packages("devtools")
 devtools::install_github("nathansam/CircadianTools")
