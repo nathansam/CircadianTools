@@ -14,6 +14,8 @@ CosinorPlot(genename, dataset, timelag = 6, period = 24,
 
 \item{timelag}{The value of time for which observations begin. Defaults to 6.}
 
+\item{period}{The period of rhythmicity which is being tested for. Defaults to 24 (circadian).}
+
 \item{print}{Logical. If TRUE renders plot in the plot viewer. Defaults to TRUE}
 
 \item{save}{Logical. If TRUE, saves plot to working directory. Defaults to FALSE.}

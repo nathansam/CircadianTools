@@ -1,7 +1,7 @@
 #' BasicPlot:
 #' @description Plots activity data as points and average activity as lines
-    #' @param dataset A transcriptomics dataset. First columns should be gene names.
-    #'  All other columns should be expression levels.
+#' @param dataset A transcriptomics dataset. First columns should be gene names.
+#'  All other columns should be expression levels.
 #' @param genename The name of a gene intended for plotting. Must be a string.
 #' @param timelag Shifts the plot to earlier in time.
 #' @param method How should the average activity for each time point be

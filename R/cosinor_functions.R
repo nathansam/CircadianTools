@@ -16,15 +16,15 @@
 #' @export
 
 
-CosinorAnalysis <- function(dataset, period = 24, timelag = 6, threshold = 0.05, adj = "bonferroni", save = FALSE, 
+CosinorAnalysis <- function(dataset, period = 24, timelag = 6, threshold = 0.05, adj = "bonferroni", save = FALSE,
     print = TRUE, df = TRUE) {
     expected_adj <- c("bonferroni", "Bonferroni", "none")
-    
+
     if (adj %in% expected_adj == FALSE) {
         stop(paste("The adjustment method ", adj, " is not recognized"))
     }
-    
-    
+
+
     # dataset <- CircadianTools::GeneClean(dataset)
     genenumber <- nrow(dataset)  #number of genes in the dataset
     if (adj == "bonferroni" | adj == "Bonferroni") {
@@ -34,12 +34,12 @@ CosinorAnalysis <- function(dataset, period = 24, timelag = 6, threshold = 0.05,
     cosinor.pvalue.df <- data.frame(sample = dplyr::select(dataset, 1), pVal = pvalues)  #first column gene name, second:pvalue
     timevector <- CircadianTools::MakeTimevector(dataset)
     loading_values <- CircadianTools::LoadingGen(genenumber)
-    
+
     for (i in 1:genenumber) {
         CircadianTools::LoadingPrint(i, loading_values)
-        
+
         genematrix <- dplyr::filter(dataset, dplyr::row_number() == i)
-        
+
         genename <- genematrix[1, 1]
         genematrix <- genematrix[-1]
         genematrix <- t(genematrix)
@@ -49,24 +49,24 @@ CosinorAnalysis <- function(dataset, period = 24, timelag = 6, threshold = 0.05,
         cosinor.pvalue.df[i, 2] <- cosinor2::cosinor.detect(cosinormodel)[4]
         if (cosinor2::cosinor.detect(cosinormodel)[4] < threshold) {
             if (adj == "bonferroni" | adj == "Bonferroni") {
-                plot_title <- paste("Gene=", genename, ", P-value=", round(cosinor2::cosinor.detect(cosinormodel)[4] * 
+                plot_title <- paste("Gene=", genename, ", P-value=", round(cosinor2::cosinor.detect(cosinormodel)[4] *
                   genenumber, 10))
             }
-            
+
             if (adj == "none") {
-                plot_title <- paste("Gene=", genename, ", P-value=", round(cosinor2::cosinor.detect(cosinormodel)[4], 
+                plot_title <- paste("Gene=", genename, ", P-value=", round(cosinor2::cosinor.detect(cosinormodel)[4],
                   10))
             }
-            
-            cosinorplot <- CircadianTools::ggplot.cosinor.lm(cosinormodel, endtime = tail(timevector, n = 1) - 
-                timelag) + ggplot2::geom_point(ggplot2::aes(y = activity, x = timevector), data = geneexpression, 
-                size = 3, alpha = 0.5, color = "#39A5AE") + ggplot2::ggtitle(plot_title) + ggplot2::theme_bw() + 
-                ggplot2::theme(plot.title = ggplot2::element_text(hjust = 1)) + ggplot2::theme(text = ggplot2::element_text(size = 12)) + 
+
+            cosinorplot <- CircadianTools::ggplot.cosinor.lm(cosinormodel, endtime = tail(timevector, n = 1) -
+                timelag) + ggplot2::geom_point(ggplot2::aes(y = activity, x = timevector), data = geneexpression,
+                size = 3, alpha = 0.5, color = "#39A5AE") + ggplot2::ggtitle(plot_title) + ggplot2::theme_bw() +
+                ggplot2::theme(plot.title = ggplot2::element_text(hjust = 1)) + ggplot2::theme(text = ggplot2::element_text(size = 12)) +
                 ggplot2::xlab("Time (hours)") + ggplot2::ylab("Trancripts Per Million (TPM)")
-            
-            
+
+
             if (save == TRUE) {
-                ggplot2::ggsave(paste("Cosinor_", genename, ".png"), cosinorplot, width = 10, height = 4.5, 
+                ggplot2::ggsave(paste("Cosinor_", genename, ".png"), cosinorplot, width = 10, height = 4.5,
                   units = "in")
             }
             if (print == TRUE) {
@@ -105,21 +105,21 @@ CosinorAnalysisPar <- function(dataset, period = 24, nthreads = NULL, timelag = 
     if (is.null(nthreads) == TRUE) {
         nthreads <- parallel::detectCores()
     }
-    
-    
+
+
     dataset <- CircadianTools::GeneClean(dataset)
     genenumber <- nrow(dataset)  #number of genes in the dataset
     pvalues <- rep(0, genenumber)  #init list of pvalues
     cosinor.pvalue.df <- data.frame(sample = dplyr::select(dataset, 1), pVal = pvalues)  #first column gene name, second:pvalue
     timevector <- CircadianTools::MakeTimevector(dataset)
     loading_values <- CircadianTools::LoadingGen(genenumber)
-    
-    
+
+
     cl <- parallel::makeForkCluster(nthreads)
     doParallel::registerDoParallel(cl)
     cosinor.pvalue.df <- foreach::foreach(i = 1:genenumber, .combine = rbind) %dopar% {
         CircadianTools::LoadingPrint(i, loading_values)
-        
+
         genematrix <- dplyr::filter(dataset, dplyr::row_number() == i)
         sample <- genematrix[1, 1]
         genematrix <- genematrix[-1]
@@ -130,7 +130,7 @@ CosinorAnalysisPar <- function(dataset, period = 24, nthreads = NULL, timelag = 
         pVal <- cosinor2::cosinor.detect(cosinormodel)[4]
         data.frame(sample, pVal)
     }
-    
+
     return(cosinor.pvalue.df)
 }
 
@@ -141,6 +141,7 @@ CosinorAnalysisPar <- function(dataset, period = 24, nthreads = NULL, timelag = 
 #' @param dataset A transcriptomics dataset. First columns should be gene names. All other columns should be expression levels.
 #' @param genename The name of a gene intended for plotting. Must be a string.
 #' @param timelag The value of time for which observations begin. Defaults to 6.
+#' @param period The period of rhythmicity which is being tested for. Defaults to 24 (circadian).
 #' @param save Logical. If TRUE, saves plot to working directory. Defaults to FALSE.
 #' @param print Logical. If TRUE renders plot in the plot viewer. Defaults to TRUE
 #' @return Prints or saves ggplot2 object(s)
@@ -153,20 +154,20 @@ CosinorAnalysisPar <- function(dataset, period = 24, nthreads = NULL, timelag = 
 CosinorPlot <- function(genename, dataset, timelag = 6, period = 24, print = TRUE, save = FALSE) {
     genematrix <- subset(dataset, dataset[1] == genename)
     timevector <- CircadianTools::MakeTimevector(genematrix)  # makes timevector
-    
+
     genematrix <- genematrix[-1]  #remove gene name from subset
     genematrix <- t(genematrix)
     geneexpression <- data.frame(timevector - timelag, genematrix)
     names(geneexpression) <- c("timevector", "activity")
     cosinormodel <- cosinor::cosinor.lm(activity ~ time(timevector), period = period, data = geneexpression)
-    cosinor.plot.object <- CircadianTools::ggplot.cosinor.lm(cosinormodel, endtime = 21) + ggplot2::geom_point(ggplot2::aes(y = activity, 
-        x = timevector), data = geneexpression, size = 3, alpha = 0.5, color = "#008dd5") + ggplot2::ggtitle(paste("Gene=", 
-        genename, ", P-value=", round(cosinor2::cosinor.detect(cosinormodel)[4], 10))) + ggplot2::theme_bw() + 
-        ggplot2::theme(plot.title = ggplot2::element_text(hjust = 1)) + ggplot2::theme(text = ggplot2::element_text(size = 12)) + 
+    cosinor.plot.object <- CircadianTools::ggplot.cosinor.lm(cosinormodel, endtime = 21) + ggplot2::geom_point(ggplot2::aes(y = activity,
+        x = timevector), data = geneexpression, size = 3, alpha = 0.5, color = "#008dd5") + ggplot2::ggtitle(paste("Gene=",
+        genename, ", P-value=", round(cosinor2::cosinor.detect(cosinormodel)[4], 10))) + ggplot2::theme_bw() +
+        ggplot2::theme(plot.title = ggplot2::element_text(hjust = 1)) + ggplot2::theme(text = ggplot2::element_text(size = 12)) +
         ggplot2::xlab("Time (hours)") + ggplot2::ylab("Trancripts Per Million (TPM)")
-    
+
     if (save == TRUE) {
-        ggplot2::ggsave(paste("Cosinor_", genename, ".png"), cosinor.plot.object, width = 10, height = 4.5, 
+        ggplot2::ggsave(paste("Cosinor_", genename, ".png"), cosinor.plot.object, width = 10, height = 4.5,
             units = "in")
     }
     if (print == TRUE) {
@@ -192,18 +193,18 @@ CosinorPlot <- function(genename, dataset, timelag = 6, period = 24, print = TRU
 #' @export
 CosinorSignificantPlot <- function(results, dataset, number = 10, period = 24, print = TRUE, save = FALSE) {
     results <- results[order(results$pVal), ]  # Order by most significant p-value
-    
+
     for (i in 1:number) {
         myplot <- CircadianTools::CosinorPlot(as.character(results[i, 1]), dataset, period = period)
-        myplot <- myplot + ggplot2::ggtitle(paste("Gene = ", as.character(results[i, 1]), " P-Value = ", 
+        myplot <- myplot + ggplot2::ggtitle(paste("Gene = ", as.character(results[i, 1]), " P-Value = ",
             as.character(results[i, 2])))
-        
+
         if (print == TRUE) {
             print(myplot)
         }
-        
+
         if (save == TRUE) {
-            ggplot2::ggsave(paste("rank=", i, "Cosinor_", as.character(results[i, 1]), ".png"), myplot, 
+            ggplot2::ggsave(paste("rank=", i, "Cosinor_", as.character(results[i, 1]), ".png"), myplot,
                 width = 10, height = 4.5, units = "in")
         }
     }
