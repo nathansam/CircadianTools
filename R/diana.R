@@ -87,7 +87,7 @@ DianaParamSelection <- function(dataset = NULL, distance = NULL, k = c(2, 5, 10)
         silhoutte_values <- cluster::silhouette(cluster, distance)
         silhouette <- mean(silhoutte_values[, 3])  # Calculate Silhouette width
 
-        data.frame(i, dunn, connect, silhouette, "Diana")  # Make row of result.df
+        data.frame(i, dunn, connect, silhouette, "DIANA")  # Make row of result.df
 
     }
     parallel::stopCluster(cl)
