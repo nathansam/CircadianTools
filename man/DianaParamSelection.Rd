@@ -5,7 +5,7 @@
 \title{DianaParamSelection}
 \usage{
 DianaParamSelection(dataset = NULL, distance = NULL, k = c(2, 5, 10),
-  metric = "euclidean", nthreads = 4)
+  metric = "euclidean", nthreads = 4, scale = TRUE)
 }
 \arguments{
 \item{dataset}{A transcriptomics dataset. Preferably filtered first. First columns should be gene names. All other columns should be expression levels.}
@@ -20,6 +20,8 @@ k.options <- seq(10,100, by=10)
 diana.validation <- DianaParamSelection(filterdf, k=k.options)}
 
 \item{nthreads}{The number of threads to be used for parallel computations.If NULL then the maximum number of threads available will be used.}
+
+\item{scale}{Logical. If TRUE then each gene will be scaled}
 }
 \description{
 Runs DIANA (DIvisive ANAlysis) clustering with differing numbers of partitions and returns validation metrics.

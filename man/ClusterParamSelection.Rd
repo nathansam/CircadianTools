@@ -6,7 +6,8 @@
 \usage{
 ClusterParamSelection(dataset = NULL, distance = NULL, k = c(2, 5,
   10), method = c("pam", "hclust", "diana"), metric = "euclidean",
-  nthreads = 2, save.plot = TRUE, save.df = TRUE, path = NULL)
+  scale = TRUE, nthreads = 2, save.plot = TRUE, save.df = TRUE,
+  path = NULL)
 }
 \arguments{
 \item{dataset}{A transcriptomics dataset. Preferably filtered first. First columns should be gene names. All other columns should be expression levels.}
@@ -18,6 +19,8 @@ ClusterParamSelection(dataset = NULL, distance = NULL, k = c(2, 5,
 \item{method}{The clustering method(s) to be used. Multiple methods can be considered by providing a character vector. Currently accepts 'pam', 'hclust' and 'diana'}
 
 \item{metric}{The distance metric to be used to calculate the distances between genes. See parallelDist::parDist for all accepted arguments. Also allows the option of 'abs.correlation'. Not used if a distance matrix is provided.}
+
+\item{scale}{Logical. If TRUE then each gene will be scaled}
 
 \item{nthreads}{The number of threads to be used for parallel computations.If NULL then the maximum number of threads available will be used.}
 

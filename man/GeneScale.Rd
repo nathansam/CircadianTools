@@ -4,13 +4,17 @@
 \alias{GeneScale}
 \title{GeneScale:}
 \usage{
-GeneScale(dataset, scale = FALSE, center = TRUE)
+GeneScale(dataset, scale = TRUE, center = TRUE)
 }
 \arguments{
 \item{dataset}{A transcriptomics dataset. First columns should be gene names. All other columns should be expression levels.}
+
+\item{scale}{Logical. If TRUE then each gene will be scaled}
+
+\item{center}{Logical. If TRUE then each gene will be centered on zero}
 }
 \value{
-A transcriptomics dataset with centered/scaled genes
+A transcriptomics dataset with centered / scaled genes
 }
 \description{
 Centers/scales every gene in a transcriptomics dataset

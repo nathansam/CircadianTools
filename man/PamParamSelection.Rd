@@ -5,7 +5,7 @@
 \title{PamParamSelection}
 \usage{
 PamParamSelection(dataset = NULL, distance = NULL, k = c(2, 5, 10),
-  metric = "euclidean", nthreads = 2)
+  metric = "euclidean", scale = TRUE, nthreads = 2)
 }
 \arguments{
 \item{dataset}{A transcriptomics dataset. Preferably filtered first. First columns should be gene names. All other columns should be expression levels. Not needed if an argument to distance is given.}
@@ -15,6 +15,8 @@ PamParamSelection(dataset = NULL, distance = NULL, k = c(2, 5, 10),
 \item{k}{A numeric vector giving the number of clusters to be evaluated.}
 
 \item{metric}{The distance metric to be used to calculate the distances between genes. See parallelDist::parDist for all accepted arguments. Also allows the option of 'abs.correlation'. Not used if a distance matrix is provided.}
+
+\item{scale}{Logical. If TRUE then each gene will be scaled}
 
 \item{nthreads}{The number of threads to be used for parallel computations. Warning! Increasing this value will massively increase RAM usage. If NULL then the maximum number of threads available will be used.}
 }

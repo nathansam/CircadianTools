@@ -5,7 +5,7 @@
 \title{DianaClustering:}
 \usage{
 DianaClustering(dataset = NULL, distance = NULL, k = 10,
-  metric = "euclidean", nthreads = NULL, scale = FALSE,
+  metric = "euclidean", nthreads = NULL, scale = TRUE,
   center = TRUE)
 }
 \arguments{
@@ -19,7 +19,7 @@ DianaClustering(dataset = NULL, distance = NULL, k = 10,
 
 \item{nthreads}{Number of processor threads to be used for calculating the distance matrix. If not specifed then the maximum number of logical cores are used.}
 
-\item{scale}{If the gene activity should be scaled before clustering.}
+\item{scale}{Logical. If TRUE then each gene will be scaled}
 
 \item{center}{If the gene activity should be centered before clustering.}
 }

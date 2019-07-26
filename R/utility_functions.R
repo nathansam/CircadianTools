@@ -9,7 +9,7 @@
 #' activity <- ActivitySelect('comp100000_c0_seq2', Laurasmappings)
 #' @export
 ActivitySelect <- function(ID, dataset) {
-    
+
     if (typeof(ID) == "character") {
         gene <- subset(dataset, dataset[1] == ID)
     } else {
@@ -30,12 +30,12 @@ ActivitySelect <- function(ID, dataset) {
 #' @export
 
 FileConflict <- function(filename) {
-    
+
     if (file.exists(filename) == TRUE) {
         # If the file already exists, should it be overwritten?
         prompt <- cat(paste("The file, ", filename, ", already exists. Do you wish to overwrite the file? [Y/n]  \n"))
         continue <- readline(prompt = prompt)  # Ask the user
-        
+
         if (continue == "y" | continue == "Y" | continue == "yes" | continue == "Yes") {
             cat("Overwriting File")
             file.remove(filename)  # Overwrite the file if yes
@@ -63,7 +63,7 @@ MedList <- function(dataset, nthreads = NULL) {
     if (is.null(nthreads) == TRUE) {
         nthreads <- parallel::detectCores()
     }
-    
+
     if (nthreads == 1) {
         results <- MedListSeq(dataset)
     } else {
@@ -82,13 +82,13 @@ MedList <- function(dataset, nthreads = NULL) {
 #' @export
 
 MedListSeq <- function(dataset) {
-    
+
     `%do%` <- foreach::`%do%`  # Load the do binary operator from foreach package
     timevector <- CircadianTools::MakeTimevector(dataset)  # List of time values (repeated for replicates)
-    
+
     genenumber <- nrow(dataset)
-    
-    
+
+
     medlistdf <- foreach::foreach(i = 1:genenumber, .combine = rbind) %do% {
         # Parallel for loop to create a dataframe of gene names and their respective ranges
         gene <- dplyr::filter(dataset, dplyr::row_number() == i)  # Get gene by row
@@ -102,9 +102,9 @@ MedListSeq <- function(dataset) {
             med.list <- c(med.list, median(genesubset$activity))
         }
         t(data.frame(med.list))
-        
+
     }
-    
+
     colnames(medlistdf) <- unique(timevector)  # Columns of the returned dataframe is the time point
     rownames(medlistdf) <- dataset[, 1]  #Row name is gene name
     return(medlistdf)
@@ -123,20 +123,20 @@ MedListSeq <- function(dataset) {
 #' @export
 
 MedListPar <- function(dataset, nthreads = NULL) {
-    
+
     `%dopar%` <- foreach::`%dopar%`  # Load the dopar binary operator from foreach package
     timevector <- CircadianTools::MakeTimevector(dataset)  # List of time values (repeated for replicates)
-    
+
     genenumber <- nrow(dataset)
-    
+
     if (is.null(nthreads) == TRUE) {
         # Set the threads to maximum if none is specified
         nthreads <- parallel::detectCores()
     }
-    
+
     cl <- parallel::makeForkCluster(nthreads)  # Create cluster for parallelism
     doParallel::registerDoParallel(cl)
-    
+
     medlistdf <- foreach::foreach(i = 1:genenumber, .combine = rbind) %dopar% {
         # Parallel for loop to create a dataframe of gene names and their respective ranges
         gene <- dplyr::filter(dataset, dplyr::row_number() == i)  # Get gene by row
@@ -150,7 +150,7 @@ MedListPar <- function(dataset, nthreads = NULL) {
             med.list <- c(med.list, median(genesubset$activity))
         }
         t(data.frame(med.list))
-        
+
     }
     parallel::stopCluster(cl)
     colnames(medlistdf) <- unique(timevector)  # Columns of the returned dataframe is the time point
@@ -176,45 +176,45 @@ MedListPar <- function(dataset, nthreads = NULL) {
 #'
 #'
 ggplot.cosinor.lm <- function(object, x_str = NULL, endtime) {
-    
+
     timeax <- seq(0, endtime, length.out = 200)
     covars <- grep("(rrr|sss)", attr(object$fit$terms, "term.labels"), invert = TRUE, value = TRUE)
-    
+
     newdata <- data.frame(time = timeax, rrr = cos(2 * pi * timeax/object$period), sss = sin(2 * pi * timeax/object$period))
     for (j in covars) {
         newdata[, j] <- 0
     }
     if (!is.null(x_str)) {
-        
+
         for (d in x_str) {
-            
+
             tdat <- newdata
             tdat[, d] <- 1
             newdata <- rbind(newdata, tdat)
-            
+
         }
         newdata$levels <- ""
         for (d in x_str) {
-            
+
             newdata$levels <- paste(newdata$levels, paste(d, "=", newdata[, d]))
-            
+
         }
-        
-        
+
+
     }
-    
-    
+
+
     newdata$Y.hat <- predict(object$fit, newdata = newdata)
-    
+
     if (missing(x_str) || is.null(x_str)) {
-        
-        ggplot2::ggplot(newdata, ggplot2::aes_string(x = "time", y = "Y.hat")) + ggplot2::geom_line(size = 1.2, 
+
+        ggplot2::ggplot(newdata, ggplot2::aes_string(x = "time", y = "Y.hat")) + ggplot2::geom_line(size = 1.2,
             color = "#ffa630")
-        
+
     } else {
-        
+
         ggplot2:ggplot(newdata, aes_string(x = "time", y = "Y.hat", col = "levels")) + ggplot2::geom_line()
-        
+
     }
 }
 
@@ -261,11 +261,11 @@ TAnalysis <- function(row.no, dataset, psignificance = 0.05) {
     names(genedf) <- c("activity", "timevector")
     n.ups <- 0  # Set variable to list the number of significant positive changes found via the t-tests.
     n.downs <- 0  # Set variable to list the number of significant negative changes found via the t-tests.
-    
+
     for (i in 1:(length(unique.timevector) - 1)) {
         group1 <- subset(genedf, timevector == unique.timevector[i])
         group2 <- subset(genedf, timevector == unique.timevector[i + 1])
-        
+
         zerogroup <- FALSE  # Flag for if both groups entirely consists of zero values. Assume false
         if (all(group1[, 1] == 0)) {
             # Is group 1 entirely zero values?  Is group 2 entirely zero values?
@@ -273,7 +273,7 @@ TAnalysis <- function(row.no, dataset, psignificance = 0.05) {
                 zerogroup <- TRUE  # Both groups are entirely zero values. Don't attempt t-test
             }
         }
-        
+
         if (zerogroup == FALSE) {
             t.test.obj <- t.test(group1[, 1], group2[, 1], var.equal = TRUE)  # Carry out t-test assuming equal variance
             if (t.test.obj$p.value < psignificance) {
@@ -287,7 +287,7 @@ TAnalysis <- function(row.no, dataset, psignificance = 0.05) {
             }
         }
     }
-    
+
     return(c(n.ups, n.downs))  # Return the number of signficant increases and decreases
 }
 
@@ -320,26 +320,26 @@ GeneClean <- function(dataset) {
 
 GeneRange <- function(dataset, nthreads = NULL) {
     `%dopar%` <- foreach::`%dopar%`  # Load the dopar binary operator from foreach package
-    
+
     if (is.null(nthreads) == TRUE) {
         # Set the threads to maximum if none is specified
         nthreads <- parallel::detectCores()
     }
-    
-    
+
+
     mediandf <- CircadianTools::MedList(dataset = dataset, nthreads = nthreads)
     genenumber <- nrow(mediandf)
-    
+
     cl <- parallel::makeForkCluster(nthreads)  # Create cluster for parallelism
     doParallel::registerDoParallel(cl)
-    
+
     rangedf <- foreach::foreach(i = 1:genenumber, .combine = rbind) %dopar% {
         gene <- dplyr::filter(mediandf, dplyr::row_number() == i)  # Get gene by row
         generange <- max(gene) - min(gene)
         genename <- dataset[i, 1]
         data.frame(genename, generange)
     }
-    
+
     parallel::stopCluster(cl)
     return(rangedf)
 }
@@ -348,12 +348,14 @@ GeneRange <- function(dataset, nthreads = NULL) {
 #' GeneScale:
 #' @description Centers/scales every gene in a transcriptomics dataset
 #' @param dataset A transcriptomics dataset. First columns should be gene names. All other columns should be expression levels.
-#' @return A transcriptomics dataset with centered/scaled genes
+#' @param scale Logical. If TRUE then each gene will be scaled
+#' @param center Logical. If TRUE then each gene will be centered on zero
+#' @return A transcriptomics dataset with centered / scaled genes
 #' @examples
 #' GeneScale(LaurasMappings)
 #' @export
 
-GeneScale <- function(dataset, scale = FALSE, center = TRUE) {
+GeneScale <- function(dataset, scale = TRUE, center = TRUE) {
     dataset[-1] <- t(scale(t(dataset[-1]), center = center, scale = scale))
     return(dataset)
 }
@@ -370,18 +372,18 @@ GeneScale <- function(dataset, scale = FALSE, center = TRUE) {
 #' @export
 
 GeneSub <- function(subdf, dataframe, nthreads = NULL) {
-    
+
     `%dopar%` <- foreach::`%dopar%`  # Load the dopar binary operator from foreach package
-    
+
     if (is.null(nthreads) == TRUE) {
         # Set the threads to maximum if none is specified
         nthreads <- parallel::detectCores()
     }
-    
+
     cl <- parallel::makeForkCluster(nthreads)  # Create cluster for parallelism
     doParallel::registerDoParallel(cl)
-    
-    
+
+
     newdf <- foreach::foreach(i = 1:nrow(subdf), .combine = rbind) %dopar% {
         subset(dataframe, sample == paste(subdf[i, 1]))  # For each gene name in subdf, pull from activity dataframe
     }
