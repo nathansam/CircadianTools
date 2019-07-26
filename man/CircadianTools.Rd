@@ -53,6 +53,7 @@ Allows analysis of rhythmic genes to be easily carried out on transcriptomics da
 \code{\link{CosinorAnalysis}}: Fits cosinor models to transcriptomics data and plots the best-fitting models using ggplot2. \cr \cr
 \code{\link{CosinorAnalysisPar}}: Parallel Implementation of \code{CosinorAnalysis}. \cr \cr
 \code{\link{CosinorPlot}}: Fits a cosinor model to a given gene in a given dataset and plots the model. \cr \cr
+\code{\link{CosinorResidualPlot}}: Fits a cosinor model to a gene and plot the residuals \cr \cr
 \code{\link{CosinorSignificantPlot}}: Prints or saves the genes found to be most significant by \code{cosinoranalysis}. \cr \cr
 }
 

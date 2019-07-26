@@ -62,6 +62,7 @@ Documentation is available for CircadianTools and all of its functions via the u
 ```CosinorAnalysis```: Fits cosinor models to transcriptomics data and plots the best-fitting models using ggplot2. <br>
 ```CosinorAnalysisPar```: Parallel Implementation of ```CosinorAnalysis```. <br>
 ```CosinorPlot```: Fits a cosinor model to a given gene in a given dataset and plots the model. <br>
+```CosinorResidualPlot```: Fits a cosinor model to a gene and plot the residuals <br>
 ```CosinorSignificantPlot```: Prints or saves the genes found to be most significant by ```CosinorAnalysis```. <br>
 
 ### Cytoscape
