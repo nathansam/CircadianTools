@@ -5,7 +5,7 @@
 \title{ClusterParamSelection}
 \usage{
 ClusterParamSelection(dataset = NULL, distance = NULL, k = c(2, 5,
-  10), method = c("pam", "hclust", "diana"), metric = "euclidean",
+  10), method = c("pam", "agglom", "diana"), metric = "euclidean",
   scale = TRUE, nthreads = 2, save.plot = TRUE, save.df = TRUE,
   path = NULL)
 }
@@ -16,7 +16,7 @@ ClusterParamSelection(dataset = NULL, distance = NULL, k = c(2, 5,
 
 \item{k}{A numeric vector giving the number of clusters to be evaluated.}
 
-\item{method}{The clustering method(s) to be used. Multiple methods can be considered by providing a character vector. Currently accepts 'pam', 'hclust' and 'diana'}
+\item{method}{The clustering method(s) to be used. Multiple methods can be considered by providing a character vector. Currently accepts 'pam', 'agglom' and 'diana'}
 
 \item{metric}{The distance metric to be used to calculate the distances between genes. See parallelDist::parDist for all accepted arguments. Also allows the option of 'abs.correlation'. Not used if a distance matrix is provided.}
 
