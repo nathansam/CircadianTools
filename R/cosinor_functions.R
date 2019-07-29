@@ -215,7 +215,7 @@ CosinorSignificantPlot <- function(results, dataset, number = 10, period = 24, p
         }
 
         if (save == TRUE) {
-            ggplot2::ggsave(paste("rank=", i, "Cosinor_", as.character(results[i, 1]), ".png"), myplot,
+            ggplot2::ggsave(paste("rank=", i, "Cosinor_", as.character(results[i, 1]), ".png"), myplot, path = path,
                 width = 10, height = 4.5, units = "in")
         }
     }
