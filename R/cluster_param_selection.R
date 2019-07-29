@@ -152,7 +152,7 @@ ClusterParamSelection <- function(dataset = NULL, distance = NULL, k = c(2, 5, 1
     }
 
     if ("agglom" %in% method == TRUE) {
-        hclust.results <- CircadianTools::HclustParamSelection(distance = distance, k = k, nthreads = nthreads)
+        hclust.results <- CircadianTools::AgglomParamSelection(distance = distance, k = k, nthreads = nthreads)
         validation.df <- rbind(validation.df, hclust.results)  # Add hclust validation results if hclust is specified in methods
     }
 
