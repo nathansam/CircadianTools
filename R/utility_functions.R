@@ -347,7 +347,7 @@ TAnalysis <- function(row.no, dataset, psignificance = 0.05) {
 
 
 GeneClean <- function(dataset) {
-    #removes row(s) which show no gene activity
+    # Removes row(s) which show no gene activity
     dataset <- dataset[rowSums(dataset[, -1]) > 0, ]
     # dataset <- dataset[colSums(dataset[, -1]) > 0, ] #removes column(s) which has 0 gene activity
     rownames(dataset) <- seq(1, length(dataset[, 1]))
