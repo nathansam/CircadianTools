@@ -7,13 +7,17 @@
 ClusterSpread(cluster.dataset)
 }
 \arguments{
-\item{cluster.dataset}{A transcriptomics dataset where the final column details the cluster the gene belongs to. First column should be gene names. All remaining columns should be expression levels.}
+\item{cluster.dataset}{A transcriptomics dataset where the final column
+details the cluster the gene belongs to. First column should be gene names.
+All remaining columns should be expression levels.}
 }
 \value{
-A dataframe object. The first column is the cluster number. Second column is how many genes belong to that cluster.
+A dataframe object. The first column is the cluster number. Second
+ column is how many genes belong to that cluster.
 }
 \description{
-Shows how many genes are in each cluster after clustering has been applied.
+Shows how many genes are in each cluster after clustering has
+ been applied.
 }
 \examples{
 filter.df <- CombiFilter(Laurasmappings)

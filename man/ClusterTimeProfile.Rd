@@ -7,14 +7,19 @@
 ClusterTimeProfile(cluster.no, cluster.dataset, nthreads = NULL)
 }
 \arguments{
-\item{cluster.no}{A transcriptomics dataset. First columns should be gene names. All other columns should be expression levels.}
+\item{cluster.no}{A transcriptomics dataset. First columns should be gene
+names. All other columns should be expression levels.}
 
-\item{cluster.dataset}{A transcriptomics dataset where the final column details the cluster the gene belongs to. First column should be gene names. All remaining columns should be expression levels.}
+\item{cluster.dataset}{A transcriptomics dataset where the final column
+details the cluster the gene belongs to. First column should be gene names.
+All remaining columns should be expression levels.}
 
-\item{nthreads}{The number of threads to be used for parallel computations. Defaults to the maximum number of threads available.}
+\item{nthreads}{The number of threads to be used for parallel computations.
+Defaults to the maximum number of threads available.}
 }
 \description{
-Provides a dataframe of median values at each time point for each cluster.
+Provides a dataframe of median values at each time point for
+ each cluster.
 }
 \examples{
 filter.df <- CombiFilter(Laurasmappings)

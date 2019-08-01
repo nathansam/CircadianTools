@@ -7,12 +7,15 @@
 AbsCorDist(dataset, nthreads = NULL)
 }
 \arguments{
-\item{dataset}{A dataset created my using \code{MedList} on a transcriptomics dataset}
+\item{dataset}{A dataset created my using \link{MedList} on a transcriptomics
+dataset}
 
-\item{nthreads}{Number of processor threads for the filtering. If not specifed then the maximum number of logical cores are used.}
+\item{nthreads}{Number of processor threads for the filtering. If not
+specifed then the maximum number of logical cores are used.}
 }
 \description{
-Calculates a distance matrix based on the distance measure of: \deqn{1 - |cor(x, y)|}
+Calculates a distance matrix based on the distance measure of:
+\deqn{1 - |cor(x, y)|}
 }
 \examples{
 a.filter <- AnovaFilter(Laurasmappings)

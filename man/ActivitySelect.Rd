@@ -9,7 +9,8 @@ ActivitySelect(ID, dataset)
 \arguments{
 \item{ID}{Gene name or row number}
 
-\item{dataset}{A transcriptomics dataset. First columns should be gene names. All other columns should be expression levels.}
+\item{dataset}{A transcriptomics dataset. First columns should be gene names.
+All other columns should be expression levels.}
 }
 \value{
 Gene activity as a matrix

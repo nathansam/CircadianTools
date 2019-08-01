@@ -1,7 +1,10 @@
 #' AbsCorDist
-#' @description Calculates a distance matrix based on the distance measure of: \deqn{1 - |cor(x, y)|}
-#' @param dataset A dataset created my using \code{MedList} on a transcriptomics dataset
-#' @param nthreads Number of processor threads for the filtering. If not specifed then the maximum number of logical cores are used.
+#' @description Calculates a distance matrix based on the distance measure of:
+#' \deqn{1 - |cor(x, y)|}
+#' @param dataset A dataset created my using \link{MedList} on a transcriptomics
+#'  dataset
+#' @param nthreads Number of processor threads for the filtering. If not
+#'  specifed then the maximum number of logical cores are used.
 #' @examples
 #' a.filter <- AnovaFilter(Laurasmappings)
 #' meds.a.filter <- MedList(a.filter)

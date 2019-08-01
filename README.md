@@ -22,18 +22,18 @@ Documentation is available for CircadianTools and all of its functions via the u
 ```
 
 # Full List Of Functions
+
 ### Simple Plots
+
 ```BasicPlot```: Plots activity data as points and average activity as lines <br>
 ```CompPlot```: Plots two genes from a gene activity dataset <br>
 ```DatasetPlot```: Saves plots of all genes in a dataset. WARNING! Don't run on a large dataset! Intended for a filtered dataset <br>
 
 ### Clustering
+
 ```ClusterCenterGenerator```: Finds the center of every cluster in a dataset <br>
 ```ClusterDatasetPlot```: Plots the mean and error bars for all clusters across time <br>
-```FindClusterDistanceQuantiles```: Finds The distances between the center of each cluster and the centers of all the other clusters. <br>
-```FindClusterMedian```: Finds the center of a cluster <br>
-```FindClusterQuantile```: Finds The distances between the center of a cluster and the centers of all other clusters. <br>
-```ClusterParamSelection```: Calculates validation metrics for different clustering methods and varying the number of partitions. The validation metrics are plotted. <br>
+```ClusterParamSelection```: Calculates validation metrics for different clustering methods and different numbers of partitions. The validation metrics are plotted. <br>
 ```ClusterPlot```: Plots the mean and error bars for the genes in a cluster across time <br>
 ```ClusterSpread```: Shows how many genes are in each cluster after clustering has been applied. <br>
 ```ClusterText```: Takes a dataframe of clusters and stores the name of all genes in a text file. The row number deontes the cluster number. <br>
@@ -41,6 +41,9 @@ Documentation is available for CircadianTools and all of its functions via the u
 ```CommonSingletonFinder```: Finds the genes which belong to common singleton clusters in two different clustered datasets. <br>
 ```DianaClustering```: Applies Diana (DIvisive ANAlysis) clustering to a transcriptomics dataset and appends a cluster column to this dataset for all genes. <br>
 ```DianaParamSelection```:  Runs DIANA (DIvisive ANAlysis) clustering with differing numbers of partitions and returns validation metrics. <br>
+```FindClusterDistanceQuantiles```: Finds The distances between the center of each cluster and the centers of all the other clusters. <br>
+```FindClusterMedian```: Finds the center of a cluster <br>
+```FindClusterQuantile```: Finds The distances between the center of a cluster and the centers of all other clusters. <br>
 ```HClustering```: Applies hierarchical clustering, clustering to a transcriptomics dataset and appends a cluster column to this dataset for all genes. <br>
 ```HclustParamSelection```: Runs hierarchical clustering with differing numbers of partitions and returns validation metrics. <br>
 ```PamClustering```: Applies PAM (Partitioning around Medoids) clustering to a transcriptomics dataset and appends a cluster column to this dataset for all genes. <br>
@@ -62,14 +65,17 @@ Documentation is available for CircadianTools and all of its functions via the u
 ```CosinorAnalysis```: Fits cosinor models to transcriptomics data and plots the best-fitting models using ggplot2. <br>
 ```CosinorAnalysisPar```: Parallel Implementation of ```CosinorAnalysis```. <br>
 ```CosinorPlot```: Fits a cosinor model to a given gene in a given dataset and plots the model. <br>
-```CosinorResidualPlot```: Fits a cosinor model to a gene and plot the residuals <br>
+```CosinorResidualDatasetPlot```: Fits a cosinor model and plot the residuals for multiple genes in a dataset <br>
+```CosinorResidualPlot```: Fits a cosinor model to a gene and plots the residuals <br>
 ```CosinorSignificantPlot```: Prints or saves the genes found to be most significant by ```CosinorAnalysis```. <br>
 
 ### Cytoscape
+
 ```CytoscapeFile```: Converts a correlation dataframe object into a format suitable for cytoscape and saves as a csv file. <br>
 ```CytoscapeFilter```: Reduces the size of a file intended for Cytoscape by filtering out the genes/clusters which are not correlated <br>
 
 ### Fasta Files
+
 ```ContigGen```: Finds all unique contig IDs in a transcriptomics dataset <br>
 ```FastaSub```: Creates a fasta file from only certain sequences in another fasta file <br>
 
@@ -81,12 +87,12 @@ Documentation is available for CircadianTools and all of its functions via the u
 ```SizeFilter```: Filters the genes with the smallest range from a transcriptomics dataset. <br>
 ```TFilter```: Applies a filter where a t-test is carried out on gene activity levels between time points. <br>
 
-```ZeroFilter```: Filters a transcriptomics dataset such that there is a minimum number of non-zero activity readings for each gene. <br>
+```ZeroFilter```: Filters a transcriptomics dataset such that there is a minimum number of non-zero activity readings for each gene in the resultant dataset. <br>
 
 ### RAIN
 
-```RainAnalysis```: Carries out RAIN analysis on a gene dataset. <br>
-```RainSignificantPlot``` Prints or saves the genes found to be most significant by ```RainAnalysis```. <br>
+```RainAnalysis```: Carries out RAIN analysis on a transcriptomics dataset. <br>
+```RainSignificantPlot``` Prints or saves the plots of genes found to be most significant by ```RainAnalysis```. <br>
 
 ### Turning Point
 
@@ -94,6 +100,9 @@ Documentation is available for CircadianTools and all of its functions via the u
 
 
 ### Utility Functions
+
+```AbsCorDist```: Calculates a distance matrix based on the distance
+#'  measure of: 1 - |cor(x, y)| <br>
 ```ActivitySelect```: Returns gene activity by either gene name or row number <br>
 ```FileConflict```: Checks if a file which will be created already exists and, if necessary asks the user if this file should be overwritten. <br>
 ```ggplot.cosinor.lm```: Adapted from the Cosinor package by Michael Sachs. Given a cosinor.lm model fit, generate a plot of the data with the fitted values. <br>

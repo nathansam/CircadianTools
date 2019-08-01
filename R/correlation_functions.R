@@ -1,24 +1,35 @@
 #' CorAnalysis:
-#' @description Ranks correlation between a given gene and all other genes in a dataset. Plots both the given gene and highly correlated genes for a given correlation value
+#' @description Ranks correlation between a given gene and all other genes in a
+#'  dataset. Plots both the given gene and highly correlated genes for a given
+#'  correlation value
 #'
-#' @param dataset A transcriptomics dataset. First columns should be gene names. All other columns should be expression levels.
-#' @param genename the name of a gene intended for comparison with all other genes in the dataset. Must be a string.
-#' @param threshold Set correlation threshold value for which genes are considered significant and thus plotted. Defaults to 0.9
-#' @param lag Setting any value other than 0 allows a gene to be correlated with lagged genes in the dataset. The number denotes the number of timesteps to lag by.
-#' @param average The average to be used for comparing the time points. Either 'median' or 'mean'.
-#' @param save Logical. If TRUE, saves plots to working directory. Defaults to FALSE.
-#' @param print Logical. If TRUE renders highly correlated genes in the plot viewer. Defaults to TRUE
-#' @param df Logical. If TRUE a dataframe containing the correlations of the given gene with all genes in the dataset is returned. Defaults to TRUE.
-#' @return Prints or saves ggplot2 object(s). Optionally returns dataframe containing gene names and correlation values
+#' @param dataset A transcriptomics dataset. First columns should be gene names.
+#'  All other columns should be expression levels.
+#' @param genename the name of a gene intended for comparison with all other
+#' genes in the dataset. Must be a string.
+#' @param threshold Set correlation threshold value for which genes are
+#'  considered significant and thus plotted. Defaults to 0.9
+#' @param lag Setting any value other than 0 allows a gene to be correlated with
+#'  lagged genes in the dataset. The number denotes the number of timesteps to
+#'  lag by.
+#' @param average The average to be used for comparing the time points. Either
+#'  'median' or 'mean'.
+#' @param save Logical. If TRUE, saves plots to working directory. Defaults to
+#'  FALSE.
+#' @param print Logical. If TRUE renders highly correlated genes in the plot
+#' viewer. Defaults to TRUE
+#' @param df Logical. If TRUE a dataframe containing the correlations of the
+#'  given gene with all genes in the dataset is returned. Defaults to TRUE.
+#' @return Prints or saves ggplot2 object(s). Optionally returns dataframe
+#'  containing gene names and correlation values
 #' @examples
 #' cor_results <- coranalysis('comp100002_c0_seq2', Laurasmappings)
 #'
 #' @export
 
 
-CorAnalysis <- function(genename, dataset, threshold = 0.9, average = "median", lag = 0, save = FALSE,
-    print = TRUE, df = TRUE) {
-    # dataset <- geneclean(dataset) # Remove any rows which shows no gene activity
+CorAnalysis <- function(genename, dataset, threshold = 0.9, average = "median",
+                        lag = 0, save = FALSE, print = TRUE, df = TRUE) {
 
     if (save == TRUE) {
         directory <- paste("cor_", genename)
@@ -28,9 +39,13 @@ CorAnalysis <- function(genename, dataset, threshold = 0.9, average = "median", 
     }
 
     genenumber <- nrow(dataset)  # Number of genes in the dataset
-    cor.df <- data.frame(sample = dplyr::select(dataset, 1), corvalues = rep(0, genenumber))  #first column gene name, second column correlation value
-    timevector <- CircadianTools::MakeTimevector(dataset)  # Create vector of time values
-    loading_values <- CircadianTools::LoadingGen(genenumber)  # Used for the loading bar
+    # First column gene name, second column correlation value
+    cor.df <- data.frame(sample = dplyr::select(dataset, 1),
+                         corvalues = rep(0, genenumber))
+    # Create vector of time values
+    timevector <- CircadianTools::MakeTimevector(dataset)
+    # Used for the loading bar
+    loading_values <- CircadianTools::LoadingGen(genenumber)
     selectedgene <- CircadianTools::ActivitySelect(genename, dataset)
     selectedgenedf <- data.frame(timevector, selectedgene)
     names(selectedgenedf) <- c("timevector", "activity")
@@ -50,11 +65,13 @@ CorAnalysis <- function(genename, dataset, threshold = 0.9, average = "median", 
     }
 
     if (lag > 0) {
-        selectedaverage.list <- tail(selectedaverage.list, n = length(selectedaverage.list) - lag)
+        selectedaverage.list <- tail(selectedaverage.list,
+                                     n = length(selectedaverage.list) - lag)
     }
 
     if (lag < 0) {
-        selectedaverage.list <- head(selectedaverage.list, n = length(selectedaverage.list) - lag)
+        selectedaverage.list <- head(selectedaverage.list,
+                                     n = length(selectedaverage.list) - lag)
     }
 
     for (i in 1:genenumber) {
@@ -74,7 +91,8 @@ CorAnalysis <- function(genename, dataset, threshold = 0.9, average = "median", 
         compaverage.list <- rep(0, length((unique(timevector))))
         count <- 1
         for (j in unique(timevector)) {
-            compgenesub <- subset(selectedgenedf, timevector == j, select = activity)
+            compgenesub <- subset(selectedgenedf, timevector == j,
+                                  select = activity)
             if (average == "mean") {
                 compaverage.list[[count]] <- (mean(compgenesub$activity))
             }
@@ -85,10 +103,12 @@ CorAnalysis <- function(genename, dataset, threshold = 0.9, average = "median", 
         }
 
         if (lag > 0) {
-            compaverage.list <- head(compaverage.list, n = length(compaverage.list) - lag)
+            compaverage.list <- head(compaverage.list,
+                                     n = length(compaverage.list) - lag)
         }
         if (lag < 0) {
-            compaverage.list <- tail(compaverage.list, n = length(compaverage.list) - lag)
+            compaverage.list <- tail(compaverage.list,
+                                     n = length(compaverage.list) - lag)
         }
 
 
@@ -99,12 +119,16 @@ CorAnalysis <- function(genename, dataset, threshold = 0.9, average = "median", 
                 if (correlation != 1) {
 
 
-                  myplot <- compplot(as.character(genename), compgenename, dataset)
-                  myplot <- myplot + ggplot2::ggtitle(paste("Correlation = ", correlation))
+                  myplot <- compplot(as.character(genename), compgenename,
+                                     dataset)
+                  myplot <- myplot + ggplot2::ggtitle(paste("Correlation = ",
+                                                            correlation))
 
                   if (save == TRUE) {
-                    ggplot2::ggsave(paste("Cor_", genename, "_", compgenename, ".png"), myplot, path = directory,
-                      width = 10, height = 4.5, units = "in")
+                    ggplot2::ggsave(paste("Cor_", genename, "_",
+                                          compgenename, ".png"), myplot,
+                                    path = directory, width = 10, height = 4.5,
+                                    units = "in")
                   }
                   if (print == TRUE) {
                     print(myplot)
@@ -119,11 +143,18 @@ CorAnalysis <- function(genename, dataset, threshold = 0.9, average = "median", 
 }
 
 #' CorAnalysisCluster
-#' @description Correlates the average activity of a cluster with the average activity of every other cluster.
-#' @param cluster.no The ID for the cluster which will be compared with all other clusters in the dataset
-#' @param cluster.dataset A transcriptomics dataset where the final column details the cluster the gene belongs to. First column should be gene names. All remaining columns should be expression levels.
-#' @param lag Setting any value other than 0 allows a cluster to be correlated with lagged clusters in the dataset. The number denotes the number of timesteps to lag by.
-#' @param nthreads The number of threads to be used for parallel computations. Defaults to the maximum number of threads available.
+#' @description Correlates the average activity of a cluster with the average
+#'  activity of every other cluster.
+#' @param cluster.no The ID for the cluster which will be compared with all
+#'  other clusters in the dataset
+#' @param cluster.dataset A transcriptomics dataset where the final column
+#'  details the cluster the gene belongs to. First column should be gene names.
+#'  All remaining columns should be expression levels.
+#' @param lag Setting any value other than 0 allows a cluster to be correlated
+#'  with lagged clusters in the dataset. The number denotes the number of
+#'  timesteps to lag by.
+#' @param nthreads The number of threads to be used for parallel computations.
+#'  Defaults to the maximum number of threads available.
 #' @examples
 #' filter.df <- CombiFilter(Laurasmappings)
 #' pam.df <- PamClustering(filter.df, 50)
@@ -131,82 +162,109 @@ CorAnalysis <- function(genename, dataset, threshold = 0.9, average = "median", 
 #'
 #' @export
 
-CorAnalysisCluster <- function(cluster.no, cluster.dataset, lag = 0, nthreads = NULL) {
+CorAnalysisCluster <- function(cluster.no, cluster.dataset, lag = 0,
+                               nthreads = NULL) {
 
 
-    main.time.profile <- CircadianTools::ClusterTimeProfile(cluster.no, cluster.dataset, nthreads = nthreads)  # Get time profile for the cluster specified
+    # Get time profile for the cluster specified
+    main.time.profile <- CircadianTools::ClusterTimeProfile(cluster.no,
+                                cluster.dataset, nthreads = nthreads)
 
     if (lag > 0) {
-        main.time.profile <- tail(main.time.profile, n = length(main.time.profile) - lag)  # Lag if required
+        main.time.profile <- tail(main.time.profile,
+                     n = length(main.time.profile) - lag)  # Lag if required
     }
     if (lag < 0) {
-        main.time.profile <- head(main.time.profile, n = length(main.time.profile) - lag)  # Lag if required
+        main.time.profile <- head(main.time.profile,
+                    n = length(main.time.profile) - lag)  # Lag if required
     }
 
     cluster.quantity <- max(cluster.dataset$cluster)  # Number of clusters
-    correlation.df <- data.frame(seq(1, cluster.quantity), rep(0, cluster.quantity))
+    correlation.df <- data.frame(seq(1, cluster.quantity),
+                                     rep(0, cluster.quantity))
     colnames(correlation.df) <- c("cluster", "correlation")
 
     for (j in 1:cluster.quantity) {
-        comp.time.profile <- CircadianTools::ClusterTimeProfile(j, cluster.dataset, nthreads = nthreads)  # Get time profile of cluster being compared with the main cluster
+        # Get time profile of cluster being compared with the main cluster
+        comp.time.profile <- CircadianTools::ClusterTimeProfile(j,
+                            cluster.dataset, nthreads = nthreads)
 
         if (lag > 0) {
-            comp.time.profile <- head(comp.time.profile, n = length(comp.time.profile) - lag)  # Lag if required
+            comp.time.profile <- head(comp.time.profile,
+                        n = length(comp.time.profile) - lag)  # Lag if required
         }
         if (lag < 0) {
-            comp.time.profile <- tail(comp.time.profile, n = length(comp.time.profile) - lag)  # Lag if required
+            comp.time.profile <- tail(comp.time.profile,
+                        n = length(comp.time.profile) - lag)  # Lag if required
         }
 
-        compcor <- cor(main.time.profile, comp.time.profile)  # Calculate correlation
-        correlation.df[j, 2] <- compcor  # Add correlation to dataframe
+        # Calculate correlation
+        compcor <- cor(main.time.profile, comp.time.profile)
+        # Add correlation to dataframe
+        correlation.df[j, 2] <- compcor
     }
     return(correlation.df)
 }
 
 #' CorAnalysisDataset:
 #'
-#' @description Correlates every gene in a dataset with every other gene in the same dataset. Allows a timelag between genes to be correlated.
-#' @param dataset A transcriptomics dataset. First columns should be gene names. All other columns should be expression levels.
-#' @param average The average to be used for comparing the time points. Either 'median' or 'mean'.
-#' @param lag Setting any value other than 0 allows a gene to be correlated with lagged genes in the dataset. The number denotes the number of timesteps to lag by.
-#' @param nthreads The number of threads to be used for parallel computations. Defaults to the maximum number of threads available.
-#' @param save Logical. If TRUE, the dataframe of correlations for the dataset is saved as a .csv file.
-#' @param filename filename for saved csv file. Only used if save=TRUE. If not specified then the dataset object name is used.
-#' @return A dataframe of correlation values. The column genes represent the original genes whilst the rows represent lagged genes.
+#' @description Correlates every gene in a dataset with every other gene in the
+#' same dataset. Allows a timelag between genes to be correlated.
+#' @param dataset A transcriptomics dataset. First columns should be gene names.
+#'  All other columns should be expression levels.
+#' @param average The average to be used when comparing the time points. Either
+#'  'median' or 'mean'.
+#' @param lag Setting any value other than 0 allows a gene to be correlated with
+#'  lagged genes in the dataset. The number denotes the number of timesteps to
+#'  lag by.
+#' @param nthreads The number of threads to be used for parallel computations.
+#'  Defaults to the maximum number of threads available.
+#' @param save Logical. If TRUE, the dataframe of correlations for the dataset
+#'  is saved as a .csv file.
+#' @param filename filename for saved csv file. Only used if save=TRUE. If not
+#'  specified then the dataset object name is used.
+#' @return A dataframe of correlation values. The column genes represent the
+#'  original genes whilst the rows represent lagged genes.
 #' @examples
 #' subdf<-TFilter(Laurasmappings)
 #' cordf <- CorAnalysisDataset(subdf, lag=1,filename='cor_tfiltered')
 #'
 #' @export
-CorAnalysisDataset <- function(dataset, average = "median", lag = 0, nthreads = NULL, save = TRUE, filename = NULL) {
+CorAnalysisDataset <- function(dataset, average = "median", lag = 0,
+                               nthreads = NULL, save = TRUE, filename = NULL) {
     if (is.null(nthreads) == TRUE) {
         # Set the threads to maximum if none is specified
         nthreads <- parallel::detectCores()
     }
     if (is.null(filename) == TRUE) {
-        # If a filename isn't specified then the name of the dataframe object is used
+   # If a filename isn't specified then the name of the dataframe object is used
         filename <- deparse(substitute(dataset))
     }
 
-    `%dopar%` <- foreach::`%dopar%`  # Load the dopar binary operator from foreach package
+    # Load the dopar binary operator from foreach package
+    `%dopar%` <- foreach::`%dopar%`
     cl <- parallel::makeForkCluster(nthreads)  # Create cluster for parallelism
     doParallel::registerDoParallel(cl)
 
     genenames <- as.vector(dataset[, 1])  # Vector of names for every gene
 
-    correlationdf <- foreach::foreach(i = 1:length(genenames), .combine = cbind) %dopar% {
+    correlationdf <- foreach::foreach(i = 1:length(genenames),
+                                      .combine = cbind) %dopar% {
 
-        # Calculate correlation for the ith gene with all ( possibly lagged) genes.
-        results <- CircadianTools::CorAnalysis(genename = genenames[i], dataset = dataset, lag = lag, average = average,
-            print = FALSE)
+     # Calculate correlation for the ith gene with all ( possibly lagged) genes.
+        results <- CircadianTools::CorAnalysis(genename = genenames[i],
+                    dataset = dataset, lag = lag, average = average,
+                      print = FALSE)
 
-        data.frame(results[, 2])  # Add the list of correlations as a column to the correlation dataframe
+        # Add the list of correlations as a column to the correlation dataframe
+        data.frame(results[, 2])
     }
 
     rownames(correlationdf) <- genenames  # Give the columns the genenames
     colnames(correlationdf) <- genenames  # Give the rows the genenames
     if (save == TRUE) {
-        write.csv(correlationdf, paste(filename, ".csv", sep = ""))  # Write as a csv file if save=TRUE
+        # Write as a csv file if save=TRUE
+        write.csv(correlationdf, paste(filename, ".csv", sep = ""))
     }
     parallel::stopCluster(cl)
     return(correlationdf)  # Return the correlation dataframe.
@@ -214,13 +272,22 @@ CorAnalysisDataset <- function(dataset, average = "median", lag = 0, nthreads = 
 
 #' CorAnalysisClusterDataset:
 #'
-#' @description Correlates the average activity of each cluster with every other cluster in a dataset.
-#' @param cluster.dataset A transcriptomics dataset where the final column details the cluster the gene belongs to. First column should be gene names. All remaining columns should be expression levels.
-#' @param lag Setting any value other than 0 allows a gene to be correlated with lagged genes in the dataset. The number denotes the number of timesteps to lag by.
-#' @param nthreads The number of threads to be used for parallel computations.Defaults to the maximum number of threads available.
-#' @param save Logical. If TRUE, the dataframe of correlations for the dataset is saved as a .csv file.
-#' @param filename filename for saved csv file. Only used if save=TRUE. If not specified then the dataset object name is used.
-#' @return A dataframe of correlation values. The column genes represent the original clusters whilst the rows represent lagged clusters.
+#' @description Correlates the average activity of each cluster with every other
+#'  cluster in a dataset.
+#' @param cluster.dataset A transcriptomics dataset where the final column
+#' details the cluster the gene belongs to. First column should be gene names.
+#' All remaining columns should be expression levels.
+#' @param lag Setting any value other than 0 allows a gene to be correlated with
+#'  lagged genes in the dataset. The number denotes the number of timesteps to
+#'  lag by.
+#' @param nthreads The number of threads to be used for parallel computations.
+#'  Defaults to the maximum number of threads available.
+#' @param save Logical. If TRUE, the dataframe of correlations for the dataset
+#'  is saved as a .csv file.
+#' @param filename filename for saved csv file. Only used if save=TRUE. If not
+#'  specified then the dataset object name is used.
+#' @return A dataframe of correlation values. The column genes represent the
+#'  original clusters whilst the rows represent lagged clusters.
 #' @examples
 #' filter.df <- CombiFilter(Laurasmappings)
 #' pam.df <- PamClustering(filterdf)
@@ -228,25 +295,30 @@ CorAnalysisDataset <- function(dataset, average = "median", lag = 0, nthreads = 
 #'
 #' @export
 
-CorAnalysisClusterDataset <- function(cluster.dataset, lag = 0, nthreads = NULL, save = TRUE, filename = NULL) {
+CorAnalysisClusterDataset <- function(cluster.dataset, lag = 0, nthreads = NULL,
+                                      save = TRUE, filename = NULL) {
 
     if (is.null(filename) == TRUE) {
-        filename <- deparse(substitute(cluster.dataset))  # If a filename isn't specified then the name of the dataframe object is used
+   # If a filename isn't specified then the name of the dataframe object is used
+        filename <- deparse(substitute(cluster.dataset))
     }
 
     if (is.null(nthreads) == TRUE) {
         # Set the threads to maximum if none is specified
         nthreads <- parallel::detectCores()
     }
-    `%dopar%` <- foreach::`%dopar%`  # Load the dopar binary operator from foreach package
+    # Load the dopar binary operator from foreach package
+    `%dopar%` <- foreach::`%dopar%`
     cl <- parallel::makeForkCluster(nthreads)  # Create cluster for parallelism
     doParallel::registerDoParallel(cl)
 
 
     clusters <- unique(cluster.dataset$cluster)  # Vector of cluster numbers
 
-    correlationdf <- foreach::foreach(i = 1:length(clusters), .combine = cbind) %dopar% {
-        temp.df <- CircadianTools::CorAnalysisCluster(i, cluster.dataset, lag = lag, nthreads = 1)
+    correlationdf <- foreach::foreach(i = 1:length(clusters),
+                                      .combine = cbind) %dopar% {
+        temp.df <- CircadianTools::CorAnalysisCluster(i, cluster.dataset,
+                                                      lag = lag, nthreads = 1)
         temp.df[, 2]
     }
 
@@ -254,7 +326,8 @@ CorAnalysisClusterDataset <- function(cluster.dataset, lag = 0, nthreads = NULL,
     colnames(correlationdf) <- clusters  # Give the rows the genenames
 
     if (save == TRUE) {
-        write.csv(correlationdf, paste(filename, ".csv", sep = ""))  # Write as a csv file if save=TRUE
+        # Write as a csv file if save=TRUE
+        write.csv(correlationdf, paste(filename, ".csv", sep = ""))
     }
     parallel::stopCluster(cl)
 
@@ -262,13 +335,21 @@ CorAnalysisClusterDataset <- function(cluster.dataset, lag = 0, nthreads = NULL,
 }
 
 #' CorAnalysisPar:
-#' @description Parallel Implementation of \link{CorAnalysis}. Ranks correlation between a given gene and all over genes in a dataset. Plots both the given gene and highly correlated genes for a given correlation value
+#' @description Parallel Implementation of \link{CorAnalysis}. Ranks correlation
+#'  between a given gene and all over genes in a dataset. Plots both the given
+#'  gene and highly correlated genes for a given correlation value
 #'
-#' @param dataset A transcriptomics dataset. First columns should be gene names. All other columns should be expression levels.
-#' @param genename the name of a gene intended for comparison with all other genes in the dataset. Must be a string.
-#' @param lag Setting any value other than 0 allows a gene to be correlated with lagged genes in the dataset. The number denotes the number of timesteps to lag by.
-#' @param average The average to be used for comparing the time points. Either 'median' or 'mean'.
-#' @param nthreads Number of processor threads for the process. If not specifed then the maximum number of logical cores are used.
+#' @param dataset A transcriptomics dataset. First columns should be gene names.
+#'  All other columns should be expression levels.
+#' @param genename the name of a gene intended for comparison with all other
+#'  genes in the dataset. Must be a string.
+#' @param lag Setting any value other than 0 allows a gene to be correlated with
+#'  lagged genes in the dataset. The number denotes the number of timesteps
+#'  to lag by.
+#' @param average The average to be used for comparing the time points. Either
+#'  'median' or 'mean'.
+#' @param nthreads Number of processor threads for the process. If not specifed
+#'  then the maximum number of logical cores are used.
 #' @return Returns dataframe containing gene names and correlation values
 #' @examples
 #' cor_results <- CorAnalysisPar('comp100002_c0_seq2', Laurasmappings)
@@ -276,18 +357,23 @@ CorAnalysisClusterDataset <- function(cluster.dataset, lag = 0, nthreads = NULL,
 #' @export
 
 
-CorAnalysisPar <- function(genename, dataset, lag = 0, average = "median", nthreads = NULL) {
+CorAnalysisPar <- function(genename, dataset, lag = 0, average = "median",
+                           nthreads = NULL) {
 
-    `%dopar%` <- foreach::`%dopar%`  # Load the dopar binary operator from foreach package
+    # Load the dopar binary operator from foreach package
+    `%dopar%` <- foreach::`%dopar%`
     if (is.null(nthreads) == TRUE) {
         # Set the threads to maximum if none is specified
         nthreads <- parallel::detectCores()
     }
 
-    # dataset <- CircadianTools::geneclean(dataset) # Remove any rows which shows no gene activity
+
     genenumber <- nrow(dataset)  # Number of genes in the dataset
-    cor.df <- data.frame(sample = dplyr::select(dataset, 1), corvalues = rep(0, genenumber))  #first column gene name, second column correlation value
-    timevector <- CircadianTools::MakeTimevector(dataset)  # Create vector of time values
+    # First column gene name, second column correlation value
+    cor.df <- data.frame(sample = dplyr::select(dataset, 1),
+                         corvalues = rep(0, genenumber))
+    # Create vector of time values
+    timevector <- CircadianTools::MakeTimevector(dataset)
     selectedgene <- as.vector(CircadianTools::ActivitySelect(genename, dataset))
     selectedgenedf <- data.frame(timevector, selectedgene)
     colnames(selectedgenedf) <- c("timevector", "activity")
@@ -307,11 +393,13 @@ CorAnalysisPar <- function(genename, dataset, lag = 0, average = "median", nthre
     }
 
     if (lag > 0) {
-        selectedaverage.list <- tail(selectedaverage.list, n = length(selectedaverage.list) - lag)
+        selectedaverage.list <- tail(selectedaverage.list,
+                                     n = length(selectedaverage.list) - lag)
     }
 
     if (lag < 0) {
-        selectedaverage.list <- head(selectedaverage.list, n = length(selectedaverage.list) - lag)
+        selectedaverage.list <- head(selectedaverage.list,
+                                     n = length(selectedaverage.list) - lag)
     }
 
 
@@ -332,7 +420,8 @@ CorAnalysisPar <- function(genename, dataset, lag = 0, average = "median", nthre
         compaverage.list <- rep(0, length((unique(timevector))))
         count <- 1
         for (j in unique(timevector)) {
-            compgenesub <- subset(selectedgenedf, timevector == j, select = activity)
+            compgenesub <- subset(selectedgenedf, timevector == j,
+                                  select = activity)
             if (average == "mean") {
                 compaverage.list[[count]] <- (mean(compgenesub$activity))
             }
@@ -342,10 +431,12 @@ CorAnalysisPar <- function(genename, dataset, lag = 0, average = "median", nthre
             count = count + 1
         }
         if (lag > 0) {
-            compaverage.list <- head(compaverage.list, n = length(compaverage.list) - lag)
+            compaverage.list <- head(compaverage.list,
+                                     n = length(compaverage.list) - lag)
         }
         if (lag < 0) {
-            compaverage.list <- tail(compaverage.list, n = length(compaverage.list) - lag)
+            compaverage.list <- tail(compaverage.list,
+                                     n = length(compaverage.list) - lag)
         }
 
         correlation <- cor(selectedaverage.list, compaverage.list)
@@ -358,22 +449,30 @@ CorAnalysisPar <- function(genename, dataset, lag = 0, average = "median", nthre
 }
 
 #' CorSignificantPlot :
-#' @description Prints or saves the genes found to be most significant by \link{CorSignificantPlot} or \link{CorAnalysisPar}
+#' @description Prints or saves the genes found to be most significant by
+#'  \link{CorSignificantPlot} or \link{CorAnalysisPar}.
 #'
-#' @param results A dataframe generated by \code{CorAnalysis}
-#' @param dataset A transcriptomics dataset which was used with \code{CorAnalysis} to generate the results dataframe. First columns should be gene names. All other columns should be expression levels.
-#' @param number The number of most significant genes printed or saved
-#' @param period The period of rhythmicity which is being tested for. Defaults to 24 (Circadian).
-#' @param save Logical. If TRUE, saves plots to working directory. Defaults to FALSE.
-#' @param print Logical. If TRUE renders significant genes in the plot viewer. Defaults to TRUE
+#' @param results A dataframe generated by \code{CorAnalysis}.
+#' @param dataset A transcriptomics dataset which was used with
+#' \code{CorAnalysis} to generate the results dataframe. First columns should be
+#'  gene names. All other columns should be expression levels.
+#' @param number The number of most significant genes printed or saved.
+#' @param period The period of rhythmicity which is being tested for. Defaults
+#'  to 24 (Circadian).
+#' @param save Logical. If TRUE, saves plots to working directory. Defaults to
+#'  FALSE.
+#' @param print Logical. If TRUE renders significant genes in the plot viewer.
+#'  Defaults to TRUE
 #' @return Prints or saves ggplot2 object(s).
 #' @examples
 #' cor_results <- CorAnalysis('comp100002_c0_seq2',Laurasmappings)
-#' CorSignificantPlot(cor_results, Laurasmappings, number = 15,save=TRUE, negative=FALSE)
+#' CorSignificantPlot(cor_results, Laurasmappings, number = 15, save=TRUE, negative=FALSE)
 #'
 #' @export
-CorSignificantPlot <- function(results, dataset, number = 10, print = TRUE, save = FALSE, negative = FALSE) {
-    results <- results[order(results$correlation, decreasing = TRUE), ]  # Order by most positive correlation
+CorSignificantPlot <- function(results, dataset, number = 10, print = TRUE,
+                               save = FALSE, negative = FALSE) {
+    # Order by most positive correlation
+    results <- results[order(results$correlation, decreasing = TRUE), ]
     gene1 <- as.character(results[1, 1])
     if (save == TRUE) {
         directory <- paste("cor_", gene1)
@@ -383,33 +482,39 @@ CorSignificantPlot <- function(results, dataset, number = 10, print = TRUE, save
     }
     if (negative == FALSE) {
         for (i in 2:(number + 1)) {
-            myplot <- CircadianTools::CompPlot(as.character(gene1), as.character(results[i, 1]), dataset)
-            myplot <- myplot + ggplot2::ggtitle(paste(" Correlation = ", as.character(results[i, 2])))
+            myplot <- CircadianTools::CompPlot(as.character(gene1),
+                                        as.character(results[i, 1]), dataset)
+            myplot <- myplot + ggplot2::ggtitle(paste(" Correlation = ",
+                                                  as.character(results[i, 2])))
 
             if (print == TRUE) {
                 print(myplot)
             }
 
             if (save == TRUE) {
-                ggplot2::ggsave(paste("rank=", i - 1, "Cor_", as.character(results[i, 1]), ".png"), myplot,
-                  path = directory, width = 10, height = 4.5, units = "in")
+                ggplot2::ggsave(paste("rank=", i - 1, "Cor_",
+                    as.character(results[i, 1]), ".png"), myplot,
+                       path = directory, width = 10, height = 4.5, units = "in")
             }
         }
     }
     if (negative == TRUE) {
         results <- results[order(results$correlation, decreasing = FALSE), ]
         for (i in 1:number) {
-            myplot <- CircadianTools::CompPlot(as.character(gene1), as.character(results[i, 1]), dataset)
-            myplot <- myplot + ggplot2::ggtitle(paste("Gene = ", as.character(results[i, 1]), " Cor = ",
-                as.character(results[i, 2])))
+            myplot <- CircadianTools::CompPlot(as.character(gene1),
+                         as.character(results[i, 1]), dataset)
+            myplot <- myplot + ggplot2::ggtitle(paste("Gene = ",
+                            as.character(results[i, 1]), " Cor = ",
+                                   as.character(results[i, 2])))
 
             if (print == TRUE) {
                 print(myplot)
             }
 
             if (save == TRUE) {
-                ggplot2::ggsave(paste("rank=", i, "Cor_", as.character(results[i, 1]), ".png"), myplot,
-                  path = directory, width = 10, height = 4.5, units = "in")
+                ggplot2::ggsave(paste("rank=", i, "Cor_",
+                     as.character(results[i, 1]), ".png"), myplot,
+                       path = directory, width = 10, height = 4.5, units = "in")
             }
         }
     }

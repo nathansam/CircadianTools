@@ -10,7 +10,8 @@ FileConflict(filename)
 \item{filename}{The name of a file (with extension included)}
 }
 \description{
-Checks if a file which will be created already exists and, if necessary asks the user if this file should be overwritten.
+Checks if a file which will be created already exists and, if
+ necessary asks the user if this file should be overwritten.
 }
 \examples{
 FileConflict('correlation.csv')

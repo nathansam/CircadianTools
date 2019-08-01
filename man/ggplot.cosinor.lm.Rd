@@ -9,11 +9,14 @@ ggplot.cosinor.lm(object, x_str = NULL, endtime)
 \arguments{
 \item{object}{An object of class \code{cosinor.lm}}
 
-\item{x_str}{Character vector naming the covariate(s) to be plotted. May be NULL to plot overall curve}
+\item{x_str}{Character vector naming the covariate(s) to be plotted.
+May be NULL to plot overall curve}
 
 \item{endtime}{The last time value for the time course}
 }
 \description{
-Adapted from the Cosinor package by Michael Sachs. Given a cosinor.lm model fit, generate a plot of the data with the fitted values.
-Optionally allows for plotting by covariate levels 0 and 1. Unlike the original version, the function will plot for the full timecourse rather just one full period.
+Adapted from the Cosinor package by Michael Sachs. Given a cosinor.lm model
+ fit, generate a plot of the data with the fitted values. Optionally allows
+ for plotting by covariate levels 0 and 1. Unlike the original version, the
+ function will plot for the full timecourse rather just one full period.
 }

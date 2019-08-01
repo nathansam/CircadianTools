@@ -10,19 +10,24 @@ TurningPlot(genename, dataset, timelag = 0, print = TRUE,
 \arguments{
 \item{genename}{The name of a gene intended for plotting. Must be a string.}
 
-\item{dataset}{A transcriptomics dataset. First columns should be gene names. All other columns should be expression levels.}
+\item{dataset}{A transcriptomics dataset. First columns should be gene names.
+All other columns should be expression levels.}
 
-\item{timelag}{Lags the time. Usually desired if wanting to start from t=0. Defaults to 0.}
+\item{timelag}{Lags the time. Usually desired if wanting to start from t = 0.
+Defaults to 0.}
 
-\item{print}{Logical. If TRUE renders plot in the plot viewer. Defaults to TRUE}
+\item{print}{Logical. If TRUE renders plot in the plot viewer. Defaults to
+TRUE}
 
-\item{save}{Logical. If TRUE, saves plot to working directory. Defaults to FALSE.}
+\item{save}{Logical. If TRUE, saves plot to working directory. Defaults to
+FALSE.}
 }
 \value{
 Prints or saves ggplot2 object(s)
 }
 \description{
-Fits a spline to a given gene in a given dataset. Finds the turning points. Plots the turning points and spline.
+Fits a spline to a given gene in a given dataset. Finds the
+ turning points. Plots the turning points and spline.
 }
 \examples{
 TurningPlot('comp100000_c0_seq2',LauraSingleMap)

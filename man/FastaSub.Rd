@@ -11,7 +11,8 @@ FastaSub(gene.names, fasta.file, save = TRUE, filename = NULL)
 
 \item{fasta.file}{A fasta file read in using \code{seqinr}}
 
-\item{save}{Logical. If TRUE then the newly created fasta file is saved to the working directory}
+\item{save}{Logical. If TRUE then the newly created fasta file is saved to
+the working directory}
 
 \item{filename}{The filename to use for a saved fasta file}
 }
@@ -19,7 +20,8 @@ FastaSub(gene.names, fasta.file, save = TRUE, filename = NULL)
 A fasta file
 }
 \description{
-Creates a fasta file from only certain sequences in another fasta file
+Creates a fasta file from only certain sequences in another
+ fasta file
 }
 \examples{
 main.fasta <- seqinr::read.fasta("~/JoesTranscriptomeMin300bp2.fasta")

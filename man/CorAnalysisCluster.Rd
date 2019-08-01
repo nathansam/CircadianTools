@@ -8,16 +8,23 @@ CorAnalysisCluster(cluster.no, cluster.dataset, lag = 0,
   nthreads = NULL)
 }
 \arguments{
-\item{cluster.no}{The ID for the cluster which will be compared with all other clusters in the dataset}
+\item{cluster.no}{The ID for the cluster which will be compared with all
+other clusters in the dataset}
 
-\item{cluster.dataset}{A transcriptomics dataset where the final column details the cluster the gene belongs to. First column should be gene names. All remaining columns should be expression levels.}
+\item{cluster.dataset}{A transcriptomics dataset where the final column
+details the cluster the gene belongs to. First column should be gene names.
+All remaining columns should be expression levels.}
 
-\item{lag}{Setting any value other than 0 allows a cluster to be correlated with lagged clusters in the dataset. The number denotes the number of timesteps to lag by.}
+\item{lag}{Setting any value other than 0 allows a cluster to be correlated
+with lagged clusters in the dataset. The number denotes the number of
+timesteps to lag by.}
 
-\item{nthreads}{The number of threads to be used for parallel computations. Defaults to the maximum number of threads available.}
+\item{nthreads}{The number of threads to be used for parallel computations.
+Defaults to the maximum number of threads available.}
 }
 \description{
-Correlates the average activity of a cluster with the average activity of every other cluster.
+Correlates the average activity of a cluster with the average
+ activity of every other cluster.
 }
 \examples{
 filter.df <- CombiFilter(Laurasmappings)

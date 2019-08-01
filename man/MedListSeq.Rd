@@ -7,10 +7,12 @@
 MedListSeq(dataset)
 }
 \arguments{
-\item{dataset}{A transcriptomics dataset. First columns should be gene names. All other columns should be expression levels.}
+\item{dataset}{A transcriptomics dataset. First columns should be gene names.
+All other columns should be expression levels.}
 }
 \description{
-Provides a dataframe of median values at each time point for each gene from a transcriptomics dataset.
+Provides a dataframe of median values at each time point for
+ each gene from a transcriptomics dataset.
 }
 \examples{
 mediandf <- MedListSeq(Laurasmappings)

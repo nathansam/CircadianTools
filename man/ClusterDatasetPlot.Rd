@@ -8,15 +8,20 @@ ClusterDatasetPlot(cluster.dataset, nthreads = NULL, print = TRUE,
   save = FALSE, path = "cluster_overview")
 }
 \arguments{
-\item{cluster.dataset}{A transcriptomics dataset where the final column details the cluster the gene belongs to. First column should be gene names. All remaining columns should be expression levels.}
+\item{cluster.dataset}{A transcriptomics dataset where the final column
+details the cluster the gene belongs to. First column should be gene names.
+ All remaining columns should be expression levels.}
 
-\item{nthreads}{Number of processor threads for the process. If not specifed then the maximum number of logical cores are used.}
+\item{nthreads}{Number of processor threads for the process. If not
+specified then the maximum number of logical cores is used.}
 
-\item{print}{Logical. If TRUE renders significant genes in the plot viewer. Defaults to TRUE}
+\item{print}{Logical. If TRUE renders significant genes in the plot viewer.
+Defaults to TRUE}
 
 \item{save}{Logical. If TRUE, saves plots. Defaults to FALSE.}
 
-\item{path}{The directory to be used for saving plots to. Creates the directory if it doesn't already exist. Defaults to cluster_overview}
+\item{path}{The directory to be used for saving plots to. Creates the
+directory if it doesn't already exist. Defaults to cluster_overview}
 }
 \value{
 Prints or saves ggplot2 object(s).

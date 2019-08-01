@@ -7,12 +7,15 @@
 GeneRange(dataset, nthreads = NULL)
 }
 \arguments{
-\item{dataset}{A transcriptomics dataset. First columns should be gene names. All other columns should be expression levels.}
+\item{dataset}{A transcriptomics dataset. First columns should be gene names.
+All other columns should be expression levels.}
 
-\item{nthreads}{Number of processor threads for the filtering. If not specifed then the maximum number of logical cores are used.}
+\item{nthreads}{Number of processor threads for the filtering. If not
+specified then the maximum number of logical cores are used.}
 }
 \description{
-Finds the range of gene activity for each gene in a dataframe. The median for the replicates is used for each time point.
+Finds the range of gene activity for each gene in a dataframe.
+ The median for the replicates is used for each time point.
 }
 \examples{
 rangedf <- GeneRange(Laurasmappings, nthreads=4)

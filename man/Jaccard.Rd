@@ -16,26 +16,27 @@ the Jaccard coefficient for the two sets of cluster labels (See
 Details.)
 }
 \description{
-Stolen from the clusteval package as there is currently a bug with the package
-on CRAN where this function is not exported from the namespae of clusteval.
-Computes the Jaccard similarity coefficient of two clusterings of the same
-data set under the assumption that the two clusterings are independent.
+Stolen from the clusteval package as there is currently a bug
+ with the package on CRAN where this function is not exported from the
+ namespae of clusteval. Computes the Jaccard similarity coefficient of two
+ clusterings of the same data set under the assumption that the two
+ clusterings are independent.
 
-For two clusterings of the same data set, this function calculates the Jaccard
-similarity coefficient of the clusterings from the comemberships of the
-observations. Basically, the comembership is defined as the pairs of
-observations that are clustered together.
+ For two clusterings of the same data set, this function calculates the
+ Jaccard similarity coefficient of the clusterings from the comemberships of
+ the observations. Basically, the comembership is defined as the pairs of
+ observations that are clustered together.
 }
 \details{
 The Jaccard similarity coefficient is defined as:
-\deqn{J = \frac{n_{11}}{n_{11} + n_{10} + n_{01}}}.
+ \deqn{J = \frac{n_{11}}{n_{11} + n_{10} + n_{01}}}.
 
-In the special case that the Jaccard coefficient results in \eqn{0/0},
-we define \eqn{J = 0}. For instance, this case can occur when both clusterings
-consist of all singleton clusters.
+ In the special case that the Jaccard coefficient results in \eqn{0/0},
+ we define \eqn{J = 0}. For instance, this case can occur when both clusterings
+ consist of all singleton clusters.
 
-To compute the contingency table, we use the \code{\link{comembership_table}}
-function.
+ To compute the contingency table, we use the \code{\link{comembership_table}}
+ function.
 }
 \examples{
 

@@ -8,23 +8,32 @@ CorAnalysisDataset(dataset, average = "median", lag = 0,
   nthreads = NULL, save = TRUE, filename = NULL)
 }
 \arguments{
-\item{dataset}{A transcriptomics dataset. First columns should be gene names. All other columns should be expression levels.}
+\item{dataset}{A transcriptomics dataset. First columns should be gene names.
+All other columns should be expression levels.}
 
-\item{average}{The average to be used for comparing the time points. Either 'median' or 'mean'.}
+\item{average}{The average to be used when comparing the time points. Either
+'median' or 'mean'.}
 
-\item{lag}{Setting any value other than 0 allows a gene to be correlated with lagged genes in the dataset. The number denotes the number of timesteps to lag by.}
+\item{lag}{Setting any value other than 0 allows a gene to be correlated with
+lagged genes in the dataset. The number denotes the number of timesteps to
+lag by.}
 
-\item{nthreads}{The number of threads to be used for parallel computations. Defaults to the maximum number of threads available.}
+\item{nthreads}{The number of threads to be used for parallel computations.
+Defaults to the maximum number of threads available.}
 
-\item{save}{Logical. If TRUE, the dataframe of correlations for the dataset is saved as a .csv file.}
+\item{save}{Logical. If TRUE, the dataframe of correlations for the dataset
+is saved as a .csv file.}
 
-\item{filename}{filename for saved csv file. Only used if save=TRUE. If not specified then the dataset object name is used.}
+\item{filename}{filename for saved csv file. Only used if save=TRUE. If not
+specified then the dataset object name is used.}
 }
 \value{
-A dataframe of correlation values. The column genes represent the original genes whilst the rows represent lagged genes.
+A dataframe of correlation values. The column genes represent the
+ original genes whilst the rows represent lagged genes.
 }
 \description{
-Correlates every gene in a dataset with every other gene in the same dataset. Allows a timelag between genes to be correlated.
+Correlates every gene in a dataset with every other gene in the
+same dataset. Allows a timelag between genes to be correlated.
 }
 \examples{
 subdf<-TFilter(Laurasmappings)

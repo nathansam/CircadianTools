@@ -7,12 +7,17 @@
 ClusterText(cluster.dataset, filename = NULL)
 }
 \arguments{
-\item{cluster.dataset}{A transcriptomics dataset where the final column details the cluster the gene belongs to. First column should be gene names. All remaining columns should be expression levels.}
+\item{cluster.dataset}{A transcriptomics dataset where the final column
+details the cluster the gene belongs to. First column should be gene names.
+ All remaining columns should be expression levels.}
 
-\item{filename}{The filename of the saved text file. If not given then the name of the correlation dataframe object will be used. The.txt extension is not needed.}
+\item{filename}{The filename of the saved text file. If not given then the
+name of the correlation dataframe object will be used. The.txt extension
+ is not needed.}
 }
 \description{
-Takes a dataframe of clusters and stores the name of all genes in a text file. The row number deontes the cluster number.
+Takes a dataframe of clusters and stores the name of all genes
+ in a text file. The row number deontes the cluster number.
 }
 \examples{
 filter.df <- CombiFilter(Laurasmappings)

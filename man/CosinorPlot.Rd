@@ -10,21 +10,26 @@ CosinorPlot(genename, dataset, timelag = 6, period = 24,
 \arguments{
 \item{genename}{The name of a gene intended for plotting. Must be a string.}
 
-\item{dataset}{A transcriptomics dataset. First columns should be gene names. All other columns should be expression levels.}
+\item{dataset}{A transcriptomics dataset. First columns should be gene names.
+All other columns should be expression levels.}
 
 \item{timelag}{The value of time for which observations begin. Defaults to 6.}
 
-\item{period}{The period of rhythmicity which is being tested for. Defaults to 24 (circadian).}
+\item{period}{The period of rhythmicity which is being tested for. Defaults
+to 24 (circadian).}
 
-\item{print}{Logical. If TRUE renders plot in the plot viewer. Defaults to TRUE}
+\item{print}{Logical. If TRUE renders plot in the plot viewer. Defaults to
+TRUE}
 
-\item{save}{Logical. If TRUE, saves plot to working directory. Defaults to FALSE.}
+\item{save}{Logical. If TRUE, saves plot to working directory. Defaults to
+FALSE.}
 }
 \value{
 Prints or saves ggplot2 object(s)
 }
 \description{
-Fits a cosinor model to a given gene in a given dataset and plots the model
+Fits a cosinor model to a given gene in a given dataset and
+ plots the model
 }
 \examples{
 CosinorPlot('comp100000_c0_seq2', Laurasmappings )

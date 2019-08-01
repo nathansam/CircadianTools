@@ -15,7 +15,7 @@
 #' @export
 
 FindClusterMedian <- function(cluster.no, cluster.dataset, nthreads = NULL) {
-    
+
     if (is.null(nthreads) == TRUE) {
         # Use maximum threads if nthreads is not specified
         nthreads <- parallel::detectCores()
@@ -23,7 +23,7 @@ FindClusterMedian <- function(cluster.no, cluster.dataset, nthreads = NULL) {
     # Pull out the genes in the cluster + remove cluster no
     cluster.sub <- subset(cluster.dataset, cluster == cluster.no)
     cluster.sub$cluster <- NULL
-    
+
     # Find median activity for each time point for each gene
     medians <- CircadianTools::MedList(cluster.sub, nthreads = nthreads)
     cluster.median <- rep(0, ncol(medians))
@@ -52,18 +52,20 @@ ClusterCenterGenerator <- function(cluster.dataset, nthreads = NULL) {
         # Set the threads to maximum if none is specified
         nthreads <- parallel::detectCores()
     }
-    
+
     # Load the dopar binary operator from foreach package
     `%dopar%` <- foreach::`%dopar%`
     cl <- parallel::makeForkCluster(nthreads)  # Create cluster for parallelism
     doParallel::registerDoParallel(cl)
     unique.clusters <- unique(cluster.dataset$cluster)  # List of cluster labels
-    
-    cluster.centers <- foreach::foreach(i = unique.clusters, .combine = rbind) %dopar% {
+
+    cluster.centers <- foreach::foreach(i = unique.clusters,
+         .combine = rbind) %dopar% {
         # Find Median activity for each time point for each gene
-        CircadianTools::FindClusterMedian(cluster.no = i, cluster.dataset = cluster.dataset, nthreads = 1)
+        CircadianTools::FindClusterMedian(cluster.no = i,
+                cluster.dataset = cluster.dataset, nthreads = 1)
     }
-    
+
     parallel::stopCluster(cl)  # Stop cluster created for parallelism
     rownames(cluster.centers) <- unique.clusters  # Row name is cluster number
     return(cluster.centers)
@@ -83,18 +85,19 @@ ClusterCenterGenerator <- function(cluster.dataset, nthreads = NULL) {
 #' FindClusterQuantile(cluster.centers)
 #' @export
 FindClusterQuantile <- function(cluster.no, centers.df) {
-    
+
     `%do%` <- foreach::`%do%`
-    
+
     clusters.to.consider <- 1:nrow(centers.df)
-    clusters.to.consider <- clusters.to.consider[clusters.to.consider != cluster.no]
-    
+    clusters.to.consider <- clusters.to.consider[clusters.to.consider !=
+                                                     cluster.no]
+
     distances <- foreach::foreach(i = clusters.to.consider, .combine = c) %do% {
         as.numeric(dist(rbind(centers.df[cluster.no, ], centers.df[i, ])))
     }
-    
+
     return(quantile(distances))
-    
+
 }
 
 #' FindClusterDistanceQuantiles
@@ -111,29 +114,32 @@ FindClusterQuantile <- function(cluster.no, centers.df) {
 #' FindClusterDistanceQuantiles(pam.df)
 #' @export
 FindClusterDistanceQuantiles <- function(cluster.dataset, nthreads = NULL) {
-    
-    
+
+
     if (is.null(nthreads) == TRUE) {
         nthreads <- parallel::detectCores()
     }
-    cluster.means <- ClusterCenterGenerator(cluster.dataset, nthreads = nthreads)
-    
+    cluster.means <- ClusterCenterGenerator(cluster.dataset,
+                                            nthreads = nthreads)
+
     # Load the dopar binary operator from foreach package
     `%dopar%` <- foreach::`%dopar%`
     cl <- parallel::makeForkCluster(nthreads)  # Create cluster for parallelism
     doParallel::registerDoParallel(cl)
-    
-    quantiles <- foreach::foreach(i = 1:nrow(cluster.means), .combine = rbind) %dopar% {
+
+    quantiles <- foreach::foreach(i = 1:nrow(cluster.means),
+                            .combine = rbind) %dopar% {
         # Get distance quantiles for the ith cluster
         FindClusterQuantile(i, cluster.means)
-        
+
     }
     colnames(quantiles) <- c("0%", "25%", "50%", "75%", "100%")
     return(quantiles)
 }
 
 #' QuantilePlots
-#' @description Finds the quartiles for intercluster distances and plots these distances as a set of histograms
+#' @description Finds the quartiles for intercluster distances and plots these
+#'  distances as a set of histograms
 #' @param cluster.dataset A transcriptomics dataset where the final column
 #' details the cluster the gene belongs to. First column should be gene names.
 #' All remaining columns should be expression levels.
@@ -150,95 +156,128 @@ FindClusterDistanceQuantiles <- function(cluster.dataset, nthreads = NULL) {
 #' pam.anova <- PamClustering(a.filter, k = 75)
 #' QuantilePlots(pam.anova, path='Pam_Anova_Distance_Histograms')
 #' @export
-QuantilePlots <- function(cluster.dataset, nthreads = NULL, save = TRUE, print = TRUE, path = NULL) {
-    
+QuantilePlots <- function(cluster.dataset, nthreads = NULL, save = TRUE,
+                          print = TRUE, path = NULL) {
+
     if (is.null(path) == TRUE) {
-        path <- deparse(substitute(cluster.dataset))  # If a filename isn't specified then the name of the dataframe object is used
-        path <- paste(path, "_quantile_distance_plots", sep = "")  # Add _validation to directory
+   # If a filename isn't specified then the name of the dataframe object is used
+        path <- deparse(substitute(cluster.dataset))
+        # Add _quantile_distance_plots to directory
+        path <- paste(path, "_quantile_distance_plots", sep = "")
     }
-    
+
     if (dir.exists(path) == FALSE) {
         dir.create(path)  # Create directory if it doesn't already exist
     }
-    
-    quantiles <- CircadianTools::FindClusterDistanceQuantiles(cluster.dataset = cluster.dataset, nthreads = nthreads)
-    quantiles.plot <- reshape2::melt(data = quantiles, measure.vars = c("0%", "25%", "50%", "75%", "100%"))
+
+    quantiles <- CircadianTools::FindClusterDistanceQuantiles(
+        cluster.dataset = cluster.dataset, nthreads = nthreads)
+
+    quantiles.plot <- reshape2::melt(data = quantiles,
+                           measure.vars = c("0%", "25%", "50%", "75%", "100%"))
     colnames(quantiles.plot) <- c("results", "Quantile", "Distance")
-    colours.vector <- c("#008dd5", "#ffa630", "#ba1200", "#840032", "#412d6b")  # Vector of colours used in package
-    
-    p <- ggplot2::ggplot(data = quantiles.plot, ggplot2::aes(x = Distance, fill = Quantile)) + ggplot2::geom_histogram(color = "black", 
-        bins = 100) + ggplot2::scale_fill_manual(values = colours.vector) + ggplot2::theme_bw() + ggplot2::ylab("Frequency") + ggplot2::ggtitle("Histogram of Distances Between Clusters") + 
-        ggplot2::theme(plot.title = ggplot2::element_text(hjust = 1)) + ggplot2::theme(text = ggplot2::element_text(size = 12))
-    
+    # Vector of colours used in package
+    colours.vector <- c("#008dd5", "#ffa630", "#ba1200", "#840032", "#412d6b")
+
+    p <- ggplot2::ggplot(data = quantiles.plot, ggplot2::aes(x = Distance,
+                                                             fill = Quantile))
+    p <- p + ggplot2::geom_histogram(color = "black", bins = 100)
+    p <- p + ggplot2::scale_fill_manual(values = colours.vector)
+    p <- p + ggplot2::theme_bw() + ggplot2::ylab("Frequency")
+    p <- p + ggplot2::ggtitle("Histogram of Distances Between Clusters")
+    p <- p + ggplot2::theme(plot.title = ggplot2::element_text(hjust = 1))
+    p <- p + ggplot2::theme(text = ggplot2::element_text(size = 12))
+
     if (print == TRUE) {
         print(p)
     }
     if (save == TRUE) {
-        ggplot2::ggsave("all_quantiles.png", plot = p, path = path, width = 10, height = 4.5, units = "in")  # Save the plot
+        ggplot2::ggsave("all_quantiles.png", plot = p, path = path, width = 10,
+                        height = 4.5, units = "in")  # Save the plot
     }
-    
-    
+
+
     q.0 <- subset(quantiles.plot, Quantile == "0%")
-    p <- ggplot2::ggplot(data = q.0, ggplot2::aes(x = Distance)) + ggplot2::geom_histogram(color = "black", fill = colours.vector[1], 
-        bins = 100) + ggplot2::theme_bw() + ggplot2::ylab("Frequency") + ggplot2::ggtitle("Histogram of Minimum Distances Between Clusters") + 
-        ggplot2::theme(plot.title = ggplot2::element_text(hjust = 1)) + ggplot2::theme(text = ggplot2::element_text(size = 12))
-    
+    p <- ggplot2::ggplot(data = q.0, ggplot2::aes(x = Distance))
+    p <- p + ggplot2::geom_histogram(color = "black", fill = colours.vector[1],
+        bins = 100) + ggplot2::theme_bw() + ggplot2::ylab("Frequency")
+    p <- p + ggplot2::ggtitle("Histogram of Minimum Distances Between Clusters")
+    p <- p + ggplot2::theme(plot.title = ggplot2::element_text(hjust = 1))
+    p <- p + ggplot2::theme(text = ggplot2::element_text(size = 12))
+
     if (print == TRUE) {
         print(p)
     }
     if (save == TRUE) {
-        ggplot2::ggsave("0_quantile.png", plot = p, path = path, width = 10, height = 4.5, units = "in")  # Save the plot
+        ggplot2::ggsave("0_quantile.png", plot = p, path = path, width = 10,
+                        height = 4.5, units = "in")  # Save the plot
     }
-    
-    
+
+
     q.25 <- subset(quantiles.plot, Quantile == "25%")
-    p <- ggplot2::ggplot(data = q.25, ggplot2::aes(x = Distance)) + ggplot2::geom_histogram(color = "black", fill = colours.vector[2], 
-        bins = 100) + ggplot2::theme_bw() + ggplot2::ylab("Frequency") + ggplot2::ggtitle("Histogram of First Quantiles Distances Between Clusters") + 
-        ggplot2::theme(plot.title = ggplot2::element_text(hjust = 1)) + ggplot2::theme(text = ggplot2::element_text(size = 12))
-    
+    p <- ggplot2::ggplot(data = q.25, ggplot2::aes(x = Distance))
+    p <- p + ggplot2::geom_histogram(color = "black", fill = colours.vector[2],
+        bins = 100) + ggplot2::theme_bw() + ggplot2::ylab("Frequency")
+    p <- p + ggplot2::ggtitle("Histogram of First Quantiles Distances Between Clusters")
+    p <- p + ggplot2::theme(plot.title = ggplot2::element_text(hjust = 1))
+    p <- p + ggplot2::theme(text = ggplot2::element_text(size = 12))
+
     if (print == TRUE) {
         print(p)
     }
     if (save == TRUE) {
-        ggplot2::ggsave("1_quantile.png", plot = p, path = path, width = 10, height = 4.5, units = "in")  # Save the plot
+        ggplot2::ggsave("1_quantile.png", plot = p, path = path, width = 10,
+                        height = 4.5, units = "in")  # Save the plot
     }
-    
-    
+
+
     q.50 <- subset(quantiles.plot, Quantile == "50%")
-    p <- ggplot2::ggplot(data = q.50, ggplot2::aes(x = Distance)) + ggplot2::geom_histogram(color = "black", fill = colours.vector[3], 
-        bins = 100) + ggplot2::theme_bw() + ggplot2::ylab("Frequency") + ggplot2::ggtitle("Histogram of Median Distances Between Clusters") + 
-        ggplot2::theme(plot.title = ggplot2::element_text(hjust = 1)) + ggplot2::theme(text = ggplot2::element_text(size = 12))
-    
+    p <- ggplot2::ggplot(data = q.50, ggplot2::aes(x = Distance))
+    p <- p + ggplot2::geom_histogram(color = "black", fill = colours.vector[3],
+        bins = 100) + ggplot2::theme_bw() + ggplot2::ylab("Frequency")
+    p <- p + ggplot2::ggtitle("Histogram of Median Distances Between Clusters")
+    p <- p + ggplot2::theme(plot.title = ggplot2::element_text(hjust = 1))
+    p <- p + ggplot2::theme(text = ggplot2::element_text(size = 12))
+
     if (print == TRUE) {
         print(p)
     }
     if (save == TRUE) {
-        ggplot2::ggsave("2_quantile.png", plot = p, path = path, width = 10, height = 4.5, units = "in")  # Save the plot
+        ggplot2::ggsave("2_quantile.png", plot = p, path = path, width = 10,
+                        height = 4.5, units = "in")  # Save the plot
     }
-    
-    
+
+
     q.75 <- subset(quantiles.plot, Quantile == "75%")
-    p <- ggplot2::ggplot(data = q.75, ggplot2::aes(x = Distance)) + ggplot2::geom_histogram(color = "black", fill = colours.vector[4], 
-        bins = 100) + ggplot2::theme_bw() + ggplot2::ylab("Frequency") + ggplot2::ggtitle("Histogram of Third Quartile  Distances Between Clusters") + 
-        ggplot2::theme(plot.title = ggplot2::element_text(hjust = 1)) + ggplot2::theme(text = ggplot2::element_text(size = 12))
-    
+    p <- ggplot2::ggplot(data = q.75, ggplot2::aes(x = Distance))
+    p <- p + ggplot2::geom_histogram(color = "black", fill = colours.vector[4],
+        bins = 100) + ggplot2::theme_bw() + ggplot2::ylab("Frequency")
+    p <- p + ggplot2::ggtitle("Histogram of Third Quartile  Distances Between Clusters")
+    p <- p + ggplot2::theme(plot.title = ggplot2::element_text(hjust = 1))
+    p <- p + ggplot2::theme(text = ggplot2::element_text(size = 12))
+
     if (print == TRUE) {
         print(p)
     }
     if (save == TRUE) {
-        ggplot2::ggsave("3_quantile.png", plot = p, path = path, width = 10, height = 4.5, units = "in")  # Save the plot
+        ggplot2::ggsave("3_quantile.png", plot = p, path = path, width = 10,
+                        height = 4.5, units = "in")  # Save the plot
     }
-    
-    
+
+
     q.100 <- subset(quantiles.plot, Quantile == "100%")
-    p <- ggplot2::ggplot(data = q.100, ggplot2::aes(x = Distance)) + ggplot2::geom_histogram(color = "black", fill = colours.vector[5], 
-        bins = 100) + ggplot2::theme_bw() + ggplot2::ylab("Frequency") + ggplot2::ggtitle("Histogram of Maximum Distances Between Clusters") + 
-        ggplot2::theme(plot.title = ggplot2::element_text(hjust = 1)) + ggplot2::theme(text = ggplot2::element_text(size = 12))
-    
+    p <- ggplot2::ggplot(data = q.100, ggplot2::aes(x = Distance))
+    p <- p + ggplot2::geom_histogram(color = "black", fill = colours.vector[5],
+        bins = 100) + ggplot2::theme_bw() + ggplot2::ylab("Frequency")
+    p <- p + ggplot2::ggtitle("Histogram of Maximum Distances Between Clusters")
+    p <- p + ggplot2::theme(plot.title = ggplot2::element_text(hjust = 1))
+    p <- p + ggplot2::theme(text = ggplot2::element_text(size = 12))
+
     if (print == TRUE) {
         print(p)
     }
     if (save == TRUE) {
-        ggplot2::ggsave("4_quantile.png", plot = p, path = path, width = 10, height = 4.5, units = "in")  # Save the plot
+        ggplot2::ggsave("4_quantile.png", plot = p, path = path, width = 10,
+                        height = 4.5, units = "in")  # Save the plot
     }
 }

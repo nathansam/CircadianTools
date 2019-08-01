@@ -7,14 +7,16 @@
 AnovaFilter(dataset, threshold = 0.05, nthreads = NULL)
 }
 \arguments{
-\item{dataset}{A transcriptomics dataset. First columns should be gene names. All other columns should be expression levels.}
+\item{dataset}{A transcriptomics dataset. First columns should be gene names.
+All other columns should be expression levels.}
 
-\item{threshold}{Set the p-value threshold for the filtering}
+\item{threshold}{Set the p-value threshold for the filtering.}
 
-\item{nthreads}{Number of processor threads for the filtering. If not specifed then the maximum number of logical cores are used.}
+\item{nthreads}{Number of processor threads for the filtering. If not
+specified then the maximum number of logical cores are used.}
 }
 \description{
-Filters a gene activity dataframe via ANOVA
+Filters a gene activity dataframe via ANOVA.
 }
 \examples{
 Laurasmappings_filtered <- AnovaFilter(Laurasmappings, nthreads=4)

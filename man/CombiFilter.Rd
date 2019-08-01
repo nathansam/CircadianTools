@@ -9,24 +9,32 @@ CombiFilter(dataset, non_zero_num = 4, threshold = 0.05,
   sizefilter = TRUE, nthreads = NULL)
 }
 \arguments{
-\item{dataset}{A transcriptomics dataset. First columns should be gene names. All other columns should be expression levels.}
+\item{dataset}{A transcriptomics dataset. First columns should be gene names.
+All other columns should be expression levels.}
 
-\item{non_zero_num}{The minimum number of non-zero activity readings for genes in the filtered dataset}
+\item{non_zero_num}{The minimum number of non-zero activity readings for
+genes in the filtered dataset.}
 
-\item{threshold}{Set the p-value threshold for the filtering}
+\item{threshold}{Set the p-value threshold for the filtering.}
 
-\item{cutoff}{Proportion of total number of genes (which show at least some activity) to be removed}
+\item{cutoff}{Proportion of total number of genes (which show at least some
+activity) to be removed.}
 
-\item{anovafilter}{Logical. If anovafiltering should be used. Defaults to TRUE.}
+\item{anovafilter}{Logical. If anovafiltering should be used. Defaults to
+TRUE.}
 
-\item{zerofilter}{Logical. If zerofiltering should be used. Defaults to TRUE.}
+\item{zerofilter}{Logical. If zero filtering should be used. Defaults to
+TRUE.}
 
-\item{sizefilter}{Logical. If sizefiltering should be used. Defaults to TRUE.}
+\item{sizefilter}{Logical. If size filtering should be used. Defaults to
+TRUE.}
 
-\item{nthreads}{Number of processor threads for the filtering. If not specifed then the maximum number of logical cores are used.}
+\item{nthreads}{Number of processor threads for the filtering. If not
+specified then the maximum number of logical cores are used.}
 }
 \description{
-Filters a transcriptomics dataset by using ZeroFilter, AnovaFilter and SizeFilter
+Filters a transcriptomics dataset by using ZeroFilter,
+ AnovaFilter and SizeFilter.
 }
 \examples{
 Laurasmappings_filtered <- CombiFilter(Laurasmappings, nthreads=4)

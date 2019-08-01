@@ -1,5 +1,6 @@
 #' ContigGen
 #' @description Finds all unique contig IDs in a transcriptomics dataset
+#'
 #' @param dataset A transcriptomics dataset. First columns should be gene names.
 #' All other columns should be expression levels.
 #' @return A character vector of contig IDs
@@ -20,10 +21,12 @@ ContigGen <- function (dataset){
 }
 
 #' FastaSub
-#' @description  Creates a fasta file from only certain sequences in another fasta file
+#' @description  Creates a fasta file from only certain sequences in another
+#'  fasta file
 #' @param gene.names A character vector of gene names
 #' @param fasta.file A fasta file read in using \code{seqinr}
-#' @param save Logical. If TRUE then the newly created fasta file is saved to the working directory
+#' @param save Logical. If TRUE then the newly created fasta file is saved to
+#'  the working directory
 #' @param filename The filename to use for a saved fasta file
 #' @return A fasta file
 #' @examples

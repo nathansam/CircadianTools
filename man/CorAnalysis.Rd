@@ -8,27 +8,39 @@ CorAnalysis(genename, dataset, threshold = 0.9, average = "median",
   lag = 0, save = FALSE, print = TRUE, df = TRUE)
 }
 \arguments{
-\item{genename}{the name of a gene intended for comparison with all other genes in the dataset. Must be a string.}
+\item{genename}{the name of a gene intended for comparison with all other
+genes in the dataset. Must be a string.}
 
-\item{dataset}{A transcriptomics dataset. First columns should be gene names. All other columns should be expression levels.}
+\item{dataset}{A transcriptomics dataset. First columns should be gene names.
+All other columns should be expression levels.}
 
-\item{threshold}{Set correlation threshold value for which genes are considered significant and thus plotted. Defaults to 0.9}
+\item{threshold}{Set correlation threshold value for which genes are
+considered significant and thus plotted. Defaults to 0.9}
 
-\item{average}{The average to be used for comparing the time points. Either 'median' or 'mean'.}
+\item{average}{The average to be used for comparing the time points. Either
+'median' or 'mean'.}
 
-\item{lag}{Setting any value other than 0 allows a gene to be correlated with lagged genes in the dataset. The number denotes the number of timesteps to lag by.}
+\item{lag}{Setting any value other than 0 allows a gene to be correlated with
+lagged genes in the dataset. The number denotes the number of timesteps to
+lag by.}
 
-\item{save}{Logical. If TRUE, saves plots to working directory. Defaults to FALSE.}
+\item{save}{Logical. If TRUE, saves plots to working directory. Defaults to
+FALSE.}
 
-\item{print}{Logical. If TRUE renders highly correlated genes in the plot viewer. Defaults to TRUE}
+\item{print}{Logical. If TRUE renders highly correlated genes in the plot
+viewer. Defaults to TRUE}
 
-\item{df}{Logical. If TRUE a dataframe containing the correlations of the given gene with all genes in the dataset is returned. Defaults to TRUE.}
+\item{df}{Logical. If TRUE a dataframe containing the correlations of the
+given gene with all genes in the dataset is returned. Defaults to TRUE.}
 }
 \value{
-Prints or saves ggplot2 object(s). Optionally returns dataframe containing gene names and correlation values
+Prints or saves ggplot2 object(s). Optionally returns dataframe
+ containing gene names and correlation values
 }
 \description{
-Ranks correlation between a given gene and all other genes in a dataset. Plots both the given gene and highly correlated genes for a given correlation value
+Ranks correlation between a given gene and all other genes in a
+ dataset. Plots both the given gene and highly correlated genes for a given
+ correlation value
 }
 \examples{
 cor_results <- coranalysis('comp100002_c0_seq2', Laurasmappings)

@@ -7,12 +7,15 @@
 MedListPar(dataset, nthreads = NULL)
 }
 \arguments{
-\item{dataset}{A transcriptomics dataset. First columns should be gene names. All other columns should be expression levels.}
+\item{dataset}{A transcriptomics dataset. First columns should be gene names.
+All other columns should be expression levels.}
 
-\item{nthreads}{Number of processor threads for the filtering. If not specifed then the maximum number of logical cores are used.}
+\item{nthreads}{Number of processor threads for the filtering. If not
+specified then the maximum number of logical cores are used.}
 }
 \description{
-Provides a dataframe of median values at each time point for each gene from a transcriptomics dataset.
+Provides a dataframe of median values at each time point for
+ each gene from a transcriptomics dataset.
 }
 \examples{
 mediandf <- MedListPar(Laurasmappings, nthreads=4)

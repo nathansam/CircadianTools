@@ -7,14 +7,19 @@
 GeneSub(subdf, dataframe, nthreads = NULL)
 }
 \arguments{
-\item{subdf}{An object where the first column is gene names of interes (IE a column of known Circadian genes or genes found to be signicant)}
+\item{subdf}{An object where the first column is gene names of interes (IE a
+column of known Circadian genes or genes found to be signicant)}
 
-\item{nthreads}{Number of processor threads used. If not specifed then the maximum number of logical cores are used.}
+\item{nthreads}{Number of processor threads used. If not specifed then the
+maximum number of logical cores are used.}
 
-\item{dataset}{A transcriptomics dataset. First columns should be gene names. All other columns should be expression levels.}
+\item{dataset}{A transcriptomics dataset. First columns should be gene names.
+All other columns should be expression levels.}
 }
 \description{
-Takes an object where the first column is genenames (IE a column of known Circadian genes) and subsets from a dataset containing activity for these genes
+Takes an object where the first column is genenames (IE a column
+ of known Circadian genes) and subsets from a dataset containing activity for
+ these genes
 }
 \examples{
 newdf <- GeneSub(circadian, Laurasmappings, nthreads=4)

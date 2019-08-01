@@ -25,7 +25,8 @@ Defaults to TRUE}
 directory by default. Not used if save=FALSE}
 }
 \description{
-Finds the quartiles for intercluster distances and plots these distances as a set of histograms
+Finds the quartiles for intercluster distances and plots these
+ distances as a set of histograms
 }
 \examples{
 a.filter <-AnovaFilter(Laurasmappings)

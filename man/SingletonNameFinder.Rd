@@ -7,10 +7,13 @@
 SingletonNameFinder(cluster.dataset)
 }
 \arguments{
-\item{cluster.dataset}{A transcriptomics dataset where the final column details the cluster the gene belongs to. First column should be gene names. All remaining columns should be expression levels.}
+\item{cluster.dataset}{A transcriptomics dataset where the final column
+details the cluster the gene belongs to. First column should be gene names.
+All remaining columns should be expression levels.}
 }
 \value{
-Returns a vector of gene names for all genes belonging to singleton clusters in the provided dataset.
+Returns a vector of gene names for all genes belonging to singleton
+ clusters in the provided dataset.
 }
 \description{
 Finds the genes which belong to singleton clusters.

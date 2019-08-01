@@ -7,13 +7,14 @@
 RainAnalysis(dataset, period)
 }
 \arguments{
-\item{dataset}{A transcriptomics dataset. First columns should be gene names. All other columns should be expression levels.}
+\item{dataset}{A transcriptomics dataset. First columns should be gene names.
+All other columns should be expression levels.}
 }
 \value{
 A dataframe object detailing the result of the rain analysis.
 }
 \description{
-Carries out RAIN analysis on a gene dataset
+Carries out RAIN analysis on a transcriptomics dataset
 }
 \examples{
 results <- RainAnalysis(Laurasmappings)

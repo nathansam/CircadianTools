@@ -7,7 +7,8 @@
 GeneClean(dataset)
 }
 \arguments{
-\item{dataset}{A transcriptomics dataset. First columns should be gene names. All other columns should be expression levels.}
+\item{dataset}{A transcriptomics dataset. First columns should be gene names.
+All other columns should be expression levels.}
 }
 \value{
 A 'cleaned' transcriptomics dataset

@@ -7,12 +7,17 @@
 CommonSingletonFinder(cluster.dataset1, cluster.dataset2)
 }
 \arguments{
-\item{cluster.dataset1}{A transcriptomics dataset where the final column details the cluster the gene belongs to. First column should be gene names. All remaining columns should be expression levels.}
+\item{cluster.dataset1}{A transcriptomics dataset where the final column
+details the cluster the gene belongs to. First column should be gene names.
+All remaining columns should be expression levels.}
 
-\item{cluster.dataset2}{A transcriptomics dataset in the same format as cluster.dataset1 but generated via a different clustering method or with different parameters.}
+\item{cluster.dataset2}{A transcriptomics dataset in the same format as
+cluster.dataset1 but generated via a different clustering method or with
+different parameters.}
 }
 \description{
-Finds the genes which belong to common singleton clusters in two different clustered datasets.
+Finds the genes which belong to common singleton clusters in two
+ different clustered datasets.
 }
 \examples{
 filter.df <- CombiFilter(Laurasmappings)
