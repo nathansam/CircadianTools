@@ -99,8 +99,7 @@ Documentation is available for CircadianTools and all of its functions via the u
 
 ### Utility Functions
 
-```AbsCorDist```: Calculates a distance matrix based on the distance
-#'  measure of: 1 - |cor(x, y)| <br>
+```AbsCorDist```: Calculates a distance matrix based on the distance measure of: 1 - |cor(x, y)| <br>
 ```ActivitySelect```: Returns gene activity by either gene name or row number <br>
 ```FileConflict```: Checks if a file which will be created already exists and, if necessary asks the user if this file should be overwritten. <br>
 ```ggplot.cosinor.lm```: Adapted from the Cosinor package by Michael Sachs. Given a cosinor.lm model fit, generate a plot of the data with the fitted values. <br>
