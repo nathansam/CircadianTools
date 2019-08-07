@@ -210,8 +210,7 @@ ClusterText <- function(cluster.dataset, filename = NULL) {
 #' ClusterTimeProfile
 #' @description Provides a dataframe of median values at each time point for
 #'  each cluster.
-#' @param cluster.no A transcriptomics dataset. First columns should be gene
-#'  names. All other columns should be expression levels.
+#' @param cluster.no The number which identifies the cluster.
 #' @param cluster.dataset A transcriptomics dataset where the final column
 #'  details the cluster the gene belongs to. First column should be gene names.
 #'  All remaining columns should be expression levels.
@@ -433,7 +432,8 @@ SingletonNameFinder <- function(cluster.dataset) {
 #' @return Returns transcriptomics dataset provided with additional cluster
 #'  column appended denoted which cluster each gene belongs to.
 #' @examples
-#' diana.df <- DianaClustering(Laurasmappings, k= 75)
+#' t.filter <-TFilter(Laurasmappings)
+#' diana.df <- DianaClustering(t.filter, k= 95)
 #'
 #' @export
 DianaClustering <- function(dataset = NULL, distance = NULL, k = 10,

@@ -43,6 +43,7 @@ Applies DIANA (DIvisive ANAlysis) clustering to a
   all genes.
 }
 \examples{
-diana.df <- DianaClustering(Laurasmappings, k= 75)
+t.filter <-TFilter(Laurasmappings)
+diana.df <- DianaClustering(t.filter, k= 95)
 
 }

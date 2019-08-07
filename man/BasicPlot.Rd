@@ -28,7 +28,7 @@ TRUE}
 FALSE.}
 
 \item{path}{The directory to be used for saving plots to. Uses the working
-directory by default. Not used if save=FALSE}
+directory by default. Not used if save = FALSE}
 }
 \value{
 A ggplot2 object

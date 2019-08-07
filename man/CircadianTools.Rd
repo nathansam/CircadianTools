@@ -19,6 +19,10 @@ unequal number of replicates. \cr \cr
 \code{\link{CompPlot}}: Plots two genes from a gene activity dataset. \cr \cr
 
 \code{\link{DatasetPlot}}: Saves plots of all genes in a dataset. \cr \cr
+
+\code{\link{TurningPlot}}: Fits a spline to a given gene in a given dataset.
+ Finds the turning points and then plots the turning points and spline.
+ \cr \cr
 ------------------------------------------------------------------------------
 }
 
@@ -58,6 +62,12 @@ unequal number of replicates. \cr \cr
 
 \code{\link{CommonSingletonFinder}}: Finds the genes which belong to common
  singleton clusters in two different clustered datasets. \cr \cr
+
+ \code{\link{DendogramDatasetPlot}}: Plots the dendogram for every cluster in
+  a clustered dataset. \cr \cr
+
+\code{\link{DendogramPlot}}: Plots the dendogram for a cluster in a
+ clustered dataset \cr \cr
 
 \code{\link{DianaClustering}}: Applies DIANA (DIvisive ANAlysis) clustering
  to a transcriptomics dataset and appends a cluster column to this dataset
@@ -191,14 +201,6 @@ Cytoscape by filtering out the genes/clusters which are not correlated
 
 \code{\link{RainSignificantPlot}}: Prints or saves plots of the genes found
  to be most significant by \code{rainanalysis}. \cr \cr
- ----------------------------------------------------------------------------
-}
-
-\section{Turning Point Functions}{
-
-\code{\link{TurningPlot}}: Fits a spline to a given gene in a given dataset.
- Finds the turning points and then plots the turning points and spline.
- \cr \cr
 -----------------------------------------------------------------------------
 }
 

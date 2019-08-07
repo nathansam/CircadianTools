@@ -52,6 +52,12 @@
 #' \code{\link{CommonSingletonFinder}}: Finds the genes which belong to common
 #'  singleton clusters in two different clustered datasets. \cr \cr
 #'
+#'  \code{\link{DendogramDatasetPlot}}: Plots the dendogram for every cluster in
+#'   a clustered dataset. \cr \cr
+#'
+#' \code{\link{DendogramPlot}}: Plots the dendogram for a cluster in a
+#'  clustered dataset \cr \cr
+#'
 #' \code{\link{DianaClustering}}: Applies DIANA (DIvisive ANAlysis) clustering
 #'  to a transcriptomics dataset and appends a cluster column to this dataset
 #'  for all genes. \cr \cr

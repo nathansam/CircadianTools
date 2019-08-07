@@ -13,7 +13,7 @@
 #' @param print Logical. If TRUE renders plot in the plot viewer. Defaults to
 #'  TRUE
 #' @param path The directory to be used for saving plots to. Uses the working
-#'  directory by default. Not used if save=FALSE
+#'  directory by default. Not used if save = FALSE
 #' @return A ggplot2 object
 #' @examples
 #' basicplot('comp101252_c0_seq2',Laurasmappings)

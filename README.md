@@ -42,6 +42,8 @@ Documentation is available for CircadianTools and all of its functions via the u
 ```ClusterText```: Takes a dataframe of clusters and stores the name of all genes in a text file. The row number deontes the cluster number. <br>
 ```ClusterTimeProfile```: Provides a dataframe of median values at each time point for each cluster. <br>
 ```CommonSingletonFinder```: Finds the genes which belong to common singleton clusters in two different clustered datasets. <br>
+```DendogramDatasetPlot```: Plots the dendogram for every cluster in a clustered dataset. <br>
+```DendogramPlot```: Plots the dendogram for a cluster in a clustered dataset <br>
 ```DianaClustering```: Applies Diana (DIvisive ANAlysis) clustering to a transcriptomics dataset and appends a cluster column to this dataset for all genes. <br>
 ```DianaParamSelection```:  Runs DIANA (DIvisive ANAlysis) clustering with differing numbers of partitions and returns validation metrics. <br>
 ```FindClusterDistanceQuantiles```: Finds The distances between the center of each cluster and the centers of all the other clusters. <br>

@@ -7,8 +7,7 @@
 ClusterTimeProfile(cluster.no, cluster.dataset, nthreads = NULL)
 }
 \arguments{
-\item{cluster.no}{A transcriptomics dataset. First columns should be gene
-names. All other columns should be expression levels.}
+\item{cluster.no}{The number which identifies the cluster.}
 
 \item{cluster.dataset}{A transcriptomics dataset where the final column
 details the cluster the gene belongs to. First column should be gene names.
