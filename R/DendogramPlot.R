@@ -35,7 +35,7 @@ DendogramPlot <- function(cluster.no, cluster.dataset, method = "agglom",
 
   dataset <- subset(cluster.dataset, cluster == cluster.no) # Subset by cluster
   dataset$cluster <- NULL
-  distance <- DistanceGen(dataset, metric=metric) # Calculate distance matrix
+  distance <- CircadianTools::DistanceGen(dataset, metric=metric) # Calculate distance matrix
 
 
   ### Apply clustering and convert to dendogram object ###
@@ -115,7 +115,7 @@ DendogramDatasetPlot <- function(cluster.dataset, method = "agglom",
   clusters <- unique(cluster.dataset$cluster)
 
   for (i in clusters){
-    DendogramPlot(cluster.no = i, cluster.dataset = cluster.dataset,
+    CircadianTools::DendogramPlot(cluster.no = i, cluster.dataset = cluster.dataset,
                   method = method, metric = metric, print = print, save = save,
                   path = path)
   }
