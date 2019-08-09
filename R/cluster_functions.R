@@ -583,41 +583,19 @@ ClusterCorPlot <- function (cluster.no, cluster.dataset, nthreads = NULL,
 
     time.vector <- as.numeric(colnames(medians)) # Vector of time values
 
+    cor.df <- cor(t(medians))
+
     pool.1 <- NULL # Genes which initally have positive gradient
     pool.2 <- NULL # Genes which initally have negative gradient
 
-    for (i in 1:nrow(medians)){
 
-        gene <- medians[i, ] # Select gene
-
-        pos.no <- 0 # Number of positive gradient between measurements
-        neg.no <- 0 # Number of negative gradient between measurements
-
-
-        if (gene[1] - gene[2]<  0){
-            pos.no <- pos.no + 1
-        } else{
-            neg.no <- neg.no + 1
-        }
-
-        mid <- round(length(gene) / 2)
-        if (gene[mid-1] - gene[mid] < 0){
-            pos.no <- pos.no + 1
-        } else{
-            neg.no <- neg.no + 1
-        }
-
-        if (gene[length(gene)-1]- gene[length(gene)] < 0){
-            pos.no <- pos.no + 1
+    for ( i in 1:(nrow(cor.df))){
+        pos.cor <- sum(cor.df[i,] < 1 & cor.df[i,] > 0)
+        neg.cor <- sum(cor.df[i,] < 0)
+        if (pos.cor > neg.cor){
+            pool.1 <- rbind(pool.1, medians[i,])
         } else {
-            neg.no <- neg.no + 1
-        }
-
-        if (pos.no > neg.no){
-            pool.1 <- rbind(pool.1, gene) # Add to genes with positive gradient
-
-        } else {
-            pool.2 <-rbind(pool.2, gene) # Add to genes with negative gradient
+            pool.2 <- rbind(pool.2, medians[i,])
         }
     }
 
@@ -638,10 +616,10 @@ ClusterCorPlot <- function (cluster.no, cluster.dataset, nthreads = NULL,
 
     for (i in 1:time.points){
         if (is.null(pool.1) == FALSE){
-            time.pool.1 <- c(time.pool.1, median(pool.1[ ,i]))
+            time.pool.1 <- c(time.pool.1, mean(pool.1[ ,i]))
         }
         if (is.null(pool.2) == FALSE){
-            time.pool.2 <- c(time.pool.2, median(pool.2[ ,i]))
+            time.pool.2 <- c(time.pool.2, mean(pool.2[ ,i]))
         }
     }
 
@@ -684,6 +662,8 @@ ClusterCorPlot <- function (cluster.no, cluster.dataset, nthreads = NULL,
     }
 }
 
+
+
 #' ClusterCorDatasetPlot
 #' @description Uses \link{ClusterCorPlot} to plot all of the clusters generated
 #'  by a clustering method when absolute Pearson's correlation was used as a
@@ -712,8 +692,9 @@ ClusterCorDatasetPlot <- function(cluster.dataset, nthreads = NULL,
     }
 
     for (i in 1:max(cluster.dataset$cluster)){
-        ClusterCorPlot(i, cluster.dataset = cluster.dataset, nthreads = nthreads,
-                       print = print, save = save, path = path)
+        ClusterCorPlot(i, cluster.dataset = cluster.dataset,
+                       nthreads = nthreads, print = print, save = save,
+                       path = path)
     }
 }
 
@@ -780,10 +761,11 @@ ClusterCenterGenerator <- function(cluster.dataset, nthreads = NULL) {
 
     cluster.centers <- foreach::foreach(i = unique.clusters,
                                         .combine = rbind) %dopar% {
-                                            # Find Median activity for each time point for each gene
-                                            CircadianTools::FindClusterMedian(cluster.no = i,
-                                                                              cluster.dataset = cluster.dataset, nthreads = 1)
-                                        }
+            # Find Median activity for each time point for each gene
+            CircadianTools::FindClusterMedian(cluster.no = i,
+                                              cluster.dataset = cluster.dataset,
+                                              nthreads = 1)
+  }
 
     parallel::stopCluster(cl)  # Stop cluster created for parallelism
     rownames(cluster.centers) <- unique.clusters  # Row name is cluster number
