@@ -150,6 +150,11 @@ unequal number of replicates. \cr \cr
 
 \code{\link{CosinorSignificantPlot}}: Prints or saves the genes found to be
  most significant by \code{cosinoranalysis}. \cr \cr
+
+\code{\link{MultiCosinorTest}}: Fits a cosinor model and carries out ANOVA
+ using raw coefficients. Then fits a cosinor model with additonal sine and
+ cosine terms with a different period. ANOVA tests are carried out on the
+ more complex model as well as directly comparing the two models. \cr \cr
  ----------------------------------------------------------------------------
 }
 

@@ -73,6 +73,7 @@ Documentation is available for CircadianTools and all of its functions via the u
 ```CosinorResidualDatasetPlot```: Fits a cosinor model and plot the residuals for multiple genes in a dataset <br>
 ```CosinorResidualPlot```: Fits a cosinor model to a gene and plots the residuals <br>
 ```CosinorSignificantPlot```: Prints or saves the genes found to be most significant by ```CosinorAnalysis```. <br>
+```MultiCosinorTest```: Fits a cosinor model and carries out ANOVA using raw coefficients. Then fits a cosinor model with additonal sine and cosine terms with a different period. ANOVA tests are carried out on the  more complex model as well as directly comparing the two models. <br>
 
 ### Cytoscape
 
