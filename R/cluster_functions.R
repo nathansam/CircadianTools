@@ -208,7 +208,7 @@ ClusterText <- function(cluster.dataset, filename = NULL) {
 
 
 #' ClusterTimeProfile
-#' @description Provides a dataframe of median values at each time point for
+#' @description Provides a vector of mean values at each time point for
 #'  each cluster.
 #' @param cluster.no The number which identifies the cluster.
 #' @param cluster.dataset A transcriptomics dataset where the final column
@@ -782,7 +782,7 @@ ClusterCenterGenerator <- function(cluster.dataset, nthreads = NULL) {
 #' @examples
 #' filter.df <- CombiFilter(Laurasmappings)
 #' pam.df <- PamClustering(filter.df, k = 75)
-#' cluster.centers <- ClusterCenterGenerator(cluster.dataset, nthreads = nthreads)
+#' cluster.centers <- ClusterCenterGenerator(cluster.dataset)
 #' FindClusterQuantile(cluster.centers)
 #' @export
 FindClusterQuantile <- function(cluster.no, centers.df) {

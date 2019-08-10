@@ -17,7 +17,7 @@ All remaining columns should be expression levels.}
 Defaults to the maximum number of threads available.}
 }
 \description{
-Provides a dataframe of median values at each time point for
+Provides a vector of mean values at each time point for
  each cluster.
 }
 \examples{

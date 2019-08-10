@@ -19,6 +19,6 @@ centers of all other clusters.
 \examples{
 filter.df <- CombiFilter(Laurasmappings)
 pam.df <- PamClustering(filter.df, k = 75)
-cluster.centers <- ClusterCenterGenerator(cluster.dataset, nthreads = nthreads)
+cluster.centers <- ClusterCenterGenerator(cluster.dataset)
 FindClusterQuantile(cluster.centers)
 }
