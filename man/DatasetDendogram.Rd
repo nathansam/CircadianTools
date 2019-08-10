@@ -20,6 +20,10 @@ and 'diana'.}
 between genes. See parallelDist::parDist for all accepted arguments. Also
 allows the option of 'abs.correlation'.}
 
+\item{nthreads}{Number of processor threads to be used for calculating the
+distance matrix. If not specified then the maximum number of logical cores
+is used.}
+
 \item{print}{Logical. If TRUE renders plot in the plot viewer. Defaults to
 TRUE}
 

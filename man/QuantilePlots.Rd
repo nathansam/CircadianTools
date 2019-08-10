@@ -4,13 +4,17 @@
 \alias{QuantilePlots}
 \title{QuantilePlots}
 \usage{
-QuantilePlots(cluster.dataset, nthreads = NULL, save = TRUE,
-  print = TRUE, path = NULL)
+QuantilePlots(cluster.dataset, metric = "euclidean", nthreads = NULL,
+  save = TRUE, print = TRUE, path = NULL)
 }
 \arguments{
 \item{cluster.dataset}{A transcriptomics dataset where the final column
 details the cluster the gene belongs to. First column should be gene names.
 All remaining columns should be expression levels.}
+
+\item{metric}{The distance metric to be used to calculate the distances
+between genes. See parallelDist::parDist for all accepted arguments. Also
+allows the option of 'abs.correlation'.}
 
 \item{nthreads}{Number of processor threads for the process. If not specifed
 then the maximum number of logical cores are used.}

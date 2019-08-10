@@ -4,19 +4,23 @@
 \alias{FindClusterDistanceQuantiles}
 \title{FindClusterDistanceQuantiles}
 \usage{
-FindClusterDistanceQuantiles(cluster.dataset, nthreads = NULL)
+FindClusterDistanceQuantiles(cluster.dataset, metric, nthreads = NULL)
 }
 \arguments{
 \item{cluster.dataset}{A transcriptomics dataset where the final column
 details the cluster the gene belongs to. First column should be gene names.
 All remaining columns should be expression levels.}
 
+\item{metric}{The distance metric to be used to calculate the distances
+between genes. See parallelDist::parDist for all accepted arguments. Also
+allows the option of 'abs.correlation'.}
+
 \item{nthreads}{Number of processor threads for the process. If not specifed
 then the maximum number of logical cores are used.}
 }
 \description{
 Finds The distances between the center of each cluster and the
-centers of all the other clusters.
+ centers of all the other clusters.
 }
 \examples{
 filter.df <- CombiFilter(Laurasmappings)
