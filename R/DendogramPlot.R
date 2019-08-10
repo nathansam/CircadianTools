@@ -182,7 +182,9 @@ DatasetDendogram <- function(cluster.dataset, method = "agglom",
                                     .combine = rbind) %dopar% {
                      ClusterTimeProfile(i, cluster.dataset = cluster.dataset,
                                         nthreads = 1)
-  }
+                                    }
+  parallel::stopCluster(cl)
+
   row.names(mean.clusters) <- unique.clusters
 
   # Generate distance matrix
@@ -214,7 +216,7 @@ DatasetDendogram <- function(cluster.dataset, method = "agglom",
     metric <- "Absolute Pearson's Correlation"
   }
 
-
+  ### Plotting ###
   p <- ggdendro::ggdendrogram(hc, rotate = FALSE)
   # Add title
   p <- p + ggplot2::ggtitle(paste( method, " When  Using ", metric,
