@@ -354,7 +354,7 @@ AgglomClustering <- function(dataset, distance=NULL, k = 10,
 #' pam.df <- PamClustering(filterdf,k = 20)
 #' @export
 
-PamClustering <- function(dataset,distance=NULL ,k, metric = "euclidean",
+PamClustering <- function(dataset = NULL,distance=NULL ,k, metric = "euclidean",
                           nthreads = NULL, scale = FALSE, center = TRUE) {
 
     if (is.null(dataset) == TRUE & is.null(distance) == TRUE) {
