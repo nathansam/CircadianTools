@@ -1,6 +1,7 @@
 #' DendogramPlot
 #' @description Plots the dendogram for a cluster in a clustered dataset.
-#' @param cluster.no The number which identifies the cluster.
+#' @param cluster.no The number which identifies the cluster. If a vector is
+#'  provided then multiple clusters will be used.
 #' @param cluster.dataset A transcriptomics dataset where the final column
 #'  details the cluster the gene belongs to. First column should be gene names.
 #'  All remaining columns should be expression levels.
@@ -33,7 +34,14 @@ DendogramPlot <- function(cluster.no, cluster.dataset, method = "agglom",
     }
   }
 
-  dataset <- subset(cluster.dataset, cluster == cluster.no) # Subset by cluster
+  dataset <- NULL
+  for (i in cluster.no){
+    sub <- subset(cluster.dataset, cluster == i) # Subset by cluster
+    dataset <- rbind(dataset, sub)
+
+  }
+
+
   dataset$cluster <- NULL
   distance <- CircadianTools::DistanceGen(dataset, metric=metric) # Calculate distance matrix
 

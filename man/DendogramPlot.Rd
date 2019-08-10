@@ -8,7 +8,8 @@ DendogramPlot(cluster.no, cluster.dataset, method = "agglom",
   metric = "euclidean", print = TRUE, save = FALSE, path = NULL)
 }
 \arguments{
-\item{cluster.no}{The number which identifies the cluster.}
+\item{cluster.no}{The number which identifies the cluster. If a vector is
+provided then multiple clusters will be used.}
 
 \item{cluster.dataset}{A transcriptomics dataset where the final column
 details the cluster the gene belongs to. First column should be gene names.
