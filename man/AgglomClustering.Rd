@@ -4,7 +4,7 @@
 \alias{AgglomClustering}
 \title{AgglomClustering:}
 \usage{
-AgglomClustering(dataset, distance = NULL, k = 10,
+AgglomClustering(dataset = NULL, distance = NULL, k = 10,
   metric = "euclidean", nthreads = NULL, scale = FALSE,
   center = TRUE)
 }

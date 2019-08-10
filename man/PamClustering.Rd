@@ -4,8 +4,9 @@
 \alias{PamClustering}
 \title{PamClustering:}
 \usage{
-PamClustering(dataset, distance = NULL, k, metric = "euclidean",
-  nthreads = NULL, scale = FALSE, center = TRUE)
+PamClustering(dataset = NULL, distance = NULL, k,
+  metric = "euclidean", nthreads = NULL, scale = FALSE,
+  center = TRUE)
 }
 \arguments{
 \item{dataset}{A transcriptomics dataset. First columns should be gene names.

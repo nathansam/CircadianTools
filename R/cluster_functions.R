@@ -298,7 +298,7 @@ CommonSingletonFinder <- function(cluster.dataset1, cluster.dataset2) {
 #' pam.df <- AgglomClustering(Laurasmappings, k = 75)
 #'
 #' @export
-AgglomClustering <- function(dataset, distance=NULL, k = 10,
+AgglomClustering <- function(dataset = NULL, distance = NULL, k = 10,
                 metric = "euclidean", nthreads = NULL, scale = FALSE,
                   center = TRUE) {
     if (is.null(dataset) == TRUE & is.null(distance) == TRUE) {
