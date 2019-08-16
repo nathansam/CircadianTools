@@ -26,7 +26,7 @@ between genes. See \code{parallelDist::parDist} for all accepted arguments.}
 
 \item{nthreads}{Number of processor threads to be used for calculating the
 distance matrix. If not specified then the maximum number of logical cores
- is used.}
+ are used.}
 
 \item{scale}{If the gene activity should be scaled before clustering.}
 

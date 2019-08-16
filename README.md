@@ -51,6 +51,7 @@ Documentation is available for CircadianTools and all of its functions via the u
 ```FindClusterQuantile```: Finds The distances between the center of a cluster and the centers of all other clusters. <br>
 ```HClustering```: Applies hierarchical clustering, clustering to a transcriptomics dataset and appends a cluster column to this dataset for all genes. <br>
 ```HclustParamSelection```: Runs hierarchical clustering with differing numbers of partitions and returns validation metrics. <br>
+```MDSPlot```: Applies multidimensional scaling to a clustered transcriptomics dataset to reduce the clusters to two dimensions and then plots the clusters.  <br>
 ```PamClustering```: Applies PAM (Partitioning around Medoids) clustering to a transcriptomics dataset and appends a cluster column to this dataset for all genes. <br>
 ```PamParamSelection```: Runs PAM with differing numbers of partitions and returns validation metrics. <br>
 ```QuantilePlots```: Finds the quartiles for intercluster distances and plots these distances as a set of histograms <br>

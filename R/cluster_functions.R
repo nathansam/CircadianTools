@@ -5,7 +5,7 @@
 #' details the cluster the gene belongs to. First column should be gene names.
 #'  All remaining columns should be expression levels.
 #' @param nthreads Number of processor threads for the process. If not
-#' specified then the maximum number of logical cores is used.
+#' specified then the maximum number of logical cores are used.
 #' @param save Logical. If TRUE, saves plots. Defaults to FALSE.
 #' @param print Logical. If TRUE renders significant genes in the plot viewer.
 #'  Defaults to TRUE
@@ -46,7 +46,7 @@ ClusterDatasetPlot <- function(cluster.dataset, nthreads = NULL, print = TRUE,
         #'  details the cluster the gene belongs to. First column should be gene names.
         #'  All remaining columns should be expression levels.
         #' @param nthreads Number of processor threads for the process. If not specified
-        #'  then the maximum number of logical cores is used.
+        #'  then the maximum number of logical cores are used.
         #' @param save Logical. If TRUE, saves plots. Defaults to FALSE.
         #' @param print Logical. If TRUE renders significant genes in the plot viewer.
         #'  Defaults to TRUE
@@ -289,7 +289,7 @@ CommonSingletonFinder <- function(cluster.dataset1, cluster.dataset2) {
 #'  between genes. See parallelDist::parDist for all accepted arguments.
 #' @param nthreads Number of processor threads to be used for calculating the
 #'  distance matrix. If not specified then the maximum number of logical cores
-#'  is used.
+#'  are used.
 #' @param scale If the gene activity should be scaled before clustering.
 #' @param center If the gene activity should be centered before clustering.
 #' @return Returns transcriptomics dataset provided with additional cluster
@@ -344,7 +344,7 @@ AgglomClustering <- function(dataset = NULL, distance = NULL, k = 10,
 #' between genes. See \code{parallelDist::parDist} for all accepted arguments.
 #' @param nthreads Number of processor threads to be used for calculating the
 #'  distance matrix. If not specified then the maximum number of logical cores
-#'   is used.
+#'   are used.
 #' @param scale If the gene activity should be scaled before clustering.
 #' @param center If the gene activity should be centered before clustering.
 #' @return Returns a transcriptomics dataset provided with an additional cluster
@@ -553,7 +553,7 @@ DianaParamSelection <- function(dataset = NULL, distance = NULL,
 #'  details the cluster the gene belongs to. First column should be gene names.
 #'  All remaining columns should be expression levels.
 #' @param nthreads Number of processor threads for the process. If not specified
-#'  then the maximum number of logical cores is used.
+#'  then the maximum number of logical cores are used.
 #' @param save Logical. If TRUE, saves plots. Defaults to FALSE.
 #' @param print Logical. If TRUE renders significant genes in the plot viewer.
 #'  Defaults to TRUE
@@ -672,7 +672,7 @@ ClusterCorPlot <- function (cluster.no, cluster.dataset, nthreads = NULL,
 #'  details the cluster the gene belongs to. First column should be gene names.
 #'  All remaining columns should be expression levels.
 #' @param nthreads Number of processor threads for the process. If not specified
-#'  then the maximum number of logical cores is used.
+#'  then the maximum number of logical cores are used.
 #' @param save Logical. If TRUE, saves plots. Defaults to FALSE.
 #' @param print Logical. If TRUE renders significant genes in the plot viewer.
 #'  Defaults to TRUE
@@ -845,8 +845,9 @@ FindClusterDistanceQuantiles <- function(cluster.dataset, metric,
                                       FindClusterQuantile(i, cluster.means,
                                                           metric = metric)
 
-                                  }
+    parallel::stopCluster(cl)                              }
     colnames(quantiles) <- c("0%", "25%", "50%", "75%", "100%")
+    
     return(quantiles)
 }
 
@@ -876,7 +877,7 @@ QuantilePlots <- function(cluster.dataset,metric = "euclidean", nthreads = NULL,
                           save = TRUE, print = TRUE, path = NULL) {
 
     if (is.null(path) == TRUE) {
-        # If a filename isn't specified then the name of the dataframe object is used
+        # If a filename isn't specified then the name of the dataframe object are used
         path <- deparse(substitute(cluster.dataset))
         # Add _quantile_distance_plots to directory
         path <- paste(path, "_quantile_distance_plots", sep = "")
@@ -984,7 +985,8 @@ QuantilePlots <- function(cluster.dataset,metric = "euclidean", nthreads = NULL,
     q.100 <- subset(quantiles.plot, Quantile == "100%")
     p <- ggplot2::ggplot(data = q.100, ggplot2::aes(x = Distance))
     p <- p + ggplot2::geom_histogram(color = "black", fill = colours.vector[5],
-                                     bins = 100) + ggplot2::theme_bw() + ggplot2::ylab("Frequency")
+                                     bins = 100)
+    p <- p + ggplot2::theme_bw() + ggplot2::ylab("Frequency")
     p <- p + ggplot2::ggtitle("Histogram of Maximum Distances Between Clusters")
     p <- p + ggplot2::theme(plot.title = ggplot2::element_text(hjust = 1))
     p <- p + ggplot2::theme(text = ggplot2::element_text(size = 12))

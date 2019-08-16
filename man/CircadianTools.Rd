@@ -90,6 +90,10 @@ unequal number of replicates. \cr \cr
 
 \code{\link{HclustParamSelection}}: Runs hierarchical clustering with
  differing numbers of partitions and returns validation metrics. \cr \cr
+ 
+ \code{\link{MDSPlot}}: Applies multidimensional scaling to a clustered
+  transcriptomics dataset to reduce the clusters to two dimensions and
+   then plots the clusters.  \cr \cr
 
 \code{\link{PamClustering}}: Applies PAM (Partitioning around Medoids)
  clustering to a transcriptomics dataset and appends a cluster column to this

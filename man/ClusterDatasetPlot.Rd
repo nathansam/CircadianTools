@@ -13,7 +13,7 @@ details the cluster the gene belongs to. First column should be gene names.
  All remaining columns should be expression levels.}
 
 \item{nthreads}{Number of processor threads for the process. If not
-specified then the maximum number of logical cores is used.}
+specified then the maximum number of logical cores are used.}
 
 \item{print}{Logical. If TRUE renders significant genes in the plot viewer.
 Defaults to TRUE}
