@@ -45,6 +45,7 @@ DendogramPlot <- function(cluster.no, cluster.dataset, method = "agglom",
   dataset$cluster <- NULL
   # Calculate distance matrix
   distance <- CircadianTools::DistanceGen(dataset, metric=metric)
+  attr(distance ,"Labels") <- 1:(nrow(dataset))
 
 
   ### Apply clustering and convert to dendogram object ###
