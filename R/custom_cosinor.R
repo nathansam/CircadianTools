@@ -61,8 +61,7 @@ MultiCosinorTest <- function(genename, dataset, timelag = 6, period.1 = 24,
   complex.anova <- anova(complex)
   print(complex.anova)
 
-  cat(crayon::red("Carrying out ANOVA on both models produces the following
-                  table : \n"))
+  cat(crayon::red("Carrying out ANOVA on both models produces the following table : \n"))
   comparison.anova <- anova (simple, complex)
   print(comparison.anova)
 
