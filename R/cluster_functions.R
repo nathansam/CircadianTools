@@ -844,10 +844,11 @@ FindClusterDistanceQuantiles <- function(cluster.dataset, metric,
                                       # Get distance quantiles for the ith cluster
                                       FindClusterQuantile(i, cluster.means,
                                                           metric = metric)
+                                  }
+    parallel::stopCluster(cl)
 
-    parallel::stopCluster(cl)                              }
     colnames(quantiles) <- c("0%", "25%", "50%", "75%", "100%")
-    
+
     return(quantiles)
 }
 
