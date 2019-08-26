@@ -17,6 +17,8 @@
 #'  analysis will be returned. Defaults to TRUE.
 #' @param adj String. p-value adjustment. Defaults to 'bonferonni'. 'none' is
 #'  also supported.
+#' @param progress Logical. If TRUE then a loading bar will be printed to denote
+#'  progress.
 #' @return Prints or saves ggplot2 object(s). Optionally returns dataframe
 #'  containing gene name and p values from F-test ranking of cosinor models.
 #' @examples
@@ -26,7 +28,7 @@
 
 
 CosinorAnalysis <- function(dataset, period = 24, timelag = 6, threshold = 0.05,
-                            adj = "bonferroni", save = FALSE, print = TRUE,
+                            adj = "bonferroni", progress = TRUE, save = FALSE, print = TRUE,
                             df = TRUE) {
     expected_adj <- c("bonferroni", "Bonferroni", "none")
 
@@ -48,7 +50,9 @@ CosinorAnalysis <- function(dataset, period = 24, timelag = 6, threshold = 0.05,
     loading_values <- CircadianTools::LoadingGen(genenumber)
 
     for (i in 1:genenumber) {
-        CircadianTools::LoadingPrint(i, loading_values) # Show progress
+        if (progress == TRUE){
+            CircadianTools::LoadingPrint(i, loading_values) # Show progress
+        }
 
         genematrix <- dplyr::filter(dataset, dplyr::row_number() == i)
 

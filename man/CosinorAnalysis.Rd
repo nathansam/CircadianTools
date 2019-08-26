@@ -5,7 +5,8 @@
 \title{CosinorAnalysis:}
 \usage{
 CosinorAnalysis(dataset, period = 24, timelag = 6, threshold = 0.05,
-  adj = "bonferroni", save = FALSE, print = TRUE, df = TRUE)
+  adj = "bonferroni", progress = TRUE, save = FALSE, print = TRUE,
+  df = TRUE)
 }
 \arguments{
 \item{dataset}{A transcriptomics dataset. First columns should be gene names.
@@ -21,6 +22,9 @@ significant and thus plotted. Defaults to 6e-07.}
 
 \item{adj}{String. p-value adjustment. Defaults to 'bonferonni'. 'none' is
 also supported.}
+
+\item{progress}{Logical. If TRUE then a loading bar will be printed to denote
+progress.}
 
 \item{save}{Logical. If TRUE, saves plots to working directory. Defaults to
 FALSE.}
