@@ -77,10 +77,10 @@ CytoscapeFile <- function(cor.dataset, save = TRUE, filename = NULL,
         nthreads <- parallel::detectCores()
     }
 
-    # The columns will act as source nodes in Cytoscape
-    sourcelist <- colnames(cor.dataset)
-    # The rows will act as target nodes in Cytoscape
-    targetlist <- rownames(cor.dataset)
+    # The rows will act as source nodes in Cytoscape
+    sourcelist <- rownames(cor.dataset)
+    # The column will act as target nodes in Cytoscape
+    targetlist <- colnames(cor.dataset)
 
 
     cl <- parallel::makeForkCluster(nthreads)  # Create cluster for parallelism
