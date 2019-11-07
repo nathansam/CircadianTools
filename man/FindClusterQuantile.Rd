@@ -22,7 +22,7 @@ centers of all other clusters.
 }
 \examples{
 filter.df <- CombiFilter(Laurasmappings)
-pam.df <- PamClustering(filter.df, k = 75)
+pam.df <- PamClustering(filter.df, k = 10)
 cluster.centers <- ClusterCenterGenerator(cluster.dataset)
 FindClusterQuantile(1, cluster.centers, "euclidean")
 }

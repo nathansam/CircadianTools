@@ -16,7 +16,7 @@
 #'  directory by default. Not used if save = FALSE
 #' @return A ggplot2 object
 #' @examples
-#' basicplot('comp101252_c0_seq2',Laurasmappings)
+#' BasicPlot('comp100026_c0_seq2',Laurasmappings)
 #'
 #' @export
 

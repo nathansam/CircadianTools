@@ -36,6 +36,6 @@ Plots the dendogram for a cluster in a clustered dataset.
 }
 \examples{
 t.filter <-TFilter(Laurasmappings)
-diana.df <- DianaClustering(t.filter, k= 95)
+diana.df <- DianaClustering(t.filter, k= 10)
 DendogramPlot(5, diana.df, method = 'diana')
 }

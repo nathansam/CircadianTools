@@ -23,12 +23,11 @@
 #' @return Prints or saves ggplot2 object(s). Optionally returns dataframe
 #'  containing gene names and correlation values
 #' @examples
-#' cor_results <- coranalysis('comp100002_c0_seq2', Laurasmappings)
-#'
+#' cor_results <- CorAnalysis('comp100002_c0_seq2', Laurasmappings)
 #' @export
 
 
-CorAnalysis <- function(genename, dataset, threshold = 0.9, average = "median",
+CorAnalysis <- function(genename, dataset, threshold = 0.9, average = "mean",
                         lag = 0, save = FALSE, print = TRUE, df = TRUE) {
 
     if (save == TRUE) {
@@ -119,7 +118,7 @@ CorAnalysis <- function(genename, dataset, threshold = 0.9, average = "median",
                 if (correlation != 1) {
 
 
-                  myplot <- compplot(as.character(genename), compgenename,
+                  myplot <- CircadianTools::CompPlot(as.character(genename), compgenename,
                                      dataset)
                   myplot <- myplot + ggplot2::ggtitle(paste("Correlation = ",
                                                             correlation))
@@ -157,7 +156,7 @@ CorAnalysis <- function(genename, dataset, threshold = 0.9, average = "median",
 #'  Defaults to the maximum number of threads available.
 #' @examples
 #' filter.df <- CombiFilter(Laurasmappings)
-#' pam.df <- PamClustering(filter.df, 50)
+#' pam.df <- PamClustering(filter.df, k = 10)
 #' cor.df <- CorAnalysisCluster(3, pam.df)
 #'
 #' @export
@@ -290,7 +289,7 @@ CorAnalysisDataset <- function(dataset, average = "median", lag = 0,
 #'  original clusters whilst the rows represent lagged clusters.
 #' @examples
 #' filter.df <- CombiFilter(Laurasmappings)
-#' pam.df <- PamClustering(filterdf)
+#' pam.df <- PamClustering(filter.df, k = 10)
 #' cor.df <- CorAnalysisClusterDataset(pam.df)
 #'
 #' @export
@@ -472,7 +471,7 @@ CorAnalysisPar <- function(genename, dataset, lag = 0, average = "median",
 CorSignificantPlot <- function(results, dataset, number = 10, print = TRUE,
                                save = FALSE, negative = FALSE) {
     # Order by most positive correlation
-    results <- results[order(results$correlation, decreasing = TRUE), ]
+    results <- results[order(results$corvalues, decreasing = TRUE), ]
     gene1 <- as.character(results[1, 1])
     if (save == TRUE) {
         directory <- paste("cor_", gene1)

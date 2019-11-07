@@ -23,6 +23,6 @@ Finds the center of a cluster by finding the median time value
 }
 \examples{
 filter.df <- CombiFilter(Laurasmappings)
-pam.df <- PamClustering(filter.df, k = 75)
+pam.df <- PamClustering(filter.df, k = 10)
 FindClustermedian(2, pam.df)
 }

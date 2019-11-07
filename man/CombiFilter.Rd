@@ -37,6 +37,6 @@ Filters a transcriptomics dataset by using ZeroFilter,
  AnovaFilter and SizeFilter.
 }
 \examples{
-Laurasmappings_filtered <- CombiFilter(Laurasmappings, nthreads=4)
+Laurasmappings.filtered <- CombiFilter(Laurasmappings, nthreads=4)
 
 }

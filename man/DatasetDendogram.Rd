@@ -38,6 +38,6 @@ DatasetDendogram
 }
 \examples{
 t.filter <-TFilter(Laurasmappings)
-diana.df <- DianaClustering(t.filter, k= 95)
-DendogramPlot(diana.df, method = 'diana')
+diana.df <- DianaClustering(t.filter, k = 3)
+DendogramPlot(1, diana.df, method = 'diana')
 }

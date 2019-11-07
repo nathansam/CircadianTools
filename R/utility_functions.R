@@ -384,7 +384,7 @@ GeneRange <- function(dataset, nthreads = NULL) {
 
     rangedf <- foreach::foreach(i = 1:genenumber, .combine = rbind) %dopar% {
         # Get gene by row
-        gene <- dplyr::filter(mediandf, dplyr::row_number() == i)
+        gene <- mediandf[i,]
         generange <- max(gene) - min(gene)
         genename <- dataset[i, 1]
         data.frame(genename, generange)

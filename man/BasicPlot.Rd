@@ -37,6 +37,6 @@ A ggplot2 object
 Plots activity data as points and average activity as lines
 }
 \examples{
-basicplot('comp101252_c0_seq2',Laurasmappings)
+BasicPlot('comp100026_c0_seq2',Laurasmappings)
 
 }

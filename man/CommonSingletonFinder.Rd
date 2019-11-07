@@ -21,8 +21,8 @@ Finds the genes which belong to common singleton clusters in two
 }
 \examples{
 filter.df <- CombiFilter(Laurasmappings)
-pam.df <- PamClustering(filter.df, k = 40)
-hclust.df <- HClustering(filter.df, k = 40)
+pam.df <- PamClustering(filter.df, k = 10)
+hclust.df <- AgglomClustering(filter.df, k = 10)
 common.singletons <- CommonSingletonFinder(pam.df, hclust.df)
 
 }

@@ -20,5 +20,5 @@ Calculates a distance matrix based on the distance measure of:
 \examples{
 a.filter <- AnovaFilter(Laurasmappings)
 meds.a.filter <- MedList(a.filter)
-distance <- AbsCorDists(meds.a.filter)
+distance <- AbsCorDist(meds.a.filter)
 }

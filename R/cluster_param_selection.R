@@ -171,8 +171,8 @@ AgglomParamSelection <- function(dataset = NULL, distance = NULL,
 #' '_validation' if this argument is not specified.
 #' @examples
 #' filter.df <- CombiFilter(Laurasmappings)
-#' k.options <- seq(10,100, by=10)
-#' hclust.validation <- ClusterParamSelection(filterdf, k=k.options)
+#' k.options <- seq(2,10)
+#' hclust.validation <- ClusterParamSelection(filter.df, k=k.options)
 #' @export
 ClusterParamSelection <- function(dataset = NULL, distance = NULL,
                         k = c(2, 5, 10), method = c("pam", "agglom", "diana"),

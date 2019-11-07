@@ -33,6 +33,6 @@ Uses \link{ClusterCorPlot} to plot all of the clusters generated
 }
 \examples{
 filter.df <- CombiFilter(Laurasmappings)
-pam.df <- PamClustering(filter.df, k = 75, metric = "abs.correlation")
+pam.df <- PamClustering(filter.df, k = 10, metric = "abs.correlation")
 ClusterCorDatasetPlot(pam.df)
 }

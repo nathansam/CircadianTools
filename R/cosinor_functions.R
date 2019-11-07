@@ -250,7 +250,8 @@ CosinorPlot <- function(genename, dataset, timelag = 6, period = 24,
 #' @return Prints or saves ggplot2 object(s).
 #' @examples
 #' cosinor.results <- CosinorAnalysis(Laurasmappings)
-#' CosinorSignificantPlot(cosinor.results, Laurasmappings, number = 15, period = 24 ,save = TRUE)
+#' CosinorSignificantPlot(cosinor.results, Laurasmappings, number = 15,
+#'                         period = 24, save = TRUE, path = "example")
 #'
 #' @export
 CosinorSignificantPlot <- function(results, dataset, number = 10, period = 24,
@@ -258,7 +259,7 @@ CosinorSignificantPlot <- function(results, dataset, number = 10, period = 24,
     # Order by most significant p-value
     results <- results[order(results$pVal), ]
 
-    if (is.null(path) == TRUE) {
+    if (is.null(path) == TRUE){
         # If path is not given then use name of results object
         path <- deparse(substitute(results))
     }
@@ -305,8 +306,7 @@ CosinorSignificantPlot <- function(results, dataset, number = 10, period = 24,
 #' directory by default. Not used if save=FALSE
 #' @return Prints or saves ggplot2 object(s)
 #' @examples
-#' CosinorResidualPlot('comp99801_c1_seq1', Laurasmappings)
-#'
+#' CosinorResidualPlot('comp100002_c0_seq2', Laurasmappings)
 #' @export
 CosinorResidualPlot <- function(genename, dataset, timelag = 6, period = 24,
                                 print = TRUE, save = FALSE,

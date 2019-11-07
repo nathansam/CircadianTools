@@ -42,6 +42,6 @@ Applies agglomerative hierarchical clustering to a
  genes.
 }
 \examples{
-pam.df <- AgglomClustering(Laurasmappings, k = 75)
+pam.df <- AgglomClustering(Laurasmappings, k = 10)
 
 }

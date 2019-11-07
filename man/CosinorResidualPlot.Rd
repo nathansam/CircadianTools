@@ -34,6 +34,5 @@ Prints or saves ggplot2 object(s)
 Fits a cosinor model to a gene and plots the residuals.
 }
 \examples{
-CosinorResidualPlot('comp99801_c1_seq1', Laurasmappings)
-
+CosinorResidualPlot('comp100002_c0_seq2', Laurasmappings)
 }

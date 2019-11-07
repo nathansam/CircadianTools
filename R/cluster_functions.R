@@ -14,7 +14,7 @@
 #' @return Prints or saves ggplot2 object(s).
 #' @examples
 #' filter.df <- CombiFilter(Laurasmappings)
-#' pam.df <- PamClustering(filter.df, k = 75)
+#' pam.df <- PamClustering(filter.df, k = 10)
 #' ClusterDatasetPlot(pam.df)
 #'
 #' @export
@@ -37,27 +37,27 @@ ClusterDatasetPlot <- function(cluster.dataset, nthreads = NULL, print = TRUE,
     }
 }
 
-        #' ClusterPlot :
-        #' @description Plots the mean and error bars for the genes in a cluster across
-        #'  time
-        #'
-        #' @param clusterno The number which identifies the cluster
-        #' @param cluster.dataset A transcriptomics dataset where the final column
-        #'  details the cluster the gene belongs to. First column should be gene names.
-        #'  All remaining columns should be expression levels.
-        #' @param nthreads Number of processor threads for the process. If not specified
-        #'  then the maximum number of logical cores are used.
-        #' @param save Logical. If TRUE, saves plots. Defaults to FALSE.
-        #' @param print Logical. If TRUE renders significant genes in the plot viewer.
-        #'  Defaults to TRUE
-        #' @param path The directory to be used for saving plots to. Uses the working
-        #'  directory by default. Not used if save=FALSE
-        #' @return Prints or saves a ggplot2 object.
-        #' @examples
-        #' filter.df <- CombiFilter(Laurasmappings)
-        #' pam.df <- PamClustering(filter.df, k = 75)
-        #' ClusterPlot(2, pam.df)
-        #' @export
+#' ClusterPlot :
+#' @description Plots the mean and error bars for the genes in a cluster across
+#'  time
+#'
+#' @param clusterno The number which identifies the cluster
+#' @param cluster.dataset A transcriptomics dataset where the final column
+#'  details the cluster the gene belongs to. First column should be gene names.
+#'  All remaining columns should be expression levels.
+#' @param nthreads Number of processor threads for the process. If not specified
+#'  then the maximum number of logical cores are used.
+#' @param save Logical. If TRUE, saves plots. Defaults to FALSE.
+#' @param print Logical. If TRUE renders significant genes in the plot viewer.
+#'  Defaults to TRUE
+#' @param path The directory to be used for saving plots to. Uses the working
+#'  directory by default. Not used if save=FALSE
+#' @return Prints or saves a ggplot2 object.
+#' @examples
+#' filter.df <- CombiFilter(Laurasmappings)
+#' pam.df <- PamClustering(filter.df, k = 10)
+#' ClusterPlot(2, pam.df)
+#' @export
 
 ClusterPlot <- function(clusterno, cluster.dataset, nthreads = NULL,
                         print = TRUE, save = FALSE, path = NULL) {
@@ -144,7 +144,7 @@ ClusterPlot <- function(clusterno, cluster.dataset, nthreads = NULL,
 #'  column is how many genes belong to that cluster.
 #' @examples
 #' filter.df <- CombiFilter(Laurasmappings)
-#' pam.df <- PamClustering(filter.df, k = 75)
+#' pam.df <- PamClustering(filter.df, k = 10)
 #' clusterstats<-ClusterSpread(pam.df)
 #' @export
 
@@ -176,7 +176,7 @@ ClusterSpread <- function(cluster.dataset) {
 #'   is not needed.
 #' @examples
 #' filter.df <- CombiFilter(Laurasmappings)
-#' pam.df <- PamClustering(filter.df, k = 75)
+#' pam.df <- PamClustering(filter.df, k = 10)
 #' ClusterText(pam.df)
 #' @export
 ClusterText <- function(cluster.dataset, filename = NULL) {
@@ -190,7 +190,7 @@ ClusterText <- function(cluster.dataset, filename = NULL) {
 
     # Checks if a file which will be created already exists.
     # Asks the user if this file should be overwritten.
-    file.conflict(filename)
+    CircadianTools::FileConflict(filename)
 
 
     cluster.list <- unique(cluster.dataset$cluster)  # vector of cluster 'names'
@@ -218,7 +218,7 @@ ClusterText <- function(cluster.dataset, filename = NULL) {
 #'  Defaults to the maximum number of threads available.
 #' @examples
 #' filter.df <- CombiFilter(Laurasmappings)
-#' pam.df <- PamClustering(filter.df, k = 75)
+#' pam.df <- PamClustering(filter.df, k = 10)
 #' time.profile<-ClusterTimeProfile(1,pam.df)
 #'
 #' @export
@@ -253,8 +253,8 @@ ClusterTimeProfile <- function(cluster.no, cluster.dataset, nthreads = NULL) {
 #' different parameters.
 #' @examples
 #' filter.df <- CombiFilter(Laurasmappings)
-#' pam.df <- PamClustering(filter.df, k = 40)
-#' hclust.df <- HClustering(filter.df, k = 40)
+#' pam.df <- PamClustering(filter.df, k = 10)
+#' hclust.df <- AgglomClustering(filter.df, k = 10)
 #' common.singletons <- CommonSingletonFinder(pam.df, hclust.df)
 #'
 #' @export
@@ -295,7 +295,7 @@ CommonSingletonFinder <- function(cluster.dataset1, cluster.dataset2) {
 #' @return Returns transcriptomics dataset provided with additional cluster
 #' column appended denoted which cluster each gene belongs to.
 #' @examples
-#' pam.df <- AgglomClustering(Laurasmappings, k = 75)
+#' pam.df <- AgglomClustering(Laurasmappings, k = 10)
 #'
 #' @export
 AgglomClustering <- function(dataset = NULL, distance = NULL, k = 10,
@@ -562,7 +562,7 @@ DianaParamSelection <- function(dataset = NULL, distance = NULL,
 #' @return Prints or saves a ggplot2 object.
 #' @examples
 #' filter.df <- CombiFilter(Laurasmappings)
-#' pam.df <- PamClustering(filter.df, k = 75, metric = "abs.correlation")
+#' pam.df <- PamClustering(filter.df, k = 10, metric = "abs.correlation")
 #' ClusterCorPlot(2, pam.df)
 #' @export
 ClusterCorPlot <- function (cluster.no, cluster.dataset, nthreads = NULL,
@@ -681,7 +681,7 @@ ClusterCorPlot <- function (cluster.no, cluster.dataset, nthreads = NULL,
 #' @return Prints or saves a ggplot2 object.
 #' @examples
 #' filter.df <- CombiFilter(Laurasmappings)
-#' pam.df <- PamClustering(filter.df, k = 75, metric = "abs.correlation")
+#' pam.df <- PamClustering(filter.df, k = 10, metric = "abs.correlation")
 #' ClusterCorDatasetPlot(pam.df)
 #' @export
 ClusterCorDatasetPlot <- function(cluster.dataset, nthreads = NULL,
@@ -710,7 +710,7 @@ ClusterCorDatasetPlot <- function(cluster.dataset, nthreads = NULL,
 #'  then the maximum number of logical cores are used.
 #' @examples
 #' filter.df <- CombiFilter(Laurasmappings)
-#' pam.df <- PamClustering(filter.df, k = 75)
+#' pam.df <- PamClustering(filter.df, k = 10)
 #' FindClustermedian(2, pam.df)
 #' @export
 
@@ -744,8 +744,8 @@ FindClusterMedian <- function(cluster.no, cluster.dataset, nthreads = NULL) {
 #'  then the maximum number of logical cores are used.
 #' @examples
 #' filter.df <- CombiFilter(Laurasmappings)
-#' pam.df <- PamClustering(filter.df, k = 75)
-#' ClusterCenterGenerator(2, pam.df)
+#' pam.df <- PamClustering(filter.df, k = 10)
+#' ClusterCenterGenerator(pam.df)
 #' @export
 ClusterCenterGenerator <- function(cluster.dataset, nthreads = NULL) {
     if (is.null(nthreads) == TRUE) {
@@ -784,7 +784,7 @@ ClusterCenterGenerator <- function(cluster.dataset, nthreads = NULL) {
 #'  allows the option of 'abs.correlation'.
 #' @examples
 #' filter.df <- CombiFilter(Laurasmappings)
-#' pam.df <- PamClustering(filter.df, k = 75)
+#' pam.df <- PamClustering(filter.df, k = 10)
 #' cluster.centers <- ClusterCenterGenerator(cluster.dataset)
 #' FindClusterQuantile(1, cluster.centers, "euclidean")
 #' @export
@@ -821,7 +821,7 @@ FindClusterQuantile <- function(cluster.no, centers.df, metric) {
 #'  then the maximum number of logical cores are used.
 #' @examples
 #' filter.df <- CombiFilter(Laurasmappings)
-#' pam.df <- PamClustering(filter.df, k = 75)
+#' pam.df <- PamClustering(filter.df, k = 10)
 #' FindClusterDistanceQuantiles(pam.df)
 #' @export
 FindClusterDistanceQuantiles <- function(cluster.dataset, metric,
@@ -871,7 +871,7 @@ FindClusterDistanceQuantiles <- function(cluster.dataset, metric,
 #'  directory by default. Not used if save=FALSE
 #' @examples
 #' a.filter <-AnovaFilter(Laurasmappings)
-#' pam.anova <- PamClustering(a.filter, k = 75)
+#' pam.anova <- PamClustering(a.filter, k = 10)
 #' QuantilePlots(pam.anova, path='Pam_Anova_Distance_Histograms')
 #' @export
 QuantilePlots <- function(cluster.dataset,metric = "euclidean", nthreads = NULL,

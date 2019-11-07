@@ -6,9 +6,9 @@
 #'  the additive inverse of this threshold will be removed.
 #' @examples
 #' filter.df <- CombiFilter(Laurasmappings)
-#' pam.df <- PamClustering(filter.df)
+#' pam.df <- PamClustering(filter.df, k = 10)
 #' cor.df <- CorAnalysisClusterDataset(pam.df, save=FALSE)
-#' cyto.df <- CytoscapeFile(cor.df, save=FALSE)
+#' cyto.df <- CytoscapeFile(cor.df, save = FALSE)
 #' cyto.filtered.df <- CytoscapeFilter(cyto.df, threshold=0.95)
 #'
 #' @export

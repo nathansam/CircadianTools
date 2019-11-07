@@ -19,6 +19,6 @@ Finds the center of every cluster in a dataset
 }
 \examples{
 filter.df <- CombiFilter(Laurasmappings)
-pam.df <- PamClustering(filter.df, k = 75)
-ClusterCenterGenerator(2, pam.df)
+pam.df <- PamClustering(filter.df, k = 10)
+ClusterCenterGenerator(pam.df)
 }

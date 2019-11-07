@@ -49,6 +49,6 @@ Calculates validation metrics for different clustering methods
 }
 \examples{
 filter.df <- CombiFilter(Laurasmappings)
-k.options <- seq(10,100, by=10)
-hclust.validation <- ClusterParamSelection(filterdf, k=k.options)
+k.options <- seq(2,10)
+hclust.validation <- ClusterParamSelection(filter.df, k=k.options)
 }

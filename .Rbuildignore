@@ -9,3 +9,4 @@
 ^saveplotex\.png$
 ^turnpointex\.png$
 ^.*\.Rproj$
+^appveyor\.yml$

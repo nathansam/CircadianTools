@@ -28,7 +28,7 @@ Correlates the average activity of a cluster with the average
 }
 \examples{
 filter.df <- CombiFilter(Laurasmappings)
-pam.df <- PamClustering(filter.df, 50)
+pam.df <- PamClustering(filter.df, k = 10)
 cor.df <- CorAnalysisCluster(3, pam.df)
 
 }

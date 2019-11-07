@@ -65,7 +65,7 @@ AnovaFilter <- function(dataset, threshold = 0.05, nthreads = NULL) {
 
 SizeFilter <- function(dataset, cutoff = 0.1, nthreads = NULL) {
     # Remove genes with no activity
-    dataset <- CircadianTools::GeneClean(dataset)
+    #dataset <- CircadianTools::GeneClean(dataset)
     genenumber <- nrow(dataset)
     timevector <- CircadianTools::MakeTimevector(dataset)
 
@@ -141,7 +141,7 @@ ZeroFilter <- function(dataset, non_zero_num = 4, nthreads = NULL) {
 #' @param sizefilter Logical. If size filtering should be used. Defaults to
 #'  TRUE.
 #' @examples
-#' Laurasmappings_filtered <- CombiFilter(Laurasmappings, nthreads=4)
+#' Laurasmappings.filtered <- CombiFilter(Laurasmappings, nthreads=4)
 #'
 #' @export
 CombiFilter <- function(dataset, non_zero_num = 4, threshold = 0.05,
@@ -168,9 +168,9 @@ CombiFilter <- function(dataset, non_zero_num = 4, threshold = 0.05,
         invisible(gc())
     }
 
-    if (SizeFilter == TRUE) {
+    if (sizefilter == TRUE) {
         # Filter by removing genes with the smallest range
-        dataset <- CircadianTools::sizefilter(dataset = dataset,
+        dataset <- CircadianTools::SizeFilter(dataset = dataset,
                                               cutoff = cutoff,
                                               nthreads = nthreads)
 

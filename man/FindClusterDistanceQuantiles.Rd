@@ -24,6 +24,6 @@ Finds The distances between the center of each cluster and the
 }
 \examples{
 filter.df <- CombiFilter(Laurasmappings)
-pam.df <- PamClustering(filter.df, k = 75)
+pam.df <- PamClustering(filter.df, k = 10)
 FindClusterDistanceQuantiles(pam.df)
 }

@@ -8,7 +8,7 @@
 #' @examples
 #' a.filter <- AnovaFilter(Laurasmappings)
 #' meds.a.filter <- MedList(a.filter)
-#' distance <- AbsCorDists(meds.a.filter)
+#' distance <- AbsCorDist(meds.a.filter)
 #' @export
 
 AbsCorDist <- function(dataset, nthreads = NULL) {

@@ -38,6 +38,7 @@ Prints or saves the genes found to be most significant by
 }
 \examples{
 cosinor.results <- CosinorAnalysis(Laurasmappings)
-CosinorSignificantPlot(cosinor.results, Laurasmappings, number = 15, period = 24 ,save = TRUE)
+CosinorSignificantPlot(cosinor.results, Laurasmappings, number = 15,
+                        period = 24, save = TRUE, path = "example")
 
 }
