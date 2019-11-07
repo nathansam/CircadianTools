@@ -4,7 +4,7 @@ A Collection of Tools for Detecting Rhythmic Genes
 
   <!-- badges: start -->
   [![Build Status](https://travis-ci.org/nathansam/CircadianTools.svg?branch=devel)](https://travis-ci.org/nathansam/CircadianTools)
-  [![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/nathansam/CircadianTools?branch=master&svg=true)](https://ci.appveyor.com/project/nathansam/CircadianTools)
+  [![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/nathansam/CircadianTools?branch=devel&svg=true)](https://ci.appveyor.com/project/nathansam/CircadianTools)
   <!-- badges: end -->
 
 # Overview
