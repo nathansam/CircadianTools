@@ -17,8 +17,7 @@
 #' @param path The directory to be used for saving plots to. Uses the working
 #'  directory by default. Not used if save = FALSE
 #' @examples
-#' t.filter <-TFilter(Laurasmappings)
-#' diana.df <- DianaClustering(t.filter, k= 10)
+#' diana.df <- DianaClustering(Laurasmappings, k= 10)
 #' DendogramPlot(5, diana.df, method = 'diana')
 #' @export
 DendogramPlot <- function(cluster.no, cluster.dataset, method = "agglom",
@@ -114,8 +113,7 @@ DendogramPlot <- function(cluster.no, cluster.dataset, method = "agglom",
 #' @param path The directory to be used for saving plots to. Uses the working
 #'  directory by default. Not used if save = FALSE
 #' @examples
-#' t.filter <-TFilter(Laurasmappings)
-#' diana.df <- DianaClustering(t.filter, k= 95)
+#' diana.df <- DianaClustering(Laurasmappings, k= 10)
 #' DendogramDatasetPlot(diana.df, method = 'diana')
 #' @export
 DendogramDatasetPlot <- function(cluster.dataset, method = "agglom",
@@ -152,8 +150,7 @@ DendogramDatasetPlot <- function(cluster.dataset, method = "agglom",
 #' @param path The directory to be used for saving plots to. Uses the working
 #'  directory by default. Not used if save = FALSE
 #' @examples
-#' t.filter <-TFilter(Laurasmappings)
-#' diana.df <- DianaClustering(t.filter, k = 3)
+#' diana.df <- DianaClustering(Laurasmappings, k = 3)
 #' DendogramPlot(1, diana.df, method = 'diana')
 #' @export
 DatasetDendogram <- function(cluster.dataset, method = "agglom",

@@ -32,7 +32,8 @@ Uses \link{ClusterCorPlot} to plot all of the clusters generated
  distance measure.
 }
 \examples{
-filter.df <- CombiFilter(Laurasmappings)
-pam.df <- PamClustering(filter.df, k = 10, metric = "abs.correlation")
+\donttest{
+pam.df <- PamClustering(Laurasmappings, k = 10, metric = "abs.correlation")
 ClusterCorDatasetPlot(pam.df)
+}
 }

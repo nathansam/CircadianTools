@@ -34,5 +34,5 @@ Fits a cosinor model and carries out ANOVA using raw
  model as well as directly comparing the two models.
 }
 \examples{
-MultiCosinorTest("comp99801_c1_seq1", Laurasmappings)
+MultiCosinorTest("comp100000_c0_seq2", Laurasmappings)
 }

@@ -27,12 +27,13 @@ allows the option of 'abs.correlation'. Not used if a distance matrix is
 provided.}
 
 \item{nthreads}{The number of threads to be used for parallel computations.
-If NULL then the maximum number of threads available will be used.
-filter.df <- CombiFilter(Laurasmappings)
-k.options <- seq(10,100, by=10)
-hclust.validation <- AgglomParamSelection(filterdf, k=k.options)}
+If NULL then the maximum number of threads available will be used.}
 }
 \description{
 Runs agglomerative hierarchical clustering with differing
  numbers of partitions and returns validation metrics.
+}
+\examples{
+k.options <- seq(2,10)
+hclust.validation <- AgglomParamSelection(Laurasmappings, k=k.options)
 }

@@ -12,7 +12,7 @@
 #'  TRUE
 #' @return Prints or saves ggplot2 object(s)
 #' @examples
-#' TurningPlot('comp100000_c0_seq2',LauraSingleMap)
+#' TurningPlot('comp100000_c0_seq2',Laurasmappings)
 #'
 #' @export
 

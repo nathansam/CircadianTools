@@ -37,7 +37,6 @@ directory by default. Not used if save = FALSE}
 DatasetDendogram
 }
 \examples{
-t.filter <-TFilter(Laurasmappings)
-diana.df <- DianaClustering(t.filter, k = 3)
+diana.df <- DianaClustering(Laurasmappings, k = 3)
 DendogramPlot(1, diana.df, method = 'diana')
 }

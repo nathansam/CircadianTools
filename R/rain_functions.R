@@ -4,8 +4,7 @@
 #'  All other columns should be expression levels.
 #' @return A dataframe object detailing the result of the rain analysis.
 #' @examples
-#' results <- RainAnalysis(Laurasmappings)
-#'
+#' results <- RainAnalysis(Laurasmappings, period = 24)
 #' @export
 
 RainAnalysis <- function(dataset, period) {
@@ -37,12 +36,12 @@ RainAnalysis <- function(dataset, period) {
 #'  Defaults to TRUE
 #' @return Prints or saves ggplot2 object(s).
 #' @examples
-#' results <- RainAnalysis(Laurasmappings)
+#' results <- RainAnalysis(Laurasmappings, period = 24)
 #' RainSignificantPlot(results,Laurasmappings, save=TRUE, number=15)
 #'
 #' @export
 RainSignificantPlot <- function(results, dataset, number = 10,
-                                print = TRUE,save = FALSE) {
+                                print = TRUE, save = FALSE) {
     # Order by most significant p-value
     results <- results[order(results$pVal), ]
 

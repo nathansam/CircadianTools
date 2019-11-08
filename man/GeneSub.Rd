@@ -22,6 +22,7 @@ Takes an object where the first column is genenames (IE a column
  these genes
 }
 \examples{
-newdf <- GeneSub(circadian, Laurasmappings, nthreads=4)
+### Redundant example
+newdf <- GeneSub(Laurasmappings[1:4,], Laurasmappings, nthreads=4)
 
 }

@@ -17,6 +17,5 @@ A dataframe object detailing the result of the rain analysis.
 Carries out RAIN analysis on a transcriptomics dataset
 }
 \examples{
-results <- RainAnalysis(Laurasmappings)
-
+results <- RainAnalysis(Laurasmappings, period = 24)
 }

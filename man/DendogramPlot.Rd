@@ -35,7 +35,6 @@ directory by default. Not used if save = FALSE}
 Plots the dendogram for a cluster in a clustered dataset.
 }
 \examples{
-t.filter <-TFilter(Laurasmappings)
-diana.df <- DianaClustering(t.filter, k= 10)
+diana.df <- DianaClustering(Laurasmappings, k= 10)
 DendogramPlot(5, diana.df, method = 'diana')
 }

@@ -18,9 +18,8 @@
 #' Warning! Increasing this value will massively increase RAM usage.
 #' If NULL then the maximum number of threads available will be used.
 #' @examples
-#' filter.df <- CombiFilter(Laurasmappings)
-#' k.options <- seq(10,100, by=10)
-#' pam.validation <- PamParamSelection(filterdf, k=k.options)
+#' k.options <- seq(2,10)
+#' pam.validation <- PamParamSelection(Laurasmappings, k=k.options)
 #' @export
 PamParamSelection <- function(dataset = NULL, distance = NULL, k = c(2, 5, 10),
                               metric = "euclidean", scale = TRUE, nthreads = 4){
@@ -89,9 +88,9 @@ PamParamSelection <- function(dataset = NULL, distance = NULL, k = c(2, 5, 10),
 #' @param scale Logical. If TRUE then each gene will be scaled
 #' @param nthreads The number of threads to be used for parallel computations.
 #' If NULL then the maximum number of threads available will be used.
-#' filter.df <- CombiFilter(Laurasmappings)
-#' k.options <- seq(10,100, by=10)
-#' hclust.validation <- AgglomParamSelection(filterdf, k=k.options)
+#' @examples
+#' k.options <- seq(2,10)
+#' hclust.validation <- AgglomParamSelection(Laurasmappings, k=k.options)
 #' @export
 AgglomParamSelection <- function(dataset = NULL, distance = NULL,
                         k = c(2, 5, 10), scale = TRUE,  metric = "euclidean",
@@ -170,9 +169,8 @@ AgglomParamSelection <- function(dataset = NULL, distance = NULL,
 #' metric results to. Uses the name of the dataset object appended with
 #' '_validation' if this argument is not specified.
 #' @examples
-#' filter.df <- CombiFilter(Laurasmappings)
 #' k.options <- seq(2,10)
-#' hclust.validation <- ClusterParamSelection(filter.df, k=k.options)
+#' hclust.validation <- ClusterParamSelection(Laurasmappings, k=k.options)
 #' @export
 ClusterParamSelection <- function(dataset = NULL, distance = NULL,
                         k = c(2, 5, 10), method = c("pam", "agglom", "diana"),

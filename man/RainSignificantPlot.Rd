@@ -30,7 +30,7 @@ Prints or saves plots of the genes found to be most significant
 by \link{RainAnalysis}
 }
 \examples{
-results <- RainAnalysis(Laurasmappings)
+results <- RainAnalysis(Laurasmappings, period = 24)
 RainSignificantPlot(results,Laurasmappings, save=TRUE, number=15)
 
 }

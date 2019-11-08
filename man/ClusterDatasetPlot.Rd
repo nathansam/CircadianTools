@@ -30,8 +30,7 @@ Prints or saves ggplot2 object(s).
 Plots the mean and error bars for all clusters across time
 }
 \examples{
-filter.df <- CombiFilter(Laurasmappings)
-pam.df <- PamClustering(filter.df, k = 10)
+pam.df <- PamClustering(Laurasmappings, k = 10)
 ClusterDatasetPlot(pam.df)
 
 }

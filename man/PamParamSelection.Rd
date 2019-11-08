@@ -35,7 +35,6 @@ Runs PAM with differing numbers of partitions and returns
  validation metrics.
 }
 \examples{
-filter.df <- CombiFilter(Laurasmappings)
-k.options <- seq(10,100, by=10)
-pam.validation <- PamParamSelection(filterdf, k=k.options)
+k.options <- seq(2,10)
+pam.validation <- PamParamSelection(Laurasmappings, k=k.options)
 }

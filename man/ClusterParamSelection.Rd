@@ -48,7 +48,6 @@ Calculates validation metrics for different clustering methods
  and different numbers of partitions. The validation metrics are plotted.
 }
 \examples{
-filter.df <- CombiFilter(Laurasmappings)
 k.options <- seq(2,10)
-hclust.validation <- ClusterParamSelection(filter.df, k=k.options)
+hclust.validation <- ClusterParamSelection(Laurasmappings, k=k.options)
 }

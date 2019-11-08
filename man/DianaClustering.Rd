@@ -44,6 +44,6 @@ Applies DIANA (DIvisive ANAlysis) clustering to a
 }
 \examples{
 t.filter <-TFilter(Laurasmappings)
-diana.df <- DianaClustering(t.filter, k= 95)
+diana.df <- DianaClustering(t.filter, k= 10)
 
 }

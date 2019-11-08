@@ -4,7 +4,7 @@
 \alias{FindClusterQuantile}
 \title{FindClusterQuantile}
 \usage{
-FindClusterQuantile(cluster.no, centers.df, metric)
+FindClusterQuantile(cluster.no, centers.df, metric = "euclidean")
 }
 \arguments{
 \item{cluster.no}{The number which identifies the cluster.}
@@ -21,8 +21,7 @@ Finds The distances between the center of a cluster and the
 centers of all other clusters.
 }
 \examples{
-filter.df <- CombiFilter(Laurasmappings)
-pam.df <- PamClustering(filter.df, k = 10)
-cluster.centers <- ClusterCenterGenerator(cluster.dataset)
-FindClusterQuantile(1, cluster.centers, "euclidean")
+pam.df <- PamClustering(Laurasmappings, k = 10)
+cluster.centers <- ClusterCenterGenerator(pam.df)
+FindClusterQuantile(1, cluster.centers)
 }

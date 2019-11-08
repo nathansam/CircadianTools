@@ -403,7 +403,7 @@ GeneRange <- function(dataset, nthreads = NULL) {
 #' @param center Logical. If TRUE then each gene will be centered on zero
 #' @return A transcriptomics dataset with centered / scaled genes
 #' @examples
-#' GeneScale(LaurasMappings)
+#' GeneScale(Laurasmappings)
 #' @export
 
 GeneScale <- function(dataset, scale = TRUE, center = TRUE) {
@@ -423,7 +423,8 @@ GeneScale <- function(dataset, scale = TRUE, center = TRUE) {
 #' @param nthreads Number of processor threads used. If not specifed then the
 #'  maximum number of logical cores are used.
 #' @examples
-#' newdf <- GeneSub(circadian, Laurasmappings, nthreads=4)
+#' ### Redundant example
+#' newdf <- GeneSub(Laurasmappings[1:4,], Laurasmappings, nthreads=4)
 #'
 #' @export
 

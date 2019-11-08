@@ -33,7 +33,6 @@ Runs DIANA (DIvisive ANAlysis) clustering with differing numbers
  of partitions and returns validation metrics.
 }
 \examples{
-filter.df <- CombiFilter(Laurasmappings)
-k.options <- seq(10,100, by=10)
-diana.validation <- DianaParamSelection(filterdf, k=k.options)
+k.options <- seq(2,10)
+diana.validation <- DianaParamSelection(Laurasmappings, k=k.options)
 }

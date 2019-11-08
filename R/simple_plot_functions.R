@@ -204,8 +204,10 @@ CompPlot <- function(gene1, gene2, dataset, save = FALSE, points = TRUE) {
 #' @param path The directory to be used for saving plots to. Uses the name of
 #' the dataset object if this argument is not specified)  Not used if save=FALSE
 #' @examples
+#' \donttest{
 #' filter.df<-CombiFilter(Laurasmappings)
 #' DatasetPlot(filter.df)
+#' }
 #' @export
 
 DatasetPlot <- function(dataset, timelag = 0, method = "median", points = TRUE,

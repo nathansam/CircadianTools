@@ -30,9 +30,10 @@ ContigGen <- function (dataset){
 #' @param filename The filename to use for a saved fasta file
 #' @return A fasta file
 #' @examples
-#' main.fasta <- seqinr::read.fasta("~/JoesTranscriptomeMin300bp2.fasta")
-#' a.filter <- AnovaFilter(Laurasmappings)
-#' fasta.sub <- FastaSub(a.filter$sample, main.fasta, filename="a_filter")
+#' \donttest{
+#' main.fasta <- seqinr::read.fasta("fasta_file.fasta")
+#' fasta.sub <- FastaSub(a.filter$sample, main.fasta, filename="reduced_fasta")
+#' }
 #' @export
  FastaSub <- function(gene.names, fasta.file, save=TRUE, filename=NULL){
 

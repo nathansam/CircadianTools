@@ -18,7 +18,7 @@
 #'  if save == TRUE Uses theprovided genename appended with '_cosinor_tests' if
 #'  this argument is not specified.
 #' @examples
-#' MultiCosinorTest("comp99801_c1_seq1", Laurasmappings)
+#' MultiCosinorTest("comp100000_c0_seq2", Laurasmappings)
 #' @export
 MultiCosinorTest <- function(genename, dataset, timelag = 6, period.1 = 24,
                           period.2 = 12.4, save = TRUE, path = NULL ){
