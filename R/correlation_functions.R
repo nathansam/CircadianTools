@@ -155,9 +155,8 @@ CorAnalysis <- function(genename, dataset, threshold = 0.9, average = "mean",
 #' @param nthreads The number of threads to be used for parallel computations.
 #'  Defaults to the maximum number of threads available.
 #' @examples
-#' filter.df <- CombiFilter(Laurasmappings)
-#' pam.df <- PamClustering(filter.df, k = 10)
-#' cor.df <- CorAnalysisCluster(3, pam.df)
+#' pam.df <- PamClustering(Laurasmappings, k = 10, nthreads = 2)
+#' cor.df <- CorAnalysisCluster(3, pam.df, nthreads = 2)
 #'
 #' @export
 
@@ -225,8 +224,8 @@ CorAnalysisCluster <- function(cluster.no, cluster.dataset, lag = 0,
 #' @return A dataframe of correlation values. The column genes represent the
 #'  original genes whilst the rows represent lagged genes.
 #' @examples
-#' subdf<-TFilter(Laurasmappings)
-#' cordf <- CorAnalysisDataset(subdf, lag=1,filename='cor_tfiltered')
+#' cordf <- CorAnalysisDataset(Laurasmappings, lag=1, nthreads = 2,
+#'                             filename='cor_tfiltered')
 #'
 #' @export
 CorAnalysisDataset <- function(dataset, average = "median", lag = 0,
@@ -288,9 +287,8 @@ CorAnalysisDataset <- function(dataset, average = "median", lag = 0,
 #' @return A dataframe of correlation values. The column genes represent the
 #'  original clusters whilst the rows represent lagged clusters.
 #' @examples
-#' filter.df <- CombiFilter(Laurasmappings)
-#' pam.df <- PamClustering(filter.df, k = 10)
-#' cor.df <- CorAnalysisClusterDataset(pam.df)
+#' pam.df <- PamClustering(Laurasmappings, k = 10, nthreads = 2)
+#' cor.df <- CorAnalysisClusterDataset(pam.df, nthreads = 2)
 #'
 #' @export
 
@@ -351,7 +349,8 @@ CorAnalysisClusterDataset <- function(cluster.dataset, lag = 0, nthreads = NULL,
 #'  then the maximum number of logical cores are used.
 #' @return Returns dataframe containing gene names and correlation values
 #' @examples
-#' cor_results <- CorAnalysisPar('comp100002_c0_seq2', Laurasmappings)
+#' cor_results <- CorAnalysisPar('comp100002_c0_seq2', Laurasmappings,
+#'                               nthreads = 2)
 #'
 #' @export
 

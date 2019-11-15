@@ -19,7 +19,7 @@
 #' If NULL then the maximum number of threads available will be used.
 #' @examples
 #' k.options <- seq(2,10)
-#' pam.validation <- PamParamSelection(Laurasmappings, k=k.options)
+#' pam.validation <- PamParamSelection(Laurasmappings, k=k.options, nthreads = 2)
 #' @export
 PamParamSelection <- function(dataset = NULL, distance = NULL, k = c(2, 5, 10),
                               metric = "euclidean", scale = TRUE, nthreads = 4){
@@ -90,7 +90,8 @@ PamParamSelection <- function(dataset = NULL, distance = NULL, k = c(2, 5, 10),
 #' If NULL then the maximum number of threads available will be used.
 #' @examples
 #' k.options <- seq(2,10)
-#' hclust.validation <- AgglomParamSelection(Laurasmappings, k=k.options)
+#' hclust.validation <- AgglomParamSelection(Laurasmappings, k=k.options,
+#'                                           nthreads = 2)
 #' @export
 AgglomParamSelection <- function(dataset = NULL, distance = NULL,
                         k = c(2, 5, 10), scale = TRUE,  metric = "euclidean",
@@ -170,7 +171,8 @@ AgglomParamSelection <- function(dataset = NULL, distance = NULL,
 #' '_validation' if this argument is not specified.
 #' @examples
 #' k.options <- seq(2,10)
-#' hclust.validation <- ClusterParamSelection(Laurasmappings, k=k.options)
+#' hclust.validation <- ClusterParamSelection(Laurasmappings, k=k.options,
+#'                                            nthreads = 2)
 #' @export
 ClusterParamSelection <- function(dataset = NULL, distance = NULL,
                         k = c(2, 5, 10), method = c("pam", "agglom", "diana"),

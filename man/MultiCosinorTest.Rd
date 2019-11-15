@@ -4,8 +4,15 @@
 \alias{MultiCosinorTest}
 \title{MultiCosinorTest}
 \usage{
-MultiCosinorTest(genename, dataset, timelag = 6, period.1 = 24,
-  period.2 = 12.4, save = TRUE, path = NULL)
+MultiCosinorTest(
+  genename,
+  dataset,
+  timelag = 6,
+  period.1 = 24,
+  period.2 = 12.4,
+  save = TRUE,
+  path = NULL
+)
 }
 \arguments{
 \item{genename}{The name of a gene intended for plotting. Must be a string.}

@@ -4,8 +4,14 @@
 \alias{DendogramDatasetPlot}
 \title{DendogramDatasetPlot}
 \usage{
-DendogramDatasetPlot(cluster.dataset, method = "agglom",
-  metric = "euclidean", print = TRUE, save = FALSE, path = NULL)
+DendogramDatasetPlot(
+  cluster.dataset,
+  method = "agglom",
+  metric = "euclidean",
+  print = TRUE,
+  save = FALSE,
+  path = NULL
+)
 }
 \arguments{
 \item{cluster.dataset}{A transcriptomics dataset where the final column

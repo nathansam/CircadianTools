@@ -21,6 +21,6 @@ Filters a transcriptomics dataset such that there is a minimum
  number of non-zero activity readings for each gene in the resultant dataset.
 }
 \examples{
-Laurasmappings_filtered <- ZeroFilter(Laurasmappings, nthreads=4)
+Laurasmappings_filtered <- ZeroFilter(Laurasmappings, nthreads = 2)
 
 }

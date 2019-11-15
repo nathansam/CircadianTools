@@ -8,7 +8,7 @@ Maintainer: The package maintainer <nsc@aber.ac.uk>
 Description: Allows Cosinor Models and Turning Point Analysis to be easily carried out on transcriptomics data using R. Designed to be as flexible as possible such as by allowing an unequal number of replicates.
 URL: https://github.com/nathansam/CircadianTools
 License: GPL-3 
-Depends: R (>= 3.4.4)
+Depends: R (>= 3.5.0)
 Encoding: UTF-8
 LazyData: true    
 Imports:
@@ -28,7 +28,7 @@ Imports:
   proxy,
   seqinr,
   ggdendro
-RoxygenNote: 6.1.1
+RoxygenNote: 7.0.0
 Suggests: 
     testthat (>= 2.1.0),
     covr

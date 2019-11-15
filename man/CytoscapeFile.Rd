@@ -4,8 +4,7 @@
 \alias{CytoscapeFile}
 \title{CytoscapeFile:}
 \usage{
-CytoscapeFile(cor.dataset, save = TRUE, filename = NULL,
-  nthreads = NULL)
+CytoscapeFile(cor.dataset, save = TRUE, filename = NULL, nthreads = NULL)
 }
 \arguments{
 \item{cor.dataset}{A NxN dataframe of correlation values created by
@@ -22,7 +21,7 @@ Converts a correlation dataframe object into a format suitable
  for cytoscape and saves as a csv file.
 }
 \examples{
-correlation.df <- CorAnalysisDataset(Laurasmappings)
-CytoscapeFile(correlation.df)
+correlation.df <- CorAnalysisDataset(Laurasmappings, nthreads = 2)
+CytoscapeFile(correlation.df, nthreads = 2)
 
 }

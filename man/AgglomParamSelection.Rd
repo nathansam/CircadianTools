@@ -4,8 +4,14 @@
 \alias{AgglomParamSelection}
 \title{AgglomParamSelection}
 \usage{
-AgglomParamSelection(dataset = NULL, distance = NULL, k = c(2, 5,
-  10), scale = TRUE, metric = "euclidean", nthreads = 4)
+AgglomParamSelection(
+  dataset = NULL,
+  distance = NULL,
+  k = c(2, 5, 10),
+  scale = TRUE,
+  metric = "euclidean",
+  nthreads = 4
+)
 }
 \arguments{
 \item{dataset}{A transcriptomics dataset. Preferably filtered first. First
@@ -35,5 +41,6 @@ Runs agglomerative hierarchical clustering with differing
 }
 \examples{
 k.options <- seq(2,10)
-hclust.validation <- AgglomParamSelection(Laurasmappings, k=k.options)
+hclust.validation <- AgglomParamSelection(Laurasmappings, k=k.options,
+                                          nthreads = 2)
 }

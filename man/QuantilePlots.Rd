@@ -4,8 +4,14 @@
 \alias{QuantilePlots}
 \title{QuantilePlots}
 \usage{
-QuantilePlots(cluster.dataset, metric = "euclidean", nthreads = NULL,
-  save = TRUE, print = TRUE, path = NULL)
+QuantilePlots(
+  cluster.dataset,
+  metric = "euclidean",
+  nthreads = NULL,
+  save = TRUE,
+  print = TRUE,
+  path = NULL
+)
 }
 \arguments{
 \item{cluster.dataset}{A transcriptomics dataset where the final column
@@ -33,7 +39,6 @@ Finds the quartiles for intercluster distances and plots these
  distances as a set of histograms
 }
 \examples{
-a.filter <-AnovaFilter(Laurasmappings)
-pam.anova <- PamClustering(a.filter, k = 10)
-QuantilePlots(pam.anova, path='Pam_Anova_Distance_Histograms')
+pam <- PamClustering(Laurasmappings, k = 10, nthreads = 2)
+QuantilePlots(pam, path='Pam_Anova_Distance_Histograms', nthreads = 2)
 }

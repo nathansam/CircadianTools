@@ -150,8 +150,8 @@ DendogramDatasetPlot <- function(cluster.dataset, method = "agglom",
 #' @param path The directory to be used for saving plots to. Uses the working
 #'  directory by default. Not used if save = FALSE
 #' @examples
-#' diana.df <- DianaClustering(Laurasmappings, k = 3)
-#' DendogramPlot(1, diana.df, method = 'diana')
+#' diana.df <- DianaClustering(Laurasmappings, k = 10, nthreads = 2)
+#' DatasetDendogram(diana.df, method = 'diana', nthreads = 2, path = 'example')
 #' @export
 DatasetDendogram <- function(cluster.dataset, method = "agglom",
                              metric = "euclidean", nthreads = NULL,

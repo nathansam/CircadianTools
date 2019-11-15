@@ -4,8 +4,16 @@
 \alias{BasicPlot}
 \title{BasicPlot:}
 \usage{
-BasicPlot(genename, dataset, timelag = 0, method = "median",
-  points = TRUE, print = TRUE, save = FALSE, path = NULL)
+BasicPlot(
+  genename,
+  dataset,
+  timelag = 0,
+  method = "median",
+  points = TRUE,
+  print = TRUE,
+  save = FALSE,
+  path = NULL
+)
 }
 \arguments{
 \item{genename}{The name of a gene intended for plotting. Must be a string.}

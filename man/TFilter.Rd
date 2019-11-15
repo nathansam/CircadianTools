@@ -4,8 +4,13 @@
 \alias{TFilter}
 \title{TFilter:}
 \usage{
-TFilter(dataset, maxdifference = 1, minchanges = 2,
-  psignificance = 0.05, nthreads = NULL)
+TFilter(
+  dataset,
+  maxdifference = 1,
+  minchanges = 2,
+  psignificance = 0.05,
+  nthreads = NULL
+)
 }
 \arguments{
 \item{dataset}{A transcriptomics dataset. First columns should be gene names.
@@ -35,6 +40,6 @@ Applies a filter where a t-test is carried out on
  gene is included in the filtered dataset.
 }
 \examples{
-filterdf <- TFilter(Laurasmappings)
+filterdf <- TFilter(Laurasmappings, nthreads = 2)
 
 }

@@ -14,8 +14,9 @@
 #' @param print Logical. If TRUE renders significant genes in the plot viewer.
 #'  Defaults to TRUE
 #' @examples
-#' cluster.df <- PamClustering(Laurasmappings, k = 10, scale = TRUE)
-#' MDSPlot(cluster.df)
+#' cluster.df <- PamClustering(Laurasmappings, k = 10, scale = TRUE,
+#'                             nthreads = 2)
+#' MDSPlot(cluster.df, nthreads = 2)
 #' @return
 #' @export
 

@@ -4,8 +4,15 @@
 \alias{DendogramPlot}
 \title{DendogramPlot}
 \usage{
-DendogramPlot(cluster.no, cluster.dataset, method = "agglom",
-  metric = "euclidean", print = TRUE, save = FALSE, path = NULL)
+DendogramPlot(
+  cluster.no,
+  cluster.dataset,
+  method = "agglom",
+  metric = "euclidean",
+  print = TRUE,
+  save = FALSE,
+  path = NULL
+)
 }
 \arguments{
 \item{cluster.no}{The number which identifies the cluster. If a vector is

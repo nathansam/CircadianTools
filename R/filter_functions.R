@@ -6,7 +6,7 @@
 #' specified then the maximum number of logical cores are used.
 #' @param threshold Set the p-value threshold for the filtering.
 #' @examples
-#' Laurasmappings_filtered <- AnovaFilter(Laurasmappings, nthreads=4)
+#' Laurasmappings_filtered <- AnovaFilter(Laurasmappings, nthreads = 2)
 #'
 #' @export
 
@@ -59,7 +59,7 @@ AnovaFilter <- function(dataset, threshold = 0.05, nthreads = NULL) {
 #' @param nthreads Number of processor threads for the filtering. If not
 #'  specifeid then the maximum number of logical cores are used.
 #' @examples
-#' rangedf <- SizeFilter(Laurasmappings, nthreads=4)
+#' rangedf <- SizeFilter(Laurasmappings, nthreads = 4)
 #'
 #' @export
 
@@ -94,7 +94,7 @@ SizeFilter <- function(dataset, cutoff = 0.1, nthreads = NULL) {
 #' @param nthreads Number of processor threads for the filtering. If not
 #'  specifed then the maximum number of logical cores are used.
 #' @examples
-#' Laurasmappings_filtered <- ZeroFilter(Laurasmappings, nthreads=4)
+#' Laurasmappings_filtered <- ZeroFilter(Laurasmappings, nthreads = 2)
 #'
 #' @export
 
@@ -141,7 +141,7 @@ ZeroFilter <- function(dataset, non_zero_num = 4, nthreads = NULL) {
 #' @param sizefilter Logical. If size filtering should be used. Defaults to
 #'  TRUE.
 #' @examples
-#' Laurasmappings.filtered <- CombiFilter(Laurasmappings, nthreads=4)
+#' Laurasmappings.filtered <- CombiFilter(Laurasmappings, nthreads = 2)
 #'
 #' @export
 CombiFilter <- function(dataset, non_zero_num = 4, threshold = 0.05,
@@ -201,7 +201,7 @@ CombiFilter <- function(dataset, non_zero_num = 4, threshold = 0.05,
 #'  classed as significant.
 #' @return Returns a filtered transcriptomics dataset
 #' @examples
-#' filterdf <- TFilter(Laurasmappings)
+#' filterdf <- TFilter(Laurasmappings, nthreads = 2)
 #'
 #' @export
 

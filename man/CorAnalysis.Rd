@@ -4,8 +4,16 @@
 \alias{CorAnalysis}
 \title{CorAnalysis:}
 \usage{
-CorAnalysis(genename, dataset, threshold = 0.9, average = "mean",
-  lag = 0, save = FALSE, print = TRUE, df = TRUE)
+CorAnalysis(
+  genename,
+  dataset,
+  threshold = 0.9,
+  average = "mean",
+  lag = 0,
+  save = FALSE,
+  print = TRUE,
+  df = TRUE
+)
 }
 \arguments{
 \item{genename}{the name of a gene intended for comparison with all other

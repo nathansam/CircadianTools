@@ -45,8 +45,8 @@ CytoscapeFilter <- function(cytoscape.file, threshold = 0.9,
 #' @param nthreads Number of processor threads for the process. If not specified
 #'  then the maximum number of logical cores are used.
 #' @examples
-#' correlation.df <- CorAnalysisDataset(Laurasmappings)
-#' CytoscapeFile(correlation.df)
+#' correlation.df <- CorAnalysisDataset(Laurasmappings, nthreads = 2)
+#' CytoscapeFile(correlation.df, nthreads = 2)
 #'
 #' @return Dataframe object in the new format.
 #' @export

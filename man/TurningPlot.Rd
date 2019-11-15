@@ -4,8 +4,7 @@
 \alias{TurningPlot}
 \title{TurningPlot:}
 \usage{
-TurningPlot(genename, dataset, timelag = 0, print = TRUE,
-  save = FALSE)
+TurningPlot(genename, dataset, timelag = 0, print = TRUE, save = FALSE)
 }
 \arguments{
 \item{genename}{The name of a gene intended for plotting. Must be a string.}

@@ -4,8 +4,7 @@
 \alias{CorAnalysisCluster}
 \title{CorAnalysisCluster}
 \usage{
-CorAnalysisCluster(cluster.no, cluster.dataset, lag = 0,
-  nthreads = NULL)
+CorAnalysisCluster(cluster.no, cluster.dataset, lag = 0, nthreads = NULL)
 }
 \arguments{
 \item{cluster.no}{The ID for the cluster which will be compared with all
@@ -27,8 +26,7 @@ Correlates the average activity of a cluster with the average
  activity of every other cluster.
 }
 \examples{
-filter.df <- CombiFilter(Laurasmappings)
-pam.df <- PamClustering(filter.df, k = 10)
-cor.df <- CorAnalysisCluster(3, pam.df)
+pam.df <- PamClustering(Laurasmappings, k = 10, nthreads = 2)
+cor.df <- CorAnalysisCluster(3, pam.df, nthreads = 2)
 
 }

@@ -4,9 +4,15 @@
 \alias{DianaClustering}
 \title{DianaClustering:}
 \usage{
-DianaClustering(dataset = NULL, distance = NULL, k = 10,
-  metric = "euclidean", nthreads = NULL, scale = TRUE,
-  center = TRUE)
+DianaClustering(
+  dataset = NULL,
+  distance = NULL,
+  k = 10,
+  metric = "euclidean",
+  nthreads = NULL,
+  scale = TRUE,
+  center = TRUE
+)
 }
 \arguments{
 \item{dataset}{A transcriptomics dataset. First columns should be gene names.
@@ -43,7 +49,7 @@ Applies DIANA (DIvisive ANAlysis) clustering to a
   all genes.
 }
 \examples{
-t.filter <-TFilter(Laurasmappings)
-diana.df <- DianaClustering(t.filter, k= 10)
+t.filter <-TFilter(Laurasmappings, nthreads = 2)
+diana.df <- DianaClustering(t.filter, k= 10, nthreads = 2)
 
 }

@@ -128,7 +128,7 @@ CosinorAnalysis <- function(dataset, period = 24, timelag = 6, threshold = 0.05,
 #' @return Prints or saves ggplot2 object(s). Optionally returns dataframe
 #'  containing gene name and p values from F-test ranking of cosinor models
 #' @examples
-#' cosinor.results <- CosinorAnalysisPar(Laurasmappings)
+#' cosinor.results <- CosinorAnalysisPar(Laurasmappings, nthreads = 2)
 #'
 #' @export
 

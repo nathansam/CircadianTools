@@ -22,6 +22,6 @@ Finds the center of a cluster by finding the median time value
  time points across an entire cluster.
 }
 \examples{
-pam.df <- PamClustering(Laurasmappings, k = 10)
-FindClusterMedian(2, pam.df)
+pam.df <- PamClustering(Laurasmappings, k = 10, nthreads = 2)
+FindClusterMedian(2, cluster.dataset = pam.df, nthreads = 2)
 }

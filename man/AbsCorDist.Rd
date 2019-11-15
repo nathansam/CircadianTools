@@ -18,7 +18,6 @@ Calculates a distance matrix based on the distance measure of:
 \deqn{1 - |cor(x, y)|}
 }
 \examples{
-a.filter <- AnovaFilter(Laurasmappings)
-meds.a.filter <- MedList(a.filter)
-distance <- AbsCorDist(meds.a.filter)
+meds <- MedList(Laurasmappings, nthreads = 2)
+distance <- AbsCorDist(meds, nthreads = 2)
 }

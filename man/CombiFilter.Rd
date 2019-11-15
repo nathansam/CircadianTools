@@ -4,9 +4,16 @@
 \alias{CombiFilter}
 \title{CombiFilter}
 \usage{
-CombiFilter(dataset, non_zero_num = 4, threshold = 0.05,
-  cutoff = 0.1, anovafilter = TRUE, zerofilter = TRUE,
-  sizefilter = TRUE, nthreads = NULL)
+CombiFilter(
+  dataset,
+  non_zero_num = 4,
+  threshold = 0.05,
+  cutoff = 0.1,
+  anovafilter = TRUE,
+  zerofilter = TRUE,
+  sizefilter = TRUE,
+  nthreads = NULL
+)
 }
 \arguments{
 \item{dataset}{A transcriptomics dataset. First columns should be gene names.
@@ -37,6 +44,6 @@ Filters a transcriptomics dataset by using ZeroFilter,
  AnovaFilter and SizeFilter.
 }
 \examples{
-Laurasmappings.filtered <- CombiFilter(Laurasmappings, nthreads=4)
+Laurasmappings.filtered <- CombiFilter(Laurasmappings, nthreads = 2)
 
 }

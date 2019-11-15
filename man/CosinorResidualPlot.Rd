@@ -4,8 +4,15 @@
 \alias{CosinorResidualPlot}
 \title{CosinorResidualPlot}
 \usage{
-CosinorResidualPlot(genename, dataset, timelag = 6, period = 24,
-  print = TRUE, save = FALSE, path = NULL)
+CosinorResidualPlot(
+  genename,
+  dataset,
+  timelag = 6,
+  period = 24,
+  print = TRUE,
+  save = FALSE,
+  path = NULL
+)
 }
 \arguments{
 \item{genename}{The name of a gene intended for plotting. Must be a string.}

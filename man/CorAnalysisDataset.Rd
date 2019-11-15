@@ -4,8 +4,14 @@
 \alias{CorAnalysisDataset}
 \title{CorAnalysisDataset:}
 \usage{
-CorAnalysisDataset(dataset, average = "median", lag = 0,
-  nthreads = NULL, save = TRUE, filename = NULL)
+CorAnalysisDataset(
+  dataset,
+  average = "median",
+  lag = 0,
+  nthreads = NULL,
+  save = TRUE,
+  filename = NULL
+)
 }
 \arguments{
 \item{dataset}{A transcriptomics dataset. First columns should be gene names.
@@ -36,7 +42,7 @@ Correlates every gene in a dataset with every other gene in the
 same dataset. Allows a timelag between genes to be correlated.
 }
 \examples{
-subdf<-TFilter(Laurasmappings)
-cordf <- CorAnalysisDataset(subdf, lag=1,filename='cor_tfiltered')
+cordf <- CorAnalysisDataset(Laurasmappings, lag=1, nthreads = 2,
+                            filename='cor_tfiltered')
 
 }

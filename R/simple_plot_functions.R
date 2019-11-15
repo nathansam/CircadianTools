@@ -205,8 +205,7 @@ CompPlot <- function(gene1, gene2, dataset, save = FALSE, points = TRUE) {
 #' the dataset object if this argument is not specified)  Not used if save=FALSE
 #' @examples
 #' \donttest{
-#' filter.df<-CombiFilter(Laurasmappings)
-#' DatasetPlot(filter.df)
+#' DatasetPlot(Laurasmappings, nthreads = 2)
 #' }
 #' @export
 

@@ -4,8 +4,14 @@
 \alias{CosinorResidualDatasetPlot}
 \title{CosinorResidualDatasetPlot}
 \usage{
-CosinorResidualDatasetPlot(dataset, timelag = 6, period = 24,
-  print = TRUE, save = FALSE, path = NULL)
+CosinorResidualDatasetPlot(
+  dataset,
+  timelag = 6,
+  period = 24,
+  print = TRUE,
+  save = FALSE,
+  path = NULL
+)
 }
 \arguments{
 \item{dataset}{A transcriptomics dataset. First columns should be gene names.

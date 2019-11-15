@@ -4,8 +4,7 @@
 \alias{CosinorAnalysisPar}
 \title{CosinorAnalysisPar:}
 \usage{
-CosinorAnalysisPar(dataset, period = 24, nthreads = NULL,
-  timelag = 6)
+CosinorAnalysisPar(dataset, period = 24, nthreads = NULL, timelag = 6)
 }
 \arguments{
 \item{dataset}{A transcriptomics dataset. First columns should be gene names.
@@ -38,6 +37,6 @@ Parallel Implementation of \link{CosinorAnalysis}. Fits cosinor
  ggplot2.
 }
 \examples{
-cosinor.results <- CosinorAnalysisPar(Laurasmappings)
+cosinor.results <- CosinorAnalysisPar(Laurasmappings, nthreads = 2)
 
 }

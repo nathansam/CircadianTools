@@ -6,9 +6,8 @@
 #' @param nthreads Number of processor threads for the filtering. If not
 #'  specifed then the maximum number of logical cores are used.
 #' @examples
-#' a.filter <- AnovaFilter(Laurasmappings)
-#' meds.a.filter <- MedList(a.filter)
-#' distance <- AbsCorDist(meds.a.filter)
+#' meds <- MedList(Laurasmappings, nthreads = 2)
+#' distance <- AbsCorDist(meds, nthreads = 2)
 #' @export
 
 AbsCorDist <- function(dataset, nthreads = NULL) {

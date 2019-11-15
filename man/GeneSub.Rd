@@ -23,6 +23,6 @@ Takes an object where the first column is genenames (IE a column
 }
 \examples{
 ### Redundant example
-newdf <- GeneSub(Laurasmappings[1:4,], Laurasmappings, nthreads=4)
+newdf <- GeneSub(Laurasmappings[1:4,], Laurasmappings, nthreads = 2)
 
 }

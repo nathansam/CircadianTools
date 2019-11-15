@@ -60,7 +60,7 @@ FileConflict <- function(filename) {
 #' @param nthreads Number of processor threads for the filtering. If not
 #'  specified then the maximum number of logical cores are used.
 #' @examples
-#' mediandf <- MedList(Laurasmappings, nthreads=4)
+#' mediandf <- MedList(Laurasmappings, nthreads = 2)
 #'
 #' @export
 
@@ -131,7 +131,7 @@ MedListSeq <- function(dataset) {
 #' @param nthreads Number of processor threads for the filtering. If not
 #'  specified then the maximum number of logical cores are used.
 #' @examples
-#' mediandf <- MedListPar(Laurasmappings, nthreads=4)
+#' mediandf <- MedListPar(Laurasmappings, nthreads = 2)
 #'
 #' @export
 
@@ -362,7 +362,7 @@ GeneClean <- function(dataset) {
 #' @param nthreads Number of processor threads for the filtering. If not
 #'  specified then the maximum number of logical cores are used.
 #' @examples
-#' rangedf <- GeneRange(Laurasmappings, nthreads=4)
+#' rangedf <- GeneRange(Laurasmappings, nthreads = 2)
 #'
 #' @export
 
@@ -424,7 +424,7 @@ GeneScale <- function(dataset, scale = TRUE, center = TRUE) {
 #'  maximum number of logical cores are used.
 #' @examples
 #' ### Redundant example
-#' newdf <- GeneSub(Laurasmappings[1:4,], Laurasmappings, nthreads=4)
+#' newdf <- GeneSub(Laurasmappings[1:4,], Laurasmappings, nthreads = 2)
 #'
 #' @export
 

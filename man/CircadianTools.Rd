@@ -3,7 +3,6 @@
 \docType{package}
 \name{CircadianTools}
 \alias{CircadianTools}
-\alias{CircadianTools-package}
 \title{CircadianTools: A Collection of Tools for Detecting Rhythmic Genes}
 \description{
 Allows analysis of rhythmic genes to be easily carried out on transcriptomics

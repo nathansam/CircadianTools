@@ -4,8 +4,13 @@
 \alias{ClusterDatasetPlot}
 \title{ClusterDatasetPlot :}
 \usage{
-ClusterDatasetPlot(cluster.dataset, nthreads = NULL, print = TRUE,
-  save = FALSE, path = "cluster_overview")
+ClusterDatasetPlot(
+  cluster.dataset,
+  nthreads = NULL,
+  print = TRUE,
+  save = FALSE,
+  path = "cluster_overview"
+)
 }
 \arguments{
 \item{cluster.dataset}{A transcriptomics dataset where the final column
@@ -30,7 +35,7 @@ Prints or saves ggplot2 object(s).
 Plots the mean and error bars for all clusters across time
 }
 \examples{
-pam.df <- PamClustering(Laurasmappings, k = 10)
-ClusterDatasetPlot(pam.df)
+pam.df <- PamClustering(Laurasmappings, k = 10, nthreads = 2)
+ClusterDatasetPlot(pam.df, nthreads = 2)
 
 }

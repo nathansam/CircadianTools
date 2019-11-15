@@ -19,6 +19,6 @@ specified then the maximum number of logical cores are used.}
 Filters a gene activity dataframe via ANOVA.
 }
 \examples{
-Laurasmappings_filtered <- AnovaFilter(Laurasmappings, nthreads=4)
+Laurasmappings_filtered <- AnovaFilter(Laurasmappings, nthreads = 2)
 
 }
