@@ -21,5 +21,5 @@ A transcriptomics dataset with centered / scaled genes
 Centers/scales every gene in a transcriptomics dataset
 }
 \examples{
-GeneScale(LaurasMappings)
+GeneScale(Laurasmappings)
 }

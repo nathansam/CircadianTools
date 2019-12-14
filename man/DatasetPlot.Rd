@@ -4,8 +4,14 @@
 \alias{DatasetPlot}
 \title{DatasetPlot:}
 \usage{
-DatasetPlot(dataset, timelag = 0, method = "median", points = TRUE,
-  nthreads = NULL, path = NULL)
+DatasetPlot(
+  dataset,
+  timelag = 0,
+  method = "median",
+  points = TRUE,
+  nthreads = NULL,
+  path = NULL
+)
 }
 \arguments{
 \item{dataset}{A transcriptomics dataset. First columns should be gene names.
@@ -31,6 +37,7 @@ Saves plots of all genes in a dataset. WARNING! Don't run on a
  large dataset! Intended for a filtered dataset
 }
 \examples{
-filter.df<-CombiFilter(Laurasmappings)
-DatasetPlot(filter.df)
+\donttest{
+DatasetPlot(Laurasmappings, nthreads = 2)
+}
 }

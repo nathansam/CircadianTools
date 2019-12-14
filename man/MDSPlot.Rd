@@ -4,9 +4,14 @@
 \alias{MDSPlot}
 \title{MDSPlot}
 \usage{
-MDSPlot(cluster.dataset, title = "Multidimensional Scaling Plot",
-  nthreads = NULL, metric = "euclidean", save = FALSE,
-  print = TRUE)
+MDSPlot(
+  cluster.dataset,
+  title = "Multidimensional Scaling Plot",
+  nthreads = NULL,
+  metric = "euclidean",
+  save = FALSE,
+  print = TRUE
+)
 }
 \arguments{
 \item{cluster.dataset}{A transcriptomics dataset where the final column
@@ -19,7 +24,7 @@ All remaining columns should be expression levels.}
 specified then the maximum number of logical cores are used.}
 
 \item{metric}{The distance metric to be used to calculate the distances
-between genes. See parallelDist::parDist for all accepted arguments. Also 
+between genes. See parallelDist::parDist for all accepted arguments. Also
 accepts "abs.correlation" for absolute Pearson's correlation}
 
 \item{save}{Logical. If TRUE, saves plots. Defaults to FALSE.}
@@ -27,15 +32,12 @@ accepts "abs.correlation" for absolute Pearson's correlation}
 \item{print}{Logical. If TRUE renders significant genes in the plot viewer.
 Defaults to TRUE}
 }
-\value{
-
-}
 \description{
 Applies multidimensional scaling to a clustered transcriptomics
  dataset to reduce the clusters to two dimensions and then plots the clusters.
 }
 \examples{
-a.filter <- AnovaFilter(Laurasmappings)
-cluster.df <- PamClustering(a.filter, k = 95, scale = TRUE)
-MDSPlot(cluster.df)
+cluster.df <- PamClustering(Laurasmappings, k = 10, scale = TRUE,
+                            nthreads = 2)
+MDSPlot(cluster.df, nthreads = 2)
 }

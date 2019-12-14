@@ -4,8 +4,7 @@
 \alias{CorAnalysisPar}
 \title{CorAnalysisPar:}
 \usage{
-CorAnalysisPar(genename, dataset, lag = 0, average = "median",
-  nthreads = NULL)
+CorAnalysisPar(genename, dataset, lag = 0, average = "median", nthreads = NULL)
 }
 \arguments{
 \item{genename}{the name of a gene intended for comparison with all other
@@ -33,6 +32,7 @@ Parallel Implementation of \link{CorAnalysis}. Ranks correlation
  gene and highly correlated genes for a given correlation value
 }
 \examples{
-cor_results <- CorAnalysisPar('comp100002_c0_seq2', Laurasmappings)
+cor_results <- CorAnalysisPar('comp100002_c0_seq2', Laurasmappings,
+                              nthreads = 2)
 
 }

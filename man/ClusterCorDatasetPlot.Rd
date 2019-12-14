@@ -4,8 +4,13 @@
 \alias{ClusterCorDatasetPlot}
 \title{ClusterCorDatasetPlot}
 \usage{
-ClusterCorDatasetPlot(cluster.dataset, nthreads = NULL, print = TRUE,
-  save = FALSE, path = NULL)
+ClusterCorDatasetPlot(
+  cluster.dataset,
+  nthreads = NULL,
+  print = TRUE,
+  save = FALSE,
+  path = NULL
+)
 }
 \arguments{
 \item{cluster.dataset}{A transcriptomics dataset where the final column
@@ -32,7 +37,9 @@ Uses \link{ClusterCorPlot} to plot all of the clusters generated
  distance measure.
 }
 \examples{
-filter.df <- CombiFilter(Laurasmappings)
-pam.df <- PamClustering(filter.df, k = 75, metric = "abs.correlation")
-ClusterCorDatasetPlot(pam.df)
+\donttest{
+pam.df <- PamClustering(Laurasmappings, k = 10, metric = "abs.correlation",
+                        nthreads = 2)
+ClusterCorDatasetPlot(pam.df, nthreads = 2)
+}
 }

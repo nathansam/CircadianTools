@@ -16,7 +16,7 @@
 #'  directory by default. Not used if save = FALSE
 #' @return A ggplot2 object
 #' @examples
-#' basicplot('comp101252_c0_seq2',Laurasmappings)
+#' BasicPlot('comp100026_c0_seq2',Laurasmappings)
 #'
 #' @export
 
@@ -30,6 +30,10 @@ BasicPlot <- function(genename, dataset, timelag = 0, method = "median",
             }
         }
     }
+    activity <- NULL
+    new.average <- NULL
+
+
 
     genematrix <- subset(dataset, dataset[1] == genename)  # Select gene
     # Makes vector of time values
@@ -51,9 +55,9 @@ BasicPlot <- function(genename, dataset, timelag = 0, method = "median",
             }  #compute the mean of the time points
         if (method == "median")
             {
-                average.list[[count]] <- (median(genesub$activity))
+                average.list[[count]] <- (stats::median(genesub$activity))
             }  #compute the median of the time points
-        count = count + 1
+        count <- count + 1
     }
 
     genedata <- cbind(genedata$timevector, genedata$activity, average.list)
@@ -106,6 +110,7 @@ BasicPlot <- function(genename, dataset, timelag = 0, method = "median",
 #' @export
 
 CompPlot <- function(gene1, gene2, dataset, save = FALSE, points = TRUE) {
+    gene1_activity = gene2_activity = mean1 = mean2 = NULL
 
     # Vector of time values
     timevector <- CircadianTools::MakeTimevector(dataset)
@@ -204,12 +209,14 @@ CompPlot <- function(gene1, gene2, dataset, save = FALSE, points = TRUE) {
 #' @param path The directory to be used for saving plots to. Uses the name of
 #' the dataset object if this argument is not specified)  Not used if save=FALSE
 #' @examples
-#' filter.df<-CombiFilter(Laurasmappings)
-#' DatasetPlot(filter.df)
+#' \donttest{
+#' DatasetPlot(Laurasmappings, nthreads = 2)
+#' }
 #' @export
 
 DatasetPlot <- function(dataset, timelag = 0, method = "median", points = TRUE,
                         nthreads = NULL, path = NULL) {
+    i <- NULL
 
     if (is.null(path) == TRUE) {
    # If a filename isn't specified then the name of the dataframe object is used

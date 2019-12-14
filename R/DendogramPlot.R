@@ -17,13 +17,13 @@
 #' @param path The directory to be used for saving plots to. Uses the working
 #'  directory by default. Not used if save = FALSE
 #' @examples
-#' t.filter <-TFilter(Laurasmappings)
-#' diana.df <- DianaClustering(t.filter, k= 95)
+#' diana.df <- DianaClustering(Laurasmappings, k= 10)
 #' DendogramPlot(5, diana.df, method = 'diana')
 #' @export
 DendogramPlot <- function(cluster.no, cluster.dataset, method = "agglom",
                           metric = 'euclidean', print = TRUE, save = FALSE,
                           path = NULL ){
+  cluster <- NULL
 
   if (save == TRUE) {
     if (is.null(path) == FALSE){
@@ -50,10 +50,10 @@ DendogramPlot <- function(cluster.no, cluster.dataset, method = "agglom",
 
   ### Apply clustering and convert to dendogram object ###
   if (method == "agglom"){ # Agglomerative clustering
-    hc <- as.dendrogram(hclust(distance))
+    hc <- stats::as.dendrogram(stats::hclust(distance))
   }
   if (method == "diana"){ # Divisive clustering using DIANA
-    hc <- as.dendrogram(cluster::diana(distance))
+    hc <- stats::as.dendrogram(cluster::diana(distance))
   }
 
 
@@ -114,8 +114,7 @@ DendogramPlot <- function(cluster.no, cluster.dataset, method = "agglom",
 #' @param path The directory to be used for saving plots to. Uses the working
 #'  directory by default. Not used if save = FALSE
 #' @examples
-#' t.filter <-TFilter(Laurasmappings)
-#' diana.df <- DianaClustering(t.filter, k= 95)
+#' diana.df <- DianaClustering(Laurasmappings, k= 10)
 #' DendogramDatasetPlot(diana.df, method = 'diana')
 #' @export
 DendogramDatasetPlot <- function(cluster.dataset, method = "agglom",
@@ -152,13 +151,13 @@ DendogramDatasetPlot <- function(cluster.dataset, method = "agglom",
 #' @param path The directory to be used for saving plots to. Uses the working
 #'  directory by default. Not used if save = FALSE
 #' @examples
-#' t.filter <-TFilter(Laurasmappings)
-#' diana.df <- DianaClustering(t.filter, k= 95)
-#' DendogramPlot(diana.df, method = 'diana')
+#' diana.df <- DianaClustering(Laurasmappings, k = 10, nthreads = 2)
+#' DatasetDendogram(diana.df, method = 'diana', nthreads = 2, path = 'example')
 #' @export
 DatasetDendogram <- function(cluster.dataset, method = "agglom",
                              metric = "euclidean", nthreads = NULL,
                              print = TRUE, save = FALSE, path = NULL){
+  i <- NULL
 
 
   if (save == TRUE & is.null(path) == FALSE & dir.exists(path) == FALSE) {
@@ -197,10 +196,10 @@ DatasetDendogram <- function(cluster.dataset, method = "agglom",
   }
 
   if (method == "agglom"){ # Agglomerative clustering
-    hc <- as.dendrogram(hclust(distance))
+    hc <- stats::as.dendrogram(stats::hclust(distance))
   }
   if (method == "diana"){ # Divisive clustering using DIANA
-    hc <- as.dendrogram(cluster::diana(distance))
+    hc <- stats::as.dendrogram(cluster::diana(distance))
   }
 
   ### Change shorthand names for methods/metrics to proper names ###
@@ -239,8 +238,3 @@ DatasetDendogram <- function(cluster.dataset, method = "agglom",
     return(p)
   }
 }
-
-
-
-
-

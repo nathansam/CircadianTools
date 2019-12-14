@@ -4,8 +4,14 @@
 \alias{ClusterPlot}
 \title{ClusterPlot :}
 \usage{
-ClusterPlot(clusterno, cluster.dataset, nthreads = NULL, print = TRUE,
-  save = FALSE, path = NULL)
+ClusterPlot(
+  clusterno,
+  cluster.dataset,
+  nthreads = NULL,
+  print = TRUE,
+  save = FALSE,
+  path = NULL
+)
 }
 \arguments{
 \item{clusterno}{The number which identifies the cluster}
@@ -33,7 +39,6 @@ Plots the mean and error bars for the genes in a cluster across
  time
 }
 \examples{
-filter.df <- CombiFilter(Laurasmappings)
-pam.df <- PamClustering(filter.df, k = 75)
-ClusterPlot(2, pam.df)
+pam.df <- PamClustering(Laurasmappings, k = 10, nthreads = 2)
+ClusterPlot(2, pam.df, nthreads = 2)
 }

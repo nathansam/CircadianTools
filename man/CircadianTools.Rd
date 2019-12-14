@@ -3,7 +3,6 @@
 \docType{package}
 \name{CircadianTools}
 \alias{CircadianTools}
-\alias{CircadianTools-package}
 \title{CircadianTools: A Collection of Tools for Detecting Rhythmic Genes}
 \description{
 Allows analysis of rhythmic genes to be easily carried out on transcriptomics
@@ -27,6 +26,14 @@ unequal number of replicates. \cr \cr
 }
 
 \section{Clustering}{
+
+
+\code{\link{AgglomClustering}}: Applies hierarchical clustering, clustering to a
+ transcriptomics dataset and appends a cluster column to this dataset for all
+ genes. \cr \cr
+
+\code{\link{AgglomParamSelection}}: Runs hierarchical clustering with
+ differing numbers of partitions and returns validation metrics. \cr \cr
 
 \code{\link{ClusterCenterGenerator}}: Finds the center of every cluster in a
  dataset \cr \cr
@@ -84,13 +91,6 @@ unequal number of replicates. \cr \cr
 \code{\link{FindClusterQuantile}}: Finds The distances between the center of
  a cluster and the centers of all other clusters. \cr \cr
 
-\code{\link{HClustering}}: Applies hierarchical clustering, clustering to a
- transcriptomics dataset and appends a cluster column to this dataset for all
- genes. \cr \cr
-
-\code{\link{HclustParamSelection}}: Runs hierarchical clustering with
- differing numbers of partitions and returns validation metrics. \cr \cr
- 
  \code{\link{MDSPlot}}: Applies multidimensional scaling to a clustered
   transcriptomics dataset to reduce the clusters to two dimensions and
    then plots the clusters.  \cr \cr

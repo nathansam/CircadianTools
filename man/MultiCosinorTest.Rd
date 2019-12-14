@@ -4,8 +4,15 @@
 \alias{MultiCosinorTest}
 \title{MultiCosinorTest}
 \usage{
-MultiCosinorTest(genename, dataset, timelag = 6, period.1 = 24,
-  period.2 = 12.4, save = TRUE, path = NULL)
+MultiCosinorTest(
+  genename,
+  dataset,
+  timelag = 6,
+  period.1 = 24,
+  period.2 = 12.4,
+  save = TRUE,
+  path = NULL
+)
 }
 \arguments{
 \item{genename}{The name of a gene intended for plotting. Must be a string.}
@@ -34,5 +41,5 @@ Fits a cosinor model and carries out ANOVA using raw
  model as well as directly comparing the two models.
 }
 \examples{
-MultiCosinorTest("comp99801_c1_seq1", Laurasmappings)
+MultiCosinorTest("comp100000_c0_seq2", Laurasmappings)
 }

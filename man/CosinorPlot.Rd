@@ -4,8 +4,14 @@
 \alias{CosinorPlot}
 \title{CosinorPlot:}
 \usage{
-CosinorPlot(genename, dataset, timelag = 6, period = 24,
-  print = TRUE, save = FALSE)
+CosinorPlot(
+  genename,
+  dataset,
+  timelag = 6,
+  period = 24,
+  print = TRUE,
+  save = FALSE
+)
 }
 \arguments{
 \item{genename}{The name of a gene intended for plotting. Must be a string.}

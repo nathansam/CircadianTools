@@ -9,8 +9,8 @@
 #' @param nthreads The number of threads to be used for parallel computations.
 #'  If NULL then the maximum number of threads available will be used.
 #' @examples
-#' a.filter <- AnovaFilter(Laurasmappings)
-#' distance <- DistanceGen(a.filter, metric='abs.correlation')
+#' distance <- DistanceGen(Laurasmappings, metric='abs.correlation',
+#'                         nthreads = 2)
 #'
 #' @export
 DistanceGen <- function(dataset, metric = "euclidean", nthreads = NULL) {

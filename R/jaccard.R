@@ -27,7 +27,6 @@
 #' @param labels2 a vector of \code{n} clustering labels
 #' @return the Jaccard coefficient for the two sets of cluster labels (See
 #' Details.)
-#' @examples
 #
 #'
 #' @export

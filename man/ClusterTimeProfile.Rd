@@ -21,8 +21,7 @@ Provides a vector of mean values at each time point for
  each cluster.
 }
 \examples{
-filter.df <- CombiFilter(Laurasmappings)
-pam.df <- PamClustering(filter.df, k = 75)
-time.profile<-ClusterTimeProfile(1,pam.df)
+pam.df <- PamClustering(Laurasmappings, k = 10, nthreads = 2)
+time.profile<-ClusterTimeProfile(1, cluster.dataset = pam.df, nthreads = 2)
 
 }

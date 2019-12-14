@@ -4,9 +4,17 @@
 \alias{CosinorAnalysis}
 \title{CosinorAnalysis:}
 \usage{
-CosinorAnalysis(dataset, period = 24, timelag = 6, threshold = 0.05,
-  adj = "bonferroni", progress = TRUE, save = FALSE, print = TRUE,
-  df = TRUE)
+CosinorAnalysis(
+  dataset,
+  period = 24,
+  timelag = 6,
+  threshold = 0.05,
+  adj = "bonferroni",
+  progress = TRUE,
+  save = FALSE,
+  print = TRUE,
+  df = TRUE
+)
 }
 \arguments{
 \item{dataset}{A transcriptomics dataset. First columns should be gene names.

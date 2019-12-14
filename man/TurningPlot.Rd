@@ -4,8 +4,7 @@
 \alias{TurningPlot}
 \title{TurningPlot:}
 \usage{
-TurningPlot(genename, dataset, timelag = 0, print = TRUE,
-  save = FALSE)
+TurningPlot(genename, dataset, timelag = 0, print = TRUE, save = FALSE)
 }
 \arguments{
 \item{genename}{The name of a gene intended for plotting. Must be a string.}
@@ -30,6 +29,6 @@ Fits a spline to a given gene in a given dataset. Finds the
  turning points. Plots the turning points and spline.
 }
 \examples{
-TurningPlot('comp100000_c0_seq2',LauraSingleMap)
+TurningPlot('comp100000_c0_seq2',Laurasmappings)
 
 }

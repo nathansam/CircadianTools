@@ -4,8 +4,14 @@
 \alias{DendogramDatasetPlot}
 \title{DendogramDatasetPlot}
 \usage{
-DendogramDatasetPlot(cluster.dataset, method = "agglom",
-  metric = "euclidean", print = TRUE, save = FALSE, path = NULL)
+DendogramDatasetPlot(
+  cluster.dataset,
+  method = "agglom",
+  metric = "euclidean",
+  print = TRUE,
+  save = FALSE,
+  path = NULL
+)
 }
 \arguments{
 \item{cluster.dataset}{A transcriptomics dataset where the final column
@@ -32,7 +38,6 @@ directory by default. Not used if save = FALSE}
 Plots the dendogram for every cluster in a clustered dataset.
 }
 \examples{
-t.filter <-TFilter(Laurasmappings)
-diana.df <- DianaClustering(t.filter, k= 95)
+diana.df <- DianaClustering(Laurasmappings, k= 10)
 DendogramDatasetPlot(diana.df, method = 'diana')
 }

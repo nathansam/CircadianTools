@@ -4,8 +4,14 @@
 \alias{DianaParamSelection}
 \title{DianaParamSelection}
 \usage{
-DianaParamSelection(dataset = NULL, distance = NULL, k = c(2, 5, 10),
-  metric = "euclidean", nthreads = 4, scale = TRUE)
+DianaParamSelection(
+  dataset = NULL,
+  distance = NULL,
+  k = c(2, 5, 10),
+  metric = "euclidean",
+  nthreads = 4,
+  scale = TRUE
+)
 }
 \arguments{
 \item{dataset}{A transcriptomics dataset. Preferably filtered first. First
@@ -33,7 +39,7 @@ Runs DIANA (DIvisive ANAlysis) clustering with differing numbers
  of partitions and returns validation metrics.
 }
 \examples{
-filter.df <- CombiFilter(Laurasmappings)
-k.options <- seq(10,100, by=10)
-diana.validation <- DianaParamSelection(filterdf, k=k.options)
+k.options <- seq(2,10)
+diana.validation <- DianaParamSelection(Laurasmappings, k=k.options,
+                                         nthreads = 2)
 }

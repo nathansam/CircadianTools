@@ -60,7 +60,7 @@ FileConflict <- function(filename) {
 #' @param nthreads Number of processor threads for the filtering. If not
 #'  specified then the maximum number of logical cores are used.
 #' @examples
-#' mediandf <- MedList(Laurasmappings, nthreads=4)
+#' mediandf <- MedList(Laurasmappings, nthreads = 2)
 #'
 #' @export
 
@@ -89,6 +89,7 @@ MedList <- function(dataset, nthreads = NULL) {
 #' @export
 
 MedListSeq <- function(dataset) {
+    i <- NULL
 
     # Load the do binary operator from foreach package
     `%do%` <- foreach::`%do%`
@@ -110,7 +111,7 @@ MedListSeq <- function(dataset) {
         for (j in unique(timevector)) {
             # Populate the median list
             genesubset <- subset(activity.df, timevector == j)
-            med.list <- c(med.list, median(genesubset$activity))
+            med.list <- c(med.list, stats::median(genesubset$activity))
         }
         t(data.frame(med.list))
 
@@ -131,11 +132,12 @@ MedListSeq <- function(dataset) {
 #' @param nthreads Number of processor threads for the filtering. If not
 #'  specified then the maximum number of logical cores are used.
 #' @examples
-#' mediandf <- MedListPar(Laurasmappings, nthreads=4)
+#' mediandf <- MedListPar(Laurasmappings, nthreads = 2)
 #'
 #' @export
 
 MedListPar <- function(dataset, nthreads = NULL) {
+    i <- NULL
 
     # Load the dopar binary operator from foreach package
     `%dopar%` <- foreach::`%dopar%`
@@ -165,7 +167,7 @@ MedListPar <- function(dataset, nthreads = NULL) {
         for (j in unique(timevector)) {
             # Populate the median list
             genesubset <- subset(activity.df, timevector == j)
-            med.list <- c(med.list, median(genesubset$activity))
+            med.list <- c(med.list, stats::median(genesubset$activity))
         }
         t(data.frame(med.list))
 
@@ -193,9 +195,6 @@ MedListPar <- function(dataset, nthreads = NULL) {
 #'
 #'
 #' @export
-#'
-#'
-#'
 ggplot.cosinor.lm <- function(object, x_str = NULL, endtime) {
 
     timeax <- seq(0, endtime, length.out = 200)
@@ -228,7 +227,7 @@ ggplot.cosinor.lm <- function(object, x_str = NULL, endtime) {
     }
 
 
-    newdata$Y.hat <- predict(object$fit, newdata = newdata)
+    newdata$Y.hat <- stats::predict(object$fit, newdata = newdata)
 
     if (missing(x_str) || is.null(x_str)) {
 
@@ -237,7 +236,7 @@ ggplot.cosinor.lm <- function(object, x_str = NULL, endtime) {
 
     } else {
 
-        ggplot2:ggplot(newdata, aes_string(x = "time", y = "Y.hat",
+        ggplot2::ggplot(newdata, ggplot2::aes_string(x = "time", y = "Y.hat",
                                            col = "levels")) +
             ggplot2::geom_line()
 
@@ -316,7 +315,8 @@ TAnalysis <- function(row.no, dataset, psignificance = 0.05) {
 
         if (zerogroup == FALSE) {
             # Carry out t-test assuming equal variance
-            t.test.obj <- t.test(group1[, 1], group2[, 1], var.equal = TRUE)
+            t.test.obj <- stats::t.test(group1[, 1], group2[, 1],
+                                        var.equal = TRUE)
 
             # If p-value from t-test is below significance threshold
             if (t.test.obj$p.value < psignificance) {
@@ -362,11 +362,12 @@ GeneClean <- function(dataset) {
 #' @param nthreads Number of processor threads for the filtering. If not
 #'  specified then the maximum number of logical cores are used.
 #' @examples
-#' rangedf <- GeneRange(Laurasmappings, nthreads=4)
+#' rangedf <- GeneRange(Laurasmappings, nthreads = 2)
 #'
 #' @export
 
 GeneRange <- function(dataset, nthreads = NULL) {
+    i <- NULL
     # Load the dopar binary operator from foreach package
     `%dopar%` <- foreach::`%dopar%`
 
@@ -384,7 +385,7 @@ GeneRange <- function(dataset, nthreads = NULL) {
 
     rangedf <- foreach::foreach(i = 1:genenumber, .combine = rbind) %dopar% {
         # Get gene by row
-        gene <- dplyr::filter(mediandf, dplyr::row_number() == i)
+        gene <- mediandf[i,]
         generange <- max(gene) - min(gene)
         genename <- dataset[i, 1]
         data.frame(genename, generange)
@@ -403,7 +404,7 @@ GeneRange <- function(dataset, nthreads = NULL) {
 #' @param center Logical. If TRUE then each gene will be centered on zero
 #' @return A transcriptomics dataset with centered / scaled genes
 #' @examples
-#' GeneScale(LaurasMappings)
+#' GeneScale(Laurasmappings)
 #' @export
 
 GeneScale <- function(dataset, scale = TRUE, center = TRUE) {
@@ -418,16 +419,18 @@ GeneScale <- function(dataset, scale = TRUE, center = TRUE) {
 #'  these genes
 #' @param subdf An object where the first column is gene names of interes (IE a
 #'  column of known Circadian genes or genes found to be signicant)
-#' @param dataset A transcriptomics dataset. First columns should be gene names.
+#' @param dataframe A transcriptomics dataset. First columns should be gene names.
 #'  All other columns should be expression levels.
 #' @param nthreads Number of processor threads used. If not specifed then the
 #'  maximum number of logical cores are used.
 #' @examples
-#' newdf <- GeneSub(circadian, Laurasmappings, nthreads=4)
+#' ### Redundant example
+#' newdf <- GeneSub(Laurasmappings[1:4,], Laurasmappings, nthreads = 2)
 #'
 #' @export
 
 GeneSub <- function(subdf, dataframe, nthreads = NULL) {
+    i <- NULL
 
     # Load the dopar binary operator from foreach package
     `%dopar%` <- foreach::`%dopar%`

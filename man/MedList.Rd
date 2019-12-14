@@ -18,6 +18,6 @@ A Wrapper for MedList. Calls MedlistSeq if a singlethreaded
  function is required or MedListPar if a multithreaded function is needed.
 }
 \examples{
-mediandf <- MedList(Laurasmappings, nthreads=4)
+mediandf <- MedList(Laurasmappings, nthreads = 2)
 
 }

@@ -4,8 +4,14 @@
 \alias{PamParamSelection}
 \title{PamParamSelection}
 \usage{
-PamParamSelection(dataset = NULL, distance = NULL, k = c(2, 5, 10),
-  metric = "euclidean", scale = TRUE, nthreads = 4)
+PamParamSelection(
+  dataset = NULL,
+  distance = NULL,
+  k = c(2, 5, 10),
+  metric = "euclidean",
+  scale = TRUE,
+  nthreads = 4
+)
 }
 \arguments{
 \item{dataset}{A transcriptomics dataset. Preferably filtered first.
@@ -35,7 +41,6 @@ Runs PAM with differing numbers of partitions and returns
  validation metrics.
 }
 \examples{
-filter.df <- CombiFilter(Laurasmappings)
-k.options <- seq(10,100, by=10)
-pam.validation <- PamParamSelection(filterdf, k=k.options)
+k.options <- seq(2,10)
+pam.validation <- PamParamSelection(Laurasmappings, k=k.options, nthreads = 2)
 }

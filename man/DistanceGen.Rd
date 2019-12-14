@@ -22,7 +22,7 @@ If NULL then the maximum number of threads available will be used.}
 Generates a distance matrix from a a transcriptomics dataset.
 }
 \examples{
-a.filter <- AnovaFilter(Laurasmappings)
-distance <- DistanceGen(a.filter, metric='abs.correlation')
+distance <- DistanceGen(Laurasmappings, metric='abs.correlation',
+                        nthreads = 2)
 
 }

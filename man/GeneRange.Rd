@@ -18,6 +18,6 @@ Finds the range of gene activity for each gene in a dataframe.
  The median for the replicates is used for each time point.
 }
 \examples{
-rangedf <- GeneRange(Laurasmappings, nthreads=4)
+rangedf <- GeneRange(Laurasmappings, nthreads = 2)
 
 }

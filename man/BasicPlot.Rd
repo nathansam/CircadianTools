@@ -4,8 +4,16 @@
 \alias{BasicPlot}
 \title{BasicPlot:}
 \usage{
-BasicPlot(genename, dataset, timelag = 0, method = "median",
-  points = TRUE, print = TRUE, save = FALSE, path = NULL)
+BasicPlot(
+  genename,
+  dataset,
+  timelag = 0,
+  method = "median",
+  points = TRUE,
+  print = TRUE,
+  save = FALSE,
+  path = NULL
+)
 }
 \arguments{
 \item{genename}{The name of a gene intended for plotting. Must be a string.}
@@ -37,6 +45,6 @@ A ggplot2 object
 Plots activity data as points and average activity as lines
 }
 \examples{
-basicplot('comp101252_c0_seq2',Laurasmappings)
+BasicPlot('comp100026_c0_seq2',Laurasmappings)
 
 }

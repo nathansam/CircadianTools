@@ -30,6 +30,7 @@
 CosinorAnalysis <- function(dataset, period = 24, timelag = 6, threshold = 0.05,
                             adj = "bonferroni", progress = TRUE, save = FALSE, print = TRUE,
                             df = TRUE) {
+    activity <- NULL
     expected_adj <- c("bonferroni", "Bonferroni", "none")
 
     if (adj %in% expected_adj == FALSE) {
@@ -47,11 +48,11 @@ CosinorAnalysis <- function(dataset, period = 24, timelag = 6, threshold = 0.05,
                                       pVal = pvalues)
     # Calculate vector of time values
     timevector <- CircadianTools::MakeTimevector(dataset)
-    loading_values <- CircadianTools::LoadingGen(genenumber)
+    loading_values <- LoadingGen(genenumber)
 
     for (i in 1:genenumber) {
         if (progress == TRUE){
-            CircadianTools::LoadingPrint(i, loading_values) # Show progress
+            LoadingPrint(i, loading_values) # Show progress
         }
 
         genematrix <- dplyr::filter(dataset, dplyr::row_number() == i)
@@ -81,7 +82,8 @@ CosinorAnalysis <- function(dataset, period = 24, timelag = 6, threshold = 0.05,
             }
 
             p <- CircadianTools::ggplot.cosinor.lm(cosinormodel,
-                                endtime = tail(timevector, n = 1) -timelag)
+                                endtime = utils::tail(timevector,
+                                                      n = 1) -timelag)
             p <- p + ggplot2::geom_point(ggplot2::aes(y = activity,
                     x = timevector), data = geneexpression, size = 3,
                     alpha = 0.5, color = "#39A5AE")
@@ -116,25 +118,17 @@ CosinorAnalysis <- function(dataset, period = 24, timelag = 6, threshold = 0.05,
 #'  All other columns should be expression levels.
 #' @param period The period of rhythmicity which is being tested for. Defaults
 #'  to 24 (circadian).
+#' @param nthreads The number of threads to be used for parallel computations.
+#'  Defaults to the maximum number of threads available.
 #' @param timelag The value of time for which observations begin. Defaults to 6.
-#' @param threshold Set significance value for which genes are considered
-#'  significant and thus plotted. Defaults to 6e-07
-#' @param save Logical. If TRUE, saves plots to working directory. Defaults to
-#'  FALSE.
-#' @param print Logical. If TRUE renders significant genes in the plot viewer.
-#'  Defaults to TRUE
-#' @param df Logical. If TRUE a dataframe containing the results of the cosinor
-#'  analysis will be returned. Defaults to TRUE.
-#' @return Prints or saves ggplot2 object(s). Optionally returns dataframe
-#'  containing gene name and p values from F-test ranking of cosinor models
+#' @return Saves ggplot2 object(s).
 #' @examples
-#' cosinor.results <- CosinorAnalysisPar(Laurasmappings)
+#' cosinor.results <- CosinorAnalysisPar(Laurasmappings, nthreads = 2)
 #'
 #' @export
-
-
 CosinorAnalysisPar <- function(dataset, period = 24, nthreads = NULL,
                                timelag = 6) {
+    i <- NULL
     if (is.null(nthreads) == TRUE) {
         nthreads <- parallel::detectCores()
     }
@@ -152,14 +146,14 @@ CosinorAnalysisPar <- function(dataset, period = 24, nthreads = NULL,
     cosinor.pvalue.df <- data.frame(sample = dplyr::select(dataset, 1),
                                     pVal = pvalues)
     timevector <- CircadianTools::MakeTimevector(dataset)
-    loading_values <- CircadianTools::LoadingGen(genenumber)
+    loading_values <- LoadingGen(genenumber)
 
 
     cl <- parallel::makeForkCluster(nthreads)
     doParallel::registerDoParallel(cl)
     cosinor.pvalue.df <- foreach::foreach(i = 1:genenumber,
                                           .combine = rbind) %dopar% {
-        CircadianTools::LoadingPrint(i, loading_values)
+        LoadingPrint(i, loading_values)
 
         genematrix <- dplyr::filter(dataset, dplyr::row_number() == i)
         sample <- genematrix[1, 1]
@@ -200,6 +194,7 @@ CosinorAnalysisPar <- function(dataset, period = 24, nthreads = NULL,
 
 CosinorPlot <- function(genename, dataset, timelag = 6, period = 24,
                         print = TRUE, save = FALSE) {
+    activity <- NULL
     genematrix <- subset(dataset, dataset[1] == genename)
     timevector <- CircadianTools::MakeTimevector(genematrix)  # Makes timevector
 
@@ -250,7 +245,8 @@ CosinorPlot <- function(genename, dataset, timelag = 6, period = 24,
 #' @return Prints or saves ggplot2 object(s).
 #' @examples
 #' cosinor.results <- CosinorAnalysis(Laurasmappings)
-#' CosinorSignificantPlot(cosinor.results, Laurasmappings, number = 15, period = 24 ,save = TRUE)
+#' CosinorSignificantPlot(cosinor.results, Laurasmappings, number = 15,
+#'                         period = 24, save = TRUE, path = "example")
 #'
 #' @export
 CosinorSignificantPlot <- function(results, dataset, number = 10, period = 24,
@@ -258,7 +254,7 @@ CosinorSignificantPlot <- function(results, dataset, number = 10, period = 24,
     # Order by most significant p-value
     results <- results[order(results$pVal), ]
 
-    if (is.null(path) == TRUE) {
+    if (is.null(path) == TRUE){
         # If path is not given then use name of results object
         path <- deparse(substitute(results))
     }
@@ -305,12 +301,12 @@ CosinorSignificantPlot <- function(results, dataset, number = 10, period = 24,
 #' directory by default. Not used if save=FALSE
 #' @return Prints or saves ggplot2 object(s)
 #' @examples
-#' CosinorResidualPlot('comp99801_c1_seq1', Laurasmappings)
-#'
+#' CosinorResidualPlot('comp100002_c0_seq2', Laurasmappings)
 #' @export
 CosinorResidualPlot <- function(genename, dataset, timelag = 6, period = 24,
                                 print = TRUE, save = FALSE,
                                 path = NULL) {
+    resids <- NULL
 
     if (save == TRUE) {
         if (is.null(path) == FALSE) {

@@ -20,7 +20,6 @@ Takes a dataframe of clusters and stores the name of all genes
  in a text file. The row number deontes the cluster number.
 }
 \examples{
-filter.df <- CombiFilter(Laurasmappings)
-pam.df <- PamClustering(filter.df, k = 75)
+pam.df <- PamClustering(Laurasmappings, k = 10)
 ClusterText(pam.df)
 }

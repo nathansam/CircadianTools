@@ -4,12 +4,15 @@
 \alias{CytoscapeFile}
 \title{CytoscapeFile:}
 \usage{
-CytoscapeFile(cor.dataset, save = TRUE, filename = NULL,
-  nthreads = NULL)
+CytoscapeFile(cor.dataset, save = TRUE, filename = NULL, nthreads = NULL)
 }
 \arguments{
 \item{cor.dataset}{A NxN dataframe of correlation values created by
-\link{coranalysisdataset} or \link{coranalysisclusterdataset}}
+\link{CorAnalysisDataset} or \link{CorAnalysisClusterDataset}}
+
+\item{save}{Logical. If TRUE then the dataframe will be saved as a csv file.}
+
+\item{filename}{String. The name for the saved file.}
 
 \item{nthreads}{Number of processor threads for the process. If not specified
 then the maximum number of logical cores are used.}
@@ -22,7 +25,7 @@ Converts a correlation dataframe object into a format suitable
  for cytoscape and saves as a csv file.
 }
 \examples{
-correlation.df <- CorAnalysisDataset(Laurasmappings)
-CytoscapeFile(correlation.df)
+correlation.df <- CorAnalysisDataset(Laurasmappings, nthreads = 2)
+CytoscapeFile(correlation.df, nthreads = 2)
 
 }

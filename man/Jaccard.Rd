@@ -38,6 +38,3 @@ The Jaccard similarity coefficient is defined as:
  To compute the contingency table, we use the \code{\link{comembership_table}}
  function.
 }
-\examples{
-
-}

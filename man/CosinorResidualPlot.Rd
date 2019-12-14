@@ -4,8 +4,15 @@
 \alias{CosinorResidualPlot}
 \title{CosinorResidualPlot}
 \usage{
-CosinorResidualPlot(genename, dataset, timelag = 6, period = 24,
-  print = TRUE, save = FALSE, path = NULL)
+CosinorResidualPlot(
+  genename,
+  dataset,
+  timelag = 6,
+  period = 24,
+  print = TRUE,
+  save = FALSE,
+  path = NULL
+)
 }
 \arguments{
 \item{genename}{The name of a gene intended for plotting. Must be a string.}
@@ -34,6 +41,5 @@ Prints or saves ggplot2 object(s)
 Fits a cosinor model to a gene and plots the residuals.
 }
 \examples{
-CosinorResidualPlot('comp99801_c1_seq1', Laurasmappings)
-
+CosinorResidualPlot('comp100002_c0_seq2', Laurasmappings)
 }

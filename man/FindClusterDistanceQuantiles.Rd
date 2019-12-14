@@ -4,7 +4,11 @@
 \alias{FindClusterDistanceQuantiles}
 \title{FindClusterDistanceQuantiles}
 \usage{
-FindClusterDistanceQuantiles(cluster.dataset, metric, nthreads = NULL)
+FindClusterDistanceQuantiles(
+  cluster.dataset,
+  metric = "euclidean",
+  nthreads = NULL
+)
 }
 \arguments{
 \item{cluster.dataset}{A transcriptomics dataset where the final column
@@ -23,7 +27,6 @@ Finds The distances between the center of each cluster and the
  centers of all the other clusters.
 }
 \examples{
-filter.df <- CombiFilter(Laurasmappings)
-pam.df <- PamClustering(filter.df, k = 75)
-FindClusterDistanceQuantiles(pam.df)
+pam.df <- PamClustering(Laurasmappings, k = 10, nthreads = 2)
+FindClusterDistanceQuantiles(pam.df, nthreads = 2)
 }

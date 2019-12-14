@@ -4,8 +4,15 @@
 \alias{DendogramPlot}
 \title{DendogramPlot}
 \usage{
-DendogramPlot(cluster.no, cluster.dataset, method = "agglom",
-  metric = "euclidean", print = TRUE, save = FALSE, path = NULL)
+DendogramPlot(
+  cluster.no,
+  cluster.dataset,
+  method = "agglom",
+  metric = "euclidean",
+  print = TRUE,
+  save = FALSE,
+  path = NULL
+)
 }
 \arguments{
 \item{cluster.no}{The number which identifies the cluster. If a vector is
@@ -35,7 +42,6 @@ directory by default. Not used if save = FALSE}
 Plots the dendogram for a cluster in a clustered dataset.
 }
 \examples{
-t.filter <-TFilter(Laurasmappings)
-diana.df <- DianaClustering(t.filter, k= 95)
+diana.df <- DianaClustering(Laurasmappings, k= 10)
 DendogramPlot(5, diana.df, method = 'diana')
 }

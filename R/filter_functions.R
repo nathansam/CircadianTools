@@ -6,13 +6,15 @@
 #' specified then the maximum number of logical cores are used.
 #' @param threshold Set the p-value threshold for the filtering.
 #' @examples
-#' Laurasmappings_filtered <- AnovaFilter(Laurasmappings, nthreads=4)
+#' Laurasmappings_filtered <- AnovaFilter(Laurasmappings, nthreads = 2)
 #'
 #' @export
 
 AnovaFilter <- function(dataset, threshold = 0.05, nthreads = NULL) {
     # Load the dopar binary operator from foreach package
     `%dopar%` <- foreach::`%dopar%`
+
+    i <- NULL
 
     if (is.null(nthreads) == TRUE) {
         # Set the threads to maximum if none is specified
@@ -32,7 +34,8 @@ AnovaFilter <- function(dataset, threshold = 0.05, nthreads = NULL) {
         gene <- dplyr::filter(dataset, dplyr::row_number() == i)
         genematrix <- t(gene[-1])  # Remove gene name
         # Fit ANOVA model and create aov object
-        tempaov <- aov(lm(as.numeric(genematrix) ~ as.factor(timevector)))
+        tempaov <- stats::aov(stats::lm(
+                                as.numeric(genematrix) ~ as.factor(timevector)))
         # Get the p-value from the aov object
         pvalue <- summary(tempaov)[[1]][1, 5]
         if (pvalue < threshold) {
@@ -59,13 +62,13 @@ AnovaFilter <- function(dataset, threshold = 0.05, nthreads = NULL) {
 #' @param nthreads Number of processor threads for the filtering. If not
 #'  specifeid then the maximum number of logical cores are used.
 #' @examples
-#' rangedf <- SizeFilter(Laurasmappings, nthreads=4)
+#' rangedf <- SizeFilter(Laurasmappings, nthreads = 4)
 #'
 #' @export
 
 SizeFilter <- function(dataset, cutoff = 0.1, nthreads = NULL) {
     # Remove genes with no activity
-    dataset <- CircadianTools::GeneClean(dataset)
+    #dataset <- CircadianTools::GeneClean(dataset)
     genenumber <- nrow(dataset)
     timevector <- CircadianTools::MakeTimevector(dataset)
 
@@ -94,11 +97,12 @@ SizeFilter <- function(dataset, cutoff = 0.1, nthreads = NULL) {
 #' @param nthreads Number of processor threads for the filtering. If not
 #'  specifed then the maximum number of logical cores are used.
 #' @examples
-#' Laurasmappings_filtered <- ZeroFilter(Laurasmappings, nthreads=4)
+#' Laurasmappings_filtered <- ZeroFilter(Laurasmappings, nthreads = 2)
 #'
 #' @export
 
 ZeroFilter <- function(dataset, non_zero_num = 4, nthreads = NULL) {
+    i <- NULL
     # Load the dopar binary operator from foreach package
     `%dopar%` <- foreach::`%dopar%`
     if (is.null(nthreads) == TRUE) {
@@ -141,7 +145,7 @@ ZeroFilter <- function(dataset, non_zero_num = 4, nthreads = NULL) {
 #' @param sizefilter Logical. If size filtering should be used. Defaults to
 #'  TRUE.
 #' @examples
-#' Laurasmappings_filtered <- CombiFilter(Laurasmappings, nthreads=4)
+#' Laurasmappings.filtered <- CombiFilter(Laurasmappings, nthreads = 2)
 #'
 #' @export
 CombiFilter <- function(dataset, non_zero_num = 4, threshold = 0.05,
@@ -168,9 +172,9 @@ CombiFilter <- function(dataset, non_zero_num = 4, threshold = 0.05,
         invisible(gc())
     }
 
-    if (SizeFilter == TRUE) {
+    if (sizefilter == TRUE) {
         # Filter by removing genes with the smallest range
-        dataset <- CircadianTools::sizefilter(dataset = dataset,
+        dataset <- CircadianTools::SizeFilter(dataset = dataset,
                                               cutoff = cutoff,
                                               nthreads = nthreads)
 
@@ -201,12 +205,13 @@ CombiFilter <- function(dataset, non_zero_num = 4, threshold = 0.05,
 #'  classed as significant.
 #' @return Returns a filtered transcriptomics dataset
 #' @examples
-#' filterdf <- TFilter(Laurasmappings)
+#' filterdf <- TFilter(Laurasmappings, nthreads = 2)
 #'
 #' @export
 
 TFilter <- function(dataset, maxdifference = 1, minchanges = 2,
                     psignificance = 0.05, nthreads = NULL) {
+    i <- NULL
 
     # Load the dopar binary operator from foreach package
     `%dopar%` <- foreach::`%dopar%`

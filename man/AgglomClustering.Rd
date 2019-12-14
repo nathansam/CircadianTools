@@ -4,9 +4,15 @@
 \alias{AgglomClustering}
 \title{AgglomClustering:}
 \usage{
-AgglomClustering(dataset = NULL, distance = NULL, k = 10,
-  metric = "euclidean", nthreads = NULL, scale = FALSE,
-  center = TRUE)
+AgglomClustering(
+  dataset = NULL,
+  distance = NULL,
+  k = 10,
+  metric = "euclidean",
+  nthreads = NULL,
+  scale = FALSE,
+  center = TRUE
+)
 }
 \arguments{
 \item{dataset}{A transcriptomics dataset. First columns should be gene names.
@@ -42,6 +48,6 @@ Applies agglomerative hierarchical clustering to a
  genes.
 }
 \examples{
-pam.df <- AgglomClustering(Laurasmappings, k = 75)
+pam.df <- AgglomClustering(Laurasmappings, k = 10, nthreads= 2)
 
 }

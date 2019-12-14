@@ -18,7 +18,6 @@ then the maximum number of logical cores are used.}
 Finds the center of every cluster in a dataset
 }
 \examples{
-filter.df <- CombiFilter(Laurasmappings)
-pam.df <- PamClustering(filter.df, k = 75)
-ClusterCenterGenerator(2, pam.df)
+pam.df <- PamClustering(Laurasmappings, k = 10, nthreads = 2)
+ClusterCenterGenerator(pam.df, nthreads = 2)
 }

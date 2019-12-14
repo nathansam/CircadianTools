@@ -10,11 +10,11 @@ GeneSub(subdf, dataframe, nthreads = NULL)
 \item{subdf}{An object where the first column is gene names of interes (IE a
 column of known Circadian genes or genes found to be signicant)}
 
+\item{dataframe}{A transcriptomics dataset. First columns should be gene names.
+All other columns should be expression levels.}
+
 \item{nthreads}{Number of processor threads used. If not specifed then the
 maximum number of logical cores are used.}
-
-\item{dataset}{A transcriptomics dataset. First columns should be gene names.
-All other columns should be expression levels.}
 }
 \description{
 Takes an object where the first column is genenames (IE a column
@@ -22,6 +22,7 @@ Takes an object where the first column is genenames (IE a column
  these genes
 }
 \examples{
-newdf <- GeneSub(circadian, Laurasmappings, nthreads=4)
+### Redundant example
+newdf <- GeneSub(Laurasmappings[1:4,], Laurasmappings, nthreads = 2)
 
 }

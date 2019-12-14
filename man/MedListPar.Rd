@@ -18,6 +18,6 @@ Provides a dataframe of median values at each time point for
  each gene from a transcriptomics dataset.
 }
 \examples{
-mediandf <- MedListPar(Laurasmappings, nthreads=4)
+mediandf <- MedListPar(Laurasmappings, nthreads = 2)
 
 }

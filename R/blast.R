@@ -11,7 +11,7 @@
 ContigGen <- function (dataset){
   contigs <- dataset$sample # Get sample IDs
   # Split strings by underscores into columns
-  contigs <- read.table(text = contigs, sep = "_")
+  contigs <- utils::read.table(text = contigs, sep = "_")
 
   # Join the characters before the first underscore and after the last
   contigs <- paste (contigs[,1], contigs[,3], sep = "_")
@@ -30,9 +30,10 @@ ContigGen <- function (dataset){
 #' @param filename The filename to use for a saved fasta file
 #' @return A fasta file
 #' @examples
-#' main.fasta <- seqinr::read.fasta("~/JoesTranscriptomeMin300bp2.fasta")
-#' a.filter <- AnovaFilter(Laurasmappings)
-#' fasta.sub <- FastaSub(a.filter$sample, main.fasta, filename="a_filter")
+#' \donttest{
+#' main.fasta <- seqinr::read.fasta("fasta_file.fasta")
+#' fasta.sub <- FastaSub(a.filter$sample, main.fasta, filename="reduced_fasta")
+#' }
 #' @export
  FastaSub <- function(gene.names, fasta.file, save=TRUE, filename=NULL){
 

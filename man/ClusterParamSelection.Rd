@@ -4,10 +4,18 @@
 \alias{ClusterParamSelection}
 \title{ClusterParamSelection}
 \usage{
-ClusterParamSelection(dataset = NULL, distance = NULL, k = c(2, 5,
-  10), method = c("pam", "agglom", "diana"), metric = "euclidean",
-  scale = TRUE, nthreads = 2, save.plot = TRUE, save.df = TRUE,
-  path = NULL)
+ClusterParamSelection(
+  dataset = NULL,
+  distance = NULL,
+  k = c(2, 5, 10),
+  method = c("pam", "agglom", "diana"),
+  metric = "euclidean",
+  scale = TRUE,
+  nthreads = 2,
+  save.plot = TRUE,
+  save.df = TRUE,
+  path = NULL
+)
 }
 \arguments{
 \item{dataset}{A transcriptomics dataset. Preferably filtered first. First
@@ -48,7 +56,7 @@ Calculates validation metrics for different clustering methods
  and different numbers of partitions. The validation metrics are plotted.
 }
 \examples{
-filter.df <- CombiFilter(Laurasmappings)
-k.options <- seq(10,100, by=10)
-hclust.validation <- ClusterParamSelection(filterdf, k=k.options)
+k.options <- seq(2,10)
+hclust.validation <- ClusterParamSelection(Laurasmappings, k=k.options,
+                                           nthreads = 2)
 }

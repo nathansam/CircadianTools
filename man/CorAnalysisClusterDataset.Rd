@@ -4,8 +4,13 @@
 \alias{CorAnalysisClusterDataset}
 \title{CorAnalysisClusterDataset:}
 \usage{
-CorAnalysisClusterDataset(cluster.dataset, lag = 0, nthreads = NULL,
-  save = TRUE, filename = NULL)
+CorAnalysisClusterDataset(
+  cluster.dataset,
+  lag = 0,
+  nthreads = NULL,
+  save = TRUE,
+  filename = NULL
+)
 }
 \arguments{
 \item{cluster.dataset}{A transcriptomics dataset where the final column
@@ -34,8 +39,7 @@ Correlates the average activity of each cluster with every other
  cluster in a dataset.
 }
 \examples{
-filter.df <- CombiFilter(Laurasmappings)
-pam.df <- PamClustering(filterdf)
-cor.df <- CorAnalysisClusterDataset(pam.df)
+pam.df <- PamClustering(Laurasmappings, k = 10, nthreads = 2)
+cor.df <- CorAnalysisClusterDataset(pam.df, nthreads = 2)
 
 }

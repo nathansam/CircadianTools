@@ -4,9 +4,15 @@
 \alias{PamClustering}
 \title{PamClustering:}
 \usage{
-PamClustering(dataset = NULL, distance = NULL, k,
-  metric = "euclidean", nthreads = NULL, scale = FALSE,
-  center = TRUE)
+PamClustering(
+  dataset = NULL,
+  distance = NULL,
+  k,
+  metric = "euclidean",
+  nthreads = NULL,
+  scale = FALSE,
+  center = TRUE
+)
 }
 \arguments{
 \item{dataset}{A transcriptomics dataset. First columns should be gene names.
@@ -42,6 +48,5 @@ Applies PAM (Partitioning around Medoids) clustering to a
  each genes.
 }
 \examples{
-filterdf <-TFilter(Laurasmappings)
-pam.df <- PamClustering(filterdf,k = 20)
+pam.df <- PamClustering(Laurasmappings, k = 10, nthreads = 2)
 }

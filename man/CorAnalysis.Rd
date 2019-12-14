@@ -4,8 +4,16 @@
 \alias{CorAnalysis}
 \title{CorAnalysis:}
 \usage{
-CorAnalysis(genename, dataset, threshold = 0.9, average = "median",
-  lag = 0, save = FALSE, print = TRUE, df = TRUE)
+CorAnalysis(
+  genename,
+  dataset,
+  threshold = 0.9,
+  average = "mean",
+  lag = 0,
+  save = FALSE,
+  print = TRUE,
+  df = TRUE
+)
 }
 \arguments{
 \item{genename}{the name of a gene intended for comparison with all other
@@ -43,6 +51,5 @@ Ranks correlation between a given gene and all other genes in a
  correlation value
 }
 \examples{
-cor_results <- coranalysis('comp100002_c0_seq2', Laurasmappings)
-
+cor_results <- CorAnalysis('comp100002_c0_seq2', Laurasmappings)
 }
