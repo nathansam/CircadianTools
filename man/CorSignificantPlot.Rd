@@ -28,8 +28,8 @@ Defaults to TRUE}
 \item{save}{Logical. If TRUE, saves plots to working directory. Defaults to
 FALSE.}
 
-\item{period}{The period of rhythmicity which is being tested for. Defaults
-to 24 (Circadian).}
+\item{negative}{Logical. Set TRUE if negative signficant correlations are
+desired.}
 }
 \value{
 Prints or saves ggplot2 object(s).

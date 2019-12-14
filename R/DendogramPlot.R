@@ -23,6 +23,7 @@
 DendogramPlot <- function(cluster.no, cluster.dataset, method = "agglom",
                           metric = 'euclidean', print = TRUE, save = FALSE,
                           path = NULL ){
+  cluster <- NULL
 
   if (save == TRUE) {
     if (is.null(path) == FALSE){
@@ -49,10 +50,10 @@ DendogramPlot <- function(cluster.no, cluster.dataset, method = "agglom",
 
   ### Apply clustering and convert to dendogram object ###
   if (method == "agglom"){ # Agglomerative clustering
-    hc <- as.dendrogram(hclust(distance))
+    hc <- stats::as.dendrogram(stats::hclust(distance))
   }
   if (method == "diana"){ # Divisive clustering using DIANA
-    hc <- as.dendrogram(cluster::diana(distance))
+    hc <- stats::as.dendrogram(cluster::diana(distance))
   }
 
 
@@ -156,6 +157,7 @@ DendogramDatasetPlot <- function(cluster.dataset, method = "agglom",
 DatasetDendogram <- function(cluster.dataset, method = "agglom",
                              metric = "euclidean", nthreads = NULL,
                              print = TRUE, save = FALSE, path = NULL){
+  i <- NULL
 
 
   if (save == TRUE & is.null(path) == FALSE & dir.exists(path) == FALSE) {
@@ -194,10 +196,10 @@ DatasetDendogram <- function(cluster.dataset, method = "agglom",
   }
 
   if (method == "agglom"){ # Agglomerative clustering
-    hc <- as.dendrogram(hclust(distance))
+    hc <- stats::as.dendrogram(stats::hclust(distance))
   }
   if (method == "diana"){ # Divisive clustering using DIANA
-    hc <- as.dendrogram(cluster::diana(distance))
+    hc <- stats::as.dendrogram(cluster::diana(distance))
   }
 
   ### Change shorthand names for methods/metrics to proper names ###
@@ -236,8 +238,3 @@ DatasetDendogram <- function(cluster.dataset, method = "agglom",
     return(p)
   }
 }
-
-
-
-
-

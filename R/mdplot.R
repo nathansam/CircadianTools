@@ -17,12 +17,12 @@
 #' cluster.df <- PamClustering(Laurasmappings, k = 10, scale = TRUE,
 #'                             nthreads = 2)
 #' MDSPlot(cluster.df, nthreads = 2)
-#' @return
 #' @export
 
 MDSPlot <- function(cluster.dataset, title = "Multidimensional Scaling Plot",
                     nthreads = NULL, metric = "euclidean", save = FALSE,
                     print = TRUE){
+  cluster <- NULL
 
 
   # Get the center for each cluster
@@ -39,7 +39,7 @@ MDSPlot <- function(cluster.dataset, title = "Multidimensional Scaling Plot",
 
 
   # Perform Multidimensional scaling
-  fit <- cmdscale(distance, k = 2, eig = TRUE)
+  fit <- stats::cmdscale(distance, k = 2, eig = TRUE)
   x <- fit$points[,1] # First dimension
   y <- fit$points[,2] # Second dimension
 

@@ -59,6 +59,9 @@ ClusterDatasetPlot <- function(cluster.dataset, nthreads = NULL, print = TRUE,
 
 ClusterPlot <- function(clusterno, cluster.dataset, nthreads = NULL,
                         print = TRUE, save = FALSE, path = NULL) {
+
+    cluster <- NULL
+    i <- NULL
     # Load the do binary operator from foreach package
     `%do%` <- foreach::`%do%`
     subdf <- subset(cluster.dataset, cluster == clusterno)  # Subset by cluster
@@ -94,7 +97,7 @@ ClusterPlot <- function(clusterno, cluster.dataset, nthreads = NULL,
         } else {
             # If more than one gene in the cluster
             # Calculate the standard error for this time point
-            se <- sd(column)/sqrt(length(column))
+            se <- stats::sd(column)/sqrt(length(column))
             # Store time value, mean and standard deviation
             data.frame(time, meanval, se)
         }
@@ -146,6 +149,8 @@ ClusterPlot <- function(clusterno, cluster.dataset, nthreads = NULL,
 #' @export
 
 ClusterSpread <- function(cluster.dataset) {
+    cluster <- NULL
+    i <- NULL
     `%do%` <- foreach::`%do%` # Load the do binary operator from foreach package
 
     # Cluster by cluster
@@ -176,6 +181,8 @@ ClusterSpread <- function(cluster.dataset) {
 #' ClusterText(pam.df)
 #' @export
 ClusterText <- function(cluster.dataset, filename = NULL) {
+
+    cluster <- NULL
 
     if (is.null(filename) == TRUE) {
         # If filename is not given then use name of cluster.dataset object
@@ -219,6 +226,7 @@ ClusterText <- function(cluster.dataset, filename = NULL) {
 #' @export
 
 ClusterTimeProfile <- function(cluster.no, cluster.dataset, nthreads = NULL) {
+    cluster <- NULL
     # Subset cluster
     cluster.sub <- subset(cluster.dataset, cluster == cluster.no)
     cluster.sub$cluster <- NULL  # Remove cluster column
@@ -313,7 +321,7 @@ AgglomClustering <- function(dataset = NULL, distance = NULL, k = 10,
                                         metric = metric, nthreads = nthreads)
     }
 
-    fit <- hclust(distance)  # Run the clustering process
+    fit <- stats::hclust(distance)  # Run the clustering process
     # Cut the dendogram such that there are k clusters
     clusters <- dendextend::cutree(fit, k = k)
     dataset$cluster <- clusters  # Append the cluster column to the dataset
@@ -387,6 +395,7 @@ PamClustering <- function(dataset = NULL,distance=NULL ,k, metric = "euclidean",
 #'
 #' @export
 SingletonNameFinder <- function(cluster.dataset) {
+    cluster <- NULL
     singleton.genes <- c()  # Initialise list of genes in singleton clusters
     for (i in unique(cluster.dataset$cluster)) {
         sub.df <- subset(cluster.dataset, cluster == i)  # Get cluster
@@ -454,7 +463,7 @@ DianaClustering <- function(dataset = NULL, distance = NULL, k = 10,
 
     fit <- cluster::diana(distance)  # Run the clustering process
     # Cut the dendogram such that there are k clusters
-    clusters <- cutree(as.hclust(fit), k = k)
+    clusters <- stats::cutree(stats::as.hclust(fit), k = k)
     dataset$cluster <- clusters  # Append the cluster column to the dataset
     return(dataset)
 }
@@ -485,6 +494,7 @@ DianaClustering <- function(dataset = NULL, distance = NULL, k = 10,
 DianaParamSelection <- function(dataset = NULL, distance = NULL,
                                 k = c(2, 5, 10), metric = "euclidean",
                                 nthreads = 4, scale = TRUE) {
+    i <- NULL
 
     if (is.null(dataset) == TRUE & is.null(distance) == TRUE) {
         # Check that either a dataset or a distance matrix has been provided
@@ -515,7 +525,7 @@ DianaParamSelection <- function(dataset = NULL, distance = NULL,
     doParallel::registerDoParallel(cl)
 
     result.df <- foreach::foreach(i = k, .combine = rbind) %dopar% {
-        cluster <- cutree(fit, k = i)  # Cut tree
+        cluster <- stats::cutree(fit, k = i)  # Cut tree
         # Calculate Dunn index
         dunn <- clValid::dunn(distance, cluster)
         # Calculate connectivity
@@ -562,6 +572,9 @@ DianaParamSelection <- function(dataset = NULL, distance = NULL,
 ClusterCorPlot <- function (cluster.no, cluster.dataset, nthreads = NULL,
                             print = TRUE, save = FALSE, path = NULL){
 
+
+    i = neg = pos = cluster = NULL
+
     if (save == TRUE) {
         if (dir.exists(path) == FALSE) {
             # If save==TRUE then create directory for saved plots if doesn't already exist
@@ -577,7 +590,7 @@ ClusterCorPlot <- function (cluster.no, cluster.dataset, nthreads = NULL,
 
     time.vector <- as.numeric(colnames(medians)) # Vector of time values
 
-    cor.df <- cor(t(medians))
+    cor.df <- stats::cor(t(medians))
 
     pool.1 <- NULL # Genes which initally have positive gradient
     pool.2 <- NULL # Genes which initally have negative gradient
@@ -711,6 +724,7 @@ ClusterCorDatasetPlot <- function(cluster.dataset, nthreads = NULL,
 
 FindClusterMedian <- function(cluster.no, cluster.dataset, nthreads = NULL) {
 
+    cluster <- NULL
     if (is.null(nthreads) == TRUE) {
         # Use maximum threads if nthreads is not specified
         nthreads <- parallel::detectCores()
@@ -723,7 +737,7 @@ FindClusterMedian <- function(cluster.no, cluster.dataset, nthreads = NULL) {
     medians <- CircadianTools::MedList(cluster.sub, nthreads = nthreads)
     cluster.median <- rep(0, ncol(medians))
     for (i in 1:ncol(medians)) {
-        cluster.median[i] <- median(medians[, i])
+        cluster.median[i] <- stats::median(medians[, i])
         # Median activity level for the ith timepoint for the entire cluster
     }
     return(cluster.median)
@@ -746,6 +760,10 @@ ClusterCenterGenerator <- function(cluster.dataset, nthreads = NULL) {
         # Set the threads to maximum if none is specified
         nthreads <- parallel::detectCores()
     }
+
+    i <- NULL
+
+
 
     # Load the dopar binary operator from foreach package
     `%dopar%` <- foreach::`%dopar%`
@@ -783,6 +801,8 @@ ClusterCenterGenerator <- function(cluster.dataset, nthreads = NULL) {
 #' @export
 FindClusterQuantile <- function(cluster.no, centers.df, metric = "euclidean") {
 
+    i <- NULL
+
     `%do%` <- foreach::`%do%`
 
     clusters.to.consider <- 1:nrow(centers.df)
@@ -794,10 +814,10 @@ FindClusterQuantile <- function(cluster.no, centers.df, metric = "euclidean") {
         as.numeric(CircadianTools::AbsCorDist(rbind(centers.df[cluster.no, ],
                                                     centers.df[i, ])))
       } else{
-        as.numeric(dist(rbind(centers.df[cluster.no, ], centers.df[i, ])))
+        as.numeric(stats::dist(rbind(centers.df[cluster.no, ], centers.df[i, ])))
       }
     }
-    return(quantile(distances))
+    return(stats::quantile(distances))
 
 }
 
@@ -818,6 +838,7 @@ FindClusterQuantile <- function(cluster.no, centers.df, metric = "euclidean") {
 #' @export
 FindClusterDistanceQuantiles <- function(cluster.dataset, metric = "euclidean",
                                          nthreads = NULL) {
+    i <- NULL
 
 
     if (is.null(nthreads) == TRUE) {
@@ -867,6 +888,7 @@ FindClusterDistanceQuantiles <- function(cluster.dataset, metric = "euclidean",
 #' @export
 QuantilePlots <- function(cluster.dataset,metric = "euclidean", nthreads = NULL,
                           save = TRUE, print = TRUE, path = NULL) {
+  Distance = Quantile = NULL
 
     if (is.null(path) == TRUE) {
         # If a filename isn't specified then the name of the dataframe object are used

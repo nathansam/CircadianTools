@@ -13,23 +13,13 @@ All other columns should be expression levels.}
 \item{period}{The period of rhythmicity which is being tested for. Defaults
 to 24 (circadian).}
 
+\item{nthreads}{The number of threads to be used for parallel computations.
+Defaults to the maximum number of threads available.}
+
 \item{timelag}{The value of time for which observations begin. Defaults to 6.}
-
-\item{threshold}{Set significance value for which genes are considered
-significant and thus plotted. Defaults to 6e-07}
-
-\item{save}{Logical. If TRUE, saves plots to working directory. Defaults to
-FALSE.}
-
-\item{print}{Logical. If TRUE renders significant genes in the plot viewer.
-Defaults to TRUE}
-
-\item{df}{Logical. If TRUE a dataframe containing the results of the cosinor
-analysis will be returned. Defaults to TRUE.}
 }
 \value{
-Prints or saves ggplot2 object(s). Optionally returns dataframe
- containing gene name and p values from F-test ranking of cosinor models
+Saves ggplot2 object(s).
 }
 \description{
 Parallel Implementation of \link{CosinorAnalysis}. Fits cosinor

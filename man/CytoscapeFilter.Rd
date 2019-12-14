@@ -11,6 +11,10 @@ CytoscapeFilter(cytoscape.file, threshold = 0.9, save = TRUE, filename = NULL)
 
 \item{threshold}{Positive genes below this threshold and negative genes above
 the additive inverse of this threshold will be removed.}
+
+\item{save}{Logical. If TRUE then the dataframe will be saved as a csv file.}
+
+\item{filename}{String. The name for the saved file.}
 }
 \description{
 Reduces the size of a file intended for Cytoscape by filtering

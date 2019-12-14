@@ -11,7 +11,7 @@
 ContigGen <- function (dataset){
   contigs <- dataset$sample # Get sample IDs
   # Split strings by underscores into columns
-  contigs <- read.table(text = contigs, sep = "_")
+  contigs <- utils::read.table(text = contigs, sep = "_")
 
   # Join the characters before the first underscore and after the last
   contigs <- paste (contigs[,1], contigs[,3], sep = "_")

@@ -50,25 +50,26 @@ MultiCosinorTest <- function(genename, dataset, timelag = 6, period.1 = 24,
   data$rrr.2 <- cos((2 * pi * timevector) / period.2)
   data$sss.2 <- sin((2 * pi * timevector) / period.2)
 
-  simple <- lm(activity ~ rrr.1 + sss.1, data = data)
-  complex <- lm (activity ~ rrr.1 + sss.1 + rrr.2 + sss.2, data = data)
+  simple <- stats::lm(activity ~ rrr.1 + sss.1, data = data)
+  complex <- stats::lm (activity ~ rrr.1 + sss.1 + rrr.2 + sss.2, data = data)
 
   cat(crayon::red("The anova table for the simple model is given by: \n"))
-  simple.anova <- anova(simple)
+  simple.anova <- stats::anova(simple)
   print(simple.anova)
 
   cat(crayon::red("The anova table for the more complex model is given by: \n"))
-  complex.anova <- anova(complex)
+  complex.anova <- stats::anova(complex)
   print(complex.anova)
 
   cat(crayon::red("Carrying out ANOVA on both models produces the following table : \n"))
-  comparison.anova <- anova (simple, complex)
+  comparison.anova <- stats::anova (simple, complex)
   print(comparison.anova)
 
   if (save == TRUE){
-    write.csv(simple.anova, file = paste(path,"/simple.csv", sep=""))
-    write.csv(complex.anova, file = paste(path,"/complex.csv", sep =""))
-    write.csv(comparison.anova, file = paste(path,"/comparison.csv", sep=""))
+    utils::write.csv(simple.anova, file = paste(path,"/simple.csv", sep=""))
+    utils::write.csv(complex.anova, file = paste(path,"/complex.csv", sep =""))
+    utils::write.csv(comparison.anova, file = paste(path,"/comparison.csv",
+                                                    sep=""))
     cat(crayon::red("The ANOVA results have been saved. \n"))
   }
 

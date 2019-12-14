@@ -14,6 +14,8 @@ AnovaFilter <- function(dataset, threshold = 0.05, nthreads = NULL) {
     # Load the dopar binary operator from foreach package
     `%dopar%` <- foreach::`%dopar%`
 
+    i <- NULL
+
     if (is.null(nthreads) == TRUE) {
         # Set the threads to maximum if none is specified
         nthreads <- parallel::detectCores()
@@ -32,7 +34,8 @@ AnovaFilter <- function(dataset, threshold = 0.05, nthreads = NULL) {
         gene <- dplyr::filter(dataset, dplyr::row_number() == i)
         genematrix <- t(gene[-1])  # Remove gene name
         # Fit ANOVA model and create aov object
-        tempaov <- aov(lm(as.numeric(genematrix) ~ as.factor(timevector)))
+        tempaov <- stats::aov(stats::lm(
+                                as.numeric(genematrix) ~ as.factor(timevector)))
         # Get the p-value from the aov object
         pvalue <- summary(tempaov)[[1]][1, 5]
         if (pvalue < threshold) {
@@ -99,6 +102,7 @@ SizeFilter <- function(dataset, cutoff = 0.1, nthreads = NULL) {
 #' @export
 
 ZeroFilter <- function(dataset, non_zero_num = 4, nthreads = NULL) {
+    i <- NULL
     # Load the dopar binary operator from foreach package
     `%dopar%` <- foreach::`%dopar%`
     if (is.null(nthreads) == TRUE) {
@@ -207,6 +211,7 @@ CombiFilter <- function(dataset, non_zero_num = 4, threshold = 0.05,
 
 TFilter <- function(dataset, maxdifference = 1, minchanges = 2,
                     psignificance = 0.05, nthreads = NULL) {
+    i <- NULL
 
     # Load the dopar binary operator from foreach package
     `%dopar%` <- foreach::`%dopar%`

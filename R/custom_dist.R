@@ -15,7 +15,7 @@ AbsCorDist <- function(dataset, nthreads = NULL) {
         nthreads <- parallel::detectCores()
     }
     fn <- function(x, y) {
-        1 - abs(cor(dataset[x, ], dataset[y, ]))
+        1 - abs(stats::cor(dataset[x, ], dataset[y, ]))
     }
     distances <- proxy::dist(1:nrow(dataset), method = fn)
     remove(fn)

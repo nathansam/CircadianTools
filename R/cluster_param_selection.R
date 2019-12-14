@@ -23,6 +23,7 @@
 #' @export
 PamParamSelection <- function(dataset = NULL, distance = NULL, k = c(2, 5, 10),
                               metric = "euclidean", scale = TRUE, nthreads = 4){
+    i <- NULL
 
     if (is.null(dataset) == TRUE & is.null(distance) == TRUE) {
         # Check that either a dataset or a distance matrix has been provided
@@ -96,6 +97,7 @@ PamParamSelection <- function(dataset = NULL, distance = NULL, k = c(2, 5, 10),
 AgglomParamSelection <- function(dataset = NULL, distance = NULL,
                         k = c(2, 5, 10), scale = TRUE,  metric = "euclidean",
                         nthreads = 4) {
+    i <- NULL
 
     if (is.null(dataset) == TRUE & is.null(distance) == TRUE) {
         # Check that either a dataset or a distance matrix has been provided
@@ -117,13 +119,13 @@ AgglomParamSelection <- function(dataset = NULL, distance = NULL,
                                 nthreads = nthreads)
     }
 
-    clust <- hclust(distance)  # Run hclustering
+    clust <- stats::hclust(distance)  # Run hclustering
 
     cl <- parallel::makeForkCluster(nthreads)  # Create cluster for parallelism
     doParallel::registerDoParallel(cl)
 
     result.df <- foreach::foreach(i = k, .combine = rbind) %dopar% {
-        cluster <- cutree(clust, k = i)  # Cut tree
+        cluster <- stats::cutree(clust, k = i)  # Cut tree
         # Calculate Dunn index
         dunn <- clValid::dunn(distance, cluster)
         # Calculate connectivity
@@ -178,6 +180,10 @@ ClusterParamSelection <- function(dataset = NULL, distance = NULL,
                         k = c(2, 5, 10), method = c("pam", "agglom", "diana"),
                         metric = "euclidean", scale = TRUE, nthreads = 2,
                         save.plot = TRUE, save.df = TRUE, path = NULL) {
+    Dunn <- NULL
+    Method <- NULL
+    Connectivity <- NULL
+    Silhouette <- NULL
 
     if (is.null(dataset) == TRUE & is.null(distance) == TRUE) {
         # Check that either a dataset or a distance matrix has been provided
@@ -245,7 +251,7 @@ ClusterParamSelection <- function(dataset = NULL, distance = NULL,
                         height = 4.5, units = "in")  # Save the plot
     }
 
-    hclust
+
     #### Connectivity ####
     p <- ggplot2::ggplot(ggplot2::aes(x = k, y = Connectivity, color = Method),
                          data = validation.df) + ggplot2::geom_line(size = 1.2)
@@ -276,7 +282,7 @@ ClusterParamSelection <- function(dataset = NULL, distance = NULL,
     if (save.df == TRUE) {
         # Save the validation results as .csv file
         df.filename <- paste(path, "/results.csv", sep = "")
-        write.csv(validation.df, file = df.filename, row.names = FALSE)
+        utils::write.csv(validation.df, file = df.filename, row.names = FALSE)
     }
 
     return(validation.df)

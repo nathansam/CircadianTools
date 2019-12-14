@@ -32,9 +32,6 @@ accepts "abs.correlation" for absolute Pearson's correlation}
 \item{print}{Logical. If TRUE renders significant genes in the plot viewer.
 Defaults to TRUE}
 }
-\value{
-
-}
 \description{
 Applies multidimensional scaling to a clustered transcriptomics
  dataset to reduce the clusters to two dimensions and then plots the clusters.

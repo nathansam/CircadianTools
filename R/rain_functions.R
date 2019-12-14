@@ -2,6 +2,8 @@
 #' @description Carries out RAIN analysis on a transcriptomics dataset
 #' @param dataset A transcriptomics dataset. First columns should be gene names.
 #'  All other columns should be expression levels.
+#' @param period The period of rhythms of interest. Defaults to the circadian
+#'  period.
 #' @return A dataframe object detailing the result of the rain analysis.
 #' @examples
 #' results <- RainAnalysis(Laurasmappings, period = 24)

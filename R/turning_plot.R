@@ -24,8 +24,8 @@ TurningPlot <- function(genename, dataset, timelag = 0, print = TRUE,
     timevector <- CircadianTools::MakeTimevector(genematrix) - timelag
     genematrix <- genematrix[-1]  # Remove gene name from subset
 
-    genesplinefunc <- splinefun(timevector, genematrix)
-    x <- seq(timevector[1], tail(timevector, n = 1), by = 0.001)
+    genesplinefunc <- stats::splinefun(timevector, genematrix)
+    x <- seq(timevector[1], utils::tail(timevector, n = 1), by = 0.001)
     y <- genesplinefunc(x, deriv = 0)  # Deriv=0 gives the spline itself
     z <- genesplinefunc(x, deriv = 1)  # First derivative of the spline
 
@@ -43,7 +43,7 @@ TurningPlot <- function(genename, dataset, timelag = 0, print = TRUE,
     p <- p + ggplot2::ggtitle(paste("Gene=", genename, ", Mean difference=",
                                     round(mean(diff(turning.points)),2),
                                     " SD=",
-                                    round(sd(diff(turning.points)), 2)))
+                                    round(stats::sd(diff(turning.points)), 2)))
     p <- p + ggplot2::theme(plot.title = ggplot2::element_text(hjust = 1))
 
     for (i in 1:length(turning.points)) {

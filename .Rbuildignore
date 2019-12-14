@@ -1,6 +1,5 @@
 ^.*\.Rproj
 ^\.Rproj\.user$
-^Colors\.png$
 ^CODE_OF_CONDUCT\.md$
 ^corex\.png$
 ^cosinorex\.png$
@@ -10,3 +9,4 @@
 ^turnpointex\.png$
 ^.*\.Rproj$
 ^appveyor\.yml$
+^\.travis\.yml$
