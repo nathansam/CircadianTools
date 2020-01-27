@@ -19,7 +19,7 @@ Returns a vector of gene names for all genes belonging to singleton
 Finds the genes which belong to singleton clusters.
 }
 \examples{
-pam.df <- PamClustering(Laurasmappings, k = 10)
+pam.df <- PamClustering(Laurasmappings, k = 10, nthreads = 1)
 singletons <- SingletonNameFinder(pam.df)
 
 

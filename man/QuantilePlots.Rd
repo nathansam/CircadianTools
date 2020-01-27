@@ -39,6 +39,6 @@ Finds the quartiles for intercluster distances and plots these
  distances as a set of histograms
 }
 \examples{
-pam <- PamClustering(Laurasmappings, k = 10, nthreads = 2)
-QuantilePlots(pam, path='Pam_Anova_Distance_Histograms', nthreads = 2)
+pam <- PamClustering(Laurasmappings, k = 10, nthreads = 1)
+QuantilePlots(pam, path='Pam_Anova_Distance_Histograms', nthreads = 1)
 }

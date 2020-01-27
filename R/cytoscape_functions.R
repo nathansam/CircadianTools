@@ -7,10 +7,10 @@
 #' @param save Logical. If TRUE then the dataframe will be saved as a csv file.
 #' @param filename String. The name for the saved file.
 #' @examples
-#' filter.df <- CombiFilter(Laurasmappings)
-#' pam.df <- PamClustering(filter.df, k = 10)
-#' cor.df <- CorAnalysisClusterDataset(pam.df, save=FALSE)
-#' cyto.df <- CytoscapeFile(cor.df, save = FALSE)
+#' filter.df <- CombiFilter(Laurasmappings, nthreads = 2)
+#' pam.df <- PamClustering(filter.df, k = 10, nthreads = 2)
+#' cor.df <- CorAnalysisClusterDataset(pam.df, save=FALSE, nthreads = 2)
+#' cyto.df <- CytoscapeFile(cor.df, save = FALSE, nthreads = 2)
 #' cyto.filtered.df <- CytoscapeFilter(cyto.df, threshold=0.95)
 #'
 #' @export

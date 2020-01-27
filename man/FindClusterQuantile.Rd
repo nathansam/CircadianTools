@@ -21,7 +21,7 @@ Finds The distances between the center of a cluster and the
 centers of all other clusters.
 }
 \examples{
-pam.df <- PamClustering(Laurasmappings, k = 10)
-cluster.centers <- ClusterCenterGenerator(pam.df)
+pam.df <- PamClustering(Laurasmappings, k = 10, nthreads = 2)
+cluster.centers <- ClusterCenterGenerator(pam.df, nthreads = 2)
 FindClusterQuantile(1, cluster.centers)
 }

@@ -41,5 +41,5 @@ Runs DIANA (DIvisive ANAlysis) clustering with differing numbers
 \examples{
 k.options <- seq(2,10)
 diana.validation <- DianaParamSelection(Laurasmappings, k=k.options,
-                                         nthreads = 2)
+                                         nthreads = 1)
 }

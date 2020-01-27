@@ -20,8 +20,8 @@ Finds the genes which belong to common singleton clusters in two
  different clustered datasets.
 }
 \examples{
-pam.df <- PamClustering(Laurasmappings, k = 10)
-hclust.df <- AgglomClustering(Laurasmappings, k = 10)
+pam.df <- PamClustering(Laurasmappings, k = 10, nthreads = 1)
+hclust.df <- AgglomClustering(Laurasmappings, k = 10, nthreads = 1)
 common.singletons <- CommonSingletonFinder(pam.df, hclust.df)
 
 }

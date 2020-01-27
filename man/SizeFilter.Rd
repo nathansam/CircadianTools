@@ -14,13 +14,13 @@ All other columns should be expression levels.}
 activity) to be removed.}
 
 \item{nthreads}{Number of processor threads for the filtering. If not
-specifeid then the maximum number of logical cores are used.}
+specified then the maximum number of logical cores are used.}
 }
 \description{
 Filters the genes with the smallest range from a transcriptomics
  dataset.
 }
 \examples{
-rangedf <- SizeFilter(Laurasmappings, nthreads = 4)
+rangedf <- SizeFilter(Laurasmappings, nthreads = 1)
 
 }

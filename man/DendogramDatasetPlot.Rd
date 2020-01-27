@@ -10,7 +10,8 @@ DendogramDatasetPlot(
   metric = "euclidean",
   print = TRUE,
   save = FALSE,
-  path = NULL
+  path = NULL,
+  nthreads = NULL
 )
 }
 \arguments{
@@ -33,11 +34,14 @@ FALSE.}
 
 \item{path}{The directory to be used for saving plots to. Uses the working
 directory by default. Not used if save = FALSE}
+
+\item{nthreads}{The number of threads to be used for parallel computations.
+Defaults to the maximum number of threads available.}
 }
 \description{
 Plots the dendogram for every cluster in a clustered dataset.
 }
 \examples{
-diana.df <- DianaClustering(Laurasmappings, k= 10)
-DendogramDatasetPlot(diana.df, method = 'diana')
+diana.df <- DianaClustering(Laurasmappings, k= 10, nthreads = 2)
+DendogramDatasetPlot(diana.df, method = 'diana', nthreads = 2)
 }

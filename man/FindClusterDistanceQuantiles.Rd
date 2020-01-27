@@ -27,6 +27,6 @@ Finds The distances between the center of each cluster and the
  centers of all the other clusters.
 }
 \examples{
-pam.df <- PamClustering(Laurasmappings, k = 10, nthreads = 2)
-FindClusterDistanceQuantiles(pam.df, nthreads = 2)
+pam.df <- PamClustering(Laurasmappings, k = 10, nthreads = 1)
+FindClusterDistanceQuantiles(pam.df, nthreads = 1)
 }

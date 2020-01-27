@@ -3,6 +3,9 @@ r:
   - oldrel
   - release
 
+use_bioc: true
+bioc_required: true
+
 r_packages:
   - covr
 

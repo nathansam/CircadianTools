@@ -60,9 +60,9 @@ AnovaFilter <- function(dataset, threshold = 0.05, nthreads = NULL) {
 #' @param cutoff Proportion of total number of genes (which show at least some
 #'  activity) to be removed.
 #' @param nthreads Number of processor threads for the filtering. If not
-#'  specifeid then the maximum number of logical cores are used.
+#'  specified then the maximum number of logical cores are used.
 #' @examples
-#' rangedf <- SizeFilter(Laurasmappings, nthreads = 4)
+#' rangedf <- SizeFilter(Laurasmappings, nthreads = 1)
 #'
 #' @export
 

@@ -16,13 +16,19 @@
 #'  FALSE.
 #' @param path The directory to be used for saving plots to. Uses the working
 #'  directory by default. Not used if save = FALSE
+#' @param nthreads The number of threads to be used for parallel computations.
+#'  Defaults to the maximum number of threads available.
 #' @examples
-#' diana.df <- DianaClustering(Laurasmappings, k= 10)
-#' DendogramPlot(5, diana.df, method = 'diana')
+#' diana.df <- DianaClustering(Laurasmappings, k= 10, nthreads = 1)
+#' DendogramPlot(5, diana.df, method = 'diana', nthreads = 1)
 #' @export
 DendogramPlot <- function(cluster.no, cluster.dataset, method = "agglom",
                           metric = 'euclidean', print = TRUE, save = FALSE,
-                          path = NULL ){
+                          path = NULL, nthreads = NULL ){
+
+  if (is.null(nthreads)){
+    nthreads <- parallel::detectCores()
+  }
   cluster <- NULL
 
   if (save == TRUE) {
@@ -44,7 +50,8 @@ DendogramPlot <- function(cluster.no, cluster.dataset, method = "agglom",
 
   dataset$cluster <- NULL
   # Calculate distance matrix
-  distance <- CircadianTools::DistanceGen(dataset, metric=metric)
+  distance <- CircadianTools::DistanceGen(dataset, metric=metric,
+                                          nthreads = nthreads)
   attr(distance ,"Labels") <- 1:(nrow(dataset))
 
 
@@ -113,13 +120,19 @@ DendogramPlot <- function(cluster.no, cluster.dataset, method = "agglom",
 #'  FALSE.
 #' @param path The directory to be used for saving plots to. Uses the working
 #'  directory by default. Not used if save = FALSE
+#' @param nthreads The number of threads to be used for parallel computations.
+#'  Defaults to the maximum number of threads available.
 #' @examples
-#' diana.df <- DianaClustering(Laurasmappings, k= 10)
-#' DendogramDatasetPlot(diana.df, method = 'diana')
+#' diana.df <- DianaClustering(Laurasmappings, k= 10, nthreads = 2)
+#' DendogramDatasetPlot(diana.df, method = 'diana', nthreads = 2)
 #' @export
 DendogramDatasetPlot <- function(cluster.dataset, method = "agglom",
                           metric = 'euclidean', print = TRUE, save = FALSE,
-                          path = NULL ){
+                          path = NULL, nthreads = NULL ){
+
+  if (is.null(nthreads)){
+    nthreads <- parallel::detectCores()
+  }
 
   clusters <- unique(cluster.dataset$cluster)
 
@@ -127,7 +140,8 @@ DendogramDatasetPlot <- function(cluster.dataset, method = "agglom",
     CircadianTools::DendogramPlot(cluster.no = i,
                                   cluster.dataset = cluster.dataset,
                                   method = method, metric = metric,
-                                  print = print, save = save, path = path)
+                                  print = print, save = save, path = path,
+                                  nthreads = nthreads)
   }
 }
 
