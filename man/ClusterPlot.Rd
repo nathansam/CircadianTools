@@ -39,6 +39,6 @@ Plots the mean and error bars for the genes in a cluster across
  time
 }
 \examples{
-pam.df <- PamClustering(Laurasmappings, k = 10, nthreads = 2)
-ClusterPlot(2, pam.df, nthreads = 2)
+pam.df <- PamClustering(Laurasmappings, k = 10, nthreads = 1)
+ClusterPlot(2, pam.df, nthreads = 1)
 }

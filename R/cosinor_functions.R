@@ -165,7 +165,8 @@ CosinorAnalysisPar <- function(dataset, period = 24, nthreads = NULL,
                                         period = period, data = geneexpression)
         pVal <- cosinor2::cosinor.detect(cosinormodel)[4]
         data.frame(sample, pVal)
-    }
+        }
+    parallel::stopCluster(cl)
 
     return(cosinor.pvalue.df)
 }

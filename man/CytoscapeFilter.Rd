@@ -21,10 +21,10 @@ Reduces the size of a file intended for Cytoscape by filtering
  out the genes/clusters which are not correlated
 }
 \examples{
-filter.df <- CombiFilter(Laurasmappings)
-pam.df <- PamClustering(filter.df, k = 10)
-cor.df <- CorAnalysisClusterDataset(pam.df, save=FALSE)
-cyto.df <- CytoscapeFile(cor.df, save = FALSE)
+filter.df <- CombiFilter(Laurasmappings, nthreads = 2)
+pam.df <- PamClustering(filter.df, k = 10, nthreads = 2)
+cor.df <- CorAnalysisClusterDataset(pam.df, save=FALSE, nthreads = 2)
+cyto.df <- CytoscapeFile(cor.df, save = FALSE, nthreads = 2)
 cyto.filtered.df <- CytoscapeFilter(cyto.df, threshold=0.95)
 
 }

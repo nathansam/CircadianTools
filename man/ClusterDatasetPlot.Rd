@@ -35,7 +35,7 @@ Prints or saves ggplot2 object(s).
 Plots the mean and error bars for all clusters across time
 }
 \examples{
-pam.df <- PamClustering(Laurasmappings, k = 10, nthreads = 2)
-ClusterDatasetPlot(pam.df, nthreads = 2)
+pam.df <- PamClustering(Laurasmappings, k = 10, nthreads = 1)
+ClusterDatasetPlot(pam.df, nthreads = 1)
 
 }

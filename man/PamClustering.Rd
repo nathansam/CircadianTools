@@ -48,5 +48,5 @@ Applies PAM (Partitioning around Medoids) clustering to a
  each genes.
 }
 \examples{
-pam.df <- PamClustering(Laurasmappings, k = 10, nthreads = 2)
+pam.df <- PamClustering(Laurasmappings, k = 10, nthreads = 1)
 }

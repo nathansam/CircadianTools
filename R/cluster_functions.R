@@ -13,8 +13,8 @@
 #' directory if it doesn't already exist. Defaults to cluster_overview
 #' @return Prints or saves ggplot2 object(s).
 #' @examples
-#' pam.df <- PamClustering(Laurasmappings, k = 10, nthreads = 2)
-#' ClusterDatasetPlot(pam.df, nthreads = 2)
+#' pam.df <- PamClustering(Laurasmappings, k = 10, nthreads = 1)
+#' ClusterDatasetPlot(pam.df, nthreads = 1)
 #'
 #' @export
 
@@ -53,8 +53,8 @@ ClusterDatasetPlot <- function(cluster.dataset, nthreads = NULL, print = TRUE,
 #'  directory by default. Not used if save=FALSE
 #' @return Prints or saves a ggplot2 object.
 #' @examples
-#' pam.df <- PamClustering(Laurasmappings, k = 10, nthreads = 2)
-#' ClusterPlot(2, pam.df, nthreads = 2)
+#' pam.df <- PamClustering(Laurasmappings, k = 10, nthreads = 1)
+#' ClusterPlot(2, pam.df, nthreads = 1)
 #' @export
 
 ClusterPlot <- function(clusterno, cluster.dataset, nthreads = NULL,
@@ -144,8 +144,8 @@ ClusterPlot <- function(clusterno, cluster.dataset, nthreads = NULL,
 #' @return A dataframe object. The first column is the cluster number. Second
 #'  column is how many genes belong to that cluster.
 #' @examples
-#' pam.df <- PamClustering(Laurasmappings, k = 10)
-#' clusterstats<-ClusterSpread(pam.df)
+#' pam.df <- PamClustering(Laurasmappings, k = 10, nthreads = 1)
+#' clusterstats <- ClusterSpread(pam.df)
 #' @export
 
 ClusterSpread <- function(cluster.dataset) {
@@ -177,7 +177,7 @@ ClusterSpread <- function(cluster.dataset) {
 #'  name of the correlation dataframe object will be used. The.txt extension
 #'   is not needed.
 #' @examples
-#' pam.df <- PamClustering(Laurasmappings, k = 10)
+#' pam.df <- PamClustering(Laurasmappings, k = 10, nthreads = 1)
 #' ClusterText(pam.df)
 #' @export
 ClusterText <- function(cluster.dataset, filename = NULL) {
@@ -220,8 +220,8 @@ ClusterText <- function(cluster.dataset, filename = NULL) {
 #' @param nthreads The number of threads to be used for parallel computations.
 #'  Defaults to the maximum number of threads available.
 #' @examples
-#' pam.df <- PamClustering(Laurasmappings, k = 10, nthreads = 2)
-#' time.profile<-ClusterTimeProfile(1, cluster.dataset = pam.df, nthreads = 2)
+#' pam.df <- PamClustering(Laurasmappings, k = 10, nthreads = 1)
+#' time.profile<-ClusterTimeProfile(1, cluster.dataset = pam.df, nthreads = 1)
 #'
 #' @export
 
@@ -255,8 +255,8 @@ ClusterTimeProfile <- function(cluster.no, cluster.dataset, nthreads = NULL) {
 #' cluster.dataset1 but generated via a different clustering method or with
 #' different parameters.
 #' @examples
-#' pam.df <- PamClustering(Laurasmappings, k = 10)
-#' hclust.df <- AgglomClustering(Laurasmappings, k = 10)
+#' pam.df <- PamClustering(Laurasmappings, k = 10, nthreads = 1)
+#' hclust.df <- AgglomClustering(Laurasmappings, k = 10, nthreads = 1)
 #' common.singletons <- CommonSingletonFinder(pam.df, hclust.df)
 #'
 #' @export
@@ -352,7 +352,7 @@ AgglomClustering <- function(dataset = NULL, distance = NULL, k = 10,
 #' @return Returns a transcriptomics dataset provided with an additional cluster
 #'  column appended which denotes which cluster each gene belongs to.
 #' @examples
-#' pam.df <- PamClustering(Laurasmappings, k = 10, nthreads = 2)
+#' pam.df <- PamClustering(Laurasmappings, k = 10, nthreads = 1)
 #' @export
 
 PamClustering <- function(dataset = NULL,distance=NULL ,k, metric = "euclidean",
@@ -389,7 +389,7 @@ PamClustering <- function(dataset = NULL,distance=NULL ,k, metric = "euclidean",
 #' @return Returns a vector of gene names for all genes belonging to singleton
 #'  clusters in the provided dataset.
 #' @examples
-#' pam.df <- PamClustering(Laurasmappings, k = 10)
+#' pam.df <- PamClustering(Laurasmappings, k = 10, nthreads = 1)
 #' singletons <- SingletonNameFinder(pam.df)
 #'
 #'
@@ -433,8 +433,8 @@ SingletonNameFinder <- function(cluster.dataset) {
 #' @return Returns transcriptomics dataset provided with additional cluster
 #'  column appended denoted which cluster each gene belongs to.
 #' @examples
-#' t.filter <-TFilter(Laurasmappings, nthreads = 2)
-#' diana.df <- DianaClustering(t.filter, k= 10, nthreads = 2)
+#' t.filter <-TFilter(Laurasmappings, nthreads = 1)
+#' diana.df <- DianaClustering(t.filter, k= 10, nthreads = 1)
 #'
 #' @export
 DianaClustering <- function(dataset = NULL, distance = NULL, k = 10,
@@ -489,7 +489,7 @@ DianaClustering <- function(dataset = NULL, distance = NULL, k = 10,
 #' @examples
 #' k.options <- seq(2,10)
 #' diana.validation <- DianaParamSelection(Laurasmappings, k=k.options,
-#'                                          nthreads = 2)
+#'                                          nthreads = 1)
 #' @export
 DianaParamSelection <- function(dataset = NULL, distance = NULL,
                                 k = c(2, 5, 10), metric = "euclidean",
@@ -565,8 +565,8 @@ DianaParamSelection <- function(dataset = NULL, distance = NULL,
 #' @examples
 #' \donttest{
 #' pam.df <- PamClustering(Laurasmappings, k = 10, metric = "abs.correlation",
-#'                         nthreads = 2)
-#' ClusterCorPlot(2, pam.df, nthreads = 2)
+#'                         nthreads = 1)
+#' ClusterCorPlot(2, pam.df, nthreads = 1)
 #' }
 #' @export
 ClusterCorPlot <- function (cluster.no, cluster.dataset, nthreads = NULL,
@@ -689,8 +689,8 @@ ClusterCorPlot <- function (cluster.no, cluster.dataset, nthreads = NULL,
 #' @examples
 #' \donttest{
 #' pam.df <- PamClustering(Laurasmappings, k = 10, metric = "abs.correlation",
-#'                         nthreads = 2)
-#' ClusterCorDatasetPlot(pam.df, nthreads = 2)
+#'                         nthreads = 1)
+#' ClusterCorDatasetPlot(pam.df, nthreads = 1)
 #' }
 #' @export
 ClusterCorDatasetPlot <- function(cluster.dataset, nthreads = NULL,
@@ -718,8 +718,8 @@ ClusterCorDatasetPlot <- function(cluster.dataset, nthreads = NULL,
 #' @param nthreads Number of processor threads for the process. If not specifed
 #'  then the maximum number of logical cores are used.
 #' @examples
-#' pam.df <- PamClustering(Laurasmappings, k = 10, nthreads = 2)
-#' FindClusterMedian(2, cluster.dataset = pam.df, nthreads = 2)
+#' pam.df <- PamClustering(Laurasmappings, k = 10, nthreads = 1)
+#' FindClusterMedian(2, cluster.dataset = pam.df, nthreads = 1)
 #' @export
 
 FindClusterMedian <- function(cluster.no, cluster.dataset, nthreads = NULL) {
@@ -752,8 +752,8 @@ FindClusterMedian <- function(cluster.no, cluster.dataset, nthreads = NULL) {
 #' @param nthreads Number of processor threads for the process. If not specifed
 #'  then the maximum number of logical cores are used.
 #' @examples
-#' pam.df <- PamClustering(Laurasmappings, k = 10, nthreads = 2)
-#' ClusterCenterGenerator(pam.df, nthreads = 2)
+#' pam.df <- PamClustering(Laurasmappings, k = 10, nthreads = 1)
+#' ClusterCenterGenerator(pam.df, nthreads = 1)
 #' @export
 ClusterCenterGenerator <- function(cluster.dataset, nthreads = NULL) {
     if (is.null(nthreads) == TRUE) {
@@ -795,8 +795,8 @@ ClusterCenterGenerator <- function(cluster.dataset, nthreads = NULL) {
 #'  between genes. See parallelDist::parDist for all accepted arguments. Also
 #'  allows the option of 'abs.correlation'.
 #' @examples
-#' pam.df <- PamClustering(Laurasmappings, k = 10)
-#' cluster.centers <- ClusterCenterGenerator(pam.df)
+#' pam.df <- PamClustering(Laurasmappings, k = 10, nthreads = 2)
+#' cluster.centers <- ClusterCenterGenerator(pam.df, nthreads = 2)
 #' FindClusterQuantile(1, cluster.centers)
 #' @export
 FindClusterQuantile <- function(cluster.no, centers.df, metric = "euclidean") {
@@ -833,8 +833,8 @@ FindClusterQuantile <- function(cluster.no, centers.df, metric = "euclidean") {
 #' @param nthreads Number of processor threads for the process. If not specifed
 #'  then the maximum number of logical cores are used.
 #' @examples
-#' pam.df <- PamClustering(Laurasmappings, k = 10, nthreads = 2)
-#' FindClusterDistanceQuantiles(pam.df, nthreads = 2)
+#' pam.df <- PamClustering(Laurasmappings, k = 10, nthreads = 1)
+#' FindClusterDistanceQuantiles(pam.df, nthreads = 1)
 #' @export
 FindClusterDistanceQuantiles <- function(cluster.dataset, metric = "euclidean",
                                          nthreads = NULL) {
@@ -883,8 +883,8 @@ FindClusterDistanceQuantiles <- function(cluster.dataset, metric = "euclidean",
 #' @param path The directory to be used for saving plots to. Uses the working
 #'  directory by default. Not used if save=FALSE
 #' @examples
-#' pam <- PamClustering(Laurasmappings, k = 10, nthreads = 2)
-#' QuantilePlots(pam, path='Pam_Anova_Distance_Histograms', nthreads = 2)
+#' pam <- PamClustering(Laurasmappings, k = 10, nthreads = 1)
+#' QuantilePlots(pam, path='Pam_Anova_Distance_Histograms', nthreads = 1)
 #' @export
 QuantilePlots <- function(cluster.dataset,metric = "euclidean", nthreads = NULL,
                           save = TRUE, print = TRUE, path = NULL) {

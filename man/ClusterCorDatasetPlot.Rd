@@ -39,7 +39,7 @@ Uses \link{ClusterCorPlot} to plot all of the clusters generated
 \examples{
 \donttest{
 pam.df <- PamClustering(Laurasmappings, k = 10, metric = "abs.correlation",
-                        nthreads = 2)
-ClusterCorDatasetPlot(pam.df, nthreads = 2)
+                        nthreads = 1)
+ClusterCorDatasetPlot(pam.df, nthreads = 1)
 }
 }

@@ -10,3 +10,5 @@
 ^.*\.Rproj$
 ^appveyor\.yml$
 ^\.travis\.yml$
+^_config\.yml$
+^codecov\.yml$
